@@ -1,0 +1,22 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"dir-cur-bld" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug",
+	"dir-cur-src" : "C:/Users/ajost1/CLionProjects/Kup",
+	"dir-top-bld" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug",
+	"dir-top-src" : "C:/Users/ajost1/CLionProjects/Kup",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"_deps\\raylib-src\\src",
+		"_deps\\raylib-src\\src\\external\\glfw\\include"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/Kup.dir"
+}

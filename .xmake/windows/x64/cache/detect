@@ -1,0 +1,6 @@
+{
+    find_program = {
+        cmake = "cmake",
+        gcc = "gcc"
+    }
+}
