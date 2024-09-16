@@ -26,9 +26,7 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif()
 
 add_executable(Kup src/main.cpp
-        src/Button.hpp
-        src/App.cpp
-        src/App.hpp)
+        src/Button.hpp)
 
 target_link_libraries(Kup raylib)
 target_include_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)

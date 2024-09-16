@@ -23,6 +23,6 @@ CMake Deprecation Warning at cmake-build-debug-msys-ucrt/_deps/raylib-src/CMakeL
 -- Compiling with the flags:
 --   PLATFORM=PLATFORM_DESKTOP
 --   GRAPHICS=GRAPHICS_API_OPENGL_33
--- Configuring done (0.6s)
+-- Configuring done (0.7s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt

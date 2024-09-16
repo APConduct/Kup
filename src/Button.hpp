@@ -7,7 +7,6 @@
 
 #include <raylib.h>
 #include <string>
-
 #include "raygui.h"
 
 class Button {

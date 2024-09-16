@@ -46689,7 +46689,7 @@ typedef void (*AudioCallback)(void *bufferData, unsigned int frames);
 }
 # 4 "C:/Users/ajost1/CLionProjects/Kup/src/main.cpp" 2
 # 1 "C:/Users/ajost1/CLionProjects/Kup/src/Button.hpp" 1
-# 11 "C:/Users/ajost1/CLionProjects/Kup/src/Button.hpp"
+# 10 "C:/Users/ajost1/CLionProjects/Kup/src/Button.hpp"
 # 1 "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes/raygui.h" 1
 # 447 "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes/raygui.h"
 typedef struct GuiStyleProp {
@@ -47205,7 +47205,7 @@ typedef enum {
 
 
 }
-# 12 "C:/Users/ajost1/CLionProjects/Kup/src/Button.hpp" 2
+# 11 "C:/Users/ajost1/CLionProjects/Kup/src/Button.hpp" 2
 
 class Button {
 
@@ -59605,6 +59605,7 @@ static Color GuiFade(Color color, float alpha)
 }
 # 7 "C:/Users/ajost1/CLionProjects/Kup/src/main.cpp" 2
 
+
 enum hue
 {
     HEX_PATTENS = 0xD4EAFFff,
@@ -59614,19 +59615,7 @@ enum hue
 };
 
 
-void reset_style()
-{
-    GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
-    GuiSetStyle(BUTTON, BACKGROUND_COLOR, HEX_BLACK);
-    GuiSetStyle(BUTTON, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
-    GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, HEX_WHITE);
-    GuiSetStyle(BUTTON, TEXT_COLOR_FOCUSED, HEX_BLACK);
 
-    GuiSetStyle(BUTTON, BORDER_COLOR_NORMAL, HEX_PATTENS);
-    GuiSetStyle(BUTTON, BORDER_COLOR_FOCUSED, HEX_BLACK);
-    GuiSetStyle(BUTTON, BASE_COLOR_FOCUSED, LEMON);
-    GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, HEX_BLACK);
-}
 void reset_button_colors()
 {
     GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, HEX_WHITE);
@@ -59666,7 +59655,6 @@ int main()
                 }
             }
         }
-        std::cout << backspace_frame_counter << std::endl;
 
         int key_char = GetCharPressed();
         while (key_char > 0)
@@ -59675,7 +59663,6 @@ int main()
             if ((key_char >= 32) && (key_char <= 125))
             {
                 editor_string += static_cast<char>(key_char);
-                std::cout << editor_string << std::endl;
 
             }
 
@@ -59699,7 +59686,14 @@ int main()
         ClearBackground(Color{ 0, 0, 0, 255 });
 
         DrawText(editor_string.c_str(), 10, 10, 20, Color{ 255, 255, 255, 255 });
-        DrawText("|", 12+MeasureText(editor_string.c_str(), 20), 10-2, 24, Color{ 102, 191, 255, 255 });
+        if(IsWindowFocused())
+        {
+            DrawText("|", 12+MeasureText(editor_string.c_str(), 20), 10-2, 24, Color{ 102, 191, 255, 255 });
+            framesCounter++;
+        } else
+        {
+            framesCounter = 0;
+        }
 
 
 

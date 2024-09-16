@@ -5,6 +5,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
 
+
 enum hue
 {
     HEX_PATTENS = 0xD4EAFFff,
@@ -14,19 +15,7 @@ enum hue
 };
 
 
-void reset_style()
-{
-    GuiSetStyle(DEFAULT, TEXT_SIZE, 20);
-    GuiSetStyle(BUTTON, BACKGROUND_COLOR, HEX_BLACK);
-    GuiSetStyle(BUTTON, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
-    GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, HEX_WHITE);
-    GuiSetStyle(BUTTON, TEXT_COLOR_FOCUSED, HEX_BLACK);
 
-    GuiSetStyle(BUTTON, BORDER_COLOR_NORMAL, HEX_PATTENS);
-    GuiSetStyle(BUTTON, BORDER_COLOR_FOCUSED, HEX_BLACK);
-    GuiSetStyle(BUTTON, BASE_COLOR_FOCUSED, LEMON);
-    GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, HEX_BLACK);
-}
 void reset_button_colors()
 {
     GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, HEX_WHITE);
@@ -66,7 +55,6 @@ int main()
                 }
             }
         }
-        std::cout << backspace_frame_counter << std::endl;
 
         int key_char = GetCharPressed();
         while (key_char > 0)
@@ -75,7 +63,6 @@ int main()
             if ((key_char >= 32) && (key_char <= 125))
             {
                 editor_string += static_cast<char>(key_char);
-                std::cout << editor_string << std::endl;
 
             }
 
@@ -99,7 +86,14 @@ int main()
         ClearBackground(BLACK);
 
         DrawText(editor_string.c_str(), 10, 10, 20, WHITE);
-        DrawText("|", 12+MeasureText(editor_string.c_str(), 20), 10-2, 24, SKYBLUE);
+        if(IsWindowFocused())
+        {
+            DrawText("|", 12+MeasureText(editor_string.c_str(), 20), 10-2, 24, SKYBLUE);
+            framesCounter++;
+        } else
+        {
+            framesCounter = 0;
+        }
 
         //reset_style();
         //if (file_menu_button->isPressed()){// do something}
