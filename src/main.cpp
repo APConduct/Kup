@@ -20,166 +20,22 @@ enum hue
 };
 
 
-void reset_button_colors()
+
+int main()
 {
-    GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, HEX_WHITE);
-    GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, HEX_BLACK);
-}
-
-void draw_cursor(int cursor_pos_x, int cursor_pos_y, const char* const cursor_char, const int cursor_font_size)
-{
-    DrawText(cursor_char, cursor_pos_x, cursor_pos_y, cursor_font_size, SKYBLUE);
-}
-
-
-int proto_main()
-{
-
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Kup");
 
-    const char *username = getenv("username");
-    std::vector<std::string> editor_file_lines;
-    std::string editor_string;
-    std::string current_editor_line_string;
-    int backspace_frame_counter = 0;
-    int framesCounter = 0;
-    int cursor_pos_x = 0;
-    int cursor_pos_y = 0;
-    int cursor_lines_from_first = 0;
-    int current_editor_file_lines = 1;
-    const auto cursor_char = "|";
-    constexpr int cursor_font_size = 24;
-    bool hasBackspaced = false;
-    int bs_factor = 0;
 
-    std::string start_kup_cmd = GetApplicationDirectory();
-    start_kup_cmd += "Kup.exe";
-    printf("start_kup_cmd: %s\n", start_kup_cmd.c_str());
 
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
-        if(hasBackspaced)
-        {
-            bs_factor++;
-            hasBackspaced = false;
-        }else bs_factor = 0;
-
-
-
-        int editor_width = GetScreenWidth();
-
-        if (!IsKeyDown(KEY_BACKSPACE))
-        {
-            backspace_frame_counter = 0;
-        }else
-        {
-            hasBackspaced = true;
-            backspace_frame_counter ++;
-            if (backspace_frame_counter > 64)
-            {
-                if ((backspace_frame_counter % 3) == 0)
-                {
-                    if (!editor_string.empty())
-                    {
-                        if (editor_string.back() == '\n')
-                        {
-                            current_editor_line_string = editor_file_lines.back();
-                            editor_file_lines.pop_back();
-                            cursor_lines_from_first--;
-                            editor_string.pop_back();
-                        }
-
-                        editor_string.pop_back();
-                    }
-                    if (!current_editor_line_string.empty())
-                    {
-
-                        //current_editor_line_string.pop_back();
-                    }else{}
-                }
-            }
-        }
-
-        int key_char = GetCharPressed();
-        while (key_char > 0)
-        {
-            // NOTE: Only allow keys in range [32..125]
-            if ((key_char >= 32) && (key_char <= 125))
-            {
-                editor_string += static_cast<char>(key_char);
-                current_editor_line_string += static_cast<char>(key_char);
-
-            }
-            key_char = GetCharPressed();
-        }
-
-        if (IsKeyPressed(KEY_BACKSPACE))
-        {
-            if (!editor_string.empty())
-            {
-                if (editor_string.back() == '\n')
-                {
-                    current_editor_line_string = editor_file_lines.back();
-                    editor_file_lines.pop_back();
-                    cursor_lines_from_first--;
-                    editor_string.pop_back();
-
-                }else
-                {
-                    editor_string.pop_back();
-                }
-            }
-            if (!current_editor_line_string.empty())
-            {
-                current_editor_line_string.pop_back();
-            }
-        }
-
-
-
-        if(IsWindowFocused())
-        {
-            if (IsKeyPressed(KEY_ENTER))
-            {
-                editor_string += '\n';
-                editor_file_lines.push_back(current_editor_line_string);
-                current_editor_line_string.clear();
-                cursor_lines_from_first++;
-                current_editor_file_lines++;
-            }
-        }
-
-        cursor_pos_x = 12+MeasureText(current_editor_line_string.c_str(), 20);
-        cursor_pos_y = 10-2 + (16*cursor_lines_from_first);
-
-        BeginDrawing();
-        ClearBackground(BLACK);
-        DrawText(editor_string.c_str(), 10, 10, 20, WHITE);
-        if(IsWindowFocused())
-        {
-            draw_cursor(cursor_pos_x, cursor_pos_y, cursor_char, cursor_font_size);
-            framesCounter++;
-        } else
-        {
-            framesCounter = 0;
-        }
-
-        //reset_style();
-        //if (file_menu_button->isPressed()){// do something}
-
 
         EndDrawing();
     }
     CloseWindow();
     return 0;
-}
-
-int main()
-{
-    return proto_main();
-
 
 }
 
