@@ -64538,8 +64538,16 @@ void draw_cursor(int cursor_pos_x, int cursor_pos_y, const char* const cursor_ch
     DrawText(cursor_char, cursor_pos_x, cursor_pos_y, cursor_font_size, Color{ 102, 191, 255, 255 });
 }
 
+typedef struct editor_file
+{
+    const char* filename;
+    const char* extension;
+    const char* lines[];
+};
+
 typedef struct cursor
 {
+    Vector2 pos;
     int x;
     int y;
     int line;
@@ -64549,24 +64557,28 @@ typedef struct cursor
     {
         this->x = x;
         this->y = y;
+        this->pos = Vector2(static_cast<float>(x), static_cast<float>(y));
         this->line = line;
         this->font_size = font_size;
         this->symbol = symbol;
     };
-    void render() const
+    void draw() const
     {
         DrawText(symbol, x, y, font_size, Color{ 102, 191, 255, 255 });
     };
+
+
+
 };
+
+
 
 int main(int argc, char* argv)
 {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Kup");
 
-
-
-
+    std::vector<std::string> editor_file_lines;
     std::string editor_string;
     std::string current_editor_line_string;
     int backspace_frame_counter = 0;
@@ -64575,6 +64587,7 @@ int main(int argc, char* argv)
     int cursor_pos_y = 0;
     int cursor_lines_from_first = 0;
     int current_editor_file_lines = 1;
+    int editor_chars = 0;
     const auto cursor_char = "|";
     constexpr int cursor_font_size = 24;
 
@@ -64585,6 +64598,9 @@ int main(int argc, char* argv)
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
+        cursor_pos_x = 12+MeasureText(current_editor_line_string.c_str(), 20);
+        cursor_pos_y = 10-2 + (16*cursor_lines_from_first);
+
         int editor_width = GetScreenWidth();
 
 
@@ -64600,10 +64616,17 @@ int main(int argc, char* argv)
                 {
                     if (!editor_string.empty())
                     {
+                        if (editor_string.back() == '\n')
+                        {
+
+                            cursor_lines_from_first--;
+                        }
+
                         editor_string.pop_back();
                     }
                     if (!current_editor_line_string.empty())
                     {
+
                         current_editor_line_string.pop_back();
                     }else{}
                 }
@@ -64627,7 +64650,16 @@ int main(int argc, char* argv)
         {
             if (!editor_string.empty())
             {
-                editor_string.pop_back();
+                if (editor_string.back() == '\n')
+                {
+                    current_editor_line_string = editor_file_lines.back();
+                    cursor_lines_from_first--;
+                    editor_string.pop_back();
+
+                }else
+                {
+                    editor_string.pop_back();
+                }
             }
             if (!current_editor_line_string.empty())
             {
@@ -64635,16 +64667,17 @@ int main(int argc, char* argv)
             }
         }
 
-        cursor_pos_x = 12+MeasureText(current_editor_line_string.c_str(), 20);
-        cursor_pos_y = 10-2 + (16*cursor_lines_from_first);
+
 
         if(IsWindowFocused())
         {
             if (IsKeyPressed(KEY_ENTER))
             {
                 editor_string += '\n';
+                editor_file_lines.push_back(current_editor_line_string);
                 current_editor_line_string.clear();
                 cursor_lines_from_first++;
+                current_editor_file_lines++;
             }
         }
 
