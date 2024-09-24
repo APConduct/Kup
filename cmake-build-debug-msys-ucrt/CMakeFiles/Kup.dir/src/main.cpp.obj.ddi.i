@@ -64516,6 +64516,8 @@ static Color GuiFade(Color color, float alpha)
 # 9 "C:/Users/ajost1/CLionProjects/Kup/src/main.cpp" 2
 
 
+
+
 enum hue
 {
     HEX_PATTENS = 0xD4EAFFff,
