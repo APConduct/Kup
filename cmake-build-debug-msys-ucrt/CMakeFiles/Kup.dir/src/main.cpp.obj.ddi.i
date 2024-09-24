@@ -64517,7 +64517,6 @@ static Color GuiFade(Color color, float alpha)
 
 
 
-
 enum hue
 {
     HEX_PATTENS = 0xD4EAFFff,
