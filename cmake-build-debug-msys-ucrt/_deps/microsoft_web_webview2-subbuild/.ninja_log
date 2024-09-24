@@ -1,0 +1,21 @@
+# ninja log v6
+2	102	7488509910790082	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-mkdir	cdf71477db7891d9
+2	102	7488509910790082	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-mkdir	cdf71477db7891d9
+103	9157	7488510001330930	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-download	4bd556d8aef67c01
+103	9157	7488510001330930	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-download	4bd556d8aef67c01
+9160	9255	7488510002321454	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-update	f389d324cf667a58
+9160	9255	7488510002321454	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-update	f389d324cf667a58
+9255	9356	7488510003314879	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-patch	9a945ca45b328187
+9255	9356	7488510003314879	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-patch	9a945ca45b328187
+9356	9449	7488510004261893	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-configure	78c7d323fa2dfb53
+9356	9449	7488510004261893	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-configure	78c7d323fa2dfb53
+9449	9541	7488510005179360	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-build	f4b403c21498522a
+9449	9541	7488510005179360	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-build	f4b403c21498522a
+9541	9629	7488510006058459	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-install	e23a46c5790152e8
+9541	9629	7488510006058459	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-install	e23a46c5790152e8
+9629	9729	7488510007048202	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-test	f3eec5caca4441aa
+9629	9729	7488510007048202	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-test	f3eec5caca4441aa
+9730	9871	7488510008345945	CMakeFiles/microsoft_web_webview2-populate-complete	82d4ebdafbae0d0
+9730	9871	7488510008345945	microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-done	82d4ebdafbae0d0
+9730	9871	7488510008345945	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/CMakeFiles/microsoft_web_webview2-populate-complete	82d4ebdafbae0d0
+9730	9871	7488510008345945	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-subbuild/microsoft_web_webview2-populate-prefix/src/microsoft_web_webview2-populate-stamp/microsoft_web_webview2-populate-done	82d4ebdafbae0d0
