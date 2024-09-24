@@ -341,14 +341,31 @@ FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
 FETCHCONTENT_QUIET:BOOL=ON
 
 //When not empty, overrides where to find pre-populated content
+// for microsoft_web_webview2
+FETCHCONTENT_SOURCE_DIR_MICROSOFT_WEB_WEBVIEW2:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for raylib
 FETCHCONTENT_SOURCE_DIR_RAYLIB:PATH=
+
+//When not empty, overrides where to find pre-populated content
+// for webview
+FETCHCONTENT_SOURCE_DIR_WEBVIEW:PATH=
 
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
+//Enables UPDATE_DISCONNECTED behavior just for population of microsoft_web_webview2
+FETCHCONTENT_UPDATES_DISCONNECTED_MICROSOFT_WEB_WEBVIEW2:BOOL=OFF
+
 //Enables UPDATE_DISCONNECTED behavior just for population of raylib
 FETCHCONTENT_UPDATES_DISCONNECTED_RAYLIB:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of webview
+FETCHCONTENT_UPDATES_DISCONNECTED_WEBVIEW:BOOL=OFF
+
+//Git command line client
+GIT_EXECUTABLE:FILEPATH=C:/Users/ajost1/AppData/Local/Programs/Git/cmd/git.exe
 
 //Value Computed by CMake
 GLFW_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-build/raylib/external/glfw
@@ -398,6 +415,9 @@ Kup_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup
 //Build fat library for both i386 and x86_64 on macOS
 MACOS_FATLIB:BOOL=OFF
 
+//Path to a file.
+MSWebView2_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include
+
 //Force a specific OpenGL Version?
 OPENGL_VERSION:STRING=OFF
 
@@ -412,6 +432,63 @@ PLATFORM:STRING=Desktop
 
 //Link raylib against system GLFW instead of embedded one
 USE_EXTERNAL_GLFW:STRING=OFF
+
+//Enable building
+WEBVIEW_BUILD:BOOL=ON
+
+//Build documentation
+WEBVIEW_BUILD_DOCS:BOOL=OFF
+
+//Build examples
+WEBVIEW_BUILD_EXAMPLES:BOOL=OFF
+
+//Build shared libraries
+WEBVIEW_BUILD_SHARED_LIBRARY:BOOL=ON
+
+//Build static libraries
+WEBVIEW_BUILD_STATIC_LIBRARY:BOOL=ON
+
+//Build tests
+WEBVIEW_BUILD_TESTS:BOOL=OFF
+
+//Enable checks
+WEBVIEW_ENABLE_CHECKS:BOOL=OFF
+
+//Enable clang-format
+WEBVIEW_ENABLE_CLANG_FORMAT:BOOL=OFF
+
+//Enable clang-tidy
+WEBVIEW_ENABLE_CLANG_TIDY:BOOL=OFF
+
+//Enable packaging
+WEBVIEW_ENABLE_PACKAGING:BOOL=OFF
+
+//Install documentation
+WEBVIEW_INSTALL_DOCS:BOOL=OFF
+
+//Install targets
+WEBVIEW_INSTALL_TARGETS:BOOL=OFF
+
+//MS WebView2 version
+WEBVIEW_MSWEBVIEW2_VERSION:STRING=1.0.1150.38
+
+//Make checks strict
+WEBVIEW_STRICT_CHECKS:BOOL=OFF
+
+//Make clang-format check strict
+WEBVIEW_STRICT_CLANG_FORMAT:BOOL=OFF
+
+//Make clang-tidy check strict
+WEBVIEW_STRICT_CLANG_TIDY:BOOL=OFF
+
+//Use built-in MS WebView2
+WEBVIEW_USE_BUILTIN_MSWEBVIEW2:BOOL=ON
+
+//Use compatibility helper for MinGW
+WEBVIEW_USE_COMPAT_MINGW:BOOL=OFF
+
+//Use static runtime library (MSVC)
+WEBVIEW_USE_STATIC_MSVC_RUNTIME:BOOL=OFF
 
 //Compile static library as position-independent code
 WITH_PIC:BOOL=OFF
@@ -430,6 +507,15 @@ raylib_LIB_DEPENDS:STATIC=general;opengl32;glu32;winmm;glfw;
 
 //Value Computed by CMake
 raylib_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src
+
+//Value Computed by CMake
+webview_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-build
+
+//Value Computed by CMake
+webview_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+webview_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src
 
 
 ########################
@@ -568,7 +654,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -632,8 +718,12 @@ CPACK_SOURCE_7Z-ADVANCED:INTERNAL=1
 CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Have include dinput.h
 DINPUT_H_FOUND:INTERNAL=1
+//Details about finding MSWebView2
+FIND_PACKAGE_MESSAGE_DETAILS_MSWebView2:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include][v()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//ADVANCED property for variable: GIT_EXECUTABLE
+GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //GLFW pkg-config Libs.private
 GLFW_PKG_CONFIG_LIBS_PRIVATE:INTERNAL= -lgdi32
 //GLFW pkg-config Requires.private

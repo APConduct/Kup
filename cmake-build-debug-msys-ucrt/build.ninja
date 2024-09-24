@@ -856,6 +856,357 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings | $
   DESC = Updating gamepad mappings from upstream repository
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/ajost1/CLionProjects/Kup/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for package
+
+build _deps/webview-build/CMakeFiles/package.util: CUSTOM_COMMAND _deps/webview-build/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cpack.exe --config ./CPackConfig.cmake"
+  DESC = Run CPack packaging tool...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/package: phony _deps/webview-build/CMakeFiles/package.util
+
+
+#############################################
+# Utility command for package_source
+
+build _deps/webview-build/CMakeFiles/package_source.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cpack.exe --config ./CPackSourceConfig.cmake C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CPackSourceConfig.cmake"
+  DESC = Run CPack packaging tool for source...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/package_source: phony _deps/webview-build/CMakeFiles/package_source.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build _deps/webview-build/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build _deps/webview-build/edit_cache: phony _deps/webview-build/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build _deps/webview-build/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SC:\Users\ajost1\CLionProjects\Kup -BC:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/rebuild_cache: phony _deps/webview-build/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build _deps/webview-build/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build _deps/webview-build/CMakeFiles/install.util: CUSTOM_COMMAND _deps/webview-build/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/install: phony _deps/webview-build/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build _deps/webview-build/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/webview-build/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/install/local: phony _deps/webview-build/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/webview-build/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/webview-build/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/install/strip: phony _deps/webview-build/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for package
+
+build _deps/webview-build/compatibility/CMakeFiles/package.util: CUSTOM_COMMAND _deps/webview-build/compatibility/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cpack.exe --config ./CPackConfig.cmake"
+  DESC = Run CPack packaging tool...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/compatibility/package: phony _deps/webview-build/compatibility/CMakeFiles/package.util
+
+
+#############################################
+# Utility command for package_source
+
+build _deps/webview-build/compatibility/CMakeFiles/package_source.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cpack.exe --config ./CPackSourceConfig.cmake C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CPackSourceConfig.cmake"
+  DESC = Run CPack packaging tool for source...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/compatibility/package_source: phony _deps/webview-build/compatibility/CMakeFiles/package_source.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build _deps/webview-build/compatibility/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\compatibility && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build _deps/webview-build/compatibility/edit_cache: phony _deps/webview-build/compatibility/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build _deps/webview-build/compatibility/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\compatibility && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SC:\Users\ajost1\CLionProjects\Kup -BC:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/compatibility/rebuild_cache: phony _deps/webview-build/compatibility/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build _deps/webview-build/compatibility/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build _deps/webview-build/compatibility/CMakeFiles/install.util: CUSTOM_COMMAND _deps/webview-build/compatibility/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\compatibility && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/compatibility/install: phony _deps/webview-build/compatibility/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build _deps/webview-build/compatibility/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/webview-build/compatibility/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\compatibility && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/compatibility/install/local: phony _deps/webview-build/compatibility/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/webview-build/compatibility/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/webview-build/compatibility/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\compatibility && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/compatibility/install/strip: phony _deps/webview-build/compatibility/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for SHARED_LIBRARY target webview_core_shared
+
+
+#############################################
+# Order-only phony target for webview_core_shared
+
+build cmake_object_order_depends_target_webview_core_shared: phony || .
+
+build _deps/webview-build/core/CMakeFiles/webview_core_shared.dir/src/webview.cc.obj: CXX_COMPILER__webview_core_shared_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src/core/src/webview.cc || cmake_object_order_depends_target_webview_core_shared
+  DEFINES = -DWEBVIEW_BUILD_SHARED -Dwebview_core_shared_EXPORTS
+  DEP_FILE = _deps\webview-build\core\CMakeFiles\webview_core_shared.dir\src\webview.cc.obj.d
+  FLAGS = -g -std=gnu++20 -fvisibility=hidden -fno-keep-inline-dllexport -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src/core/include -isystem C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include
+  OBJECT_DIR = _deps\webview-build\core\CMakeFiles\webview_core_shared.dir
+  OBJECT_FILE_DIR = _deps\webview-build\core\CMakeFiles\webview_core_shared.dir\src
+
+
+# =============================================================================
+# Link build statements for SHARED_LIBRARY target webview_core_shared
+
+
+#############################################
+# Link the shared library _deps\webview-build\core\libwebviewd.dll
+
+build _deps/webview-build/core/libwebviewd.dll _deps/webview-build/core/libwebviewd.dll.a: CXX_SHARED_LIBRARY_LINKER__webview_core_shared_Debug _deps/webview-build/core/CMakeFiles/webview_core_shared.dir/src/webview.cc.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  LINK_LIBRARIES = -ladvapi32  -lole32  -lshell32  -lshlwapi  -luser32  -lversion  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = _deps\webview-build\core\CMakeFiles\webview_core_shared.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  RESTAT = 1
+  TARGET_FILE = _deps\webview-build\core\libwebviewd.dll
+  TARGET_IMPLIB = _deps\webview-build\core\libwebviewd.dll.a
+  TARGET_PDB = webviewd.dll.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target webview_core_static
+
+
+#############################################
+# Order-only phony target for webview_core_static
+
+build cmake_object_order_depends_target_webview_core_static: phony || .
+
+build _deps/webview-build/core/CMakeFiles/webview_core_static.dir/src/webview.cc.obj: CXX_COMPILER__webview_core_static_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src/core/src/webview.cc || cmake_object_order_depends_target_webview_core_static
+  DEFINES = -DWEBVIEW_STATIC
+  DEP_FILE = _deps\webview-build\core\CMakeFiles\webview_core_static.dir\src\webview.cc.obj.d
+  FLAGS = -g -std=gnu++20 -fvisibility=hidden -fno-keep-inline-dllexport -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src/core/include -isystem C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include
+  OBJECT_DIR = _deps\webview-build\core\CMakeFiles\webview_core_static.dir
+  OBJECT_FILE_DIR = _deps\webview-build\core\CMakeFiles\webview_core_static.dir\src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target webview_core_static
+
+
+#############################################
+# Link the static library _deps\webview-build\core\libwebviewd.a
+
+build _deps/webview-build/core/libwebviewd.a: CXX_STATIC_LIBRARY_LINKER__webview_core_static_Debug _deps/webview-build/core/CMakeFiles/webview_core_static.dir/src/webview.cc.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = _deps\webview-build\core\CMakeFiles\webview_core_static.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = _deps\webview-build\core\libwebviewd.a
+  TARGET_PDB = webviewd.a.dbg
+
+
+#############################################
+# Utility command for package
+
+build _deps/webview-build/core/CMakeFiles/package.util: CUSTOM_COMMAND _deps/webview-build/core/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cpack.exe --config ./CPackConfig.cmake"
+  DESC = Run CPack packaging tool...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/core/package: phony _deps/webview-build/core/CMakeFiles/package.util
+
+
+#############################################
+# Utility command for package_source
+
+build _deps/webview-build/core/CMakeFiles/package_source.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cpack.exe --config ./CPackSourceConfig.cmake C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CPackSourceConfig.cmake"
+  DESC = Run CPack packaging tool for source...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/core/package_source: phony _deps/webview-build/core/CMakeFiles/package_source.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build _deps/webview-build/core/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\core && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build _deps/webview-build/core/edit_cache: phony _deps/webview-build/core/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build _deps/webview-build/core/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\core && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SC:\Users\ajost1\CLionProjects\Kup -BC:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/core/rebuild_cache: phony _deps/webview-build/core/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build _deps/webview-build/core/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build _deps/webview-build/core/CMakeFiles/install.util: CUSTOM_COMMAND _deps/webview-build/core/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\core && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/core/install: phony _deps/webview-build/core/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build _deps/webview-build/core/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/webview-build/core/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\core && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/core/install/local: phony _deps/webview-build/core/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/webview-build/core/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/webview-build/core/all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt\_deps\webview-build\core && C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/webview-build/core/install/strip: phony _deps/webview-build/core/CMakeFiles/install/strip.util
+
+# =============================================================================
 # Target aliases.
 
 build Kup: phony Kup.exe
@@ -866,11 +1217,19 @@ build libglfw3.a: phony _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
 
 build libraylib.a: phony _deps/raylib-build/raylib/libraylib.a
 
+build libwebviewd.a: phony _deps/webview-build/core/libwebviewd.a
+
+build libwebviewd.dll: phony _deps/webview-build/core/libwebviewd.dll
+
 build raylib: phony _deps/raylib-build/raylib/libraylib.a
 
 build uninstall: phony _deps/raylib-build/uninstall
 
 build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_mappings
+
+build webview_core_shared: phony _deps/webview-build/core/libwebviewd.dll
+
+build webview_core_static: phony _deps/webview-build/core/libwebviewd.a
 
 # =============================================================================
 # Folder targets.
@@ -880,7 +1239,7 @@ build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt
 
-build all: phony Kup.exe _deps/raylib-build/all
+build all: phony Kup.exe _deps/raylib-build/all _deps/webview-build/all
 
 # =============================================================================
 
@@ -911,20 +1270,41 @@ build _deps/raylib-build/raylib/external/glfw/all: phony _deps/raylib-build/rayl
 build _deps/raylib-build/raylib/external/glfw/src/all: phony _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
 
 # =============================================================================
+
+#############################################
+# Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-build
+
+build _deps/webview-build/all: phony _deps/webview-build/compatibility/all _deps/webview-build/core/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-build/compatibility
+
+build _deps/webview-build/compatibility/all: phony
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-build/core
+
+build _deps/webview-build/core/all: phony _deps/webview-build/core/libwebviewd.dll _deps/webview-build/core/libwebviewd.a
+
+# =============================================================================
 # Built-in targets
 
 
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakePackageConfigHelpers.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPack.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPackComponent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/ExternalProject/shared_internal_commands.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent/CMakeLists.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindOpenGL.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/GNUInstallDirs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckFlagCommonConfig.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Templates/CPackConfig.cmake.in C$:/Users/ajost1/CLionProjects/Kup/CMakeLists.txt C$:/msys64/ucrt64/lib/cmake/raylib/raylib-config-version.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake _deps/raylib-src/CMakeLists.txt _deps/raylib-src/CMakeOptions.txt _deps/raylib-src/cmake/AddIfFlagCompiles.cmake _deps/raylib-src/cmake/BuildOptions.cmake _deps/raylib-src/cmake/CompileDefinitions.cmake _deps/raylib-src/cmake/CompilerFlags.cmake _deps/raylib-src/cmake/EnumOption.cmake _deps/raylib-src/cmake/GlfwImport.cmake _deps/raylib-src/cmake/InstallConfigurations.cmake _deps/raylib-src/cmake/JoinPaths.cmake _deps/raylib-src/cmake/LibraryConfigurations.cmake _deps/raylib-src/cmake/LibraryPathToLinkerFlags.cmake _deps/raylib-src/cmake/PackConfigurations.cmake _deps/raylib-src/cmake/PopulateConfigVariablesLocally.cmake _deps/raylib-src/cmake/Uninstall.cmake _deps/raylib-src/cmake/raylib-config-version.cmake _deps/raylib-src/raylib.pc.in _deps/raylib-src/src/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMake/glfw3.pc.in _deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in _deps/raylib-src/src/external/glfw/src/CMakeLists.txt
+build build.ninja: RERUN_CMAKE | C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakePackageConfigHelpers.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPack.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPackComponent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/ExternalProject/shared_internal_commands.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent/CMakeLists.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindGit.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindOpenGL.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/GNUInstallDirs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckFlagCommonConfig.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Templates/CPackConfig.cmake.in C$:/Users/ajost1/CLionProjects/Kup/CMakeLists.txt C$:/msys64/ucrt64/lib/cmake/raylib/raylib-config-version.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake _deps/raylib-src/CMakeLists.txt _deps/raylib-src/CMakeOptions.txt _deps/raylib-src/cmake/AddIfFlagCompiles.cmake _deps/raylib-src/cmake/BuildOptions.cmake _deps/raylib-src/cmake/CompileDefinitions.cmake _deps/raylib-src/cmake/CompilerFlags.cmake _deps/raylib-src/cmake/EnumOption.cmake _deps/raylib-src/cmake/GlfwImport.cmake _deps/raylib-src/cmake/InstallConfigurations.cmake _deps/raylib-src/cmake/JoinPaths.cmake _deps/raylib-src/cmake/LibraryConfigurations.cmake _deps/raylib-src/cmake/LibraryPathToLinkerFlags.cmake _deps/raylib-src/cmake/PackConfigurations.cmake _deps/raylib-src/cmake/PopulateConfigVariablesLocally.cmake _deps/raylib-src/cmake/Uninstall.cmake _deps/raylib-src/cmake/raylib-config-version.cmake _deps/raylib-src/raylib.pc.in _deps/raylib-src/src/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMake/glfw3.pc.in _deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in _deps/raylib-src/src/external/glfw/src/CMakeLists.txt _deps/webview-src/CMakeLists.txt _deps/webview-src/cmake/internal.cmake _deps/webview-src/cmake/modules/FindMSWebView2.cmake _deps/webview-src/cmake/webview.cmake _deps/webview-src/compatibility/CMakeLists.txt _deps/webview-src/core/CMakeLists.txt
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakePackageConfigHelpers.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPack.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPackComponent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/ExternalProject/shared_internal_commands.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent/CMakeLists.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindOpenGL.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/GNUInstallDirs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckFlagCommonConfig.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Templates/CPackConfig.cmake.in C$:/Users/ajost1/CLionProjects/Kup/CMakeLists.txt C$:/msys64/ucrt64/lib/cmake/raylib/raylib-config-version.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake _deps/raylib-src/CMakeLists.txt _deps/raylib-src/CMakeOptions.txt _deps/raylib-src/cmake/AddIfFlagCompiles.cmake _deps/raylib-src/cmake/BuildOptions.cmake _deps/raylib-src/cmake/CompileDefinitions.cmake _deps/raylib-src/cmake/CompilerFlags.cmake _deps/raylib-src/cmake/EnumOption.cmake _deps/raylib-src/cmake/GlfwImport.cmake _deps/raylib-src/cmake/InstallConfigurations.cmake _deps/raylib-src/cmake/JoinPaths.cmake _deps/raylib-src/cmake/LibraryConfigurations.cmake _deps/raylib-src/cmake/LibraryPathToLinkerFlags.cmake _deps/raylib-src/cmake/PackConfigurations.cmake _deps/raylib-src/cmake/PopulateConfigVariablesLocally.cmake _deps/raylib-src/cmake/Uninstall.cmake _deps/raylib-src/cmake/raylib-config-version.cmake _deps/raylib-src/raylib.pc.in _deps/raylib-src/src/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMake/glfw3.pc.in _deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in _deps/raylib-src/src/external/glfw/src/CMakeLists.txt: phony
+build C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/BasicConfigVersion-SameMajorVersion.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeDependentOption.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakePackageConfigHelpers.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeRCInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPack.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CPackComponent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/ExternalProject/shared_internal_commands.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FetchContent/CMakeLists.cmake.in C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindGit.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindOpenGL.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/FindThreads.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/GNUInstallDirs.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckCompilerFlag.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckFlagCommonConfig.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-C.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU-CXX.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-GNU.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows-windres.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/Windows.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/WriteBasicConfigVersionFile.cmake C$:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Templates/CPackConfig.cmake.in C$:/Users/ajost1/CLionProjects/Kup/CMakeLists.txt C$:/msys64/ucrt64/lib/cmake/raylib/raylib-config-version.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeRCCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake _deps/raylib-src/CMakeLists.txt _deps/raylib-src/CMakeOptions.txt _deps/raylib-src/cmake/AddIfFlagCompiles.cmake _deps/raylib-src/cmake/BuildOptions.cmake _deps/raylib-src/cmake/CompileDefinitions.cmake _deps/raylib-src/cmake/CompilerFlags.cmake _deps/raylib-src/cmake/EnumOption.cmake _deps/raylib-src/cmake/GlfwImport.cmake _deps/raylib-src/cmake/InstallConfigurations.cmake _deps/raylib-src/cmake/JoinPaths.cmake _deps/raylib-src/cmake/LibraryConfigurations.cmake _deps/raylib-src/cmake/LibraryPathToLinkerFlags.cmake _deps/raylib-src/cmake/PackConfigurations.cmake _deps/raylib-src/cmake/PopulateConfigVariablesLocally.cmake _deps/raylib-src/cmake/Uninstall.cmake _deps/raylib-src/cmake/raylib-config-version.cmake _deps/raylib-src/raylib.pc.in _deps/raylib-src/src/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMakeLists.txt _deps/raylib-src/src/external/glfw/CMake/glfw3.pc.in _deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in _deps/raylib-src/src/external/glfw/src/CMakeLists.txt _deps/webview-src/CMakeLists.txt _deps/webview-src/cmake/internal.cmake _deps/webview-src/cmake/modules/FindMSWebView2.cmake _deps/webview-src/cmake/webview.cmake _deps/webview-src/compatibility/CMakeLists.txt _deps/webview-src/core/CMakeLists.txt: phony
 
 
 #############################################
