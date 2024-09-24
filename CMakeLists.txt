@@ -4,6 +4,7 @@ project(Kup)
 
 set(CMAKE_CXX_STANDARD 20)
 
+
 # Dependencies
 set(RAYLIB_VERSION 5.0)
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
@@ -26,25 +27,18 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif()
 
 
-include(FetchContent)
 
-FetchContent_Declare(
-        webview
-        GIT_REPOSITORY https://github.com/webview/webview
-        GIT_TAG 0.12.0)
-FetchContent_MakeAvailable(webview)
 
-FetchContent_Declare(
-        sfml
-        GIT_REPOSITORY "https://github.com/SFML/SFML.git"
-        GIT_TAG        "${SFML_VERSION}"
-)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
-FetchContent_GetProperties(sfml)
-if(NOT sfml_POPULATED)
-    FetchContent_Populate(sfml)
-    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
-endif()
+include_directories(${GTK3_INCLUDE_DIRS})
+link_directories(${GTK3_LIBRARY_DIRS})
+
+add_definitions(${GTK3_CFLAGS_OTHER})
+
+
+
 
 
 add_executable(Kup src/main.cpp
@@ -52,7 +46,7 @@ add_executable(Kup src/main.cpp
         TextArea.cpp
         TextArea.hpp)
 
-target_link_libraries(Kup raylib)
+target_link_libraries(Kup raylib ${GTK3_LIBRARIES})
 target_include_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 

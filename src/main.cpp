@@ -5,6 +5,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include <vector>
 
+#include <gtk/gtk.h>
 #include "raygui.h"
 #include "../TextArea.hpp"
 
