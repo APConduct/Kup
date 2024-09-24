@@ -34,10 +34,26 @@ FetchContent_Declare(
         GIT_TAG 0.12.0)
 FetchContent_MakeAvailable(webview)
 
+FetchContent_Declare(
+        sfml
+        GIT_REPOSITORY "https://github.com/SFML/SFML.git"
+        GIT_TAG        "${SFML_VERSION}"
+)
+
+FetchContent_GetProperties(sfml)
+if(NOT sfml_POPULATED)
+    FetchContent_Populate(sfml)
+    add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
+endif()
+
 
 add_executable(Kup src/main.cpp
-        src/Button.hpp)
+        src/Button.hpp
+        TextArea.cpp
+        TextArea.hpp)
 
 target_link_libraries(Kup raylib)
 target_include_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
+
+

@@ -1,3 +1,5 @@
 ninja_dyndep_version = 1.0
 build CMakeFiles/Kup.dir/src/main.cpp.obj: dyndep
 
+build CMakeFiles/Kup.dir/TextArea.cpp.obj: dyndep
+

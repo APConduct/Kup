@@ -1,7 +1,0 @@
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/lib/libraylib.a
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/include/raylib.h
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/include/rlgl.h
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/include/raymath.h
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/lib/pkgconfig/raylib.pc
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/lib/cmake/raylib/raylib-config-version.cmake
-C:/Users/ajost1/CLionProjects/Kup/build/artifacts/lib/cmake/raylib/raylib-config.cmake

@@ -26,8 +26,7 @@ CMAKE_ADDR2LINE:FILEPATH=C:/msys64/ucrt64/bin/addr2line.exe
 //Path to a program.
 CMAKE_AR:FILEPATH=C:/msys64/ucrt64/bin/ar.exe
 
-//Choose the type of build, options are: None Debug Release RelWithDebInfo
-// MinSizeRel ...
+//Choose the type of build (Debug or Release)
 CMAKE_BUILD_TYPE:STRING=Debug
 
 //Enable colored diagnostics throughout.
@@ -204,6 +203,10 @@ CMAKE_OBJCOPY:FILEPATH=C:/msys64/ucrt64/bin/objcopy.exe
 //Path to a program.
 CMAKE_OBJDUMP:FILEPATH=C:/msys64/ucrt64/bin/objdump.exe
 
+//The minimal iOS version that will be able to run the built binaries.
+// Cannot be lower than 13.0
+CMAKE_OSX_DEPLOYMENT_TARGET:STRING=13.0
+
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
 
@@ -349,6 +352,10 @@ FETCHCONTENT_SOURCE_DIR_MICROSOFT_WEB_WEBVIEW2:PATH=
 FETCHCONTENT_SOURCE_DIR_RAYLIB:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for SFML
+FETCHCONTENT_SOURCE_DIR_SFML:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for webview
 FETCHCONTENT_SOURCE_DIR_WEBVIEW:PATH=
 
@@ -361,8 +368,26 @@ FETCHCONTENT_UPDATES_DISCONNECTED_MICROSOFT_WEB_WEBVIEW2:BOOL=OFF
 //Enables UPDATE_DISCONNECTED behavior just for population of raylib
 FETCHCONTENT_UPDATES_DISCONNECTED_RAYLIB:BOOL=OFF
 
+//Enables UPDATE_DISCONNECTED behavior just for population of sfml
+FETCHCONTENT_UPDATES_DISCONNECTED_SFML:BOOL=OFF
+
 //Enables UPDATE_DISCONNECTED behavior just for population of webview
 FETCHCONTENT_UPDATES_DISCONNECTED_WEBVIEW:BOOL=OFF
+
+//Path to a file.
+FLAC_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers
+
+//Path to a library.
+FLAC_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libFLAC.a
+
+//Path to a file.
+FREETYPE_INCLUDE_DIR_freetype2:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers/freetype2
+
+//Path to a file.
+FREETYPE_INCLUDE_DIR_ft2build:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers/freetype2
+
+//Path to a library.
+FREETYPE_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libfreetype.a
 
 //Git command line client
 GIT_EXECUTABLE:FILEPATH=C:/Users/ajost1/AppData/Local/Programs/Git/cmd/git.exe
@@ -418,6 +443,12 @@ MACOS_FATLIB:BOOL=OFF
 //Path to a file.
 MSWebView2_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include
 
+//Path to a file.
+OGG_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers
+
+//Path to a library.
+OGG_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libogg.a
+
 //Force a specific OpenGL Version?
 OPENGL_VERSION:STRING=OFF
 
@@ -430,8 +461,77 @@ OPENGL_glu_LIBRARY:STRING=glu32
 //Platform to build for.
 PLATFORM:STRING=Desktop
 
+//Value Computed by CMake
+SFML_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-build
+
+//ON to build SFML's Audio module.
+SFML_BUILD_AUDIO:BOOL=ON
+
+//ON to build SFML's Graphics module.
+SFML_BUILD_GRAPHICS:BOOL=ON
+
+//ON to build SFML's Network module.
+SFML_BUILD_NETWORK:BOOL=ON
+
+//ON to build SFML's Window module. This setting is ignored, if
+// the graphics module is built.
+SFML_BUILD_WINDOW:BOOL=ON
+
+//ON to configure extras, OFF to ignore them
+SFML_CONFIGURE_EXTRAS:BOOL=OFF
+
+//ON to enable precompiled headers for SFML builds -- only supported
+// on Windows/Linux and for static library builds
+SFML_ENABLE_PCH:BOOL=OFF
+
+//Enable sanitizers
+SFML_ENABLE_SANITIZERS:BOOL=OFF
+
+//Enable standard library assertions
+SFML_ENABLE_STDLIB_ASSERTIONS:BOOL=OFF
+
+//ON to automatically install pkg-config files so other projects
+// can find SFML
+SFML_INSTALL_PKGCONFIG_FILES:BOOL=OFF
+
+//Value Computed by CMake
+SFML_IS_TOP_LEVEL:STATIC=OFF
+
+//ON to use an OpenGL ES implementation, OFF to use a desktop OpenGL
+// implementation
+SFML_OPENGL_ES:BOOL=0
+
+//Value Computed by CMake
+SFML_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src
+
+//ON to use the Mesa 3D graphics library for rendering, OFF to
+// use the system provided library for rendering
+SFML_USE_MESA3D:BOOL=OFF
+
+//ON to statically link to the standard libraries, OFF to use them
+// as DLLs
+SFML_USE_STATIC_STD_LIBS:BOOL=OFF
+
+//ON to use system dependencies, OFF to use the bundled ones.
+SFML_USE_SYSTEM_DEPS:BOOL=OFF
+
+//Treat compiler warnings as errors
+SFML_WARNINGS_AS_ERRORS:BOOL=OFF
+
 //Link raylib against system GLFW instead of embedded one
 USE_EXTERNAL_GLFW:STRING=OFF
+
+//Path to a library.
+VORBISENC_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbisenc.a
+
+//Path to a library.
+VORBISFILE_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbisfile.a
+
+//Path to a file.
+VORBIS_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers
+
+//Path to a library.
+VORBIS_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbis.a
 
 //Enable building
 WEBVIEW_BUILD:BOOL=ON
@@ -522,6 +622,8 @@ webview_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-ms
 # INTERNAL cache entries
 ########################
 
+//Test ATOMIC_TEST
+ATOMIC_TEST:INTERNAL=1
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -654,7 +756,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=16
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -718,10 +820,28 @@ CPACK_SOURCE_7Z-ADVANCED:INTERNAL=1
 CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Have include dinput.h
 DINPUT_H_FOUND:INTERNAL=1
+//Details about finding FLAC
+FIND_PACKAGE_MESSAGE_DETAILS_FLAC:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libFLAC.a][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers][v()]
+//Details about finding Freetype
+FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libfreetype.a][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers/freetype2][2.5.5][v()]
 //Details about finding MSWebView2
 FIND_PACKAGE_MESSAGE_DETAILS_MSWebView2:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include][v()]
+//Details about finding OpenGL
+FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[opengl32][cfound components: OpenGL ][v()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Details about finding Vorbis
+FIND_PACKAGE_MESSAGE_DETAILS_Vorbis:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libogg.a][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbis.a][v()]
+//ADVANCED property for variable: FLAC_INCLUDE_DIR
+FLAC_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FLAC_LIBRARY
+FLAC_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_freetype2
+FREETYPE_INCLUDE_DIR_freetype2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_ft2build
+FREETYPE_INCLUDE_DIR_ft2build-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: FREETYPE_LIBRARY
+FREETYPE_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //GLFW pkg-config Libs.private
@@ -731,6 +851,10 @@ GLFW_PKG_CONFIG_REQUIRES_PRIVATE:INTERNAL=
 //Replace any OFF by default with ${OFF} to have it covered by
 // this option
 OFF:INTERNAL=OFF
+//ADVANCED property for variable: OGG_INCLUDE_DIR
+OGG_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OGG_LIBRARY
+OGG_LIBRARY-ADVANCED:INTERNAL=1
 //STRINGS property for variable: OPENGL_VERSION
 OPENGL_VERSION-STRINGS:INTERNAL=OFF;4.3;3.3;2.1;1.1;ES 2.0;ES 3.0
 //ADVANCED property for variable: OPENGL_gl_LIBRARY
@@ -741,6 +865,14 @@ OPENGL_glu_LIBRARY-ADVANCED:INTERNAL=1
 PLATFORM-STRINGS:INTERNAL=Desktop;Web;Android;Raspberry Pi;DRM
 //STRINGS property for variable: USE_EXTERNAL_GLFW
 USE_EXTERNAL_GLFW-STRINGS:INTERNAL=OFF;IF_POSSIBLE;ON
+//ADVANCED property for variable: VORBISENC_LIBRARY
+VORBISENC_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: VORBISFILE_LIBRARY
+VORBISFILE_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: VORBIS_INCLUDE_DIR
+VORBIS_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: VORBIS_LIBRARY
+VORBIS_LIBRARY-ADVANCED:INTERNAL=1
 //Have include xinput.h
 XINPUT_H_FOUND:INTERNAL=1
 //linker supports push/pop state

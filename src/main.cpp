@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "raygui.h"
+#include "../TextArea.hpp"
 
 // TODO - implement cursor struct
 
@@ -29,46 +30,14 @@ void draw_cursor(int cursor_pos_x, int cursor_pos_y, const char* const cursor_ch
     DrawText(cursor_char, cursor_pos_x, cursor_pos_y, cursor_font_size, SKYBLUE);
 }
 
-typedef struct editor_file
+
+int proto_main()
 {
-    const char* filename;
-    const char* extension;
-    const char* lines[];
-};
 
-typedef struct cursor
-{
-    Vector2 pos;
-    int x;
-    int y;
-    int line;
-    int font_size;
-    const char* symbol;
-    cursor(int x, int y, int line, int font_size, const char* symbol)
-    {
-        this->x = x;
-        this->y = y;
-        this->pos = Vector2(static_cast<float>(x), static_cast<float>(y));
-        this->line = line;
-        this->font_size = font_size;
-        this->symbol = symbol;
-    };
-    void draw() const
-    {
-        DrawText(symbol, x, y, font_size, SKYBLUE);
-    };
-
-
-
-};
-
-
-
-int main(int argc, char* argv)
-{
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 600, "Kup");
 
+    const char *username = getenv("username");
     std::vector<std::string> editor_file_lines;
     std::string editor_string;
     std::string current_editor_line_string;
@@ -78,17 +47,27 @@ int main(int argc, char* argv)
     int cursor_pos_y = 0;
     int cursor_lines_from_first = 0;
     int current_editor_file_lines = 1;
-    int editor_chars = 0;
     const auto cursor_char = "|";
     constexpr int cursor_font_size = 24;
 
-    cursor cursor = {0, 0, cursor_font_size, cursor_font_size, cursor_char};
-
-
+    std::string start_kup_cmd = GetApplicationDirectory();
+    start_kup_cmd += "Kup.exe";
+    printf("start_kup_cmd: %s\n", start_kup_cmd.c_str());
 
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
+        if(IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL))
+        {
+            if(IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT))
+            {
+                if(IsKeyPressed(KEY_N))
+                {
+                    system(start_kup_cmd.c_str());
+                }
+            }
+        }
+
         cursor_pos_x = 12+MeasureText(current_editor_line_string.c_str(), 20);
         cursor_pos_y = 10-2 + (16*cursor_lines_from_first);
 
@@ -144,6 +123,7 @@ int main(int argc, char* argv)
                 if (editor_string.back() == '\n')
                 {
                     current_editor_line_string = editor_file_lines.back();
+                    editor_file_lines.pop_back();
                     cursor_lines_from_first--;
                     editor_string.pop_back();
 
@@ -193,3 +173,11 @@ int main(int argc, char* argv)
     CloseWindow();
     return 0;
 }
+
+int main()
+{
+    return proto_main();
+
+
+}
+

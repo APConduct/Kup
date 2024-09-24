@@ -706,3 +706,33 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Users/ajost1/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.29/Modules/CheckCXXSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "cmake-build-debug-msys-ucrt/_deps/sfml-src/src/SFML/Window/CMakeLists.txt:341 (check_cxx_source_compiles)"
+    checks:
+      - "Performing Test ATOMIC_TEST"
+    directories:
+      source: "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/CMakeScratch/TryCompile-yhiq62"
+      binary: "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/CMakeScratch/TryCompile-yhiq62"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_MODULE_PATH: "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/cmake/Modules/"
+      CMAKE_OSX_DEPLOYMENT_TARGET: "13.0"
+    buildResult:
+      variable: "ATOMIC_TEST"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/CMakeScratch/TryCompile-yhiq62'
+        
+        Run Build Command(s): C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -v cmTC_121a8
+        [1/2] C:\\msys64\\ucrt64\\bin\\c++.exe -DATOMIC_TEST  -fdiagnostics-color=always -o CMakeFiles/cmTC_121a8.dir/src.cxx.obj -c C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/CMakeScratch/TryCompile-yhiq62/src.cxx
+        [2/2] C:\\WINDOWS\\system32\\cmd.exe /C "cd . && C:\\msys64\\ucrt64\\bin\\c++.exe   CMakeFiles/cmTC_121a8.dir/src.cxx.obj -o cmTC_121a8.exe -Wl,--out-implib,libcmTC_121a8.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 && cd ."
+        
+      exitCode: 0
+...
