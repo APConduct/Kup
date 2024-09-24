@@ -177,4 +177,5 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/tr1/modified_bessel_func.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/tr1/poly_hermite.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/tr1/poly_laguerre.tcc \
- C:/msys64/ucrt64/include/c++/14.2.0/tr1/riemann_zeta.tcc
+ C:/msys64/ucrt64/include/c++/14.2.0/tr1/riemann_zeta.tcc \
+ C:/Users/ajost1/CLionProjects/Kup/TextArea.hpp

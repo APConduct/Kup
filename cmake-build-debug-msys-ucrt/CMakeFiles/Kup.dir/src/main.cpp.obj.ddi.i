@@ -64598,6 +64598,8 @@ int proto_main()
     int current_editor_file_lines = 1;
     const auto cursor_char = "|";
     constexpr int cursor_font_size = 24;
+    bool hasBackspaced = false;
+    int bs_factor = 0;
 
     std::string start_kup_cmd = GetApplicationDirectory();
     start_kup_cmd += "Kup.exe";
@@ -64606,28 +64608,22 @@ int proto_main()
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
-        if(IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL))
+        if(hasBackspaced)
         {
-            if(IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT))
-            {
-                if(IsKeyPressed(KEY_N))
-                {
-                    system(start_kup_cmd.c_str());
-                }
-            }
-        }
+            bs_factor++;
+            hasBackspaced = false;
+        }else bs_factor = 0;
 
-        cursor_pos_x = 12+MeasureText(current_editor_line_string.c_str(), 20);
-        cursor_pos_y = 10-2 + (16*cursor_lines_from_first);
+
 
         int editor_width = GetScreenWidth();
-
 
         if (!IsKeyDown(KEY_BACKSPACE))
         {
             backspace_frame_counter = 0;
         }else
         {
+            hasBackspaced = true;
             backspace_frame_counter ++;
             if (backspace_frame_counter > 64)
             {
@@ -64637,8 +64633,10 @@ int proto_main()
                     {
                         if (editor_string.back() == '\n')
                         {
-
+                            current_editor_line_string = editor_file_lines.back();
+                            editor_file_lines.pop_back();
                             cursor_lines_from_first--;
+                            editor_string.pop_back();
                         }
 
                         editor_string.pop_back();
@@ -64646,7 +64644,7 @@ int proto_main()
                     if (!current_editor_line_string.empty())
                     {
 
-                        current_editor_line_string.pop_back();
+
                     }else{}
                 }
             }
@@ -64700,6 +64698,9 @@ int proto_main()
                 current_editor_file_lines++;
             }
         }
+
+        cursor_pos_x = 12+MeasureText(current_editor_line_string.c_str(), 20);
+        cursor_pos_y = 10-2 + (16*cursor_lines_from_first);
 
         BeginDrawing();
         ClearBackground(Color{ 0, 0, 0, 255 });
