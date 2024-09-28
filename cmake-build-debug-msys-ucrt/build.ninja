@@ -68,26 +68,26 @@ build CMakeFiles/Kup.dir/src/main.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C$:/U
   OBJECT_FILE_DIR = CMakeFiles\Kup.dir\src
   dyndep = CMakeFiles/Kup.dir/CXX.dd
 
-build CMakeFiles/Kup.dir/TextArea.cpp.obj.ddi: CXX_SCAN__Kup_Debug C$:/Users/ajost1/CLionProjects/Kup/TextArea.cpp || cmake_object_order_depends_target_Kup
+build CMakeFiles/Kup.dir/src/TextArea.cpp.obj.ddi: CXX_SCAN__Kup_Debug C$:/Users/ajost1/CLionProjects/Kup/src/TextArea.cpp || cmake_object_order_depends_target_Kup
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DLIBDEFLATE_DLL -DPLATFORM_DESKTOP
-  DEP_FILE = CMakeFiles\Kup.dir\TextArea.cpp.obj.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\Kup.dir\TextArea.cpp.obj.ddi
+  DEP_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -IC:/msys64/ucrt64/bin/../include/gtk-3.0 -IC:/msys64/ucrt64/bin/../include/pango-1.0 -IC:/msys64/ucrt64/bin/../include/harfbuzz -IC:/msys64/ucrt64/bin/../include/cairo -IC:/msys64/ucrt64/bin/../include/freetype2 -IC:/msys64/ucrt64/bin/../include/pixman-1 -IC:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0 -IC:/msys64/ucrt64/bin/../include/libpng16 -IC:/msys64/ucrt64/bin/../include/webp -IC:/msys64/ucrt64/bin/../include/atk-1.0 -IC:/msys64/ucrt64/bin/../include/fribidi -IC:/msys64/ucrt64/bin/../include/glib-2.0 -IC:/msys64/ucrt64/bin/../lib/glib-2.0/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include
-  OBJ_FILE = CMakeFiles\Kup.dir\TextArea.cpp.obj
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles\Kup.dir\TextArea.cpp.obj.ddi.i
+  OBJ_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi.i
 
-build CMakeFiles/Kup.dir/TextArea.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C$:/Users/ajost1/CLionProjects/Kup/TextArea.cpp | CMakeFiles/Kup.dir/TextArea.cpp.obj.modmap || cmake_object_order_depends_target_Kup CMakeFiles/Kup.dir/CXX.dd
+build CMakeFiles/Kup.dir/src/TextArea.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C$:/Users/ajost1/CLionProjects/Kup/src/TextArea.cpp | CMakeFiles/Kup.dir/src/TextArea.cpp.obj.modmap || cmake_object_order_depends_target_Kup CMakeFiles/Kup.dir/CXX.dd
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DLIBDEFLATE_DLL -DPLATFORM_DESKTOP
-  DEP_FILE = CMakeFiles\Kup.dir\TextArea.cpp.obj.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles\Kup.dir\TextArea.cpp.obj.modmap
+  DEP_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.modmap
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -IC:/msys64/ucrt64/bin/../include/gtk-3.0 -IC:/msys64/ucrt64/bin/../include/pango-1.0 -IC:/msys64/ucrt64/bin/../include/harfbuzz -IC:/msys64/ucrt64/bin/../include/cairo -IC:/msys64/ucrt64/bin/../include/freetype2 -IC:/msys64/ucrt64/bin/../include/pixman-1 -IC:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0 -IC:/msys64/ucrt64/bin/../include/libpng16 -IC:/msys64/ucrt64/bin/../include/webp -IC:/msys64/ucrt64/bin/../include/atk-1.0 -IC:/msys64/ucrt64/bin/../include/fribidi -IC:/msys64/ucrt64/bin/../include/glib-2.0 -IC:/msys64/ucrt64/bin/../lib/glib-2.0/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include
   OBJECT_DIR = CMakeFiles\Kup.dir
-  OBJECT_FILE_DIR = CMakeFiles\Kup.dir
+  OBJECT_FILE_DIR = CMakeFiles\Kup.dir\src
   dyndep = CMakeFiles/Kup.dir/CXX.dd
 
-build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/Kup.dir/CXXModules.json CMakeFiles/Kup.dir/src/main.cpp.obj.modmap CMakeFiles/Kup.dir/TextArea.cpp.obj.modmap: CXX_DYNDEP__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj.ddi CMakeFiles/Kup.dir/TextArea.cpp.obj.ddi | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/Kup.dir/CXXDependInfo.json
+build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/Kup.dir/CXXModules.json CMakeFiles/Kup.dir/src/main.cpp.obj.modmap CMakeFiles/Kup.dir/src/TextArea.cpp.obj.modmap: CXX_DYNDEP__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj.ddi CMakeFiles/Kup.dir/src/TextArea.cpp.obj.ddi | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/Kup.dir/CXXDependInfo.json
 
 
 # =============================================================================
@@ -97,7 +97,7 @@ build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build
 #############################################
 # Link the executable Kup.exe
 
-build Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a
+build Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a
   FLAGS = -g
   LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  -lgtk-3  -lgdk-3  -lz  -lgdi32  -limm32  -lshell32  -lole32  -luuid  -lwinmm  -ldwmapi  -lsetupapi  -lcfgmgr32  -lhid  -lwinspool  -lcomctl32  -lcomdlg32  -lpangowin32-1.0  -lpangocairo-1.0  -lpango-1.0  -lharfbuzz  -latk-1.0  -lcairo-gobject  -lcairo  -lgdk_pixbuf-2.0  -lgio-2.0  -lgobject-2.0  -lglib-2.0  -lintl  -lopengl32  -lglu32  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lwinmm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes

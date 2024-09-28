@@ -1,13 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <raylib.h>
-#include "Button.hpp"
-#define RAYGUI_IMPLEMENTATION
+//#include "Button.hpp"
+//#define RAYGUI_IMPLEMENTATION
+//#include "raygui.h"
 #include <vector>
 
 #include <gtk/gtk.h>
-#include "raygui.h"
-#include "../TextArea.hpp"
+#include "TextArea.hpp"
 
 // TODO - implement cursor struct
 
@@ -24,13 +24,21 @@ enum hue
 int main()
 {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(800, 600, "Kup");
+    InitWindow(1600, 960, "Kup");
 
-
+    auto* text_area = new kupui::TextArea();
 
     SetTargetFPS(120);
+
+    //popen("cmd","r");
+    //std::cout << test;
+
     while (!WindowShouldClose())
     {
+        text_area->Update();
+        BeginDrawing();
+        ClearBackground(BLACK);
+        text_area->Render();
 
         EndDrawing();
     }

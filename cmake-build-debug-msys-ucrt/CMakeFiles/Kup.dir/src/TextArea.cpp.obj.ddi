@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles\\Kup.dir\\src\\TextArea.cpp.obj",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

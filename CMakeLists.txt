@@ -43,8 +43,8 @@ add_definitions(${GTK3_CFLAGS_OTHER})
 
 add_executable(Kup src/main.cpp
         src/Button.hpp
-        TextArea.cpp
-        TextArea.hpp)
+        src/TextArea.cpp
+        src/TextArea.hpp)
 
 target_link_libraries(Kup raylib ${GTK3_LIBRARIES})
 target_include_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
