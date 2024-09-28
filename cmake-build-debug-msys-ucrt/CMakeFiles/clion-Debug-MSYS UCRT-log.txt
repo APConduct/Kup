@@ -1,7 +1,7 @@
 C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S C:\Users\ajost1\CLionProjects\Kup -B C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt
 -- Populating raylib
--- Configuring done (0.1s)
--- Generating done (0.0s)
+-- Configuring done (0.4s)
+-- Generating done (0.1s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-subbuild
 ninja: no work to do.
 CMake Deprecation Warning at cmake-build-debug-msys-ucrt/_deps/raylib-src/CMakeLists.txt:1 (cmake_minimum_required):
@@ -24,8 +24,8 @@ CMake Deprecation Warning at cmake-build-debug-msys-ucrt/_deps/raylib-src/CMakeL
 --   PLATFORM=PLATFORM_DESKTOP
 --   GRAPHICS=GRAPHICS_API_OPENGL_33
 -- Populating webview
--- Configuring done (0.1s)
--- Generating done (0.0s)
+-- Configuring done (0.4s)
+-- Generating done (0.1s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-subbuild
 [0/7] Performing update step for 'webview-populate'
 [1/7] No patch step for 'webview-populate'
@@ -35,17 +35,18 @@ CMake Deprecation Warning at cmake-build-debug-msys-ucrt/_deps/raylib-src/CMakeL
 [6/7] No test step for 'webview-populate'
 [7/7] Completed 'webview-populate'
 -- Populating sfml
--- Configuring done (0.1s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-subbuild
 [0/7] Performing update step for 'sfml-populate'
-HEAD is now at 1f11e91b Avoid unnecessary assignment in `Text::findCharacterPos`
+Previous HEAD position was 1f11e91b Avoid unnecessary assignment in `Text::findCharacterPos`
+HEAD is now at 053ef0b4 Prefer try_emplace over emplace for maps
 [1/7] No patch step for 'sfml-populate'
 [3/7] No configure step for 'sfml-populate'
 [4/7] No build step for 'sfml-populate'
 [5/7] No install step for 'sfml-populate'
 [6/7] No test step for 'sfml-populate'
 [7/7] Completed 'sfml-populate'
--- Configuring done (34.8s)
+-- Configuring done (45.7s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt

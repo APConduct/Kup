@@ -64665,6 +64665,11 @@ int proto_main()
 
         if (IsKeyPressed(KEY_BACKSPACE))
         {
+
+            if (!current_editor_line_string.empty())
+            {
+                current_editor_line_string.pop_back();
+            }
             if (!editor_string.empty())
             {
                 if (editor_string.back() == '\n')
@@ -64679,10 +64684,7 @@ int proto_main()
                     editor_string.pop_back();
                 }
             }
-            if (!current_editor_line_string.empty())
-            {
-                current_editor_line_string.pop_back();
-            }
+
         }
 
 
