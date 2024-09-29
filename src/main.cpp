@@ -6,9 +6,6 @@
 //#define RAYGUI_IMPLEMENTATION
 //#include "raygui.h"
 #include <vector>
-#include <imgui.h>
-#include <rlImGui.h>
-#include <rlImGuiColors.h>
 #include <lua.h>
 
 
@@ -40,16 +37,13 @@ int main(int argc, char **argv)
     SetTargetFPS(120);
 
 
-    rlImGuiSetup(true);
 
 
 
     while (!WindowShouldClose())
     {
-        rlImGuiBegin();
 
         bool open = true;
-        ImGui::ShowDemoWindow(&open);
 
         // end ImGui Content
 
@@ -59,12 +53,10 @@ int main(int argc, char **argv)
         ClearBackground(BLACK);
         text_area->Render();
 
-        rlImGuiEnd();
 
 
         EndDrawing();
     }
-    rlImGuiShutdown();
 
     CloseWindow();
 

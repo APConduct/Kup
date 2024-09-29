@@ -161,12 +161,5 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_vector.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/vector.tcc \
- C:/Users/ajost1/CLionProjects/Kup/imgui/imgui.h \
- C:/Users/ajost1/CLionProjects/Kup/imgui/imconfig.h \
- C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/float.h \
- C:/msys64/ucrt64/include/float.h C:/msys64/ucrt64/include/assert.h \
- C:/Users/ajost1/CLionProjects/Kup/rlImGui/rlImGui.h \
- C:/Users/ajost1/CLionProjects/Kup/rlImGui/extras/IconsFontAwesome6.h \
- C:/Users/ajost1/CLionProjects/Kup/rlImGui/rlImGuiColors.h \
  C:/msys64/ucrt64/include/lua.h C:/msys64/ucrt64/include/luaconf.h \
  C:/Users/ajost1/CLionProjects/Kup/src/TextArea.hpp

@@ -25,8 +25,7 @@
 					[
 						1,
 						4,
-						6,
-						7
+						6
 					]
 				},
 				{
@@ -46,7 +45,7 @@
 					"source" : "cmake-build-debug-msys-ucrt/_deps/raylib-src",
 					"targetIndexes" : 
 					[
-						8
+						7
 					]
 				},
 				{
@@ -97,7 +96,7 @@
 					"targetIndexes" : 
 					[
 						3,
-						9
+						8
 					]
 				},
 				{
@@ -177,8 +176,7 @@
 					[
 						1,
 						4,
-						6,
-						7
+						6
 					]
 				},
 				{
@@ -196,7 +194,7 @@
 					"targetIndexes" : 
 					[
 						5,
-						8
+						7
 					]
 				},
 				{
@@ -210,7 +208,7 @@
 					"targetIndexes" : 
 					[
 						3,
-						9
+						8
 					]
 				},
 				{
@@ -259,7 +257,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Kup::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Kup-Debug-e1ee0154040b20b850bd.json",
+					"jsonFile" : "target-Kup-Debug-7f1532a79f4316851e24.json",
 					"name" : "Kup",
 					"projectIndex" : 0
 				},
@@ -296,13 +294,6 @@
 					"id" : "rlimgui::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-rlimgui-Debug-6b177d84ff21585ba078.json",
 					"name" : "rlimgui",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "rlimgui_docking_example::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-rlimgui_docking_example-Debug-5a6cefd295ebb9b7c29d.json",
-					"name" : "rlimgui_docking_example",
 					"projectIndex" : 0
 				},
 				{

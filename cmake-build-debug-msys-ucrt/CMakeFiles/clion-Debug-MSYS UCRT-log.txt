@@ -1,6 +1,6 @@
 C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S C:\Users\ajost1\CLionProjects\Kup -B C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug-msys-ucrt
 -- Populating raylib
--- Configuring done (0.3s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-subbuild
 ninja: no work to do.
@@ -44,7 +44,7 @@ ninja: no work to do.
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild
 ninja: no work to do.
 -- Populating imguifiledialog
--- Configuring done (0.2s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/imguifiledialog-subbuild
 [0/7] Performing update step for 'imguifiledialog-populate'
@@ -65,6 +65,6 @@ ninja: no work to do.
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild
 ninja: no work to do.
--- Configuring done (51.2s)
--- Generating done (0.1s)
+-- Configuring done (40.7s)
+-- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt

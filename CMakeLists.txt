@@ -132,12 +132,4 @@ target_include_directories(Kup PRIVATE
 target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 
 
-add_executable(rlimgui_docking_example rlImGui/examples/docking_example.cpp)
 
-target_link_libraries(rlimgui_docking_example PUBLIC raylib imgui_glfw rlimgui)
-target_include_directories(rlimgui_docking_example PRIVATE
-        cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
-        rlImGui
-        imgui
-        lua54/src
-)
