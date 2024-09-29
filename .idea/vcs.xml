@@ -2,8 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cmake-build-debug-msys-ucrt/_deps/sfml-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cmake-build-debug-msys-ucrt/_deps/webview-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/wxWidgets-scaffold" vcs="Git" />
   </component>
 </project>

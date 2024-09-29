@@ -1,0 +1,14 @@
+# Target labels
+ glad-populate
+# Source files and their labels
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/CMakeFiles/glad-populate
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/CMakeFiles/glad-populate.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/CMakeFiles/glad-populate-complete.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-build.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-configure.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-download.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-install.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-mkdir.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-patch.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-test.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild/glad-populate-prefix/src/glad-populate-stamp/glad-populate-update.rule

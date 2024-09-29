@@ -28,7 +28,8 @@
 		"C:\\msys64\\ucrt64\\bin\\..\\lib\\glib-2.0\\include",
 		"_deps\\raylib-src\\examples\\shapes",
 		"_deps\\raylib-src\\src",
-		"_deps\\raylib-src\\src\\external\\glfw\\include"
+		"_deps\\raylib-src\\src\\external\\glfw\\include",
+		"_deps\\glfw-src\\include"
 	],
 	"language" : "CXX",
 	"linked-target-dirs" : [],

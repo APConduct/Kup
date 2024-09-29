@@ -143,6 +143,10 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/istream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/istream.tcc \
+ C:/msys64/ucrt64/include/unistd.h C:/msys64/ucrt64/include/io.h \
+ C:/msys64/ucrt64/include/string.h \
+ C:/msys64/ucrt64/include/sec_api/string_s.h \
+ C:/msys64/ucrt64/include/getopt.h \
  C:/msys64/ucrt64/include/c++/14.2.0/fstream \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/codecvt.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/basic_file.h \
@@ -169,8 +173,6 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/float.h \
  C:/msys64/ucrt64/include/glib-2.0/glib/gversionmacros.h \
  C:/msys64/ucrt64/include/glib-2.0/glib/glib-visibility.h \
- C:/msys64/ucrt64/include/string.h \
- C:/msys64/ucrt64/include/sec_api/string_s.h \
  C:/msys64/ucrt64/include/glib-2.0/glib/garray.h \
  C:/msys64/ucrt64/include/glib-2.0/glib/gasyncqueue.h \
  C:/msys64/ucrt64/include/glib-2.0/glib/gthread.h \
@@ -833,5 +835,4 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/gtk-3.0/gtk/deprecated/gtkvscrollbar.h \
  C:/msys64/ucrt64/include/gtk-3.0/gtk/deprecated/gtkvseparator.h \
  C:/msys64/ucrt64/include/gtk-3.0/gtk/gtk-autocleanups.h \
- C:/Users/ajost1/CLionProjects/Kup/src/TextArea.hpp \
- C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/raylib.h
+ C:/Users/ajost1/CLionProjects/Kup/src/TextArea.hpp

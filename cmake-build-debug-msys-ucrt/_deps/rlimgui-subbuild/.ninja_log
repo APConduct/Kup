@@ -1,0 +1,21 @@
+# ninja log v6
+4	198	7492843512437492	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-mkdir	6cd15192d6c62a6c
+4	198	7492843512437492	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-mkdir	6cd15192d6c62a6c
+6	1886	7492859404112521	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-download	f85ca67a063380d1
+6	1886	7492859404112521	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-download	f85ca67a063380d1
+1903	2150	7492859406744097	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-update	8789ab7a717cee2f
+1903	2150	7492859406744097	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-update	8789ab7a717cee2f
+2151	2358	7492859408834424	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-patch	f6064abad5edb6d6
+2151	2358	7492859408834424	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-patch	f6064abad5edb6d6
+2359	2561	7492859410862862	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-configure	466efdbfd3d9e21a
+2359	2561	7492859410862862	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-configure	466efdbfd3d9e21a
+2561	2753	7492859412817083	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-build	e13c13cd2ec6911b
+2561	2753	7492859412817083	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-build	e13c13cd2ec6911b
+3139	3417	7492859419437514	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-done	444da3b10d2aa242
+2753	2935	7492859414640871	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-install	47f63ec94782a0ef
+2753	2935	7492859414640871	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-install	47f63ec94782a0ef
+2936	3138	7492859416667278	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-test	268715859aa570bc
+2936	3138	7492859416667278	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-test	268715859aa570bc
+3139	3417	7492859419437514	CMakeFiles/rlimgui-populate-complete	444da3b10d2aa242
+3139	3417	7492859419437514	rlimgui-populate-prefix/src/rlimgui-populate-stamp/rlimgui-populate-done	444da3b10d2aa242
+3139	3417	7492859419437514	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild/CMakeFiles/rlimgui-populate-complete	444da3b10d2aa242

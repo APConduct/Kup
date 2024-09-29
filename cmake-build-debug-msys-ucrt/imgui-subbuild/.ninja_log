@@ -1,0 +1,21 @@
+# ninja log v6
+6346	6561	7492836703894042	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-build	e62c8f024c2f9430
+5719	5894	7492836697243167	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-update	24104ef8614ecdde
+8	307	7492836641345443	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-mkdir	618b63caee67e742
+5719	5894	7492836697243167	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-update	24104ef8614ecdde
+8	307	7492836641345443	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-mkdir	618b63caee67e742
+308	5718	7492836695509179	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-download	f8fd6b80e26483d6
+6981	7270	7492836711004585	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-done	add2ce4885c6d713
+5909	6129	7492836699544311	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-patch	6f2a4fdb5e64c378
+308	5718	7492836695509179	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-download	f8fd6b80e26483d6
+5909	6129	7492836699544311	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-patch	6f2a4fdb5e64c378
+6129	6346	7492836701710710	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-configure	9db28215433af9ba
+6129	6346	7492836701710710	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-configure	9db28215433af9ba
+6346	6561	7492836703894042	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-build	e62c8f024c2f9430
+6981	7270	7492836711004585	CMakeFiles/imgui-populate-complete	add2ce4885c6d713
+6561	6763	7492836705849095	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-install	118a4f54feda127a
+6561	6763	7492836705849095	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-install	118a4f54feda127a
+6763	6981	7492836708094189	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-test	61e225eac972b8bd
+6763	6981	7492836708094189	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-test	61e225eac972b8bd
+6981	7270	7492836711004585	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-done	add2ce4885c6d713
+6981	7270	7492836711004585	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild/CMakeFiles/imgui-populate-complete	add2ce4885c6d713

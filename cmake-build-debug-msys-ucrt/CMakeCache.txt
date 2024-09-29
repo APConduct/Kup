@@ -17,7 +17,7 @@
 //Build the examples.
 BUILD_EXAMPLES:BOOL=OFF
 
-// 
+//Build shared libraries
 BUILD_SHARED_LIBS:BOOL=OFF
 
 //Path to a program.
@@ -204,10 +204,6 @@ CMAKE_OBJCOPY:FILEPATH=C:/msys64/ucrt64/bin/objcopy.exe
 //Path to a program.
 CMAKE_OBJDUMP:FILEPATH=C:/msys64/ucrt64/bin/objdump.exe
 
-//The minimal iOS version that will be able to run the built binaries.
-// Cannot be lower than 13.0
-CMAKE_OSX_DEPLOYMENT_TARGET:STRING=13.0
-
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
 
@@ -345,63 +341,48 @@ FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
 FETCHCONTENT_QUIET:BOOL=ON
 
 //When not empty, overrides where to find pre-populated content
-// for microsoft_web_webview2
-FETCHCONTENT_SOURCE_DIR_MICROSOFT_WEB_WEBVIEW2:PATH=
+// for glad
+FETCHCONTENT_SOURCE_DIR_GLAD:PATH=
+
+//When not empty, overrides where to find pre-populated content
+// for glfw
+FETCHCONTENT_SOURCE_DIR_GLFW:PATH=
+
+//When not empty, overrides where to find pre-populated content
+// for ImGuiFileDialog
+FETCHCONTENT_SOURCE_DIR_IMGUIFILEDIALOG:PATH=
 
 //When not empty, overrides where to find pre-populated content
 // for raylib
 FETCHCONTENT_SOURCE_DIR_RAYLIB:PATH=
 
 //When not empty, overrides where to find pre-populated content
-// for SFML
-FETCHCONTENT_SOURCE_DIR_SFML:PATH=
-
-//When not empty, overrides where to find pre-populated content
-// for webview
-FETCHCONTENT_SOURCE_DIR_WEBVIEW:PATH=
-
-//When not empty, overrides where to find pre-populated content
-// for wxWidgets
-FETCHCONTENT_SOURCE_DIR_WXWIDGETS:PATH=
+// for rlImGui
+FETCHCONTENT_SOURCE_DIR_RLIMGUI:PATH=
 
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
-//Enables UPDATE_DISCONNECTED behavior just for population of microsoft_web_webview2
-FETCHCONTENT_UPDATES_DISCONNECTED_MICROSOFT_WEB_WEBVIEW2:BOOL=OFF
+//Enables UPDATE_DISCONNECTED behavior just for population of glad
+FETCHCONTENT_UPDATES_DISCONNECTED_GLAD:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of glfw
+FETCHCONTENT_UPDATES_DISCONNECTED_GLFW:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of ImGuiFileDialog
+FETCHCONTENT_UPDATES_DISCONNECTED_IMGUIFILEDIALOG:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of raylib
 FETCHCONTENT_UPDATES_DISCONNECTED_RAYLIB:BOOL=OFF
 
-//Enables UPDATE_DISCONNECTED behavior just for population of sfml
-FETCHCONTENT_UPDATES_DISCONNECTED_SFML:BOOL=OFF
-
-//Enables UPDATE_DISCONNECTED behavior just for population of webview
-FETCHCONTENT_UPDATES_DISCONNECTED_WEBVIEW:BOOL=OFF
-
-//Enables UPDATE_DISCONNECTED behavior just for population of wxwidgets
-FETCHCONTENT_UPDATES_DISCONNECTED_WXWIDGETS:BOOL=OFF
-
-//Path to a file.
-FLAC_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers
-
-//Path to a library.
-FLAC_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libFLAC.a
-
-//Path to a file.
-FREETYPE_INCLUDE_DIR_freetype2:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers/freetype2
-
-//Path to a file.
-FREETYPE_INCLUDE_DIR_ft2build:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers/freetype2
-
-//Path to a library.
-FREETYPE_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libfreetype.a
+//Enables UPDATE_DISCONNECTED behavior just for population of rlImGui
+FETCHCONTENT_UPDATES_DISCONNECTED_RLIMGUI:BOOL=OFF
 
 //Git command line client
 GIT_EXECUTABLE:FILEPATH=C:/Users/ajost1/AppData/Local/Programs/Git/cmd/git.exe
 
 //Value Computed by CMake
-GLFW_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-build/raylib/external/glfw
+GLFW_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-build
 
 //Build the GLFW documentation
 GLFW_BUILD_DOCS:BOOL=OFF
@@ -426,7 +407,7 @@ GLFW_IS_TOP_LEVEL:STATIC=OFF
 GLFW_LIBRARY_TYPE:STRING=
 
 //Value Computed by CMake
-GLFW_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw
+GLFW_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-src
 
 //Force use of high-performance GPU on hybrid systems
 GLFW_USE_HYBRID_HPG:BOOL=OFF
@@ -435,6 +416,18 @@ GLFW_USE_WAYLAND:BOOL=
 
 //Include everything disabled by default (for CI usage
 INCLUDE_EVERYTHING:BOOL=OFF
+
+//Value Computed by CMake
+ImGuiFileDialog_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/imguifiledialog-build
+
+//Value Computed by CMake
+ImGuiFileDialog_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+ImGuiFileDialog_LIB_DEPENDS:STATIC=general;imgui_glfw;
+
+//Value Computed by CMake
+ImGuiFileDialog_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/imguifiledialog-src
 
 //Value Computed by CMake
 Kup_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt
@@ -447,15 +440,6 @@ Kup_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup
 
 //Build fat library for both i386 and x86_64 on macOS
 MACOS_FATLIB:BOOL=OFF
-
-//Path to a file.
-MSWebView2_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include
-
-//Path to a file.
-OGG_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers
-
-//Path to a library.
-OGG_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libogg.a
 
 //Force a specific OpenGL Version?
 OPENGL_VERSION:STRING=OFF
@@ -475,299 +459,20 @@ PKG_CONFIG_EXECUTABLE:FILEPATH=C:/msys64/ucrt64/bin/pkg-config.exe
 //Platform to build for.
 PLATFORM:STRING=Desktop
 
-//Value Computed by CMake
-SFML_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-build
-
-//ON to build SFML's Audio module.
-SFML_BUILD_AUDIO:BOOL=ON
-
-//ON to build SFML's Graphics module.
-SFML_BUILD_GRAPHICS:BOOL=ON
-
-//ON to build SFML's Network module.
-SFML_BUILD_NETWORK:BOOL=ON
-
-//ON to build SFML's Window module. This setting is ignored, if
-// the graphics module is built.
-SFML_BUILD_WINDOW:BOOL=ON
-
-//ON to configure extras, OFF to ignore them
-SFML_CONFIGURE_EXTRAS:BOOL=OFF
-
-//ON to enable precompiled headers for SFML builds -- only supported
-// on Windows/Linux and for static library builds
-SFML_ENABLE_PCH:BOOL=OFF
-
-//Enable sanitizers
-SFML_ENABLE_SANITIZERS:BOOL=OFF
-
-//Enable standard library assertions
-SFML_ENABLE_STDLIB_ASSERTIONS:BOOL=OFF
-
-//ON to automatically install pkg-config files so other projects
-// can find SFML
-SFML_INSTALL_PKGCONFIG_FILES:BOOL=OFF
-
-//Value Computed by CMake
-SFML_IS_TOP_LEVEL:STATIC=OFF
-
-//ON to use an OpenGL ES implementation, OFF to use a desktop OpenGL
-// implementation
-SFML_OPENGL_ES:BOOL=0
-
-//Value Computed by CMake
-SFML_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src
-
-//ON to use the Mesa 3D graphics library for rendering, OFF to
-// use the system provided library for rendering
-SFML_USE_MESA3D:BOOL=OFF
-
-//ON to statically link to the standard libraries, OFF to use them
-// as DLLs
-SFML_USE_STATIC_STD_LIBS:BOOL=OFF
-
-//ON to use system dependencies, OFF to use the bundled ones.
-SFML_USE_SYSTEM_DEPS:BOOL=OFF
-
-//Treat compiler warnings as errors
-SFML_WARNINGS_AS_ERRORS:BOOL=OFF
-
 //Link raylib against system GLFW instead of embedded one
 USE_EXTERNAL_GLFW:STRING=OFF
-
-//Path to a library.
-VORBISENC_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbisenc.a
-
-//Path to a library.
-VORBISFILE_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbisfile.a
-
-//Path to a file.
-VORBIS_INCLUDE_DIR:PATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers
-
-//Path to a library.
-VORBIS_LIBRARY:FILEPATH=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbis.a
-
-//Enable building
-WEBVIEW_BUILD:BOOL=ON
-
-//Build documentation
-WEBVIEW_BUILD_DOCS:BOOL=OFF
-
-//Build examples
-WEBVIEW_BUILD_EXAMPLES:BOOL=OFF
-
-//Build shared libraries
-WEBVIEW_BUILD_SHARED_LIBRARY:BOOL=ON
-
-//Build static libraries
-WEBVIEW_BUILD_STATIC_LIBRARY:BOOL=ON
-
-//Build tests
-WEBVIEW_BUILD_TESTS:BOOL=OFF
-
-//Enable checks
-WEBVIEW_ENABLE_CHECKS:BOOL=OFF
-
-//Enable clang-format
-WEBVIEW_ENABLE_CLANG_FORMAT:BOOL=OFF
-
-//Enable clang-tidy
-WEBVIEW_ENABLE_CLANG_TIDY:BOOL=OFF
-
-//Enable packaging
-WEBVIEW_ENABLE_PACKAGING:BOOL=OFF
-
-//Install documentation
-WEBVIEW_INSTALL_DOCS:BOOL=OFF
-
-//Install targets
-WEBVIEW_INSTALL_TARGETS:BOOL=OFF
-
-//MS WebView2 version
-WEBVIEW_MSWEBVIEW2_VERSION:STRING=1.0.1150.38
-
-//Make checks strict
-WEBVIEW_STRICT_CHECKS:BOOL=OFF
-
-//Make clang-format check strict
-WEBVIEW_STRICT_CLANG_FORMAT:BOOL=OFF
-
-//Make clang-tidy check strict
-WEBVIEW_STRICT_CLANG_TIDY:BOOL=OFF
-
-//Use built-in MS WebView2
-WEBVIEW_USE_BUILTIN_MSWEBVIEW2:BOOL=ON
-
-//Use compatibility helper for MinGW
-WEBVIEW_USE_COMPAT_MINGW:BOOL=OFF
-
-//Use static runtime library (MSVC)
-WEBVIEW_USE_STATIC_MSVC_RUNTIME:BOOL=OFF
 
 //Compile static library as position-independent code
 WITH_PIC:BOOL=OFF
 
-//Cleared.
-WX_adv:FILEPATH=WX_adv-NOTFOUND
+//Value Computed by CMake
+glad_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-build
 
-//Cleared.
-WX_advd:FILEPATH=WX_advd-NOTFOUND
+//Value Computed by CMake
+glad_IS_TOP_LEVEL:STATIC=OFF
 
-//Cleared.
-WX_aui:FILEPATH=WX_aui-NOTFOUND
-
-//Cleared.
-WX_auid:FILEPATH=WX_auid-NOTFOUND
-
-//Cleared.
-WX_base:FILEPATH=WX_base-NOTFOUND
-
-//Cleared.
-WX_based:FILEPATH=WX_based-NOTFOUND
-
-//Cleared.
-WX_core:FILEPATH=WX_core-NOTFOUND
-
-//Cleared.
-WX_cored:FILEPATH=WX_cored-NOTFOUND
-
-//Cleared.
-WX_dbgrid:FILEPATH=WX_dbgrid-NOTFOUND
-
-//Cleared.
-WX_dbgridd:FILEPATH=WX_dbgridd-NOTFOUND
-
-//Cleared.
-WX_expat:FILEPATH=WX_expat-NOTFOUND
-
-//Cleared.
-WX_expatd:FILEPATH=WX_expatd-NOTFOUND
-
-//Cleared.
-WX_gl:FILEPATH=WX_gl-NOTFOUND
-
-//Cleared.
-WX_gld:FILEPATH=WX_gld-NOTFOUND
-
-//Cleared.
-WX_html:FILEPATH=WX_html-NOTFOUND
-
-//Cleared.
-WX_htmld:FILEPATH=WX_htmld-NOTFOUND
-
-//Cleared.
-WX_jpeg:FILEPATH=WX_jpeg-NOTFOUND
-
-//Cleared.
-WX_jpegd:FILEPATH=WX_jpegd-NOTFOUND
-
-//Cleared.
-WX_lexilla:FILEPATH=WX_lexilla-NOTFOUND
-
-//Cleared.
-WX_lexillad:FILEPATH=WX_lexillad-NOTFOUND
-
-//Cleared.
-WX_media:FILEPATH=WX_media-NOTFOUND
-
-//Cleared.
-WX_mediad:FILEPATH=WX_mediad-NOTFOUND
-
-//Cleared.
-WX_mono:FILEPATH=WX_mono-NOTFOUND
-
-//Cleared.
-WX_monod:FILEPATH=WX_monod-NOTFOUND
-
-//Cleared.
-WX_net:FILEPATH=WX_net-NOTFOUND
-
-//Cleared.
-WX_netd:FILEPATH=WX_netd-NOTFOUND
-
-//Cleared.
-WX_odbc:FILEPATH=WX_odbc-NOTFOUND
-
-//Cleared.
-WX_odbcd:FILEPATH=WX_odbcd-NOTFOUND
-
-//Cleared.
-WX_png:FILEPATH=WX_png-NOTFOUND
-
-//Cleared.
-WX_pngd:FILEPATH=WX_pngd-NOTFOUND
-
-//Cleared.
-WX_propgrid:FILEPATH=WX_propgrid-NOTFOUND
-
-//Cleared.
-WX_propgridd:FILEPATH=WX_propgridd-NOTFOUND
-
-//Cleared.
-WX_qa:FILEPATH=WX_qa-NOTFOUND
-
-//Cleared.
-WX_qad:FILEPATH=WX_qad-NOTFOUND
-
-//Cleared.
-WX_regex:FILEPATH=WX_regex-NOTFOUND
-
-//Cleared.
-WX_regexd:FILEPATH=WX_regexd-NOTFOUND
-
-//Cleared.
-WX_ribbon:FILEPATH=WX_ribbon-NOTFOUND
-
-//Cleared.
-WX_ribbond:FILEPATH=WX_ribbond-NOTFOUND
-
-//Cleared.
-WX_richtext:FILEPATH=WX_richtext-NOTFOUND
-
-//Cleared.
-WX_richtextd:FILEPATH=WX_richtextd-NOTFOUND
-
-//Cleared.
-WX_scintilla:FILEPATH=WX_scintilla-NOTFOUND
-
-//Cleared.
-WX_scintillad:FILEPATH=WX_scintillad-NOTFOUND
-
-//Cleared.
-WX_stc:FILEPATH=WX_stc-NOTFOUND
-
-//Cleared.
-WX_stcd:FILEPATH=WX_stcd-NOTFOUND
-
-//Cleared.
-WX_tiff:FILEPATH=WX_tiff-NOTFOUND
-
-//Cleared.
-WX_tiffd:FILEPATH=WX_tiffd-NOTFOUND
-
-//Cleared.
-WX_webview:FILEPATH=WX_webview-NOTFOUND
-
-//Cleared.
-WX_webviewd:FILEPATH=WX_webviewd-NOTFOUND
-
-//Cleared.
-WX_xml:FILEPATH=WX_xml-NOTFOUND
-
-//Cleared.
-WX_xmld:FILEPATH=WX_xmld-NOTFOUND
-
-//Cleared.
-WX_xrc:FILEPATH=WX_xrc-NOTFOUND
-
-//Cleared.
-WX_xrcd:FILEPATH=WX_xrcd-NOTFOUND
-
-//Cleared.
-WX_zlib:FILEPATH=WX_zlib-NOTFOUND
-
-//Cleared.
-WX_zlibd:FILEPATH=WX_zlibd-NOTFOUND
+//Value Computed by CMake
+glad_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-src
 
 //Path to a library.
 pkgcfg_lib_GTK3_atk-1.0:FILEPATH=C:/msys64/ucrt64/lib/libatk-1.0.dll.a
@@ -862,40 +567,14 @@ raylib_DIR:PATH=raylib_DIR-NOTFOUND
 //Value Computed by CMake
 raylib_IS_TOP_LEVEL:STATIC=OFF
 
-//Dependencies for the target
-raylib_LIB_DEPENDS:STATIC=general;opengl32;glu32;winmm;glfw;
-
 //Value Computed by CMake
 raylib_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src
-
-//Value Computed by CMake
-webview_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-build
-
-//Value Computed by CMake
-webview_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-webview_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/webview-src
-
-//Location of wxWidgets library configuration provider binary (wx-config).
-wxWidgets_CONFIG_EXECUTABLE:FILEPATH=C:/msys64/ucrt64/bin/wx-config
-
-//Cleared.
-wxWidgets_LIB_DIR:PATH=wxWidgets_LIB_DIR-NOTFOUND
-
-//wxWidgets base/installation directory
-wxWidgets_ROOT_DIR:PATH=C:/wxWidgets-3.2.6
-
-//Location of wxWidgets resource file compiler binary (wxrc)
-wxWidgets_wxrc_EXECUTABLE:FILEPATH=C:/msys64/ucrt64/bin/wxrc.exe
 
 
 ########################
 # INTERNAL cache entries
 ########################
 
-//Test ATOMIC_TEST
-ATOMIC_TEST:INTERNAL=1
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -1028,7 +707,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1092,30 +771,12 @@ CPACK_SOURCE_7Z-ADVANCED:INTERNAL=1
 CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Have include dinput.h
 DINPUT_H_FOUND:INTERNAL=1
-//Details about finding FLAC
-FIND_PACKAGE_MESSAGE_DETAILS_FLAC:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libFLAC.a][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers][v()]
-//Details about finding Freetype
-FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw-ucrt/x64/libfreetype.a][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers/freetype2][2.5.5][v()]
-//Details about finding MSWebView2
-FIND_PACKAGE_MESSAGE_DETAILS_MSWebView2:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/microsoft_web_webview2-src/build/native/include][v()]
 //Details about finding OpenGL
-FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[opengl32][cfound components: OpenGL ][v()]
+FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[opengl32][c ][v(2)]
 //Details about finding PkgConfig
 FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[C:/msys64/ucrt64/bin/pkg-config.exe][v2.3.0()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
-//Details about finding Vorbis
-FIND_PACKAGE_MESSAGE_DETAILS_Vorbis:INTERNAL=[C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libogg.a][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/headers][C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/sfml-src/extlibs/libs-mingw/x64/libvorbis.a][v()]
-//ADVANCED property for variable: FLAC_INCLUDE_DIR
-FLAC_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: FLAC_LIBRARY
-FLAC_LIBRARY-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_freetype2
-FREETYPE_INCLUDE_DIR_freetype2-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: FREETYPE_INCLUDE_DIR_ft2build
-FREETYPE_INCLUDE_DIR_ft2build-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: FREETYPE_LIBRARY
-FREETYPE_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //GLFW pkg-config Libs.private
@@ -1160,10 +821,6 @@ GTK3_gtk+-3.0_VERSION:INTERNAL=
 //Replace any OFF by default with ${OFF} to have it covered by
 // this option
 OFF:INTERNAL=OFF
-//ADVANCED property for variable: OGG_INCLUDE_DIR
-OGG_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: OGG_LIBRARY
-OGG_LIBRARY-ADVANCED:INTERNAL=1
 //STRINGS property for variable: OPENGL_VERSION
 OPENGL_VERSION-STRINGS:INTERNAL=OFF;4.3;3.3;2.1;1.1;ES 2.0;ES 3.0
 //ADVANCED property for variable: OPENGL_gl_LIBRARY
@@ -1178,126 +835,6 @@ PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 PLATFORM-STRINGS:INTERNAL=Desktop;Web;Android;Raspberry Pi;DRM
 //STRINGS property for variable: USE_EXTERNAL_GLFW
 USE_EXTERNAL_GLFW-STRINGS:INTERNAL=OFF;IF_POSSIBLE;ON
-//ADVANCED property for variable: VORBISENC_LIBRARY
-VORBISENC_LIBRARY-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: VORBISFILE_LIBRARY
-VORBISFILE_LIBRARY-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: VORBIS_INCLUDE_DIR
-VORBIS_INCLUDE_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: VORBIS_LIBRARY
-VORBIS_LIBRARY-ADVANCED:INTERNAL=1
-//wxWidgets_LIB_DIR
-WX_LIB_DIR:INTERNAL=wxWidgets_LIB_DIR-NOTFOUND
-//wxWidgets_ROOT_DIR
-WX_ROOT_DIR:INTERNAL=C:/wxWidgets-3.2.6
-//ADVANCED property for variable: WX_adv
-WX_adv-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_advd
-WX_advd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_aui
-WX_aui-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_auid
-WX_auid-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_base
-WX_base-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_based
-WX_based-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_core
-WX_core-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_cored
-WX_cored-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_dbgrid
-WX_dbgrid-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_dbgridd
-WX_dbgridd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_expat
-WX_expat-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_expatd
-WX_expatd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_gl
-WX_gl-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_gld
-WX_gld-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_html
-WX_html-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_htmld
-WX_htmld-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_jpeg
-WX_jpeg-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_jpegd
-WX_jpegd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_lexilla
-WX_lexilla-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_lexillad
-WX_lexillad-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_media
-WX_media-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_mediad
-WX_mediad-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_mono
-WX_mono-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_monod
-WX_monod-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_net
-WX_net-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_netd
-WX_netd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_odbc
-WX_odbc-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_odbcd
-WX_odbcd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_png
-WX_png-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_pngd
-WX_pngd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_propgrid
-WX_propgrid-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_propgridd
-WX_propgridd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_qa
-WX_qa-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_qad
-WX_qad-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_regex
-WX_regex-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_regexd
-WX_regexd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_ribbon
-WX_ribbon-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_ribbond
-WX_ribbond-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_richtext
-WX_richtext-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_richtextd
-WX_richtextd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_scintilla
-WX_scintilla-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_scintillad
-WX_scintillad-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_stc
-WX_stc-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_stcd
-WX_stcd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_tiff
-WX_tiff-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_tiffd
-WX_tiffd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_webview
-WX_webview-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_webviewd
-WX_webviewd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_xml
-WX_xml-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_xmld
-WX_xmld-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_xrc
-WX_xrc-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_xrcd
-WX_xrcd-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_zlib
-WX_zlib-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: WX_zlibd
-WX_zlibd-ADVANCED:INTERNAL=1
 //Have include xinput.h
 XINPUT_H_FOUND:INTERNAL=1
 //linker supports push/pop state

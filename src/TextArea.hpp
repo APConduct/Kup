@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "../cmake-build-debug-msys-ucrt/_deps/raylib-src/src/raylib.h"
+#include <raylib.h>
 
 namespace kupui {
 

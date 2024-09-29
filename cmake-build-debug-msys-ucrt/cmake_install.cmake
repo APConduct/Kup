@@ -42,6 +42,21 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-build/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-build/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-build/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/imguifiledialog-build/cmake_install.cmake")
+endif()
+
 if(CMAKE_INSTALL_COMPONENT)
   set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 else()

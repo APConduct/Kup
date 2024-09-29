@@ -1,0 +1,37 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"dir-cur-bld" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt",
+	"dir-cur-src" : "C:/Users/ajost1/CLionProjects/Kup",
+	"dir-top-bld" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt",
+	"dir-top-src" : "C:/Users/ajost1/CLionProjects/Kup",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\gtk-3.0",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\pango-1.0",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\harfbuzz",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\cairo",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\freetype2",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\pixman-1",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\gdk-pixbuf-2.0",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\libpng16",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\webp",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\atk-1.0",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\fribidi",
+		"C:\\msys64\\ucrt64\\bin\\..\\include\\glib-2.0",
+		"C:\\msys64\\ucrt64\\bin\\..\\lib\\glib-2.0\\include",
+		"C:\\Users\\ajost1\\CLionProjects\\Kup\\imgui",
+		"C:\\Users\\ajost1\\CLionProjects\\Kup\\imgui\\backends",
+		"_deps\\raylib-src\\src\\external\\glfw\\include",
+		"_deps\\glfw-src\\include"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/imgui_glfw.dir"
+}

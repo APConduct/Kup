@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include <fstream>
 #include <raylib.h>
 //#include "Button.hpp"
@@ -6,7 +7,8 @@
 //#include "raygui.h"
 #include <vector>
 
-#include <gtk/gtk.h>
+//#include <gtk/gtk.h>
+//#include <gtk/gtkwindow.h>
 #include "TextArea.hpp"
 
 // TODO - implement cursor struct
@@ -21,7 +23,9 @@ enum hue
 
 
 
-int main()
+
+
+int main(int argc, char **argv)
 {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(1600, 960, "Kup");
@@ -30,8 +34,9 @@ int main()
 
     SetTargetFPS(120);
 
-    //popen("cmd","r");
-    //std::cout << test;
+
+
+
 
     while (!WindowShouldClose())
     {
@@ -43,6 +48,7 @@ int main()
         EndDrawing();
     }
     CloseWindow();
+
     return 0;
 
 }

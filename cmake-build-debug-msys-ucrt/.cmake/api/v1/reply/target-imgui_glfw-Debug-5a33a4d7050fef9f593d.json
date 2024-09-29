@@ -1,0 +1,246 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "libimgui_glfw.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries",
+			"add_definitions",
+			"include_directories",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 64,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 80,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 39,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 36,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 82,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -std=gnu++20 -fdiagnostics-color=always"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "LIBDEFLATE_DLL"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/gtk-3.0"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/pango-1.0"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/harfbuzz"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/cairo"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/freetype2"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/pixman-1"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/libpng16"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/webp"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/atk-1.0"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/fribidi"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../include/glib-2.0"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/msys64/ucrt64/bin/../lib/glib-2.0/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/ajost1/CLionProjects/Kup/imgui"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/ajost1/CLionProjects/Kup/imgui/backends"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-src/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "20"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "glfw::@9de86fbe87260ae8e66c"
+		}
+	],
+	"id" : "imgui_glfw::@6890427a1f51a3e7e1df",
+	"name" : "imgui_glfw",
+	"nameOnDisk" : "libimgui_glfw.a",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/imgui.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/imgui_draw.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/imgui_demo.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/imgui_tables.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/imgui_widgets.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/backends/imgui_impl_glfw.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "imgui/backends/imgui_impl_opengl2.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

@@ -4,14 +4,6 @@ C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DC
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-subbuild
 ninja: no work to do.
-CMake Deprecation Warning at cmake-build-debug-msys-ucrt/_deps/raylib-src/CMakeLists.txt:1 (cmake_minimum_required):
-  Compatibility with CMake < 3.5 will be removed from a future version of
-  CMake.
-
-  Update the VERSION argument <min> value or use a ...<max> suffix to tell
-  CMake that the project does not need compatibility with older versions.
-
-
 -- Testing if -Werror=pointer-arith can be used -- compiles
 -- Testing if -Werror=implicit-function-declaration can be used -- compiles
 -- Testing if -fno-strict-aliasing can be used -- compiles
@@ -23,6 +15,51 @@ CMake Deprecation Warning at cmake-build-debug-msys-ucrt/_deps/raylib-src/CMakeL
 -- Compiling with the flags:
 --   PLATFORM=PLATFORM_DESKTOP
 --   GRAPHICS=GRAPHICS_API_OPENGL_33
--- Configuring done (2.0s)
+-- Populating glfw
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
+-- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-subbuild
+[0/7] Performing update step for 'glfw-populate'
+[1/7] No patch step for 'glfw-populate'
+[3/7] No configure step for 'glfw-populate'
+[4/7] No build step for 'glfw-populate'
+[5/7] No install step for 'glfw-populate'
+[6/7] No test step for 'glfw-populate'
+[7/7] Completed 'glfw-populate'
+-- Including Win32 support
+-- Populating glad
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glad-subbuild
+[0/7] Performing update step for 'glad-populate'
+[1/7] No patch step for 'glad-populate'
+[3/7] No configure step for 'glad-populate'
+[4/7] No build step for 'glad-populate'
+[5/7] No install step for 'glad-populate'
+[6/7] No test step for 'glad-populate'
+[7/7] Completed 'glad-populate'
+-- Populating imgui
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/imgui-subbuild
+ninja: no work to do.
+-- Populating imguifiledialog
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/imguifiledialog-subbuild
+[0/7] Performing update step for 'imguifiledialog-populate'
+Already up to date.
+[1/7] No patch step for 'imguifiledialog-populate'
+[3/7] No configure step for 'imguifiledialog-populate'
+[4/7] No build step for 'imguifiledialog-populate'
+[5/7] No install step for 'imguifiledialog-populate'
+[6/7] No test step for 'imguifiledialog-populate'
+[7/7] Completed 'imguifiledialog-populate'
+-- Populating rlimgui
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/rlimgui-subbuild
+ninja: no work to do.
+-- Configuring done (49.9s)
+-- Generating done (0.1s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt

@@ -26,7 +26,8 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
     endif()
 endif()
 
-
+#FetchContent_Declare(gtk GIT_REPOSITORY https://gitlab.gnome.org/GNOME/gtk.git GIT_TAG main)
+#FetchContent_MakeAvailable(gtk)
 
 
 find_package(PkgConfig REQUIRED)
@@ -38,7 +39,55 @@ link_directories(${GTK3_LIBRARY_DIRS})
 add_definitions(${GTK3_CFLAGS_OTHER})
 
 
+include(FetchContent)
 
+FetchContent_Declare(glfw GIT_REPOSITORY https://github.com/glfw/glfw.git GIT_TAG master)
+FetchContent_Declare(glad GIT_REPOSITORY https://github.com/SasLuca/MyGlad.git GIT_TAG master)
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(glfw)
+
+FetchContent_MakeAvailable(glad)
+
+
+FetchContent_Populate(imgui
+        URL https://github.com/ocornut/imgui/archive/docking.zip
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui
+)
+
+set(OpenGL_GL_PREFERENCE "LEGACY")
+find_package(OpenGL 2 REQUIRED)
+#find_package(glfw3 REQUIRED)
+
+add_library(imgui_glfw STATIC
+        imgui/imgui.cpp
+        imgui/imgui_draw.cpp
+        imgui/imgui_demo.cpp
+        imgui/imgui_tables.cpp
+        imgui/imgui_widgets.cpp
+
+        imgui/backends/imgui_impl_glfw.cpp
+        imgui/backends/imgui_impl_opengl2.cpp
+)
+
+
+FetchContent_Declare(ImGuiFileDialog GIT_REPOSITORY https://github.com/aiekick/ImGuiFileDialog.git GIT_TAG master)
+
+FetchContent_MakeAvailable(ImGuiFileDialog)
+
+target_link_libraries(imgui_glfw PUBLIC glfw ${OPENGL_LIBRARIES})
+
+target_include_directories(imgui_glfw PUBLIC ${CMAKE_CURRENT_LIST_DIR}/imgui
+        ${CMAKE_CURRENT_LIST_DIR}/imgui/backends)
+
+target_link_libraries(ImGuiFileDialog PUBLIC imgui_glfw)
+
+
+FetchContent_Declare(rlImGui URL https://github.com/raylib-extras/rlImGui/archive/refs/heads/main.tar.gz)
+
+FetchContent_Populate(rlImGui)
 
 
 add_executable(Kup src/main.cpp
@@ -46,7 +95,10 @@ add_executable(Kup src/main.cpp
         src/TextArea.cpp
         src/TextArea.hpp)
 
-target_link_libraries(Kup raylib ${GTK3_LIBRARIES})
+target_link_libraries(Kup PUBLIC raylib)
+
+
+
 target_include_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 
