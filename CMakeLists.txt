@@ -85,21 +85,35 @@ target_include_directories(imgui_glfw PUBLIC ${CMAKE_CURRENT_LIST_DIR}/imgui
 target_link_libraries(ImGuiFileDialog PUBLIC imgui_glfw)
 
 
-FetchContent_Declare(rlImGui URL https://github.com/raylib-extras/rlImGui/archive/refs/heads/main.tar.gz)
+FetchContent_Populate(rlImGui
+        URL
+        https://github.com/raylib-extras/rlImGui/archive/refs/heads/main.tar.gz
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/rlImGui
+)
 
-FetchContent_Populate(rlImGui)
+add_library(rlimgui STATIC
+            rlImGui/rlImGui.cpp)
+target_link_libraries(rlimgui PUBLIC imgui_glfw)
 
+
+set(EXECUTABLE_OUTPUT_PATH ../bin)
+set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 
 add_executable(Kup src/main.cpp
         src/Button.hpp
         src/TextArea.cpp
         src/TextArea.hpp)
 
-target_link_libraries(Kup PUBLIC raylib)
+target_link_libraries(Kup PUBLIC raylib imgui_glfw rlimgui)
 
 
 
-target_include_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
+
+target_include_directories(Kup PRIVATE
+        cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
+        rlImGui
+        imgui
+)
 target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 
 

@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles\\imgui_glfw.dir\\imgui\\backends\\imgui_impl_glfw.cpp.obj",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

@@ -6,6 +6,10 @@
 //#define RAYGUI_IMPLEMENTATION
 //#include "raygui.h"
 #include <vector>
+#include <imgui.h>
+#include <rlImGui.h>
+#include <rlImGuiColors.h>
+
 
 //#include <gtk/gtk.h>
 //#include <gtk/gtkwindow.h>
@@ -35,18 +39,32 @@ int main(int argc, char **argv)
     SetTargetFPS(120);
 
 
+    rlImGuiSetup(true);
 
 
 
     while (!WindowShouldClose())
     {
+        rlImGuiBegin();
+
+        bool open = true;
+        ImGui::ShowDemoWindow(&open);
+
+        // end ImGui Content
+
+
         text_area->Update();
         BeginDrawing();
         ClearBackground(BLACK);
         text_area->Render();
 
+        rlImGuiEnd();
+
+
         EndDrawing();
     }
+    rlImGuiShutdown();
+
     CloseWindow();
 
     return 0;

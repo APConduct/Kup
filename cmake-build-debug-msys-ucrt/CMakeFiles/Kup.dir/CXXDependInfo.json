@@ -27,9 +27,12 @@
 		"C:\\msys64\\ucrt64\\bin\\..\\include\\glib-2.0",
 		"C:\\msys64\\ucrt64\\bin\\..\\lib\\glib-2.0\\include",
 		"_deps\\raylib-src\\examples\\shapes",
+		"C:\\Users\\ajost1\\CLionProjects\\Kup\\rlImGui",
+		"C:\\Users\\ajost1\\CLionProjects\\Kup\\imgui",
 		"_deps\\raylib-src\\src",
 		"_deps\\raylib-src\\src\\external\\glfw\\include",
-		"_deps\\glfw-src\\include"
+		"_deps\\glfw-src\\include",
+		"C:\\Users\\ajost1\\CLionProjects\\Kup\\imgui\\backends"
 	],
 	"language" : "CXX",
 	"linked-target-dirs" : [],
