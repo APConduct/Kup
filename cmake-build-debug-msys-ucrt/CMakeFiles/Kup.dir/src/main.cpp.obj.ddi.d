@@ -168,4 +168,5 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/Users/ajost1/CLionProjects/Kup/rlImGui/rlImGui.h \
  C:/Users/ajost1/CLionProjects/Kup/rlImGui/extras/IconsFontAwesome6.h \
  C:/Users/ajost1/CLionProjects/Kup/rlImGui/rlImGuiColors.h \
+ C:/msys64/ucrt64/include/lua.h C:/msys64/ucrt64/include/luaconf.h \
  C:/Users/ajost1/CLionProjects/Kup/src/TextArea.hpp

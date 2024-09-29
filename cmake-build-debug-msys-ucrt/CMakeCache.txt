@@ -438,6 +438,15 @@ Kup_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Kup_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup
 
+//Path to a file.
+LUA_INCLUDE_DIR:PATH=C:/Users/ajost1/Lua/5.1/include
+
+//Lua Libraries
+LUA_LIBRARIES:STRING=C:/Users/ajost1/Lua/5.1/lib/lua51.lib
+
+//Path to a library.
+LUA_LIBRARY:FILEPATH=C:/Users/ajost1/Lua/5.1/lib/lua51.lib
+
 //Build fat library for both i386 and x86_64 on macOS
 MACOS_FATLIB:BOOL=OFF
 
@@ -557,6 +566,12 @@ pkgcfg_lib_GTK3_winspool:FILEPATH=C:/msys64/ucrt64/lib/libwinspool.a
 
 //Path to a library.
 pkgcfg_lib_GTK3_z:FILEPATH=C:/msys64/ucrt64/lib/libz.dll.a
+
+//Path to a library.
+pkgcfg_lib_lua54_lua:FILEPATH=C:/msys64/ucrt64/lib/liblua.dll.a
+
+//Path to a library.
+pkgcfg_lib_lua54_m:FILEPATH=C:/msys64/ucrt64/lib/libm.a
 
 //Value Computed by CMake
 raylib_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-build/raylib
@@ -771,6 +786,8 @@ CPACK_SOURCE_7Z-ADVANCED:INTERNAL=1
 CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Have include dinput.h
 DINPUT_H_FOUND:INTERNAL=1
+//Details about finding Lua51
+FIND_PACKAGE_MESSAGE_DETAILS_Lua51:INTERNAL=[C:/Users/ajost1/Lua/5.1/lib/lua51.lib][C:/Users/ajost1/Lua/5.1/include][v5.1.4()]
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[opengl32][c ][v(2)]
 //Details about finding PkgConfig
@@ -818,6 +835,12 @@ GTK3_gtk+-3.0_INCLUDEDIR:INTERNAL=
 GTK3_gtk+-3.0_LIBDIR:INTERNAL=
 GTK3_gtk+-3.0_PREFIX:INTERNAL=
 GTK3_gtk+-3.0_VERSION:INTERNAL=
+//ADVANCED property for variable: LUA_INCLUDE_DIR
+LUA_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LUA_LIBRARIES
+LUA_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LUA_LIBRARY
+LUA_LIBRARY-ADVANCED:INTERNAL=1
 //Replace any OFF by default with ${OFF} to have it covered by
 // this option
 OFF:INTERNAL=OFF
@@ -842,7 +865,48 @@ _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/Kup
 __pkg_config_arguments_GTK3:INTERNAL=REQUIRED;gtk+-3.0
+__pkg_config_arguments_lua54:INTERNAL=REQUIRED;lua5.4
 __pkg_config_checked_GTK3:INTERNAL=1
+__pkg_config_checked_lua54:INTERNAL=1
+lua54_CFLAGS:INTERNAL=-IC:/msys64/ucrt64/bin/../include
+lua54_CFLAGS_I:INTERNAL=
+lua54_CFLAGS_OTHER:INTERNAL=
+lua54_FOUND:INTERNAL=1
+lua54_INCLUDEDIR:INTERNAL=C:/msys64/ucrt64/bin/../include
+lua54_INCLUDE_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../include
+lua54_LDFLAGS:INTERNAL=-LC:/msys64/ucrt64/bin/../lib;-llua;-lm
+lua54_LDFLAGS_OTHER:INTERNAL=
+lua54_LIBDIR:INTERNAL=C:/msys64/ucrt64/bin/../lib
+lua54_LIBRARIES:INTERNAL=lua;m
+lua54_LIBRARY_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../lib
+lua54_LIBS:INTERNAL=
+lua54_LIBS_L:INTERNAL=
+lua54_LIBS_OTHER:INTERNAL=
+lua54_LIBS_PATHS:INTERNAL=
+lua54_MODULE_NAME:INTERNAL=lua5.4
+lua54_PREFIX:INTERNAL=C:/msys64/ucrt64/bin/..
+lua54_STATIC_CFLAGS:INTERNAL=-IC:/msys64/ucrt64/bin/../include
+lua54_STATIC_CFLAGS_I:INTERNAL=
+lua54_STATIC_CFLAGS_OTHER:INTERNAL=
+lua54_STATIC_INCLUDE_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../include
+lua54_STATIC_LDFLAGS:INTERNAL=-LC:/msys64/ucrt64/bin/../lib;-llua;-lm
+lua54_STATIC_LDFLAGS_OTHER:INTERNAL=
+lua54_STATIC_LIBDIR:INTERNAL=
+lua54_STATIC_LIBRARIES:INTERNAL=lua;m
+lua54_STATIC_LIBRARY_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../lib
+lua54_STATIC_LIBS:INTERNAL=
+lua54_STATIC_LIBS_L:INTERNAL=
+lua54_STATIC_LIBS_OTHER:INTERNAL=
+lua54_STATIC_LIBS_PATHS:INTERNAL=
+lua54_VERSION:INTERNAL=5.4.7
+lua54_lua5.4_INCLUDEDIR:INTERNAL=
+lua54_lua5.4_LIBDIR:INTERNAL=
+lua54_lua5.4_PREFIX:INTERNAL=
+lua54_lua5.4_VERSION:INTERNAL=
+lua54_lua54_INCLUDEDIR:INTERNAL=
+lua54_lua54_LIBDIR:INTERNAL=
+lua54_lua54_PREFIX:INTERNAL=
+lua54_lua54_VERSION:INTERNAL=
 //ADVANCED property for variable: pkgcfg_lib_GTK3_atk-1.0
 pkgcfg_lib_GTK3_atk-1.0-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GTK3_cairo
@@ -899,5 +963,9 @@ pkgcfg_lib_GTK3_winmm-ADVANCED:INTERNAL=1
 pkgcfg_lib_GTK3_winspool-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GTK3_z
 pkgcfg_lib_GTK3_z-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_lua54_lua
+pkgcfg_lib_lua54_lua-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_lua54_m
+pkgcfg_lib_lua54_m-ADVANCED:INTERNAL=1
 prefix_result:INTERNAL=C:/msys64/ucrt64/bin/../lib
 

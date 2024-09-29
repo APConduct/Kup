@@ -96,6 +96,21 @@ add_library(rlimgui STATIC
 target_link_libraries(rlimgui PUBLIC imgui_glfw)
 
 
+pkg_check_modules(lua54 REQUIRED lua5.4)
+
+FetchContent_Populate(lua54 URL
+        https://www.lua.org/ftp/lua-5.4.7.tar.gz
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lua54)
+
+file(GLOB lua54_SRC
+        "*.h"
+        "*.c"
+)
+
+#add_library(lua54 STATIC )
+
+
+
 set(EXECUTABLE_OUTPUT_PATH ../bin)
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 
@@ -104,7 +119,7 @@ add_executable(Kup src/main.cpp
         src/TextArea.cpp
         src/TextArea.hpp)
 
-target_link_libraries(Kup PUBLIC raylib imgui_glfw rlimgui)
+target_link_libraries(Kup PUBLIC raylib imgui_glfw rlimgui glfw)
 
 
 
@@ -117,3 +132,12 @@ target_include_directories(Kup PRIVATE
 target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
 
 
+add_executable(rlimgui_docking_example rlImGui/examples/docking_example.cpp)
+
+target_link_libraries(rlimgui_docking_example PUBLIC raylib imgui_glfw rlimgui)
+target_include_directories(rlimgui_docking_example PRIVATE
+        cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
+        rlImGui
+        imgui
+        lua54/src
+)

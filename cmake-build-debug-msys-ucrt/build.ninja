@@ -303,10 +303,10 @@ build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build
 #############################################
 # Link the executable C:\Users\ajost1\CLionProjects\Kup\bin\Kup.exe
 
-build C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a libimgui_glfw.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a
+build C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a libimgui_glfw.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a
   FLAGS = -g
   LINK_FLAGS = -static-libgcc -static-libstdc++
-  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  libimgui_glfw.a  librlimgui.a  -lwinmm  libimgui_glfw.a  -lopengl32  -lglu32  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  libimgui_glfw.a  librlimgui.a  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lwinmm  libimgui_glfw.a  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
   OBJECT_DIR = CMakeFiles\Kup.dir
   POST_BUILD = cd .
@@ -314,6 +314,55 @@ build C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe: CXX_EXECUTABLE_LINKER__Kup
   TARGET_FILE = C:\Users\ajost1\CLionProjects\Kup\bin\Kup.exe
   TARGET_IMPLIB = C:\Users\ajost1\CLionProjects\Kup\bin\libKup.dll.a
   TARGET_PDB = Kup.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target rlimgui_docking_example
+
+
+#############################################
+# Order-only phony target for rlimgui_docking_example
+
+build cmake_object_order_depends_target_rlimgui_docking_example: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imgui_glfw cmake_object_order_depends_target_raylib cmake_object_order_depends_target_rlimgui
+
+build CMakeFiles/rlimgui_docking_example.dir/rlImGui/examples/docking_example.cpp.obj.ddi: CXX_SCAN__rlimgui_docking_example_Debug C$:/Users/ajost1/CLionProjects/Kup/rlImGui/examples/docking_example.cpp || cmake_object_order_depends_target_rlimgui_docking_example
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DLIBDEFLATE_DLL -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples\docking_example.cpp.obj.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples\docking_example.cpp.obj.ddi
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -IC:/msys64/ucrt64/bin/../include/gtk-3.0 -IC:/msys64/ucrt64/bin/../include/pango-1.0 -IC:/msys64/ucrt64/bin/../include/harfbuzz -IC:/msys64/ucrt64/bin/../include/cairo -IC:/msys64/ucrt64/bin/../include/freetype2 -IC:/msys64/ucrt64/bin/../include/pixman-1 -IC:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0 -IC:/msys64/ucrt64/bin/../include/libpng16 -IC:/msys64/ucrt64/bin/../include/webp -IC:/msys64/ucrt64/bin/../include/atk-1.0 -IC:/msys64/ucrt64/bin/../include/fribidi -IC:/msys64/ucrt64/bin/../include/glib-2.0 -IC:/msys64/ucrt64/bin/../lib/glib-2.0/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/rlImGui -IC:/Users/ajost1/CLionProjects/Kup/imgui -IC:/Users/ajost1/CLionProjects/Kup/lua54/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-src/include -IC:/Users/ajost1/CLionProjects/Kup/imgui/backends
+  OBJ_FILE = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples\docking_example.cpp.obj
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples\docking_example.cpp.obj.ddi.i
+
+build CMakeFiles/rlimgui_docking_example.dir/rlImGui/examples/docking_example.cpp.obj: CXX_COMPILER__rlimgui_docking_example_scanned_Debug C$:/Users/ajost1/CLionProjects/Kup/rlImGui/examples/docking_example.cpp | CMakeFiles/rlimgui_docking_example.dir/rlImGui/examples/docking_example.cpp.obj.modmap || cmake_object_order_depends_target_rlimgui_docking_example CMakeFiles/rlimgui_docking_example.dir/CXX.dd
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DLIBDEFLATE_DLL -DPLATFORM_DESKTOP
+  DEP_FILE = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples\docking_example.cpp.obj.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples\docking_example.cpp.obj.modmap
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -IC:/msys64/ucrt64/bin/../include/gtk-3.0 -IC:/msys64/ucrt64/bin/../include/pango-1.0 -IC:/msys64/ucrt64/bin/../include/harfbuzz -IC:/msys64/ucrt64/bin/../include/cairo -IC:/msys64/ucrt64/bin/../include/freetype2 -IC:/msys64/ucrt64/bin/../include/pixman-1 -IC:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0 -IC:/msys64/ucrt64/bin/../include/libpng16 -IC:/msys64/ucrt64/bin/../include/webp -IC:/msys64/ucrt64/bin/../include/atk-1.0 -IC:/msys64/ucrt64/bin/../include/fribidi -IC:/msys64/ucrt64/bin/../include/glib-2.0 -IC:/msys64/ucrt64/bin/../lib/glib-2.0/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/rlImGui -IC:/Users/ajost1/CLionProjects/Kup/imgui -IC:/Users/ajost1/CLionProjects/Kup/lua54/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-src/include -IC:/Users/ajost1/CLionProjects/Kup/imgui/backends
+  OBJECT_DIR = CMakeFiles\rlimgui_docking_example.dir
+  OBJECT_FILE_DIR = CMakeFiles\rlimgui_docking_example.dir\rlImGui\examples
+  dyndep = CMakeFiles/rlimgui_docking_example.dir/CXX.dd
+
+build CMakeFiles/rlimgui_docking_example.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/rlimgui_docking_example.dir/CXXModules.json CMakeFiles/rlimgui_docking_example.dir/rlImGui/examples/docking_example.cpp.obj.modmap: CXX_DYNDEP__rlimgui_docking_example_Debug CMakeFiles/rlimgui_docking_example.dir/rlImGui/examples/docking_example.cpp.obj.ddi | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/rlimgui_docking_example.dir/CXXDependInfo.json
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target rlimgui_docking_example
+
+
+#############################################
+# Link the executable C:\Users\ajost1\CLionProjects\Kup\bin\rlimgui_docking_example.exe
+
+build C$:/Users/ajost1/CLionProjects/Kup/bin/rlimgui_docking_example.exe: CXX_EXECUTABLE_LINKER__rlimgui_docking_example_Debug CMakeFiles/rlimgui_docking_example.dir/rlImGui/examples/docking_example.cpp.obj | _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a libimgui_glfw.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a
+  FLAGS = -g
+  LINK_FLAGS = -static-libgcc -static-libstdc++
+  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  libimgui_glfw.a  librlimgui.a  -lwinmm  libimgui_glfw.a  -lopengl32  -lglu32  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\rlimgui_docking_example.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = C:\Users\ajost1\CLionProjects\Kup\bin\rlimgui_docking_example.exe
+  TARGET_IMPLIB = C:\Users\ajost1\CLionProjects\Kup\bin\librlimgui_docking_example.dll.a
+  TARGET_PDB = rlimgui_docking_example.exe.dbg
 
 
 #############################################
@@ -1614,6 +1663,10 @@ build raylib: phony _deps/raylib-build/raylib/libraylib.a
 
 build rlimgui: phony librlimgui.a
 
+build rlimgui_docking_example: phony C$:/Users/ajost1/CLionProjects/Kup/bin/rlimgui_docking_example.exe
+
+build rlimgui_docking_example.exe: phony C$:/Users/ajost1/CLionProjects/Kup/bin/rlimgui_docking_example.exe
+
 build uninstall: phony _deps/raylib-build/uninstall
 
 build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_mappings
@@ -1626,7 +1679,7 @@ build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt
 
-build all: phony libimgui_glfw.a librlimgui.a C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe _deps/raylib-build/all _deps/glfw-build/all _deps/glad-build/all _deps/imguifiledialog-build/all
+build all: phony libimgui_glfw.a librlimgui.a C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe C$:/Users/ajost1/CLionProjects/Kup/bin/rlimgui_docking_example.exe _deps/raylib-build/all _deps/glfw-build/all _deps/glad-build/all _deps/imguifiledialog-build/all
 
 # =============================================================================
 

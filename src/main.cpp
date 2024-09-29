@@ -9,6 +9,7 @@
 #include <imgui.h>
 #include <rlImGui.h>
 #include <rlImGuiColors.h>
+#include <lua.h>
 
 
 //#include <gtk/gtk.h>

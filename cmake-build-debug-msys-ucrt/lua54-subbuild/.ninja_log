@@ -1,0 +1,21 @@
+# ninja log v6
+5	191	7492946352487260	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-mkdir	3ff810fee0f26dad
+5	191	7492946352487260	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-mkdir	3ff810fee0f26dad
+2699	2879	7492946379361271	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-test	2ea05b60ae00f461
+1995	2165	7492946372232556	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-patch	165a897f302cc8df
+2699	2879	7492946379361271	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-test	2ea05b60ae00f461
+193	1800	7492946368580665	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-download	a54773911aaf2480
+1995	2165	7492946372232556	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-patch	165a897f302cc8df
+193	1800	7492946368580665	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-download	a54773911aaf2480
+1801	1995	7492946370524969	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-update	ab003d6b03ddd022
+2523	2699	7492946377571392	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-install	b52f406f2da85a5d
+1801	1995	7492946370524969	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-update	ab003d6b03ddd022
+2165	2342	7492946374002944	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-configure	ef1d38fb110ab65e
+2342	2522	7492946375804110	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-build	b93d23931a746de6
+2165	2342	7492946374002944	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-configure	ef1d38fb110ab65e
+2342	2522	7492946375804110	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-build	b93d23931a746de6
+2523	2699	7492946377571392	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-install	b52f406f2da85a5d
+2879	3158	7492946382119940	CMakeFiles/lua54-populate-complete	b54612d4f322979d
+2879	3158	7492946382119940	lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-done	b54612d4f322979d
+2879	3158	7492946382119940	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/CMakeFiles/lua54-populate-complete	b54612d4f322979d
+2879	3158	7492946382119940	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild/lua54-populate-prefix/src/lua54-populate-stamp/lua54-populate-done	b54612d4f322979d
