@@ -201,59 +201,13 @@ build libimgui_glfw.a: CXX_STATIC_LIBRARY_LINKER__imgui_glfw_Debug CMakeFiles/im
   TARGET_PDB = imgui_glfw.a.dbg
 
 # =============================================================================
-# Object build statements for STATIC_LIBRARY target rlimgui
-
-
-#############################################
-# Order-only phony target for rlimgui
-
-build cmake_object_order_depends_target_rlimgui: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imgui_glfw
-
-build CMakeFiles/rlimgui.dir/rlImGui/rlImGui.cpp.obj.ddi: CXX_SCAN__rlimgui_Debug C$:/Users/ajost1/CLionProjects/Kup/rlImGui/rlImGui.cpp || cmake_object_order_depends_target_rlimgui
-  DEFINES = -DLIBDEFLATE_DLL
-  DEP_FILE = CMakeFiles\rlimgui.dir\rlImGui\rlImGui.cpp.obj.ddi.d
-  DYNDEP_INTERMEDIATE_FILE = CMakeFiles\rlimgui.dir\rlImGui\rlImGui.cpp.obj.ddi
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -IC:/msys64/ucrt64/bin/../include/gtk-3.0 -IC:/msys64/ucrt64/bin/../include/pango-1.0 -IC:/msys64/ucrt64/bin/../include/harfbuzz -IC:/msys64/ucrt64/bin/../include/cairo -IC:/msys64/ucrt64/bin/../include/freetype2 -IC:/msys64/ucrt64/bin/../include/pixman-1 -IC:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0 -IC:/msys64/ucrt64/bin/../include/libpng16 -IC:/msys64/ucrt64/bin/../include/webp -IC:/msys64/ucrt64/bin/../include/atk-1.0 -IC:/msys64/ucrt64/bin/../include/fribidi -IC:/msys64/ucrt64/bin/../include/glib-2.0 -IC:/msys64/ucrt64/bin/../lib/glib-2.0/include -IC:/Users/ajost1/CLionProjects/Kup/imgui -IC:/Users/ajost1/CLionProjects/Kup/imgui/backends -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-src/include
-  OBJ_FILE = CMakeFiles\rlimgui.dir\rlImGui\rlImGui.cpp.obj
-  PREPROCESSED_OUTPUT_FILE = CMakeFiles\rlimgui.dir\rlImGui\rlImGui.cpp.obj.ddi.i
-
-build CMakeFiles/rlimgui.dir/rlImGui/rlImGui.cpp.obj: CXX_COMPILER__rlimgui_scanned_Debug C$:/Users/ajost1/CLionProjects/Kup/rlImGui/rlImGui.cpp | CMakeFiles/rlimgui.dir/rlImGui/rlImGui.cpp.obj.modmap || cmake_object_order_depends_target_rlimgui CMakeFiles/rlimgui.dir/CXX.dd
-  DEFINES = -DLIBDEFLATE_DLL
-  DEP_FILE = CMakeFiles\rlimgui.dir\rlImGui\rlImGui.cpp.obj.d
-  DYNDEP_MODULE_MAP_FILE = CMakeFiles\rlimgui.dir\rlImGui\rlImGui.cpp.obj.modmap
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -IC:/msys64/ucrt64/bin/../include/gtk-3.0 -IC:/msys64/ucrt64/bin/../include/pango-1.0 -IC:/msys64/ucrt64/bin/../include/harfbuzz -IC:/msys64/ucrt64/bin/../include/cairo -IC:/msys64/ucrt64/bin/../include/freetype2 -IC:/msys64/ucrt64/bin/../include/pixman-1 -IC:/msys64/ucrt64/bin/../include/gdk-pixbuf-2.0 -IC:/msys64/ucrt64/bin/../include/libpng16 -IC:/msys64/ucrt64/bin/../include/webp -IC:/msys64/ucrt64/bin/../include/atk-1.0 -IC:/msys64/ucrt64/bin/../include/fribidi -IC:/msys64/ucrt64/bin/../include/glib-2.0 -IC:/msys64/ucrt64/bin/../lib/glib-2.0/include -IC:/Users/ajost1/CLionProjects/Kup/imgui -IC:/Users/ajost1/CLionProjects/Kup/imgui/backends -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/src/external/glfw/include -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/glfw-src/include
-  OBJECT_DIR = CMakeFiles\rlimgui.dir
-  OBJECT_FILE_DIR = CMakeFiles\rlimgui.dir\rlImGui
-  dyndep = CMakeFiles/rlimgui.dir/CXX.dd
-
-build CMakeFiles/rlimgui.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/rlimgui.dir/CXXModules.json CMakeFiles/rlimgui.dir/rlImGui/rlImGui.cpp.obj.modmap: CXX_DYNDEP__rlimgui_Debug CMakeFiles/rlimgui.dir/rlImGui/rlImGui.cpp.obj.ddi | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/CMakeFiles/rlimgui.dir/CXXDependInfo.json
-
-
-# =============================================================================
-# Link build statements for STATIC_LIBRARY target rlimgui
-
-
-#############################################
-# Link the static library librlimgui.a
-
-build librlimgui.a: CXX_STATIC_LIBRARY_LINKER__rlimgui_Debug CMakeFiles/rlimgui.dir/rlImGui/rlImGui.cpp.obj || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a libimgui_glfw.a
-  LANGUAGE_COMPILE_FLAGS = -g
-  OBJECT_DIR = CMakeFiles\rlimgui.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = librlimgui.a
-  TARGET_PDB = rlimgui.a.dbg
-
-# =============================================================================
 # Object build statements for EXECUTABLE target Kup
 
 
 #############################################
 # Order-only phony target for Kup
 
-build cmake_object_order_depends_target_Kup: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imgui_glfw cmake_object_order_depends_target_raylib cmake_object_order_depends_target_rlimgui
+build cmake_object_order_depends_target_Kup: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_imgui_glfw cmake_object_order_depends_target_raylib
 
 build CMakeFiles/Kup.dir/src/main.cpp.obj.ddi: CXX_SCAN__Kup_Debug C$:/Users/ajost1/CLionProjects/Kup/src/main.cpp || cmake_object_order_depends_target_Kup
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DLIBDEFLATE_DLL -DPLATFORM_DESKTOP
@@ -303,10 +257,10 @@ build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build
 #############################################
 # Link the executable C:\Users\ajost1\CLionProjects\Kup\bin\Kup.exe
 
-build C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a libimgui_glfw.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a librlimgui.a
+build C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libimgui_glfw.a
   FLAGS = -g
   LINK_FLAGS = -static-libgcc -static-libstdc++
-  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  libimgui_glfw.a  librlimgui.a  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lwinmm  libimgui_glfw.a  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  libimgui_glfw.a  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lwinmm  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
   OBJECT_DIR = CMakeFiles\Kup.dir
   POST_BUILD = cd .
@@ -1612,8 +1566,6 @@ build libraylib.a: phony _deps/raylib-build/raylib/libraylib.a
 
 build raylib: phony _deps/raylib-build/raylib/libraylib.a
 
-build rlimgui: phony librlimgui.a
-
 build uninstall: phony _deps/raylib-build/uninstall
 
 build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_mappings
@@ -1626,7 +1578,7 @@ build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt
 
-build all: phony libimgui_glfw.a librlimgui.a C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe _deps/raylib-build/all _deps/glfw-build/all _deps/glad-build/all _deps/imguifiledialog-build/all
+build all: phony libimgui_glfw.a C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe _deps/raylib-build/all _deps/glfw-build/all _deps/glad-build/all _deps/imguifiledialog-build/all
 
 # =============================================================================
 

@@ -31,35 +31,18 @@ int main(int argc, char **argv)
 {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(1600, 960, "Kup");
-
     auto* text_area = new kupui::TextArea();
-
     SetTargetFPS(120);
-
-
-
-
-
     while (!WindowShouldClose())
     {
-
         bool open = true;
-
-        // end ImGui Content
-
-
         text_area->Update();
         BeginDrawing();
         ClearBackground(BLACK);
         text_area->Render();
-
-
-
         EndDrawing();
     }
-
     CloseWindow();
-
     return 0;
 
 }

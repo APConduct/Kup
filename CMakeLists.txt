@@ -85,16 +85,6 @@ target_include_directories(imgui_glfw PUBLIC ${CMAKE_CURRENT_LIST_DIR}/imgui
 target_link_libraries(ImGuiFileDialog PUBLIC imgui_glfw)
 
 
-FetchContent_Populate(rlImGui
-        URL
-        https://github.com/raylib-extras/rlImGui/archive/refs/heads/main.tar.gz
-        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/rlImGui
-)
-
-add_library(rlimgui STATIC
-            rlImGui/rlImGui.cpp)
-target_link_libraries(rlimgui PUBLIC imgui_glfw)
-
 
 pkg_check_modules(lua54 REQUIRED lua5.4)
 
@@ -119,7 +109,7 @@ add_executable(Kup src/main.cpp
         src/TextArea.cpp
         src/TextArea.hpp)
 
-target_link_libraries(Kup PUBLIC raylib imgui_glfw rlimgui glfw)
+target_link_libraries(Kup PUBLIC raylib imgui_glfw glfw)
 
 
 

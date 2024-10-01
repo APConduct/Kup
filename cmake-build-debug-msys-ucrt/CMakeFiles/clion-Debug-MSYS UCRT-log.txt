@@ -55,16 +55,11 @@ Already up to date.
 [5/7] No install step for 'imguifiledialog-populate'
 [6/7] No test step for 'imguifiledialog-populate'
 [7/7] Completed 'imguifiledialog-populate'
--- Populating rlimgui
--- Configuring done (0.1s)
--- Generating done (0.0s)
--- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/rlimgui-subbuild
-ninja: no work to do.
 -- Populating lua54
 -- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/lua54-subbuild
 ninja: no work to do.
--- Configuring done (40.7s)
+-- Configuring done (24.9s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt
