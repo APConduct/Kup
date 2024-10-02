@@ -11,13 +11,6 @@
 
 namespace kupui {
 
-typedef struct cursor
-{
-    Vector2 position;
-    char symbol;
-    Color color;
-    int size;
-};
 
 
 class TextArea {
@@ -29,9 +22,9 @@ class TextArea {
         this->text = "";
         this->pos_x = 0;
         this->pos_y = 0;
+        this->color = WHITE;
+        this->fontSize = 20;
     };
-    TextArea(int width, int height);
-    TextArea(int width, int height, Color color);
     TextArea(int width, int height, Color color, char symbol);
     TextArea(int width, int height, Color color, char symbol, int fontSize);
     ~TextArea();
@@ -59,20 +52,15 @@ class TextArea {
     {
         std::string text = this->text;
         text += this->current_line;
-        DrawText(text.c_str(), 0, 0, 20, WHITE);
+        DrawText(text.c_str(), 0, 0, 20, this->color);
     };
     void DrawCursor();
     void UpdateCursor();
-    cursor cursor{};
-
-    protected:
-    int width, height;
+protected:
+    //int width, height;
     int pos_x, pos_y;
-    Color color;
-    Font* font;
+    Color color{};
     int fontSize;
-    bool focused;
-    int padding;
     const char * text;
     std::vector<std::string> text_lines;
     std::string current_line;

@@ -6,12 +6,9 @@
 //#define RAYGUI_IMPLEMENTATION
 //#include "raygui.h"
 #include <vector>
-#include <lua.h>
-
-
-//#include <gtk/gtk.h>
-//#include <gtk/gtkwindow.h>
+#include <lualib.h>
 #include "TextArea.hpp"
+
 
 // TODO - implement cursor struct
 
@@ -33,6 +30,9 @@ int main(int argc, char **argv)
     InitWindow(1600, 960, "Kup");
     auto* text_area = new kupui::TextArea();
     SetTargetFPS(120);
+
+
+
     while (!WindowShouldClose())
     {
         bool open = true;
