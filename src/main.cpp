@@ -6,11 +6,14 @@
 //#define RAYGUI_IMPLEMENTATION
 //#include "raygui.h"
 #include <vector>
-#include <lualib.h>
+#include <tinyfiledialogs.h>
+#include <json/json.h>
+#include <lua.hpp>
 #include "TextArea.hpp"
 
 
-// TODO - implement cursor struct
+#define RL_DEF_FONT_JUMP_Y 15
+#define CURSOR_JESUS_SPACE 2
 
 enum hue
 {
@@ -31,15 +34,18 @@ int main(int argc, char **argv)
     auto* text_area = new kupui::TextArea();
     SetTargetFPS(120);
 
+    int text_cursor_pos_x =0, text_cursor_pos_y =0;
 
 
     while (!WindowShouldClose())
     {
-        bool open = true;
         text_area->Update();
+        text_cursor_pos_x = CURSOR_JESUS_SPACE + MeasureText(text_area->get_current_line().substr(0,text_area->get_cursor_index_x()).c_str(), text_area->get_fontSize());
+        text_cursor_pos_y = RL_DEF_FONT_JUMP_Y * (text_area->get_lines());
         BeginDrawing();
         ClearBackground(BLACK);
         text_area->Render();
+        DrawText("|", text_cursor_pos_x, text_cursor_pos_y, text_area->get_fontSize(), SKYBLUE);
         EndDrawing();
     }
     CloseWindow();

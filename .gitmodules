@@ -1,0 +1,3 @@
+[submodule "libtinyfiledialogs"]
+	path = src/ext/tfd
+	url = https://github.com/native-toolkit/libtinyfiledialogs.git

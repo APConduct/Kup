@@ -1,0 +1,13 @@
+# Target labels
+ raylua
+# Source files and their labels
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/raylua
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/raylua.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/raylua-complete.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-build.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-configure.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-download.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-install.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-mkdir.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-patch.rule
+C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/raylua-prefix/src/raylua-stamp/raylua-update.rule
