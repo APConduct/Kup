@@ -80,9 +80,10 @@ class TextArea {
                 {
                     this->cursor.index_y--;
                     this->lines--;
+                    this->cursor.index_x = static_cast<int>(this->current_line.length());
                 }
                 this->text.pop_back();
-                this->cursor.index_x = static_cast<int>(this->current_line.length());
+
             }
         }
 
