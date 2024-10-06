@@ -1,3 +1,6 @@
 [submodule "libtinyfiledialogs"]
 	path = src/ext/tfd
 	url = https://github.com/native-toolkit/libtinyfiledialogs.git
+[submodule "src/ext/nuklear"]
+	path = src/ext/nuklear
+	url = https://github.com/vurtun/nuklear.git

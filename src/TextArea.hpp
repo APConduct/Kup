@@ -30,21 +30,53 @@ class TextArea {
         this->cursor.index_x = 0;
         this->cursor.index_y = 0;
         this->cursor.index_g = 0;
-        this->cursor.pre_str = "";
         this->cursor.symbol = *"|";
+
+        this->auto_backspace = false;
+        this->backspace_frame_counter = 0;
+
+
     };
-    TextArea(int cursor_i_y, int cursor_i_x, const char *symbol);
-    TextArea(int width, int height, Color color, char symbol, int fontSize);
+    TextArea(const int pos_x, const int pos_y)
+    {
+        this->text = "";
+        this->pos_x = pos_x;
+        this->pos_y = pos_y;
+        this->color = WHITE;
+        this->fontSize = 20;
+        this->font = GetFontDefault();
+        this->lines = 0;
+        this->focused = true;
+        this->cursor.index_x = 0;
+        this->cursor.index_y = 0;
+        this->cursor.index_g = 0;
+        this->cursor.symbol = *"|";
+
+        this->auto_backspace = false;
+        this->backspace_frame_counter = 0;
+    };
     ~TextArea();
+    [[nodiscard]] int get_pos_y() const
+    {
+        return this->pos_y;
+    };
 
     struct cursor
     {
         int index_x{};
         int index_y{};
         int index_g{};
-        std::string pre_str;
         char symbol{};
     } cursor;
+    void set_pos_x(const int x)
+    {
+        this->pos_x = x;
+    }
+    [[nodiscard]] int get_pos_x() const
+    {
+        return this->pos_x;
+    }
+
     void Update()
     {
         int char_key = GetCharPressed();
@@ -98,20 +130,31 @@ class TextArea {
             this->cursor.index_x = 0;
         }
 
-        if(IsKeyPressed(KEY_LEFT))
-        {
-            this->cursor.index_x--;
-        }
+        //if(IsKeyPressed(KEY_LEFT))
+        //{
+        //    this->cursor.index_x--;
+        //}
 
-        printf("%d", this->cursor.index_g);
-        printf("%llu", this->text.length());
+        //printf("%d", this->cursor.index_g);
+        //o8xisprintf("%llu", this->text.length());
 
     };
     void Render() const
     {
-        const std::string text = this->text;
-        //text += this->current_line;
-        DrawText(text.c_str(), this->pos_x, this->pos_y, this->fontSize, this->color);
+        //this->text_lines.push_back(this->current_line);
+        int start_y = 0;
+        for(const auto & text_line : this->text_lines)
+        {
+            std::string line = this->current_line;
+            DrawText(text_line.c_str(), this->pos_x, this->pos_y + (this->font.baseSize * 3 * start_y), this->fontSize, this->color);
+            start_y ++;
+        }
+        DrawText(this->current_line.c_str(), this->pos_x,this->pos_y + (this->font.baseSize * 3 * start_y), this->fontSize, this->color);
+
+        //this->text_lines.pop_back();
+
+        //DrawText(this->text.c_str(), this->pos_x, this->pos_y, this->fontSize, this->color);
+        //DrawTextEx(this->get_font(), this->text.c_str(), Vector2(static_cast<float>(this->pos_x), static_cast<float>(this->pos_y)), static_cast<float>(this->fontSize), 2, WHITE);
     };
     [[nodiscard]] const char *get_current_line() const
     {
@@ -142,20 +185,19 @@ class TextArea {
     {
         return this->cursor.index_x;
     }
-
+    std::vector<std::string> text_lines;
+    std::string text;
 protected:
     //int width, height;
     int pos_x, pos_y;
     Color color{};
     int fontSize;
-    std::string text;
-    std::vector<std::string> text_lines;
     std::string current_line;
     Font font{};
     int lines;
     bool focused;
-
-
+    bool auto_backspace;
+    int backspace_frame_counter;
 };
 
 } // kupui
