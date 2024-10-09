@@ -39,6 +39,8 @@ class TextArea {
     };
     TextArea(const int pos_x, const int pos_y)
     {
+        this->text_lines.push_back("");
+
         this->text = "";
         this->pos_x = pos_x;
         this->pos_y = pos_y;
@@ -85,8 +87,10 @@ class TextArea {
             if ((char_key >= 32) && (char_key < 127))
             {
 
+                // TODO - CHANGE INPUT INCREMENT TO INSERTION
                 this->text += static_cast<char>(char_key);
-                this->current_line += static_cast<char>(char_key);
+                this->text_lines.at(this->cursor.index_y) += static_cast<char>(char_key);
+
 
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
@@ -96,25 +100,22 @@ class TextArea {
 
         if (IsKeyPressed(KEY_BACKSPACE))
         {
-            if (!this->text.empty())
+            if (this->cursor.index_g > 0)
             {
-                if(!this->current_line.empty())
+                if(this->cursor.index_x > 0)
                 {
-                    this->current_line.pop_back();
+                    this->text_lines.at(this->cursor.index_y).erase(this->cursor.index_x - 1);
                     this->cursor.index_x--;
                 }else
                 {
-                    this->current_line = this->text_lines.back();
-                    this->text_lines.pop_back();
-                }
-                this->cursor.index_g--;
-                if (this->text.back() == '\n')
-                {
+                    this->text_lines.at(this->cursor.index_y-1).append(this->text_lines.at(this->cursor.index_y));
+                    this->text_lines.erase(this->text_lines.begin() + this->cursor.index_y);
                     this->cursor.index_y--;
                     this->lines--;
-                    this->cursor.index_x = static_cast<int>(this->current_line.length());
+                    this->cursor.index_x = static_cast<int>(this->text_lines.at(cursor.index_y).size());
                 }
-                this->text.pop_back();
+                this->cursor.index_g--;
+                this->text.erase(this->cursor.index_g);
 
             }
         }
@@ -125,8 +126,10 @@ class TextArea {
             this->cursor.index_y++;
             this->cursor.index_g++;
             this->text.append("\n");
-            this->text_lines.push_back(this->current_line);
-            this->current_line = "";
+            //this->text_lines.push_back(this->current_line);
+            const auto new_guy = "";
+            this->text_lines.insert(this->text_lines.begin() + this->cursor.index_y, new_guy);
+            //this->current_line = "";
             this->cursor.index_x = 0;
         }
 
@@ -136,7 +139,11 @@ class TextArea {
         //}
 
         //printf("%d", this->cursor.index_g);
-        //o8xisprintf("%llu", this->text.length());
+        //printf("%llu", this->text.length());
+
+        this->text.append("\n");
+        printf(this->text.c_str());
+        this->text.pop_back();
 
     };
     void Render() const
@@ -162,7 +169,7 @@ class TextArea {
     }
     std::string get_current_line()
     {
-        return current_line;
+        return this->text_lines.at(this->cursor.index_y);
     }
     [[nodiscard]] Font get_font() const
     {
