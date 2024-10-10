@@ -1,0 +1,21 @@
+# ninja log v6
+5	209	7502240897211859	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-mkdir	80c797a46596691e
+5822	6057	7502240955696294	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-build	65f3eadb93c3f42a
+5202	5497	7502240950050962	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-patch	8dd9a7412ee6d7e4
+5	209	7502240897211859	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-mkdir	80c797a46596691e
+6630	6993	7502240965049272	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/CMakeFiles/raygui-populate-complete	2166809e541cafbf
+211	4960	7502240944682308	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-download	6fc74e7d561f38a
+6630	6993	7502240965049272	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-done	2166809e541cafbf
+4961	5201	7502240947141553	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-update	30ca3fab4f8b6c24
+211	4960	7502240944682308	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-download	6fc74e7d561f38a
+4961	5201	7502240947141553	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-update	30ca3fab4f8b6c24
+5202	5497	7502240950050962	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-patch	8dd9a7412ee6d7e4
+5498	5821	7502240953307477	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-configure	ee05e49fc3d7def3
+5498	5821	7502240953307477	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-configure	ee05e49fc3d7def3
+5822	6057	7502240955696294	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-build	65f3eadb93c3f42a
+6314	6629	7502240961347944	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-test	2f00c81efe25351a
+6058	6313	7502240958181276	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-install	3252cb76fe5c437f
+6058	6313	7502240958181276	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-install	3252cb76fe5c437f
+6314	6629	7502240961347944	raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-test	2f00c81efe25351a
+6630	6993	7502240965049272	CMakeFiles/raygui-populate-complete	2166809e541cafbf
+6630	6993	7502240965049272	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-done	2166809e541cafbf

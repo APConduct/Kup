@@ -88,8 +88,12 @@ class TextArea {
             {
 
                 // TODO - CHANGE INPUT INCREMENT TO INSERTION
-                this->text += static_cast<char>(char_key);
-                this->text_lines.at(this->cursor.index_y) += static_cast<char>(char_key);
+                this->text_lines.at(this->cursor.index_y).insert(
+                    this->text_lines.at(this->cursor.index_y).begin() + this->cursor.index_x,
+                    static_cast<char>(char_key));
+                this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
+                //this->text += static_cast<char>(char_key);
+                //this->text_lines.at(this->cursor.index_y) += static_cast<char>(char_key);
 
 
                 this->cursor.index_g ++;
@@ -156,7 +160,6 @@ class TextArea {
             DrawText(text_line.c_str(), this->pos_x, this->pos_y + (this->font.baseSize * 3 * start_y), this->fontSize, this->color);
             start_y ++;
         }
-        DrawText(this->current_line.c_str(), this->pos_x,this->pos_y + (this->font.baseSize * 3 * start_y), this->fontSize, this->color);
 
         //this->text_lines.pop_back();
 

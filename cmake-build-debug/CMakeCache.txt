@@ -341,11 +341,18 @@ FETCHCONTENT_FULLY_DISCONNECTED:BOOL=OFF
 FETCHCONTENT_QUIET:BOOL=ON
 
 //When not empty, overrides where to find pre-populated content
+// for raygui
+FETCHCONTENT_SOURCE_DIR_RAYGUI:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for raylib
 FETCHCONTENT_SOURCE_DIR_RAYLIB:PATH=
 
 //Enables UPDATE_DISCONNECTED behavior for all content population
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of raygui
+FETCHCONTENT_UPDATES_DISCONNECTED_RAYGUI:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of raylib
 FETCHCONTENT_UPDATES_DISCONNECTED_RAYLIB:BOOL=OFF
@@ -422,11 +429,8 @@ USE_EXTERNAL_GLFW:STRING=OFF
 //Compile static library as position-independent code
 WITH_PIC:BOOL=OFF
 
-//Path to a library.
-pkgcfg_lib_lua54_lua:FILEPATH=C:/msys64/ucrt64/lib/liblua.dll.a
-
-//Path to a library.
-pkgcfg_lib_lua54_m:FILEPATH=C:/msys64/ucrt64/lib/libm.a
+//The directory containing a CMake configuration file for raygui.
+raygui_DIR:PATH=raygui_DIR-NOTFOUND
 
 //Value Computed by CMake
 raylib_BINARY_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-build/raylib
@@ -675,46 +679,4 @@ XINPUT_H_FOUND:INTERNAL=1
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/Kup
-__pkg_config_arguments_lua54:INTERNAL=REQUIRED;lua5.4
-__pkg_config_checked_lua54:INTERNAL=1
-lua54_CFLAGS:INTERNAL=-IC:/msys64/ucrt64/bin/../include
-lua54_CFLAGS_I:INTERNAL=
-lua54_CFLAGS_OTHER:INTERNAL=
-lua54_FOUND:INTERNAL=1
-lua54_INCLUDEDIR:INTERNAL=C:/msys64/ucrt64/bin/../include
-lua54_INCLUDE_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../include
-lua54_LDFLAGS:INTERNAL=-LC:/msys64/ucrt64/bin/../lib;-llua;-lm
-lua54_LDFLAGS_OTHER:INTERNAL=
-lua54_LIBDIR:INTERNAL=C:/msys64/ucrt64/bin/../lib
-lua54_LIBRARIES:INTERNAL=lua;m
-lua54_LIBRARY_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../lib
-lua54_LIBS:INTERNAL=
-lua54_LIBS_L:INTERNAL=
-lua54_LIBS_OTHER:INTERNAL=
-lua54_LIBS_PATHS:INTERNAL=
-lua54_MODULE_NAME:INTERNAL=lua5.4
-lua54_PREFIX:INTERNAL=C:/msys64/ucrt64/bin/..
-lua54_STATIC_CFLAGS:INTERNAL=-IC:/msys64/ucrt64/bin/../include
-lua54_STATIC_CFLAGS_I:INTERNAL=
-lua54_STATIC_CFLAGS_OTHER:INTERNAL=
-lua54_STATIC_INCLUDE_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../include
-lua54_STATIC_LDFLAGS:INTERNAL=-LC:/msys64/ucrt64/bin/../lib;-llua;-lm
-lua54_STATIC_LDFLAGS_OTHER:INTERNAL=
-lua54_STATIC_LIBDIR:INTERNAL=
-lua54_STATIC_LIBRARIES:INTERNAL=lua;m
-lua54_STATIC_LIBRARY_DIRS:INTERNAL=C:/msys64/ucrt64/bin/../lib
-lua54_STATIC_LIBS:INTERNAL=
-lua54_STATIC_LIBS_L:INTERNAL=
-lua54_STATIC_LIBS_OTHER:INTERNAL=
-lua54_STATIC_LIBS_PATHS:INTERNAL=
-lua54_VERSION:INTERNAL=5.4.7
-lua54_lua5.4_INCLUDEDIR:INTERNAL=
-lua54_lua5.4_LIBDIR:INTERNAL=
-lua54_lua5.4_PREFIX:INTERNAL=
-lua54_lua5.4_VERSION:INTERNAL=
-//ADVANCED property for variable: pkgcfg_lib_lua54_lua
-pkgcfg_lib_lua54_lua-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: pkgcfg_lib_lua54_m
-pkgcfg_lib_lua54_m-ADVANCED:INTERNAL=1
-prefix_result:INTERNAL=C:/msys64/ucrt64/bin/../lib
 
