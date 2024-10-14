@@ -39,7 +39,7 @@ class TextArea {
     };
     TextArea(const int pos_x, const int pos_y)
     {
-        this->text_lines.push_back("");
+        this->text_lines.insert(text_lines.begin(), "");
 
         this->text = "";
         this->pos_x = pos_x;
@@ -92,9 +92,6 @@ class TextArea {
                     this->text_lines.at(this->cursor.index_y).begin() + this->cursor.index_x,
                     static_cast<char>(char_key));
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
-                //this->text += static_cast<char>(char_key);
-                //this->text_lines.at(this->cursor.index_y) += static_cast<char>(char_key);
-
 
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
@@ -108,7 +105,7 @@ class TextArea {
             {
                 if(this->cursor.index_x > 0)
                 {
-                    this->text_lines.at(this->cursor.index_y).erase(this->cursor.index_x - 1);
+                    this->text_lines.at(this->cursor.index_y).erase(this->cursor.index_x - 1, 1);
                     this->cursor.index_x--;
                 }else
                 {
@@ -126,21 +123,42 @@ class TextArea {
 
         if (IsKeyPressed(KEY_ENTER))
         {
+            
             this->lines++;
             this->cursor.index_y++;
             this->cursor.index_g++;
-            this->text.append("\n");
-            //this->text_lines.push_back(this->current_line);
+            this->text.insert(this->cursor.index_g-1, "\n");
             const auto new_guy = "";
             this->text_lines.insert(this->text_lines.begin() + this->cursor.index_y, new_guy);
-            //this->current_line = "";
             this->cursor.index_x = 0;
         }
+        if(IsKeyPressed(KEY_LEFT))
+        {
+            if(this->cursor.index_g > 0)
+            {
+                if (this->cursor.index_x > 0)
+                {
+                    this->cursor.index_x--;
+                }
+                else
+                {
+                    --this->cursor.index_y;
+                    this->cursor.index_x = static_cast<int>(this->text_lines.at(this->cursor.index_y).size());
+                }
+                this->cursor.index_g--;
+            };
+        }
+        if(IsKeyPressed(KEY_RIGHT))
+        {
+            if(this->cursor.index_g <= this->text.size())
+            {
 
-        //if(IsKeyPressed(KEY_LEFT))
-        //{
-        //    this->cursor.index_x--;
-        //}
+                this->cursor.index_x++;
+                this->cursor.index_g++;
+            }
+
+        }
+
 
         //printf("%d", this->cursor.index_g);
         //printf("%llu", this->text.length());

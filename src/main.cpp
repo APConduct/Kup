@@ -1,16 +1,18 @@
-#include <iostream>
-#include <unistd.h>
 #include <fstream>
 #include <raylib.h>
-//#include "Button.hpp"
 #define RAYGUI_IMPLEMENTATION
+
 #include <raygui.h>
-#include <vector>
+
 #include <tinyfiledialogs.h>
-#include <json/json.h>
-#include <lua.hpp>
-#include <lualib.h>
+
+//#include <json/json.h>
+//#include <lua.hpp>
+//#include <lualib.h>
+
 #include "TextArea.hpp"
+
+//#include "Button.hpp"
 
 
 #define RL_DEF_FONT_JUMP_Y 15
@@ -52,7 +54,7 @@ int main(int argc, char **argv)
 
         text_cursor_pos_y =
             text_area->get_pos_y()
-            + (text_area->get_font().baseSize * 3 * text_area->get_lines());
+            + (text_area->get_font().baseSize * 3 * text_area->get_cursor_index_y());
         BeginDrawing();
         ClearBackground(BLACK);
         text_area->Render();

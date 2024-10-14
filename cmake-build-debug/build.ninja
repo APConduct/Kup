@@ -55,7 +55,7 @@ build CMakeFiles/tinyfiledialogs.dir/src/ext/tfd/tinyfiledialogs.c.obj: C_COMPIL
   OBJECT_DIR = CMakeFiles\tinyfiledialogs.dir
   OBJECT_FILE_DIR = CMakeFiles\tinyfiledialogs.dir\src\ext\tfd
   TARGET_COMPILE_PDB = CMakeFiles\tinyfiledialogs.dir\tinyfiledialogs.pdb
-  TARGET_PDB = C:\Users\ajost1\CLionProjects\Kup\lib\libtinyfiledialogs.pdb
+  TARGET_PDB = libtinyfiledialogs.pdb
 
 
 # =============================================================================
@@ -63,16 +63,16 @@ build CMakeFiles/tinyfiledialogs.dir/src/ext/tfd/tinyfiledialogs.c.obj: C_COMPIL
 
 
 #############################################
-# Link the static library C:\Users\ajost1\CLionProjects\Kup\lib\libtinyfiledialogs.a
+# Link the static library libtinyfiledialogs.a
 
-build C$:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a: C_STATIC_LIBRARY_LINKER__tinyfiledialogs_Debug CMakeFiles/tinyfiledialogs.dir/src/ext/tfd/tinyfiledialogs.c.obj
+build libtinyfiledialogs.a: C_STATIC_LIBRARY_LINKER__tinyfiledialogs_Debug CMakeFiles/tinyfiledialogs.dir/src/ext/tfd/tinyfiledialogs.c.obj
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles\tinyfiledialogs.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\tinyfiledialogs.dir\tinyfiledialogs.pdb
-  TARGET_FILE = C:\Users\ajost1\CLionProjects\Kup\lib\libtinyfiledialogs.a
-  TARGET_PDB = C:\Users\ajost1\CLionProjects\Kup\lib\libtinyfiledialogs.pdb
+  TARGET_FILE = libtinyfiledialogs.a
+  TARGET_PDB = libtinyfiledialogs.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Kup
@@ -101,7 +101,7 @@ build CMakeFiles/Kup.dir/src/main.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C$:/U
   OBJECT_DIR = CMakeFiles\Kup.dir
   OBJECT_FILE_DIR = CMakeFiles\Kup.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\Kup.dir\
-  TARGET_PDB = C:\Users\ajost1\CLionProjects\Kup\bin\Kup.pdb
+  TARGET_PDB = Kup.pdb
   dyndep = CMakeFiles/Kup.dir/CXX.dd
 
 build CMakeFiles/Kup.dir/src/TextArea.cpp.obj.ddi: CXX_SCAN__Kup_Debug C$:/Users/ajost1/CLionProjects/Kup/src/TextArea.cpp || cmake_object_order_depends_target_Kup
@@ -122,7 +122,7 @@ build CMakeFiles/Kup.dir/src/TextArea.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C
   OBJECT_DIR = CMakeFiles\Kup.dir
   OBJECT_FILE_DIR = CMakeFiles\Kup.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\Kup.dir\
-  TARGET_PDB = C:\Users\ajost1\CLionProjects\Kup\bin\Kup.pdb
+  TARGET_PDB = Kup.pdb
   dyndep = CMakeFiles/Kup.dir/CXX.dd
 
 build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/Kup.dir/CXXModules.json CMakeFiles/Kup.dir/src/main.cpp.obj.modmap CMakeFiles/Kup.dir/src/TextArea.cpp.obj.modmap: CXX_DYNDEP__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj.ddi CMakeFiles/Kup.dir/src/TextArea.cpp.obj.ddi | C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/Kup.dir/CXXDependInfo.json
@@ -133,20 +133,19 @@ build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build
 
 
 #############################################
-# Link the executable C:\Users\ajost1\CLionProjects\Kup\bin\Kup.exe
+# Link the executable Kup.exe
 
-build C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/lib/libraylib.a C$:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a || C$:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a _deps/raylib-build/lib/libraylib.a _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a
+build Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a libtinyfiledialogs.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libtinyfiledialogs.a
   FLAGS = -g
-  LINK_FLAGS = -static-libgcc -static-libstdc++
-  LINK_LIBRARIES = _deps/raylib-build/lib/libraylib.a  -lliblua  C:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a  -lopengl32  -lglu32  -lwinmm  _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  -lliblua  libtinyfiledialogs.a  -lopengl32  -lglu32  -lwinmm  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
   OBJECT_DIR = CMakeFiles\Kup.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\Kup.dir\
-  TARGET_FILE = C:\Users\ajost1\CLionProjects\Kup\bin\Kup.exe
-  TARGET_IMPLIB = C:\Users\ajost1\CLionProjects\Kup\bin\libKup.dll.a
-  TARGET_PDB = C:\Users\ajost1\CLionProjects\Kup\bin\Kup.pdb
+  TARGET_FILE = Kup.exe
+  TARGET_IMPLIB = libKup.dll.a
+  TARGET_PDB = Kup.pdb
 
 
 #############################################
@@ -366,7 +365,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.obj: C_COMPILER__r
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.obj: C_COMPILER__raylib_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/rmodels.c || cmake_object_order_depends_target_raylib
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
@@ -376,7 +375,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.obj: C_COMPILER_
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.obj: C_COMPILER__raylib_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/rshapes.c || cmake_object_order_depends_target_raylib
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
@@ -386,7 +385,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.obj: C_COMPILER_
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.obj: C_COMPILER__raylib_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/rtext.c || cmake_object_order_depends_target_raylib
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
@@ -396,7 +395,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.obj: C_COMPILER__r
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.obj: C_COMPILER__raylib_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/rtextures.c || cmake_object_order_depends_target_raylib
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
@@ -406,7 +405,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.obj: C_COMPILE
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.obj: C_COMPILER__raylib_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/utils.c || cmake_object_order_depends_target_raylib
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
@@ -416,7 +415,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.obj: C_COMPILER__r
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.obj: C_COMPILER__raylib_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/raudio.c || cmake_object_order_depends_target_raylib
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
@@ -426,7 +425,7 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.obj: C_COMPILER__
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 
 # =============================================================================
@@ -434,16 +433,16 @@ build _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.obj: C_COMPILER__
 
 
 #############################################
-# Link the static library _deps\raylib-build\lib\libraylib.a
+# Link the static library _deps\raylib-build\raylib\libraylib.a
 
-build _deps/raylib-build/lib/libraylib.a: C_STATIC_LIBRARY_LINKER__raylib_Debug _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.obj || _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a
+build _deps/raylib-build/raylib/libraylib.a: C_STATIC_LIBRARY_LINKER__raylib_Debug _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.obj _deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.obj || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
   LANGUAGE_COMPILE_FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raylib.pdb
-  TARGET_FILE = _deps\raylib-build\lib\libraylib.a
-  TARGET_PDB = _deps\raylib-build\lib\libraylib.pdb
+  TARGET_FILE = _deps\raylib-build\raylib\libraylib.a
+  TARGET_PDB = _deps\raylib-build\raylib\libraylib.pdb
 
 
 #############################################
@@ -650,7 +649,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/init.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -660,7 +659,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/input.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -670,7 +669,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.ob
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/monitor.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -680,7 +679,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/platform.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -690,7 +689,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/vulkan.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -700,7 +699,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/window.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -710,7 +709,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/egl_context.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -720,7 +719,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_contex
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/osmesa_context.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -730,7 +729,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_con
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/null_init.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -740,7 +739,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/null_monitor.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -750,7 +749,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monit
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/null_window.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -760,7 +759,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_windo
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/null_joystick.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -770,7 +769,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joyst
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_module.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -780,7 +779,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_modu
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_time.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -790,7 +789,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_thread.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -800,7 +799,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thre
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_init.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -810,7 +809,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_joystick.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -820,7 +819,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joys
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_monitor.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -830,7 +829,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_moni
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/win32_window.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -840,7 +839,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_wind
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj: C_COMPILER__glfw_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/src/wgl_context.c || cmake_object_order_depends_target_glfw
   DEFINES = -DUNICODE -DWINVER=0x0501 -D_GLFW_WIN32 -D_UNICODE
@@ -850,7 +849,7 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_contex
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 
 # =============================================================================
@@ -858,16 +857,16 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_contex
 
 
 #############################################
-# Link the static library _deps\raylib-build\raylib\external\glfw\lib\libglfw3.a
+# Link the static library _deps\raylib-build\raylib\external\glfw\src\libglfw3.a
 
-build _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj
+build _deps/raylib-build/raylib/external/glfw/src/libglfw3.a: C_STATIC_LIBRARY_LINKER__glfw_Debug _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj
   LANGUAGE_COMPILE_FLAGS = -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\glfw.pdb
-  TARGET_FILE = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.a
-  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\lib\libglfw3.pdb
+  TARGET_FILE = _deps\raylib-build\raylib\external\glfw\src\libglfw3.a
+  TARGET_PDB = _deps\raylib-build\raylib\external\glfw\src\libglfw3.pdb
 
 
 #############################################
@@ -975,21 +974,17 @@ build _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings | $
 # =============================================================================
 # Target aliases.
 
-build Kup: phony C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe
+build Kup: phony Kup.exe
 
-build Kup.exe: phony C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe
+build glfw: phony _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
 
-build glfw: phony _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a
+build libglfw3.a: phony _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
 
-build libglfw3.a: phony _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a
+build libraylib.a: phony _deps/raylib-build/raylib/libraylib.a
 
-build libraylib.a: phony _deps/raylib-build/lib/libraylib.a
+build raylib: phony _deps/raylib-build/raylib/libraylib.a
 
-build libtinyfiledialogs.a: phony C$:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a
-
-build raylib: phony _deps/raylib-build/lib/libraylib.a
-
-build tinyfiledialogs: phony C$:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a
+build tinyfiledialogs: phony libtinyfiledialogs.a
 
 build uninstall: phony _deps/raylib-build/uninstall
 
@@ -1003,7 +998,7 @@ build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug
 
-build all: phony C$:/Users/ajost1/CLionProjects/Kup/lib/libtinyfiledialogs.a C$:/Users/ajost1/CLionProjects/Kup/bin/Kup.exe _deps/raylib-build/all
+build all: phony libtinyfiledialogs.a Kup.exe _deps/raylib-build/all
 
 # =============================================================================
 
@@ -1017,7 +1012,7 @@ build _deps/raylib-build/all: phony _deps/raylib-build/raylib/all
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-build/raylib
 
-build _deps/raylib-build/raylib/all: phony _deps/raylib-build/lib/libraylib.a _deps/raylib-build/raylib/external/glfw/all
+build _deps/raylib-build/raylib/all: phony _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/all
 
 # =============================================================================
 
@@ -1031,7 +1026,7 @@ build _deps/raylib-build/raylib/external/glfw/all: phony _deps/raylib-build/rayl
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-build/raylib/external/glfw/src
 
-build _deps/raylib-build/raylib/external/glfw/src/all: phony _deps/raylib-build/raylib/external/glfw/lib/libglfw3.a
+build _deps/raylib-build/raylib/external/glfw/src/all: phony _deps/raylib-build/raylib/external/glfw/src/libglfw3.a
 
 # =============================================================================
 # Built-in targets

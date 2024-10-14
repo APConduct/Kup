@@ -5,9 +5,11 @@ project(Kup)
 set(CMAKE_CXX_STANDARD 20)
 
 
-set(EXECUTABLE_OUTPUT_PATH ../bin)
-set(LIBRARY_OUTPUT_PATH  ../lib)
-set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+# UNCOMMENT ON INSTALL/RELEASE
+
+# set(EXECUTABLE_OUTPUT_PATH ../bin)
+# set(LIBRARY_OUTPUT_PATH  ../lib)
+# set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 
 
 # Dependencies
