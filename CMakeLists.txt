@@ -81,18 +81,18 @@ find_package(PkgConfig REQUIRED)
 
 
 
-set(tinyfiledialogs_SRC src/ext/tfd)
-
-
-add_library(tinyfiledialogs STATIC src/ext/tfd/tinyfiledialogs.c)
-target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
+#set(tinyfiledialogs_SRC src/ext/tfd)
+#add_library(tinyfiledialogs STATIC src/ext/tfd/tinyfiledialogs.c)
+#target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
 
 add_executable(Kup src/main.cpp
         src/TextArea.hpp
         src/TextArea.cpp
 )
 
-target_link_libraries(Kup PUBLIC raylib liblua tinyfiledialogs raygui)
+target_link_libraries(Kup PUBLIC raylib liblua
+        #tinyfiledialogs
+        raygui)
 
 
 
@@ -105,7 +105,5 @@ target_include_directories(Kup PRIVATE
         src/ext/nuklear
 
 )
-target_link_directories(Kup PRIVATE cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes)
-
 
 
