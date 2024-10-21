@@ -10,13 +10,13 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include",
+						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.1.0/include",
 						"C:/msys64/ucrt64/include",
-						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed"
+						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.1.0/include-fixed"
 					],
 					"linkDirectories" : 
 					[
-						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0",
+						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.1.0",
 						"C:/msys64/ucrt64/lib/gcc",
 						"C:/msys64/ucrt64/x86_64-w64-mingw32/lib",
 						"C:/msys64/ucrt64/lib"
@@ -40,7 +40,7 @@
 					]
 				},
 				"path" : "C:/msys64/ucrt64/bin/cc.exe",
-				"version" : "14.2.0"
+				"version" : "14.1.0"
 			},
 			"language" : "C",
 			"sourceFileExtensions" : 
@@ -57,16 +57,16 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/msys64/ucrt64/include/c++/14.2.0",
-						"C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32",
-						"C:/msys64/ucrt64/include/c++/14.2.0/backward",
-						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include",
+						"C:/msys64/ucrt64/include/c++/14.1.0",
+						"C:/msys64/ucrt64/include/c++/14.1.0/x86_64-w64-mingw32",
+						"C:/msys64/ucrt64/include/c++/14.1.0/backward",
+						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.1.0/include",
 						"C:/msys64/ucrt64/include",
-						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed"
+						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.1.0/include-fixed"
 					],
 					"linkDirectories" : 
 					[
-						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0",
+						"C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.1.0",
 						"C:/msys64/ucrt64/lib/gcc",
 						"C:/msys64/ucrt64/x86_64-w64-mingw32/lib",
 						"C:/msys64/ucrt64/lib"
@@ -93,7 +93,7 @@
 					]
 				},
 				"path" : "C:/msys64/ucrt64/bin/c++.exe",
-				"version" : "14.2.0"
+				"version" : "14.1.0"
 			},
 			"language" : "CXX",
 			"sourceFileExtensions" : 

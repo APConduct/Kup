@@ -1,22 +1,13 @@
-C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S C:\Users\ajost1\CLionProjects\Kup -B C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug
--- The C compiler identification is GNU 14.2.0
--- The CXX compiler identification is GNU 14.2.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/msys64/ucrt64/bin/cc.exe - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: C:/msys64/ucrt64/bin/c++.exe - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
+C:\Users\ajost1\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/msys64/ucrt64/bin/ninja.exe -G Ninja -S C:\Users\ajost1\CLionProjects\Kup -B C:\Users\ajost1\CLionProjects\Kup\cmake-build-debug
 -- Populating raylib
--- Configuring done (0.2s)
+-- Configuring done (0.3s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-subbuild
 [1/9] Creating directories for 'raylib-populate'
 [1/9] Performing download step (download, verify and extract) for 'raylib-populate'
+-- File already exists but no hash specified (use URL_HASH):
+  file='C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
+Old file will be removed and new file downloaded from URL.
 -- Downloading...
    dst='C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz'
    timeout='none'
@@ -46,20 +37,11 @@ CMake Deprecation Warning at cmake-build-debug/_deps/raylib-src/CMakeLists.txt:1
   CMake that the project does not need compatibility with older versions.
 
 
--- Performing Test COMPILER_HAS_THOSE_TOGGLES
--- Performing Test COMPILER_HAS_THOSE_TOGGLES - Success
 -- Testing if -Werror=pointer-arith can be used -- compiles
 -- Testing if -Werror=implicit-function-declaration can be used -- compiles
 -- Testing if -fno-strict-aliasing can be used -- compiles
 -- Using raylib's GLFW
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
--- Found Threads: TRUE
 -- Including Win32 support
--- Looking for dinput.h
--- Looking for dinput.h - found
--- Looking for xinput.h
--- Looking for xinput.h - found
 -- Audio Backend: miniaudio
 -- Building raylib static library
 -- Generated build type: Debug
@@ -67,7 +49,7 @@ CMake Deprecation Warning at cmake-build-debug/_deps/raylib-src/CMakeLists.txt:1
 --   PLATFORM=PLATFORM_DESKTOP
 --   GRAPHICS=GRAPHICS_API_OPENGL_33
 -- Populating raygui
--- Configuring done (0.2s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild
 [1/9] Creating directories for 'raygui-populate'
@@ -97,6 +79,6 @@ Old file will be removed and new file downloaded from URL.
 [8/9] No test step for 'raygui-populate'
 [9/9] Completed 'raygui-populate'
 -- Found PkgConfig: C:/msys64/ucrt64/bin/pkg-config.exe (found version "2.3.0")
--- Configuring done (78.0s)
--- Generating done (0.1s)
+-- Configuring done (58.9s)
+-- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug

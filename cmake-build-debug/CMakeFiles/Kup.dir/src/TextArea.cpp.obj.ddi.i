@@ -38327,15 +38327,7 @@ class TextArea {
             }
 
         }
-
-
-
-
-
-        this->text.append("\n");
-        printf(this->text.c_str());
-        this->text.pop_back();
-
+# 170 "C:/Users/ajost1/CLionProjects/Kup/src/TextArea.hpp"
     };
     void Render() const
     {

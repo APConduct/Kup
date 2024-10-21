@@ -178,7 +178,7 @@
 					"value" : "CXX compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "C:/msys64/ucrt64/bin/c++.exe"
 		},
 		{
@@ -322,7 +322,7 @@
 					"value" : "C compiler"
 				}
 			],
-			"type" : "FILEPATH",
+			"type" : "STRING",
 			"value" : "C:/msys64/ucrt64/bin/cc.exe"
 		},
 		{
@@ -979,7 +979,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe"
+			"value" : "C:/msys64/ucrt64/bin/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -1822,6 +1822,18 @@
 			"value" : "OFF"
 		},
 		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Lua51",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding Lua51"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[C:/Users/ajost1/Lua/5.1/lib/lua51.lib][C:/Users/ajost1/Lua/5.1/include][v5.1.4()]"
+		},
+		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig",
 			"properties" : 
 			[
@@ -2048,6 +2060,54 @@
 			],
 			"type" : "STATIC",
 			"value" : "C:/Users/ajost1/CLionProjects/Kup"
+		},
+		{
+			"name" : "LUA_INCLUDE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "C:/Users/ajost1/Lua/5.1/include"
+		},
+		{
+			"name" : "LUA_LIBRARIES",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Lua Libraries"
+				}
+			],
+			"type" : "STRING",
+			"value" : "C:/Users/ajost1/Lua/5.1/lib/lua51.lib"
+		},
+		{
+			"name" : "LUA_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "C:/Users/ajost1/Lua/5.1/lib/lua51.lib"
 		},
 		{
 			"name" : "MACOS_FATLIB",

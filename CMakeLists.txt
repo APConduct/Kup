@@ -14,8 +14,9 @@ set(CMAKE_CXX_STANDARD 20)
 
 # Dependencies
 set(RAYLIB_VERSION 5.0)
-
 set(RAYGUI_VERSION 4.0)
+set(LUA_VERSION 5.1)
+set(LUAJIT_VERSION 2.1)
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 
@@ -65,6 +66,21 @@ if (NOT raygui_FOUND)
     endif ()
 endif ()
 
+find_package(Lua51 REQUIRED)
+
+if(NOT Lua51_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+            Lua51
+            URL https://github.com/lua/lua/archive/refs/tags/v${LUA_VERSION}.tar.gz
+    )
+    FetchContent_GetProperties(Lua51)
+    if (NOT Lua51_populated)
+        set(FETCHCONTENT_QUIET NO)
+        FetchContent_Populate(Lua_51)
+    endif ()
+endif ()
+
 
 
 find_package(PkgConfig REQUIRED)
@@ -78,21 +94,26 @@ find_package(PkgConfig REQUIRED)
 
 
 
-
+# find_package(tinyfiledialogs CONFIG REQUIRED)
+# target_link_libraries(main PRIVATE tinyfiledialogs::tinyfiledialogs)
 
 
 #set(tinyfiledialogs_SRC src/ext/tfd)
 #add_library(tinyfiledialogs STATIC src/ext/tfd/tinyfiledialogs.c)
 #target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
 
+
 add_executable(Kup src/main.cpp
         src/TextArea.hpp
         src/TextArea.cpp
 )
 
-target_link_libraries(Kup PUBLIC raylib liblua
+target_link_libraries(Kup PRIVATE raylib
+        #liblua
         #tinyfiledialogs
-        raygui)
+        raygui
+        #tinyfiledialogs::tinyfiledialogs
+)
 
 
 

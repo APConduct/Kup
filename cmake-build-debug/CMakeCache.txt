@@ -34,7 +34,7 @@ CMAKE_BUILD_TYPE:STRING=Debug
 CMAKE_COLOR_DIAGNOSTICS:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:FILEPATH=C:/msys64/ucrt64/bin/c++.exe
+CMAKE_CXX_COMPILER:STRING=C:/msys64/ucrt64/bin/c++.exe
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -63,7 +63,7 @@ CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 CMAKE_CXX_STANDARD_LIBRARIES:STRING=-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
 
 //C compiler
-CMAKE_C_COMPILER:FILEPATH=C:/msys64/ucrt64/bin/cc.exe
+CMAKE_C_COMPILER:STRING=C:/msys64/ucrt64/bin/cc.exe
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -173,7 +173,7 @@ CMAKE_INSTALL_SYSCONFDIR:PATH=etc
 CMAKE_LINKER:FILEPATH=C:/msys64/ucrt64/bin/ld.exe
 
 //No help, variable specified on the command line.
-CMAKE_MAKE_PROGRAM:UNINITIALIZED=C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe
+CMAKE_MAKE_PROGRAM:UNINITIALIZED=C:/msys64/ucrt64/bin/ninja.exe
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -401,6 +401,15 @@ Kup_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Kup_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup
+
+//Path to a file.
+LUA_INCLUDE_DIR:PATH=C:/Users/ajost1/Lua/5.1/include
+
+//Lua Libraries
+LUA_LIBRARIES:STRING=C:/Users/ajost1/Lua/5.1/lib/lua51.lib
+
+//Path to a library.
+LUA_LIBRARY:FILEPATH=C:/Users/ajost1/Lua/5.1/lib/lua51.lib
 
 //Build fat library for both i386 and x86_64 on macOS
 MACOS_FATLIB:BOOL=OFF
@@ -648,6 +657,8 @@ CPACK_SOURCE_7Z-ADVANCED:INTERNAL=1
 CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Have include dinput.h
 DINPUT_H_FOUND:INTERNAL=1
+//Details about finding Lua51
+FIND_PACKAGE_MESSAGE_DETAILS_Lua51:INTERNAL=[C:/Users/ajost1/Lua/5.1/lib/lua51.lib][C:/Users/ajost1/Lua/5.1/include][v5.1.4()]
 //Details about finding PkgConfig
 FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[C:/msys64/ucrt64/bin/pkg-config.exe][v2.3.0()]
 //Details about finding Threads
@@ -656,6 +667,12 @@ FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 GLFW_PKG_CONFIG_LIBS_PRIVATE:INTERNAL= -lgdi32
 //GLFW pkg-config Requires.private
 GLFW_PKG_CONFIG_REQUIRES_PRIVATE:INTERNAL=
+//ADVANCED property for variable: LUA_INCLUDE_DIR
+LUA_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LUA_LIBRARIES
+LUA_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: LUA_LIBRARY
+LUA_LIBRARY-ADVANCED:INTERNAL=1
 //Replace any OFF by default with ${OFF} to have it covered by
 // this option
 OFF:INTERNAL=OFF

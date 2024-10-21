@@ -27,7 +27,7 @@ CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-
 CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/raylib-populate
 
 //No help, variable specified on the command line.
-CMAKE_MAKE_PROGRAM:FILEPATH=C:/Users/ajost1/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe
+CMAKE_MAKE_PROGRAM:FILEPATH=C:/msys64/ucrt64/bin/ninja.exe
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=

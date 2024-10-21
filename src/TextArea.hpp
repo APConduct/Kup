@@ -163,9 +163,9 @@ class TextArea {
         //printf("%d", this->cursor.index_g);
         //printf("%llu", this->text.length());
 
-        this->text.append("\n");
-        printf(this->text.c_str());
-        this->text.pop_back();
+        //this->text.append("\n");
+        //printf(this->text.c_str());
+        //this->text.pop_back();
 
     };
     void Render() const

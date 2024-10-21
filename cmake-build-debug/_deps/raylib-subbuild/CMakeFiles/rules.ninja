@@ -32,7 +32,7 @@ rule RERUN_CMAKE
 # Rule for cleaning all built files.
 
 rule CLEAN
-  command = C:\Users\ajost1\AppData\Local\Programs\CLion\bin\ninja\win\x64\ninja.exe $FILE_ARG -t clean $TARGETS
+  command = C:\msys64\ucrt64\bin\ninja.exe $FILE_ARG -t clean $TARGETS
   description = Cleaning all built files...
 
 
@@ -40,6 +40,6 @@ rule CLEAN
 # Rule for printing all primary targets available.
 
 rule HELP
-  command = C:\Users\ajost1\AppData\Local\Programs\CLion\bin\ninja\win\x64\ninja.exe -t targets
+  command = C:\msys64\ucrt64\bin\ninja.exe -t targets
   description = All primary targets available:
 

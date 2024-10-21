@@ -1,4 +1,3 @@
-#include <fstream>
 #include <raylib.h>
 #define RAYGUI_IMPLEMENTATION
 

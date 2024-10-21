@@ -11,7 +11,7 @@
 						1
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-a3037eea9765e6d20e5e.json",
+					"jsonFile" : "directory-.-Debug-50f7a4eb72b00c891c1d.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.29"
@@ -20,8 +20,7 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0,
-						3
+						0
 					]
 				},
 				{
@@ -41,7 +40,7 @@
 					"source" : "cmake-build-debug/_deps/raylib-src",
 					"targetIndexes" : 
 					[
-						4
+						3
 					]
 				},
 				{
@@ -92,7 +91,7 @@
 					"targetIndexes" : 
 					[
 						1,
-						5
+						4
 					]
 				}
 			],
@@ -111,8 +110,7 @@
 					"name" : "Kup",
 					"targetIndexes" : 
 					[
-						0,
-						3
+						0
 					]
 				},
 				{
@@ -130,7 +128,7 @@
 					"targetIndexes" : 
 					[
 						2,
-						4
+						3
 					]
 				},
 				{
@@ -144,7 +142,7 @@
 					"targetIndexes" : 
 					[
 						1,
-						5
+						4
 					]
 				}
 			],
@@ -153,7 +151,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Kup::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Kup-Debug-0596badd27d299cf375d.json",
+					"jsonFile" : "target-Kup-Debug-157854752bdc04640ea3.json",
 					"name" : "Kup",
 					"projectIndex" : 0
 				},
@@ -170,13 +168,6 @@
 					"jsonFile" : "target-raylib-Debug-dea463fbb202d03cd47b.json",
 					"name" : "raylib",
 					"projectIndex" : 1
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "tinyfiledialogs::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tinyfiledialogs-Debug-b3b1e429af72d52d0078.json",
-					"name" : "tinyfiledialogs",
-					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
