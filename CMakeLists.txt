@@ -83,7 +83,7 @@ endif ()
 
 
 
-find_package(PkgConfig REQUIRED)
+#find_package(PkgConfig REQUIRED)
 
 
 #pkg_check_modules(lua54 REQUIRED lua5.4)
