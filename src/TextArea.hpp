@@ -6,12 +6,12 @@
 #define TEXTAREA_HPP
 #include <string>
 #include <vector>
+#include "PieceTable.hpp"
+#include <bits/stdc++.h>
 
 #include <raylib.h>
 
 namespace kupui {
-
-
 
 class TextArea {
 
@@ -19,6 +19,8 @@ class TextArea {
 
     TextArea()
     {
+        this->piece_table.add_buff = "";
+        this->piece_table.original_buff = "";
         this->text = "";
         this->pos_x = 0;
         this->pos_y = 0;
@@ -34,7 +36,6 @@ class TextArea {
 
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
-
 
     };
     TextArea(const int pos_x, const int pos_y)
@@ -57,6 +58,7 @@ class TextArea {
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
     };
+    PieceTable piece_table;
     ~TextArea();
     [[nodiscard]] int get_pos_y() const
     {
@@ -79,6 +81,23 @@ class TextArea {
         return this->pos_x;
     }
 
+    [[nodiscard]] std::vector<std::string> get_text_lines() const
+    {
+        std::string s;
+
+        std::stringstream ss(this->text);
+
+        std::vector<std::string> v;
+
+
+        while (getline(ss, s, '\n')) {
+
+            v.push_back(s);
+        }
+        v.emplace_back("");
+        return v;
+    }
+
     void Update()
     {
         int char_key = GetCharPressed();
@@ -87,11 +106,8 @@ class TextArea {
             if ((char_key >= 32) && (char_key < 127))
             {
 
-                // TODO - CHANGE INPUT INCREMENT TO INSERTION
-                this->text_lines.at(this->cursor.index_y).insert(
-                    this->text_lines.at(this->cursor.index_y).begin() + this->cursor.index_x,
-                    static_cast<char>(char_key));
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
+
 
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
@@ -105,15 +121,12 @@ class TextArea {
             {
                 if(this->cursor.index_x > 0)
                 {
-                    this->text_lines.at(this->cursor.index_y).erase(this->cursor.index_x - 1, 1);
                     this->cursor.index_x--;
                 }else
                 {
-                    this->text_lines.at(this->cursor.index_y-1).append(this->text_lines.at(this->cursor.index_y));
-                    this->text_lines.erase(this->text_lines.begin() + this->cursor.index_y);
                     this->cursor.index_y--;
                     this->lines--;
-                    this->cursor.index_x = static_cast<int>(this->text_lines.at(cursor.index_y).size());
+                    this->cursor.index_x = static_cast<int>(this->get_text_lines().at(cursor.index_y).size());
                 }
                 this->cursor.index_g--;
                 this->text.erase(this->cursor.index_g);
@@ -128,8 +141,6 @@ class TextArea {
             this->cursor.index_y++;
             this->cursor.index_g++;
             this->text.insert(this->cursor.index_g-1, "\n");
-            const auto new_guy = "";
-            this->text_lines.insert(this->text_lines.begin() + this->cursor.index_y, new_guy);
             this->cursor.index_x = 0;
         }
         if(IsKeyPressed(KEY_LEFT))
@@ -160,37 +171,22 @@ class TextArea {
         }
 
 
-        //printf("%d", this->cursor.index_g);
-        //printf("%llu", this->text.length());
-
-        //this->text.append("\n");
-        //printf(this->text.c_str());
-        //this->text.pop_back();
-
     };
     void Render() const
     {
-        //this->text_lines.push_back(this->current_line);
         int start_y = 0;
-        for(const auto & text_line : this->text_lines)
+        for(const auto & text_line : this->get_text_lines())
         {
-            std::string line = this->current_line;
             DrawText(text_line.c_str(), this->pos_x, this->pos_y + (this->font.baseSize * 3 * start_y), this->fontSize, this->color);
             start_y ++;
         }
-
-        //this->text_lines.pop_back();
-
         //DrawText(this->text.c_str(), this->pos_x, this->pos_y, this->fontSize, this->color);
-        //DrawTextEx(this->get_font(), this->text.c_str(), Vector2(static_cast<float>(this->pos_x), static_cast<float>(this->pos_y)), static_cast<float>(this->fontSize), 2, WHITE);
+
+
     };
-    [[nodiscard]] const char *get_current_line() const
+    [[nodiscard]] std::string get_current_line() const
     {
-        return current_line.c_str();
-    }
-    std::string get_current_line()
-    {
-        return this->text_lines.at(this->cursor.index_y);
+        return this->get_text_lines().at(this->cursor.index_y);
     }
     [[nodiscard]] Font get_font() const
     {
@@ -220,7 +216,6 @@ protected:
     int pos_x, pos_y;
     Color color{};
     int fontSize;
-    std::string current_line;
     Font font{};
     int lines;
     bool focused;

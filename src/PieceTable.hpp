@@ -16,42 +16,57 @@ struct Piece
     // length from start in buffer
     int length;
     // buffer the piece is stored in
-    std::string source;
+    bool origin;
+
+    Piece()
+    {
+        start = 0;
+        length = 0;
+        origin = false;
+    }
+
+
 };
+
+
 
 struct PieceTable
 {
 
-    std::map<std::string, std::string> buffers;
-    std::vector<Piece> pieces;
+     std::string original_buff;
+     std::string add_buff;
+     std::vector<Piece> pieces;
+     std::vector<Piece> redo_stack;
+
     PieceTable()
     {
+        original_buff = "";
+        add_buff = "";
+        pieces.assign(0, Piece());
+        redo_stack.clear();
 
-        this->buffers = { {"original", ""}, {"add", ""}};
-        this->pieces = {{0,static_cast<int>(this->buffers["original"].size()),"original"}};
-    };
-    explicit PieceTable(const std::string& original)
-    {
-        this->buffers = { {"original", original}, {"add", ""}};
-        this->pieces = {{0,static_cast<int>(original.size()),"original"}};
-    };
 
+    };
     std::string to_str()
     {
-        std::string text = this->buffers["original"];
-        for ( const auto& [start, length, source] : this->pieces )
+        std::string str;
+        for (const auto & piece : pieces)
         {
-            text.append(buffers[source].substr(start, length));
+            if (piece.origin == true)
+            {
+                str.append(original_buff.substr(piece.start, piece.length));
+            }else
+            {
+                str.append(add_buff.substr(piece.start, piece.length));
+            }
         }
-        return text;
-    };
-
-    size_t size()
-    {
-        return this->buffers["add"].size() + this->buffers["original"].size();
+        return str;
     }
 
 };
+
+
+
 
 // span - private to the sequence
 
