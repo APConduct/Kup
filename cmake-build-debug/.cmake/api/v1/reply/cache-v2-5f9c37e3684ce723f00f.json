@@ -2364,6 +2364,18 @@
 			],
 			"type" : "STATIC",
 			"value" : "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src"
+		},
+		{
+			"name" : "tinyfiledialogs_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for tinyfiledialogs."
+				}
+			],
+			"type" : "PATH",
+			"value" : "tinyfiledialogs_DIR-NOTFOUND"
 		}
 	],
 	"kind" : "cache",

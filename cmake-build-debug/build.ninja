@@ -41,20 +41,51 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/
 # =============================================================================
+# Object build statements for STATIC_LIBRARY target tinyfiledialogs
+
+
+#############################################
+# Order-only phony target for tinyfiledialogs
+
+build cmake_object_order_depends_target_tinyfiledialogs: phony || .
+
+build CMakeFiles/tinyfiledialogs.dir/src/ext/tinyfd/tinyfiledialogs.c.obj: C_COMPILER__tinyfiledialogs_unscanned_Debug C$:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd/tinyfiledialogs.c || cmake_object_order_depends_target_tinyfiledialogs
+  DEP_FILE = CMakeFiles\tinyfiledialogs.dir\src\ext\tinyfd\tinyfiledialogs.c.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\tinyfiledialogs.dir
+  OBJECT_FILE_DIR = CMakeFiles\tinyfiledialogs.dir\src\ext\tinyfd
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target tinyfiledialogs
+
+
+#############################################
+# Link the static library libtinyfiledialogs.a
+
+build libtinyfiledialogs.a: C_STATIC_LIBRARY_LINKER__tinyfiledialogs_Debug CMakeFiles/tinyfiledialogs.dir/src/ext/tinyfd/tinyfiledialogs.c.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles\tinyfiledialogs.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libtinyfiledialogs.a
+  TARGET_PDB = tinyfiledialogs.a.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target Kup
 
 
 #############################################
 # Order-only phony target for Kup
 
-build cmake_object_order_depends_target_Kup: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_raylib
+build cmake_object_order_depends_target_Kup: phony || cmake_object_order_depends_target_glfw cmake_object_order_depends_target_raylib cmake_object_order_depends_target_tinyfiledialogs
 
 build CMakeFiles/Kup.dir/src/main.cpp.obj.ddi: CXX_SCAN__Kup_Debug C$:/Users/ajost1/CLionProjects/Kup/src/main.cpp || cmake_object_order_depends_target_Kup
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   DEP_FILE = CMakeFiles\Kup.dir\src\main.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\Kup.dir\src\main.cpp.obj.ddi
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
+  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
   OBJ_FILE = CMakeFiles\Kup.dir\src\main.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\Kup.dir\src\main.cpp.obj.ddi.i
 
@@ -63,7 +94,7 @@ build CMakeFiles/Kup.dir/src/main.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C$:/U
   DEP_FILE = CMakeFiles\Kup.dir\src\main.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\Kup.dir\src\main.cpp.obj.modmap
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
+  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
   OBJECT_DIR = CMakeFiles\Kup.dir
   OBJECT_FILE_DIR = CMakeFiles\Kup.dir\src
   dyndep = CMakeFiles/Kup.dir/CXX.dd
@@ -73,7 +104,7 @@ build CMakeFiles/Kup.dir/src/TextArea.cpp.obj.ddi: CXX_SCAN__Kup_Debug C$:/Users
   DEP_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
+  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
   OBJ_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj
   PREPROCESSED_OUTPUT_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi.i
 
@@ -82,7 +113,7 @@ build CMakeFiles/Kup.dir/src/TextArea.cpp.obj: CXX_COMPILER__Kup_scanned_Debug C
   DEP_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles\Kup.dir\src\TextArea.cpp.obj.modmap
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
+  INCLUDES = -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd -IC:/Users/ajost1/CLionProjects/Kup/luajit-2.1 -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/examples/shapes -IC:/Users/ajost1/CLionProjects/Kup/src/ext/nuklear -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src -IC:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/external/glfw/include -I/projects/CMake/src
   OBJECT_DIR = CMakeFiles\Kup.dir
   OBJECT_FILE_DIR = CMakeFiles\Kup.dir\src
   dyndep = CMakeFiles/Kup.dir/CXX.dd
@@ -97,9 +128,9 @@ build CMakeFiles/Kup.dir/CXX.dd | C$:/Users/ajost1/CLionProjects/Kup/cmake-build
 #############################################
 # Link the executable Kup.exe
 
-build Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a
+build Kup.exe: CXX_EXECUTABLE_LINKER__Kup_Debug CMakeFiles/Kup.dir/src/main.cpp.obj CMakeFiles/Kup.dir/src/TextArea.cpp.obj | _deps/raylib-build/raylib/libraylib.a libtinyfiledialogs.a _deps/raylib-build/raylib/external/glfw/src/libglfw3.a || _deps/raylib-build/raylib/external/glfw/src/libglfw3.a _deps/raylib-build/raylib/libraylib.a libtinyfiledialogs.a
   FLAGS = -g
-  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  -lopengl32  -lglu32  -lwinmm  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = _deps/raylib-build/raylib/libraylib.a  libtinyfiledialogs.a  -lopengl32  -lglu32  -lwinmm  _deps/raylib-build/raylib/external/glfw/src/libglfw3.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Kup.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -886,6 +917,8 @@ build libraylib.a: phony _deps/raylib-build/raylib/libraylib.a
 
 build raylib: phony _deps/raylib-build/raylib/libraylib.a
 
+build tinyfiledialogs: phony libtinyfiledialogs.a
+
 build uninstall: phony _deps/raylib-build/uninstall
 
 build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_mappings
@@ -898,7 +931,7 @@ build update_mappings: phony _deps/raylib-build/raylib/external/glfw/src/update_
 #############################################
 # Folder: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug
 
-build all: phony Kup.exe _deps/raylib-build/all
+build all: phony libtinyfiledialogs.a Kup.exe _deps/raylib-build/all
 
 # =============================================================================
 

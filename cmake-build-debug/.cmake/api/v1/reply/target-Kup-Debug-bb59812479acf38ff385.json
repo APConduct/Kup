@@ -84,6 +84,10 @@
 				},
 				{
 					"backtrace" : 5,
+					"path" : "C:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd"
+				},
+				{
+					"backtrace" : 5,
 					"path" : "C:/Users/ajost1/CLionProjects/Kup/luajit-2.1"
 				},
 				{
@@ -127,6 +131,10 @@
 	[
 		{
 			"backtrace" : 2,
+			"id" : "tinyfiledialogs::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
 			"id" : "raylib::@4dc3a4644cf4ded08c01"
 		},
 		{
@@ -150,6 +158,11 @@
 			{
 				"backtrace" : 2,
 				"fragment" : "_deps\\raylib-build\\raylib\\libraylib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libtinyfiledialogs.a",
 				"role" : "libraries"
 			},
 			{

@@ -94,13 +94,13 @@ endif ()
 
 
 
-# find_package(tinyfiledialogs CONFIG REQUIRED)
-# target_link_libraries(main PRIVATE tinyfiledialogs::tinyfiledialogs)
+#find_package(tinyfiledialogs CONFIG REQUIRED)
+#target_link_libraries(main PRIVATE tinyfiledialogs::tinyfiledialogs)
 
 
-#set(tinyfiledialogs_SRC src/ext/tfd)
-#add_library(tinyfiledialogs STATIC src/ext/tfd/tinyfiledialogs.c)
-#target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
+set(tinyfiledialogs_SRC src/ext/tinyfd)
+add_library(tinyfiledialogs STATIC src/ext/tinyfd/tinyfiledialogs.c)
+target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
 
 
 add_executable(Kup src/main.cpp
@@ -110,7 +110,7 @@ add_executable(Kup src/main.cpp
 
 target_link_libraries(Kup PRIVATE raylib
         #liblua
-        #tinyfiledialogs
+        tinyfiledialogs
         raygui
         #tinyfiledialogs::tinyfiledialogs
 )

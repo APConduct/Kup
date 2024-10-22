@@ -16,6 +16,9 @@
     <sourceRoots>
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
+    <libraryRoots>
+      <file path="$PROJECT_DIR$/src/ext/tinyfd" />
+    </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/bin" />
     </excludeRoots>

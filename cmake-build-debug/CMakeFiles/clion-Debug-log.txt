@@ -24,10 +24,10 @@ CMake Deprecation Warning at cmake-build-debug/_deps/raylib-src/CMakeLists.txt:1
 --   PLATFORM=PLATFORM_DESKTOP
 --   GRAPHICS=GRAPHICS_API_OPENGL_33
 -- Populating raygui
--- Configuring done (0.2s)
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild
 ninja: no work to do.
--- Configuring done (2.6s)
+-- Configuring done (1.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug

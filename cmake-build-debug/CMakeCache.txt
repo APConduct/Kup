@@ -456,6 +456,9 @@ raylib_LIB_DEPENDS:STATIC=general;opengl32;glu32;winmm;glfw;
 //Value Computed by CMake
 raylib_SOURCE_DIR:STATIC=C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src
 
+//The directory containing a CMake configuration file for tinyfiledialogs.
+tinyfiledialogs_DIR:PATH=tinyfiledialogs_DIR-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries
