@@ -19,7 +19,7 @@ jobs:
         uses: threeal/cmake-action@v2.0.0
         with: 
           source-dir: src
-          build-dir: cmake-build-debug
+          build-dir: build
         
       - name: Configure CMake
         run: cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./cmake-build-debug
