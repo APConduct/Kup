@@ -106,9 +106,9 @@ class TextArea {
             if ((char_key >= 32) && (char_key < 127))
             {
 
+
+
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
-
-
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
             }
@@ -145,28 +145,27 @@ class TextArea {
         }
         if(IsKeyPressed(KEY_LEFT))
         {
-            if(this->cursor.index_g > 0)
-            {
-                if (this->cursor.index_x > 0)
-                {
-                    this->cursor.index_x--;
-                }
-                else
-                {
-                    --this->cursor.index_y;
-                    this->cursor.index_x = static_cast<int>(this->text_lines.at(this->cursor.index_y).size());
-                }
-                this->cursor.index_g--;
-            };
+        //    if(this->cursor.index_g > 0)
+        //    {
+        //        if (this->cursor.index_x > 0)
+        //        {
+        //            this->cursor.index_x--;
+        //        }
+        //        else
+        //        {
+        //            --this->cursor.index_y;
+        //            this->cursor.index_x = static_cast<int>(this->text_lines.at(this->cursor.index_y).size());
+        //        }
+        //        this->cursor.index_g--;
+        //    };
         }
         if(IsKeyPressed(KEY_RIGHT))
         {
-            if(this->cursor.index_g <= this->text.size())
-            {
-
-                this->cursor.index_x++;
-                this->cursor.index_g++;
-            }
+        //    if(this->cursor.index_g <= this->text.size())
+        //    {
+        //        this->cursor.index_x++;
+        //        this->cursor.index_g++;
+        //    }
 
         }
 
