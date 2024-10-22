@@ -47,33 +47,6 @@ struct PieceTable
 
 
     };
-    std::string to_str()
-    {
-        std::string str;
-        for (const auto & piece : pieces)
-        {
-            if (piece.origin == true)
-            {
-                str.append(original_buff.substr(piece.start, piece.length));
-            }else
-            {
-                str.append(add_buff.substr(piece.start, piece.length));
-            }
-        }
-        return str;
-    };
-    Piece getPiece(int index);
-    Piece getPieceAt(const int index)
-    {
-        for (const auto & piece : pieces)
-        {
-            if (piece.start <= index && index <= (piece.length + piece.start))
-            {
-                return piece;
-            }
-        }
-        return this->getPiece(0);
-    };
 
 };
 

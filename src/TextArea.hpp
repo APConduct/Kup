@@ -6,7 +6,7 @@
 #define TEXTAREA_HPP
 #include <string>
 #include <vector>
-#include "PieceTable.hpp"
+//#include "PieceTable.hpp"
 #include <bits/stdc++.h>
 
 #include <raylib.h>
@@ -19,8 +19,8 @@ class TextArea {
 
     TextArea()
     {
-        this->piece_table.add_buff = "";
-        this->piece_table.original_buff = "";
+        //this->piece_table.add_buff = "";
+        //this->piece_table.original_buff = "";
         this->text = "";
         this->pos_x = 0;
         this->pos_y = 0;
@@ -58,7 +58,7 @@ class TextArea {
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
     };
-    PieceTable piece_table;
+    //PieceTable piece_table;
     ~TextArea();
     [[nodiscard]] int get_pos_y() const
     {
@@ -107,7 +107,7 @@ class TextArea {
             {
 
 
-                this->piece_table.add_buff.push_back(static_cast<char>(char_key));
+                //this->piece_table.add_buff.push_back(static_cast<char>(char_key));
 
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
                 this->cursor.index_g ++;
