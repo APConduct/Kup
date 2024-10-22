@@ -30,6 +30,7 @@ struct Piece
 
 
 
+
 struct PieceTable
 {
 
