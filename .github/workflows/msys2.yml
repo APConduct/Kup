@@ -13,14 +13,7 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: git mingw-w64-ucrt-x86_64-gcc
-
-      - name: install-cmake
-        uses: threeal/cmake-action@v2.0.0
-        with: 
-          source-dir: src
-          build-dir: build
-        
+          install: git mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-cmake  
       - name: Configure CMake
         run: cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./cmake-build-debug
       - name: CI-Build
