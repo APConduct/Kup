@@ -110,13 +110,6 @@ CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/vector.tcc \
  C:/Users/ajost1/CLionProjects/Kup/src/PieceTable.hpp \
- C:/msys64/ucrt64/include/c++/14.2.0/map \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_tree.h \
- C:/msys64/ucrt64/include/c++/14.2.0/ext/aligned_buffer.h \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/node_handle.h \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_map.h \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_multimap.h \
- C:/msys64/ucrt64/include/c++/14.2.0/bits/erase_if.h \
  C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32/bits/stdc++.h \
  C:/msys64/ucrt64/include/c++/14.2.0/cassert \
  C:/msys64/ucrt64/include/assert.h \
@@ -152,7 +145,10 @@ CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/unordered_map.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/hashtable.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/hashtable_policy.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/ext/aligned_buffer.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/enable_special_members.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/node_handle.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/erase_if.h \
  C:/msys64/ucrt64/include/c++/14.2.0/array \
  C:/msys64/ucrt64/include/c++/14.2.0/iterator \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stream_iterator.h \
@@ -287,6 +283,10 @@ CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/list \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_list.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/list.tcc \
+ C:/msys64/ucrt64/include/c++/14.2.0/map \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_tree.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_map.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_multimap.h \
  C:/msys64/ucrt64/include/c++/14.2.0/queue \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_queue.h \
  C:/msys64/ucrt64/include/c++/14.2.0/set \

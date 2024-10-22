@@ -6,7 +6,6 @@
 #define PIECETABLE_HPP
 #include <string>
 #include <vector>
-#include <map>
 
 
 struct Piece
@@ -24,6 +23,7 @@ struct Piece
         length = 0;
         origin = false;
     }
+    Piece(int start, int length, bool origin);
 
 
 };
@@ -43,7 +43,6 @@ struct PieceTable
         original_buff = "";
         add_buff = "";
         pieces.assign(0, Piece());
-        redo_stack.clear();
 
 
     };
@@ -61,7 +60,19 @@ struct PieceTable
             }
         }
         return str;
-    }
+    };
+    Piece getPiece(int index);
+    Piece getPieceAt(const int index)
+    {
+        for (const auto & piece : pieces)
+        {
+            if (piece.start <= index && index <= (piece.length + piece.start))
+            {
+                return piece;
+            }
+        }
+        return this->getPiece(0);
+    };
 
 };
 

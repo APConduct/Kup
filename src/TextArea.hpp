@@ -107,6 +107,7 @@ class TextArea {
             {
 
 
+                this->piece_table.add_buff.push_back(static_cast<char>(char_key));
 
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
                 this->cursor.index_g ++;
