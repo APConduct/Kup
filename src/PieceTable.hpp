@@ -2,8 +2,8 @@
 // Created by ajost1 on 10/14/2024.
 //
 
-#ifndef PIECETABLE_HPP
-#define PIECETABLE_HPP
+#ifndef PIECE_TABLE_HPP
+#define PIECE_TABLE_HPP
 #include <string>
 #include <vector>
 
@@ -14,7 +14,7 @@ struct Piece
     int start;
     // length from start in buffer
     int length;
-    // buffer the piece is stored in
+    // buffer the pieces are stored in
     bool origin;
 
     Piece()
@@ -31,23 +31,32 @@ struct Piece
 struct TableState
 {
     std::vector<Piece> pieces;
+
 };
 
 
 struct PieceTable
 {
-
-     std::string origin_buff;
-     std::string add_buff;
-     std::vector<TableState> piece_table;
-
+    /**
+     * original buffer in table
+     */
+    std::string origin;
+    /**
+     * buffer in table to push input onto
+     */
+    std::string add;
+     std::vector<TableState> states;
      std::vector<Piece> redo_stack;
+
+    std::vector<TableState>::value_type head;
 
     PieceTable()
     {
-        origin_buff = "";
-        add_buff = "";
-        piece_table.assign(0, TableState());
+        origin = "";
+        add = "";
+
+        states.assign(0, TableState());
+        this->head =  this->states.back();
 
 
     };
@@ -61,5 +70,5 @@ struct PieceTable
 
 
 
-#endif //PIECETABLE_HPP
+#endif //PIECE_TABLE_HPP
 
