@@ -101,6 +101,20 @@ class TextArea {
 
     void Update()
     {
+
+        if(IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL))
+        {
+            if(IsKeyPressed(KEY_S))
+            {
+                try
+                {
+                    const std::string dialog = tinyfd_saveFileDialog("Save Your File (:", GetApplicationDirectory(),0,nullptr,"");
+                    char *save_text = this->text.data();
+                    SaveFileText(dialog.c_str(), save_text);
+                }catch(...){}
+            }
+        }
+
         int char_key = GetCharPressed();
         while (char_key > 0)
         {
