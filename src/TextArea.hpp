@@ -102,6 +102,7 @@ class TextArea {
     void Update()
     {
 
+        // TODO - EXTRACT AND MODULARIZE KEY BINDS FOR CONFIG
         if(IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL))
         {
             if(IsKeyPressed(KEY_S))

@@ -28,22 +28,26 @@ struct Piece
 
 };
 
-
+struct TableState
+{
+    std::vector<Piece> pieces;
+};
 
 
 struct PieceTable
 {
 
-     std::string original_buff;
+     std::string origin_buff;
      std::string add_buff;
-     std::vector<Piece> pieces;
+     std::vector<TableState> piece_table;
+
      std::vector<Piece> redo_stack;
 
     PieceTable()
     {
-        original_buff = "";
+        origin_buff = "";
         add_buff = "";
-        pieces.assign(0, Piece());
+        piece_table.assign(0, TableState());
 
 
     };
