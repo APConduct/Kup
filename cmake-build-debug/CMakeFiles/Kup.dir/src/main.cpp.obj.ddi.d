@@ -364,4 +364,5 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/memory_resource \
  C:/msys64/ucrt64/include/c++/14.2.0/barrier \
  C:/msys64/ucrt64/include/c++/14.2.0/latch \
- C:/msys64/ucrt64/include/c++/14.2.0/syncstream
+ C:/msys64/ucrt64/include/c++/14.2.0/syncstream \
+ C:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd/tinyfiledialogs.h

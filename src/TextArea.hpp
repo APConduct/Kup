@@ -8,6 +8,7 @@
 #include <vector>
 //#include "PieceTable.hpp"
 #include <bits/stdc++.h>
+#include <tinyfiledialogs.h>
 
 #include <raylib.h>
 
