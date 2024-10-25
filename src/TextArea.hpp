@@ -12,9 +12,22 @@
 
 #include <raylib.h>
 
+
+
+
+
 namespace kupui {
 
-class TextArea {
+struct  TextArea {
+    float spacing;
+    float pos_x, pos_y;
+    Color color{};
+    float fontSize;
+    Font font{};
+    float scale;
+
+
+
 
     public:
 
@@ -38,10 +51,13 @@ class TextArea {
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
 
+        this->spacing = 0;
+        this->scale = 3;
+
     };
-    TextArea(const int pos_x, const int pos_y)
+    TextArea(const float pos_x, const float pos_y)
     {
-        this->text_lines.insert(text_lines.begin(), "");
+        //this->text_lines.insert(text_lines.begin(), "");
 
         this->text = "";
         this->pos_x = pos_x;
@@ -58,13 +74,69 @@ class TextArea {
 
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
+
+        this->spacing = 0;
+        this->scale = 3;
+
     };
-    //PieceTable piece_table;
+
+    TextArea(const float pos_x, const float pos_y, const Font& font)
+    {
+        //this->text_lines.insert(text_lines.begin(), "");
+
+        this->text = "";
+        this->pos_x = pos_x;
+        this->pos_y = pos_y;
+        this->color = WHITE;
+        this->fontSize = 20;
+        //this->font = font;
+        this->lines = 0;
+        this->focused = true;
+        this->cursor.index_x = 0;
+        this->cursor.index_y = 0;
+        this->cursor.index_g = 0;
+        this->cursor.symbol = *"|";
+
+        this->auto_backspace = false;
+        this->backspace_frame_counter = 0;
+        this->font = font;
+
+        this->spacing = 0;
+        this->scale = 1;
+    };
+
+    TextArea(const float pos_x, const float pos_y, const Font& font, const float font_size)
+    {
+
+        this->text = "";
+        this->pos_x = pos_x;
+        this->pos_y = pos_y;
+        this->color = WHITE;
+        this->fontSize = font_size;
+        this->font = font;
+        this->lines = 0;
+        this->focused = true;
+        this->cursor.index_x = 0;
+        this->cursor.index_y = 0;
+        this->cursor.index_g = 0;
+        this->cursor.symbol = *"|";
+
+        this->auto_backspace = false;
+        this->backspace_frame_counter = 0;
+        this->font = font;
+
+        this->spacing = 0;
+        this->scale = 1;
+    };
+
+
+
     ~TextArea();
-    [[nodiscard]] int get_pos_y() const
+    [[nodiscard]] float get_pos_y() const
     {
         return this->pos_y;
     };
+
 
     struct cursor
     {
@@ -73,23 +145,30 @@ class TextArea {
         int index_g{};
         char symbol{};
     } cursor;
-    void set_pos_x(const int x)
+    void set_pos_x(const float x)
     {
         this->pos_x = x;
     }
-    [[nodiscard]] int get_pos_x() const
+    [[nodiscard]] float get_pos_x() const
     {
         return this->pos_x;
     }
+    [[nodiscard]] int get_x() const
+    {
+        return static_cast<int>(this->pos_x);
+    }
+    [[nodiscard]] int get_y() const
+    {
+        return static_cast<int>(this->pos_y);
+    }
 
-    [[nodiscard]] std::vector<std::string> get_text_lines() const
+    [[nodiscard]] std::vector<std::string> text_vec() const
     {
         std::string s;
 
         std::stringstream ss(this->text);
 
         std::vector<std::string> v;
-
 
         while (getline(ss, s, '\n')) {
 
@@ -123,8 +202,6 @@ class TextArea {
             {
 
 
-                //this->piece_table.add_buff.push_back(static_cast<char>(char_key));
-
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
@@ -143,7 +220,7 @@ class TextArea {
                 {
                     this->cursor.index_y--;
                     this->lines--;
-                    this->cursor.index_x = static_cast<int>(this->get_text_lines().at(cursor.index_y).size());
+                    this->cursor.index_x = static_cast<int>(this->text_vec().at(cursor.index_y).size());
                 }
                 this->cursor.index_g--;
                 this->text.erase(this->cursor.index_g);
@@ -191,9 +268,9 @@ class TextArea {
     void Render() const
     {
         int start_y = 0;
-        for(const auto & text_line : this->get_text_lines())
+        for(const auto & text_line : this->text_vec())
         {
-            DrawText(text_line.c_str(), this->pos_x, this->pos_y + (this->font.baseSize * 3 * start_y), this->fontSize, this->color);
+            DrawTextEx(this->font, text_line.c_str(), {static_cast<float>(this->pos_x), this->pos_y + static_cast<float>(this->font.baseSize) * (this->scale * static_cast<float>(start_y))}, this->fontSize,0, this->color);
             start_y ++;
         }
         //DrawText(this->text.c_str(), this->pos_x, this->pos_y, this->fontSize, this->color);
@@ -202,13 +279,13 @@ class TextArea {
     };
     [[nodiscard]] std::string get_current_line() const
     {
-        return this->get_text_lines().at(this->cursor.index_y);
+        return this->text_vec().at(this->cursor.index_y);
     }
     [[nodiscard]] Font get_font() const
     {
         return this->font;
     }
-    [[nodiscard]] int get_fontSize() const
+    [[nodiscard]] float get_fontSize() const
     {
         return this->fontSize;
     }
@@ -225,14 +302,18 @@ class TextArea {
     {
         return this->cursor.index_x;
     }
-    std::vector<std::string> text_lines;
+    [[nodiscard]] float get_scale() const
+    {
+        return this->scale;
+    }
+    [[nodiscard]] float get_spacing() const
+    {
+        return this->spacing;
+    }
+    //std::vector<std::string> text_lines;
     std::string text;
 protected:
     //int width, height;
-    int pos_x, pos_y;
-    Color color{};
-    int fontSize;
-    Font font{};
     int lines;
     bool focused;
     bool auto_backspace;
