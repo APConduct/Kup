@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 
     const auto font = LoadFontEx(BRASS_MONO_CODE_REG_PATH.c_str(),
         FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE);
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, -2);
     SetTargetFPS(120);
 
     float text_cursor_pos_x = 0, text_cursor_pos_y = 0;

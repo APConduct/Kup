@@ -118,7 +118,7 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/basic_string.tcc \
  C:/Users/ajost1/CLionProjects/Kup/src/piece.h \
  C:/Users/ajost1/CLionProjects/Kup/src/font.h \
- C:/Users/ajost1/CLionProjects/Kup/src/PieceTable.hpp \
+ C:/Users/ajost1/CLionProjects/Kup/src/piece_table.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/vector \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_uninitialized.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_vector.h \

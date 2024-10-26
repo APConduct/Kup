@@ -28,7 +28,7 @@ struct  TextArea {
     float scale;
 
 
-    p
+    piece_table table;
 
 
 
