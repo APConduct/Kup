@@ -5,6 +5,8 @@
 #ifndef KFONT_H
 #define KFONT_H
 
+#include <raylib.h>
+
 inline bool operator==(const Font& lhs, const Font& rhs){
     return (
         lhs.glyphs == rhs.glyphs &&

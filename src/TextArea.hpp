@@ -6,9 +6,10 @@
 #define TEXTAREA_HPP
 #include <string>
 #include <vector>
-//#include "PieceTable.hpp"
 #include <bits/stdc++.h>
 #include <tinyfiledialogs.h>
+#include "piece_table.hpp"
+
 
 #include <raylib.h>
 
@@ -27,14 +28,17 @@ struct  TextArea {
     float scale;
 
 
+    p
+
 
 
     public:
 
+    piece_chain piece_chain;
     TextArea()
     {
-        //this->piece_table.add_buff = "";
-        //this->piece_table.original_buff = "";
+        //this->table = piece_table{};
+
         this->text = "";
         this->pos_x = 0;
         this->pos_y = 0;
@@ -57,7 +61,6 @@ struct  TextArea {
     };
     TextArea(const float pos_x, const float pos_y)
     {
-        //this->text_lines.insert(text_lines.begin(), "");
 
         this->text = "";
         this->pos_x = pos_x;
@@ -80,16 +83,15 @@ struct  TextArea {
 
     };
 
-    TextArea(const float pos_x, const float pos_y, const Font& font)
+    TextArea(const float pos_x, const float pos_y, const float spacing, const Font& font)
     {
-        //this->text_lines.insert(text_lines.begin(), "");
 
         this->text = "";
         this->pos_x = pos_x;
         this->pos_y = pos_y;
         this->color = WHITE;
         this->fontSize = 20;
-        //this->font = font;
+        this->font = font;
         this->lines = 0;
         this->focused = true;
         this->cursor.index_x = 0;
@@ -101,11 +103,11 @@ struct  TextArea {
         this->backspace_frame_counter = 0;
         this->font = font;
 
-        this->spacing = 0;
+        this->spacing = spacing;
         this->scale = 1;
     };
 
-    TextArea(const float pos_x, const float pos_y, const Font& font, const float font_size)
+    TextArea(const float pos_x, const float pos_y, const Font& font, const float font_size, float spacing)
     {
 
         this->text = "";
@@ -125,7 +127,7 @@ struct  TextArea {
         this->backspace_frame_counter = 0;
         this->font = font;
 
-        this->spacing = 0;
+        this->spacing = spacing;
         this->scale = 1;
     };
 
@@ -270,7 +272,7 @@ struct  TextArea {
         int start_y = 0;
         for(const auto & text_line : this->text_vec())
         {
-            DrawTextEx(this->font, text_line.c_str(), {static_cast<float>(this->pos_x), this->pos_y + static_cast<float>(this->font.baseSize) * (this->scale * static_cast<float>(start_y))}, this->fontSize,0, this->color);
+            DrawTextEx(this->font, text_line.c_str(), {static_cast<float>(this->pos_x), this->pos_y + static_cast<float>(this->font.baseSize) * (this->scale * static_cast<float>(start_y))}, this->fontSize,-2, this->color);
             start_y ++;
         }
         //DrawText(this->text.c_str(), this->pos_x, this->pos_y, this->fontSize, this->color);

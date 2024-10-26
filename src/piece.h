@@ -5,6 +5,8 @@
 #ifndef KUP_PIECE_H
 #define KUP_PIECE_H
 
+#include <raylib.h>
+
  struct piece
 {
 
@@ -12,7 +14,7 @@
     unsigned int start;
     // length from start in buffer
     unsigned int length;
-    // buffer the pieces are stored in
+    // buffer the links are stored in
 
     const char* original{};
 
@@ -27,6 +29,7 @@
         //this->add = nullptr;
 
     }
+
     piece()
     {
         start = 0;

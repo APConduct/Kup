@@ -362,4 +362,6 @@ CMakeFiles\Kup.dir\src\TextArea.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/latch \
  C:/msys64/ucrt64/include/c++/14.2.0/syncstream \
  C:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd/tinyfiledialogs.h \
+ C:/Users/ajost1/CLionProjects/Kup/src/PieceTable.hpp \
+ C:/Users/ajost1/CLionProjects/Kup/src/piece.h \
  C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src/src/raylib.h

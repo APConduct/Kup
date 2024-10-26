@@ -4,38 +4,34 @@
 
 #ifndef PIECE_TABLE_HPP
 #define PIECE_TABLE_HPP
-#include <iostream>
 #include <string>
 #include <vector>
 
-//#include "piece.h"
-#include "kup.h"
+#include "piece.h"
 
 
 
 struct piece_chain
 {
-
-
-
-    std::vector<piece> pieces;
+    std::vector<piece> links;
     piece *current_piece{};
+    piece_chain() = default;
 
 
     std::string string;
     explicit piece_chain(const piece *first_piece)
     {
-        this->pieces.clear();
-        this->pieces.push_back(*first_piece);
+        this->links.clear();
+        this->links.push_back(*first_piece);
         this->current_piece = new piece;
         //this->currentPiece = first_piece;
 
     };
     explicit piece_chain(const piece& first_piece)
     {
-        this->pieces.clear();
-        this->pieces.push_back(first_piece);
-        //this->currentPiece = &this->pieces.back();
+        this->links.clear();
+        this->links.push_back(first_piece);
+        //this->currentPiece = &this->links.back();
     };
 
     explicit piece_chain(const char *original_str)
@@ -43,33 +39,19 @@ struct piece_chain
         this->current_piece = new piece(original_str);
     }
 
-    [[nodiscard]] int current_piece_length() const{return static_cast<int>(this->current_piece->length);};
+    [[nodiscard]] int current_piece_length() const{return static_cast<int>(this->current_piece->length);}
 
-    static piece latest_piece(){
-        //int offsets[this->pieces.size()];
-        //for (int i = 0; i < this->pieces.size(); i++)
-        //{
-        //    offsets[i] = this->pieces[i].start;
-        //}
-        //const int* max_offset = std::sortable<piece_chain>(offsets, offsets + this->pieces.size());
+     //piece latest_piece(){
 
-        //for (const auto & piece : this->pieces)
-        //{
-        //    if (piece.start == *max_offset)
-        //    {
-        //        return piece;
-        //    }
-        //}
-        std::cout << "no piece found";
-        return piece(nullptr);
-        };
+        //return std::max_element(this->links.begin(), this->links.end(), [](const piece &lhs, const piece &rhs){});
+    //};
+
 
 
 
 };
 
-
-struct PieceTable
+struct piece_table
 {
     /**
      * original buffer in table
@@ -83,12 +65,13 @@ struct PieceTable
     std::vector<piece_chain> redo_stack;
 
     piece* current_piece;
+    piece_chain* current{};
 
     //auto current = new piece();
 
     //std::vector<TableState>::value_type current;
 
-    explicit PieceTable(const char* original)
+    explicit piece_table(const char* original)
     {
         this->original = original;
         this->add_buffer = "";
@@ -96,13 +79,13 @@ struct PieceTable
         this->history = {};
         this->redo_stack = {};
 
-        this->current_piece = &history.back().pieces.back();
+        this->current_piece = &history.back().links.back();
 
 
 
     }
     // main text structure of text buffers with markers
-    PieceTable()
+    piece_table()
     {
         this->original = "";
         this->add_buffer = "";
@@ -114,9 +97,9 @@ struct PieceTable
         const auto table_state = piece_chain("");
         this->history.push_back(table_state);
 
-        //this->history.back().currentPiece = &this->history.back().pieces.back();
+        //this->history.back().currentPiece = &this->history.back().links.back();
 
-        this->current_piece = &history.back().pieces.back();
+        this->current_piece = &history.back().links.back();
 
 
     };
@@ -125,11 +108,11 @@ struct PieceTable
 
 };
 
-inline piece_chain PT_take_current(const PieceTable& piece_table, const piece& piece)
+static inline piece_chain PT_take_current(const piece_table& piece_table, const piece& piece)
 {
     piece_chain piece_chain = piece_table.history.back();
 
-    //piece_chain.pieces.push_back(piece(x));
+    //piece_chain.links.push_back(piece(x));
     return piece_chain;
 }
 
