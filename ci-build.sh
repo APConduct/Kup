@@ -1,3 +1,11 @@
-# cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./cmake-build-debug
+#!/usr/bin/env bash
 
-./cmake-build-debug/Kup
+
+mkdir "build"
+cmake -B ./build/
+
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./build
+
+cmake --build build/
+
+./build/Kup
