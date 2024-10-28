@@ -14,12 +14,10 @@ struct Piece
     unsigned int start;
     unsigned int length;
     std::string* origin;
-    Piece(const unsigned int _start, const unsigned int _length, std::string* _origin)
-    {
-        start = _start;
-        length = _length;
-        origin = _origin;
-    };
+    Piece(const unsigned int _start, const unsigned int _length, std::string* _origin):
+    start(_start), length(_length), origin(_origin)
+    {}
+
     Piece(const unsigned int _start, const unsigned int _length, std::string& _origin)
     {
         start = _start;

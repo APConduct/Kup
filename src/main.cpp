@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <string>
 #define RAYGUI_IMPLEMENTATION
 
 
@@ -8,7 +9,8 @@
 //#include <lua.hpp>
 //#include <lualib.h>
 //#include <lua.hpp>
-#include "kup.h"
+#include "font.h"
+#include "TextArea.hpp"
 
 #define ZERO 0
 #define ONE 1
@@ -36,12 +38,24 @@ cast_to_int(){return static_cast<int>(Number());
 // static casts an int to float
 
 // color values for raygui components
-enum hue
+enum hues
 {
     HEX_PATTENS = 0xD4EAFFff,
     HEX_BLACK = 0x000000FF,
     HEX_WHITE = 0xFFFFFFFF,
     LEMON = 0xccff99ff,
+
+    KUP_RED1 = 0xE8426CFF,
+    KUP_GREEN = 0x38D17DFF
+
+};
+struct Hue
+{
+    unsigned char r;        // Color red value
+    unsigned char g;        // Color green value
+    unsigned char b;        // Color blue value
+    unsigned char a;        // Color alpha value
+
 };
 
 

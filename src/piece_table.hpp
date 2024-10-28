@@ -5,168 +5,282 @@
 #ifndef PIECE_TABLE_HPP
 #define PIECE_TABLE_HPP
 #include <string>
+#include <utility>
 #include <vector>
+#include <memory>
+#include <stack>
 
+class PieceTable {
+private:
+    // Represents a piece of text
+    struct Piece {
+        bool isOriginal;
+        size_t start;
+        size_t length;
 
-struct piece
-{
-
-
-    //index in buffer to start from
-    unsigned int start;
-    // length from start in buffer
-    unsigned int length;
-    // buffer the links are stored in
-
-    std::string original;
-
-
-
-    piece()
-    {
-        start = 0;
-        length = 1;
-        original = "";
-    }
-};
-
-
-
-inline bool pieces_are_equal(const piece &a, const piece &b)
-{
-    return (a.start == b.start && a.length == b.length && a.original == b.original ? true : false);
-}
-
-
-inline bool operator==(const piece& lhs, const piece& rhs)
-{
-
-    return (lhs.start == rhs.start && lhs.length == rhs.length && lhs.original == rhs.original ? true : false);
-}
-
-inline bool piece_is_older(const piece& lhs, const piece& rhs)
-{
-    if (lhs.start < rhs.start)
-    {
-        return true;
-    }
-    return false;
-}
-
-
-
-static piece new_piece(const char *original)
-{
-    const std::string orig = original;
-    piece new_piece;
-    new_piece.length = TextLength(original);
-    new_piece.original = original;
-    return new_piece;
-}
-
-static piece new_piece()
-{
-    piece new_piece;
-    new_piece.start = 0;
-    new_piece.length = 0;
-    new_piece.original = "";
-    return new_piece;
-}
-
-inline piece new_piece(const int start, const int length, const bool added, const char *original, const char *add)
-{
-    piece piece;
-    piece.start = start;
-    piece.length = length;
-    piece.original = original;
-    return piece;
-}
-
-inline piece new_piece(const std::string& original)
-{
-    piece piece;
-    piece.start = 0;
-    piece.length = original.length();
-    piece.original = original;
-    return piece;
-}
-
-
-inline std::string piece_to_string(const piece* piece)
-{
-    const std::string s = piece->original;
-
-    return s.substr(piece->start, piece->length);
-}
-
-struct PieceChain
-{
-    // doubly linked list of pieces
-    std::vector<piece> links;
-
-    // returns piece with the highest start val
-    piece *current{};
-
-    explicit PieceChain(const piece *first_piece)
-    {
-        this->links.clear();
-        this->links.push_back(*first_piece);
-
-    };
-    explicit PieceChain(const piece& first_piece)
-    {
-        this->links.clear();
-        this->links.push_back(first_piece);
+        Piece(bool orig, size_t s, size_t len)
+            : isOriginal(orig), start(s), length(len) {}
     };
 
-    [[nodiscard]] int current_piece_length() const{return static_cast<int>(this->current->length);}
+    // Base class for commands
+    class Command {
+    public:
+        virtual ~Command() = default;
+        virtual void execute() = 0;
+        virtual void undo() = 0;
+    };
 
-    [[nodiscard]] std::string to_string() const
-    {
-        std::string string;
-        std::string orig;
-        for (const auto &piece : this->links)
-        {
-            string.append(piece.original.substr( piece.start, piece.original.length()));
+    // Insert command
+    class InsertCommand : public Command {
+        PieceTable& table;
+        size_t position;
+        std::string text;
+        std::vector<Piece> oldPieces;
+        size_t addBufferLengthBefore;
+
+    public:
+        InsertCommand(PieceTable& t, size_t pos, std::string  txt)
+            : table(t), position(pos), text(std::move(txt)) {
+            oldPieces = table.pieces;
+            addBufferLengthBefore = table.addBuffer.length();
         }
-        return string;
+
+        void execute() override {
+            table.insertWithoutUndo(position, text);
+        }
+
+        void undo() override {
+            table.addBuffer.resize(addBufferLengthBefore);
+            table.pieces = oldPieces;
+        }
     };
 
+    // Delete command
+    class DeleteCommand : public Command {
+        PieceTable& table;
+        size_t start;
+        size_t end;
+        std::vector<Piece> oldPieces;
+        std::string deletedText;
 
-};
+    public:
+        DeleteCommand(PieceTable& t, size_t s, size_t e)
+            : table(t), start(s), end(e) {
+            oldPieces = table.pieces;
+            deletedText = table.getTextRange(start, end);
+        }
 
-// main text structure of text buffers with markers
-struct piece_table
-{
-    // original buffer in table
-    std::string original;
+        void execute() override {
+            table.removeWithoutUndo(start, end);
+        }
 
-    // buffer in table to push input onto
-    std::string working_buffer;
+        void undo() override {
+            table.pieces = oldPieces;
+        }
+    };
 
-    // undo stack
-    std::vector<PieceChain> history;
-    std::vector<PieceChain> redo_stack;
+    std::string originalBuffer;
+    std::string addBuffer;
+    std::vector<Piece> pieces;
+    std::stack<std::unique_ptr<Command>> undoStack;
+    std::stack<std::unique_ptr<Command>> redoStack;
 
-    PieceChain* current(){return &this->history.back();};
+    // Helper method to get text range
 
-    // takes contents of a file
-    explicit piece_table(const char* original)
-    {
-        this->original = original;
-        this->working_buffer = "";
-        this->history = {};
-        this->redo_stack = {};
+
+    // Internal insert without recording undo
+    void insertWithoutUndo(size_t pos, const std::string& text) {
+        if (text.empty()) return;
+
+        size_t currentPos = 0;
+        size_t pieceIndex = 0;
+
+        while (pieceIndex < pieces.size() && currentPos + pieces[pieceIndex].length <= pos) {
+            currentPos += pieces[pieceIndex].length;
+            pieceIndex++;
+        }
+
+        std::vector<Piece> newPieces;
+
+        for (size_t i = 0; i < pieceIndex; i++) {
+            newPieces.push_back(pieces[i]);
+        }
+
+        if (pieceIndex < pieces.size()) {
+            Piece& currentPiece = pieces[pieceIndex];
+            size_t offset = pos - currentPos;
+
+            if (offset > 0) {
+                newPieces.emplace_back(currentPiece.isOriginal,
+                                     currentPiece.start,
+                                     offset);
+            }
+
+            newPieces.emplace_back(false,
+                                 addBuffer.length(),
+                                 text.length());
+
+            if (offset < currentPiece.length) {
+                newPieces.emplace_back(currentPiece.isOriginal,
+                                     currentPiece.start + offset,
+                                     currentPiece.length - offset);
+            }
+
+            for (size_t i = pieceIndex + 1; i < pieces.size(); i++) {
+                newPieces.push_back(pieces[i]);
+            }
+        } else {
+            newPieces.emplace_back(false,
+                                 addBuffer.length(),
+                                 text.length());
+        }
+
+        addBuffer += text;
+        pieces = std::move(newPieces);
     }
 
-    piece_table()
-    {
-        this->original = "";
-        this->working_buffer = "";
-        this->history = {};
-        this->redo_stack = {};
-    };
-    void* clean{};
+    // Internal remove without recording undo
+    void removeWithoutUndo(size_t start, size_t end) {
+        if (start >= end) return;
+
+        size_t currentPos = 0;
+        size_t startPiece = 0;
+
+        // Find start piece
+        while (startPiece < pieces.size() && currentPos + pieces[startPiece].length <= start) {
+            currentPos += pieces[startPiece].length;
+            startPiece++;
+        }
+
+        std::vector<Piece> newPieces;
+
+        // Copy pieces before deletion
+        for (size_t i = 0; i < startPiece; i++) {
+            newPieces.push_back(pieces[i]);
+        }
+
+        if (startPiece < pieces.size()) {
+            size_t startOffset = start - currentPos;
+
+            if (startOffset > 0) {
+                // Keep the first part of the start piece
+                newPieces.emplace_back(pieces[startPiece].isOriginal,
+                                     pieces[startPiece].start,
+                                     startOffset);
+            }
+
+            // Skip pieces until we reach the end position
+            size_t endPiece = startPiece;
+            while (endPiece < pieces.size() && currentPos + pieces[endPiece].length <= end) {
+                currentPos += pieces[endPiece].length;
+                endPiece++;
+            }
+
+            if (endPiece < pieces.size() && currentPos < end) {
+                size_t endOffset = end - currentPos;
+                if (endOffset < pieces[endPiece].length) {
+                    // Keep the last part of the end piece
+                    newPieces.emplace_back(pieces[endPiece].isOriginal,
+                                         pieces[endPiece].start + endOffset,
+                                         pieces[endPiece].length - endOffset);
+                }
+            }
+
+            // Add remaining pieces
+            for (size_t i = endPiece + 1; i < pieces.size(); i++) {
+                newPieces.push_back(pieces[i]);
+            }
+        }
+
+        pieces = std::move(newPieces);
+    }
+
+public:
+    explicit PieceTable(const std::string& initial = "") : originalBuffer(initial) {
+        if (!initial.empty()) {
+            pieces.emplace_back(true, 0, initial.length());
+        }
+    }
+
+    void insert(size_t pos, const std::string& text) {
+        auto cmd = std::make_unique<InsertCommand>(*this, pos, text);
+        cmd->execute();
+        undoStack.push(std::move(cmd));
+
+        // Clear redo stack when new action is performed
+        while (!redoStack.empty()) {
+            redoStack.pop();
+        }
+    }
+
+    void remove(size_t start, size_t end) {
+        auto cmd = std::make_unique<DeleteCommand>(*this, start, end);
+        cmd->execute();
+        undoStack.push(std::move(cmd));
+
+        // Clear redo stack when new action is performed
+        while (!redoStack.empty()) {
+            redoStack.pop();
+        }
+    }
+
+    [[nodiscard]] bool canUndo() const {
+        return !undoStack.empty();
+    }
+
+    [[nodiscard]] bool canRedo() const {
+        return !redoStack.empty();
+    }
+
+    void undo() {
+        if (!canUndo()) return;
+
+        auto cmd = std::move(undoStack.top());
+        undoStack.pop();
+        cmd->undo();
+        redoStack.push(std::move(cmd));
+    }
+
+    void redo() {
+        if (!canRedo()) return;
+
+        auto cmd = std::move(redoStack.top());
+        redoStack.pop();
+        cmd->execute();
+        undoStack.push(std::move(cmd));
+    }
+
+    [[nodiscard]] std::string getText() const {
+        std::string result;
+        for (const auto& piece : pieces) {
+            const std::string& buffer = piece.isOriginal ? originalBuffer : addBuffer;
+            result += buffer.substr(piece.start, piece.length);
+        }
+        return result;
+    }
+    [[nodiscard]] std::string getTextRange(size_t start, size_t end) const {
+        std::string result;
+        size_t currentPos = 0;
+
+        for (const auto& piece : pieces) {
+            size_t pieceEnd = currentPos + piece.length;
+
+            if (currentPos < end && pieceEnd > start) {
+                size_t pieceStart = std::max(start - currentPos, static_cast<size_t>(0));
+                size_t pieceLength = std::min(piece.length - pieceStart,
+                                            end - (currentPos + pieceStart));
+
+                const std::string& buffer = piece.isOriginal ? originalBuffer : addBuffer;
+                result += buffer.substr(piece.start + pieceStart, pieceLength);
+            }
+
+            currentPos = pieceEnd;
+            if (currentPos >= end) break;
+        }
+
+        return result;
+    }
+
 };
 
 #endif //PIECE_TABLE_HPP

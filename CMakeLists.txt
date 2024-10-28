@@ -77,7 +77,7 @@ if(NOT Lua51_FOUND)
     FetchContent_GetProperties(Lua51)
     if (NOT Lua51_populated)
         set(FETCHCONTENT_QUIET NO)
-        FetchContent_Populate(Lua_51)
+        FetchContent_MakeAvailable(Lua_51)
     endif ()
 endif ()
 
