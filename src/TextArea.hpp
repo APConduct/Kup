@@ -8,16 +8,18 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <tinyfiledialogs.h>
-#include "piece_table.hpp"
+//#include "piece_table.hpp"
+#include "Piece.h"
 
 
 #include <raylib.h>
 
-
+typedef std::string String;
 
 
 
 namespace kupui {
+
 
 struct  TextArea {
     float spacing;
@@ -26,19 +28,20 @@ struct  TextArea {
     float fontSize;
     Font font{};
     float scale;
+    std::string text;
 
 
-    piece_table table;
+    //PieceChain state;
+    PieceChain state;
+    std::string add_buffer;
+
+    int indexOnChain;
+    Piece currentPiece;
+    int indexOnAddBuff;
 
 
-
-    public:
-
-    piece_chain piece_chain;
-    TextArea()
+    TextArea(): currentPiece(Piece(0,0,&add_buffer))
     {
-        //this->table = piece_table{};
-
         this->text = "";
         this->pos_x = 0;
         this->pos_y = 0;
@@ -51,65 +54,20 @@ struct  TextArea {
         this->cursor.index_y = 0;
         this->cursor.index_g = 0;
         this->cursor.symbol = *"|";
-
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
-
         this->spacing = 0;
         this->scale = 3;
 
-    };
-    TextArea(const float pos_x, const float pos_y)
+        this->indexOnChain = 0;
+        this->indexOnAddBuff = 0;
+
+    }
+    ;
+
+    TextArea(const float pos_x, const float pos_y,
+        const Font& font, const float font_size,const float spacing): currentPiece(0,0 ,add_buffer)
     {
-
-        this->text = "";
-        this->pos_x = pos_x;
-        this->pos_y = pos_y;
-        this->color = WHITE;
-        this->fontSize = 20;
-        this->font = GetFontDefault();
-        this->lines = 0;
-        this->focused = true;
-        this->cursor.index_x = 0;
-        this->cursor.index_y = 0;
-        this->cursor.index_g = 0;
-        this->cursor.symbol = *"|";
-
-        this->auto_backspace = false;
-        this->backspace_frame_counter = 0;
-
-        this->spacing = 0;
-        this->scale = 3;
-
-    };
-
-    TextArea(const float pos_x, const float pos_y, const float spacing, const Font& font)
-    {
-
-        this->text = "";
-        this->pos_x = pos_x;
-        this->pos_y = pos_y;
-        this->color = WHITE;
-        this->fontSize = 20;
-        this->font = font;
-        this->lines = 0;
-        this->focused = true;
-        this->cursor.index_x = 0;
-        this->cursor.index_y = 0;
-        this->cursor.index_g = 0;
-        this->cursor.symbol = *"|";
-
-        this->auto_backspace = false;
-        this->backspace_frame_counter = 0;
-        this->font = font;
-
-        this->spacing = spacing;
-        this->scale = 1;
-    };
-
-    TextArea(const float pos_x, const float pos_y, const Font& font, const float font_size, float spacing)
-    {
-
         this->text = "";
         this->pos_x = pos_x;
         this->pos_y = pos_y;
@@ -122,14 +80,21 @@ struct  TextArea {
         this->cursor.index_y = 0;
         this->cursor.index_g = 0;
         this->cursor.symbol = *"|";
-
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
         this->font = font;
-
         this->spacing = spacing;
         this->scale = 1;
-    };
+
+        this->add_buffer = "";
+
+        this->indexOnChain = 0;
+
+        this->currentPiece = Piece(0, 0, &add_buffer);
+        this->indexOnAddBuff = 0;
+
+    }
+    ;
 
 
 
@@ -138,7 +103,6 @@ struct  TextArea {
     {
         return this->pos_y;
     };
-
 
     struct cursor
     {
@@ -168,7 +132,9 @@ struct  TextArea {
     {
         std::string s;
 
-        std::stringstream ss(this->text);
+        //std::stringstream ss(this->text);
+        std::stringstream ss(this->state.toString());
+
 
         std::vector<std::string> v;
 
@@ -182,8 +148,6 @@ struct  TextArea {
 
     void Update()
     {
-
-        // TODO - EXTRACT AND MODULARIZE KEY BINDS FOR CONFIG
         if(IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL))
         {
             if(IsKeyPressed(KEY_S))
@@ -202,11 +166,22 @@ struct  TextArea {
         {
             if ((char_key >= 32) && (char_key < 127))
             {
+                const char ch = static_cast<char>(char_key);
+                this->add_buffer += ch;
+                const unsigned int length = TextLength(&ch);
 
+                //this->state.pieces.emplace_back(this->cursor.index_g, length, &add_buffer);
+                this->state.pieces.insert(this->state.pieces.begin()+this->indexOnChain,Piece(indexOnAddBuff,length,&add_buffer));
+                this->indexOnAddBuff++;
+                this->indexOnChain++;
 
                 this->text.insert(this->text.begin() + this->cursor.index_g, static_cast<char>(char_key));
+
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
+
+
+
             }
             char_key = GetCharPressed();
         }
@@ -235,35 +210,19 @@ struct  TextArea {
             
             this->lines++;
             this->cursor.index_y++;
+            this->text.insert(this->cursor.index_g, "\n");
             this->cursor.index_g++;
-            this->text.insert(this->cursor.index_g-1, "\n");
             this->cursor.index_x = 0;
         }
-        if(IsKeyPressed(KEY_LEFT))
-        {
-        //    if(this->cursor.index_g > 0)
-        //    {
-        //        if (this->cursor.index_x > 0)
-        //        {
-        //            this->cursor.index_x--;
-        //        }
-        //        else
-        //        {
-        //            --this->cursor.index_y;
-        //            this->cursor.index_x = static_cast<int>(this->text_lines.at(this->cursor.index_y).size());
-        //        }
-        //        this->cursor.index_g--;
-        //    };
-        }
-        if(IsKeyPressed(KEY_RIGHT))
-        {
-        //    if(this->cursor.index_g <= this->text.size())
-        //    {
-        //        this->cursor.index_x++;
-        //        this->cursor.index_g++;
-        //    }
 
-        }
+
+        //auto it = this->table.working_buffer.c_str();
+        //printf(it);
+        //std::cout << this->table.current()->to_string() << std::endl;
+        //printf("%c", this->text[this->cursor.index_x]);
+
+        //printf(this->add_buffer.c_str());
+        printf(state.toString().c_str());
 
 
     };
@@ -312,8 +271,6 @@ struct  TextArea {
     {
         return this->spacing;
     }
-    //std::vector<std::string> text_lines;
-    std::string text;
 protected:
     //int width, height;
     int lines;
