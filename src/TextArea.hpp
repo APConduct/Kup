@@ -31,14 +31,9 @@ struct  TextArea {
     float fontSize{};
     Font font{};
     float scale{};
-    //PieceChain state;
-    std::string add_buffer;
-
     std::string input_buffer;
 
-    unsigned int indexOnChain{};
-    //Piece currentPiece;
-    unsigned int indexOnAddBuff{};
+    //unsigned int indexOnAddBuff{};
 
     PieceTable text_buffer;
     bool is_composing = false;
@@ -69,8 +64,6 @@ struct  TextArea {
         size_t old_pos = cursor_index;
         text_buffer.insert(cursor_index, text);
         cursor_index += text.length();
-        //cursor.index_g += text.length();
-
         cursor_undo_stack.emplace(old_pos, cursor_index);
 
         // Clear redo stack
@@ -90,10 +83,6 @@ struct  TextArea {
 
         text_buffer.remove(remove_start, cursor_index);
         cursor_index = remove_start;
-        //if(text_buffer.getTextRange(old_pos, remove_start) == "\n")
-        //{
-        //    cursor.index_y
-        //}
         cursor_undo_stack.emplace(old_pos, cursor_index);
 
         while (!cursor_redo_stack.empty()) {
@@ -145,23 +134,16 @@ struct  TextArea {
         this->color = WHITE;
         this->fontSize = 20;
         this->font = GetFontDefault();
-        //this->lines = 0;
         this->focused = true;
         this->cursor.index_x = 0;
         this->cursor.index_y = 0;
-        //this->cursor.index_g = 0;
         this->cursor.symbol = *"|";
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
         this->spacing = 0;
         this->scale = 3;
-
-        this->indexOnChain = 0;
-        this->indexOnAddBuff = 0;
-
+        //this->indexOnAddBuff = 0;
         this->cursor_index = 0;
-
-
     }
     ;
 
@@ -173,23 +155,15 @@ struct  TextArea {
         this->color = WHITE;
         this->fontSize = font_size;
         this->font = font;
-        //this->lines = 0;
         this->focused = true;
         this->cursor.index_x = 0;
         this->cursor.index_y = 0;
-        //this->cursor.index_g = 0;
         this->cursor.symbol = *"|";
         this->auto_backspace = false;
         this->backspace_frame_counter = 0;
         this->font = font;
         this->spacing = spacing;
         this->scale = 1;
-
-        this->add_buffer = "";
-
-        this->indexOnChain = 0;
-
-        this->indexOnAddBuff = 0;
 
     };
 
@@ -265,7 +239,6 @@ struct  TextArea {
             if ((char_key >= 32) && (char_key < 127))
             {
                 const char new_char = static_cast<char>(char_key);
-                // this->add_buffer += new_char;
                 input_buffer += new_char;
                 is_composing = true;
 
@@ -278,22 +251,8 @@ struct  TextArea {
                     is_composing = false;
                     }
 
-
-
-
-                //const unsigned int length = TextLength(&new_char);
-                //this->state.pieces.insert(this->state.pieces.begin()+this->indexOnChain,Piece(indexOnAddBuff,length,&add_buffer));
-                //this->indexOnAddBuff+=length;
-                //this->indexOnChain++;
-
-                //text_buffer.insert(this->cursor.index_g, &ch);
-                //this->insert(&new_char);
-
-
                 this->cursor.index_g ++;
                 this->cursor.index_x++;
-
-
 
             }
             char_key = GetCharPressed();
@@ -356,19 +315,14 @@ struct  TextArea {
                 this->input_buffer.clear();
                 this->cursor.index_x += input_buffer.length();
             }
-            //this->lines++;
             this->insert("\n");
             this->cursor.index_y++;
-            //this->cursor.index_g++;
             this->cursor.index_x = text_vec().at(cursor.index_y).size();
             is_composing = false;
             compose_timer = 0.0f;
-
-            //text_buffer.insert(this->cursor.index_g, "\n");
         }
-
-        printf("%llu", this->cursor.index_x);
    };
+
     void Render() const
     {
         std::string display_text = text_buffer.getText();
@@ -408,11 +362,6 @@ struct  TextArea {
     {
         return this->fontSize;
     }
-    //[[nodiscard]] int get_lines() const
-    //{
-    //    return this->lines;
-    //}
-
     [[nodiscard]] size_t get_cursor_index_y() const
     {
         return this->cursor.index_y;
@@ -448,8 +397,6 @@ struct  TextArea {
         return static_cast<int>(this->pos_y);
     }
 protected:
-    //int width, height;
-    //int lines{};
     bool focused{};
     bool auto_backspace{};
     int backspace_frame_counter{};
