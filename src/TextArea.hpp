@@ -9,7 +9,9 @@
 #include <bits/stdc++.h>
 #include <tinyfiledialogs.h>
 #include "piece_table.hpp"
-#include "Piece.h"
+//#include "Piece.h"
+#include "kuputils.h"
+
 
 
 #include <raylib.h>
@@ -29,7 +31,7 @@ struct  TextArea {
     float fontSize{};
     Font font{};
     float scale{};
-    PieceChain state;
+    //PieceChain state;
     std::string add_buffer;
 
     std::string input_buffer;
@@ -48,8 +50,11 @@ struct  TextArea {
         size_t old_pos;
         size_t new_pos;
 
+        size_t old_pos_y;
+        size_t new_pos_y;
+
         CursorCommand(size_t old_pos, size_t new_pos)
-            : old_pos(old_pos), new_pos(new_pos) {}
+            : old_pos(old_pos), new_pos(new_pos), old_pos_y(old_pos), new_pos_y(new_pos) {}
     };
 
     explicit TextArea(const std::string& initial = "")
@@ -64,7 +69,7 @@ struct  TextArea {
         size_t old_pos = cursor_index;
         text_buffer.insert(cursor_index, text);
         cursor_index += text.length();
-        cursor.index_g += text.length();
+        //cursor.index_g += text.length();
 
         cursor_undo_stack.emplace(old_pos, cursor_index);
 
@@ -100,20 +105,34 @@ struct  TextArea {
     void undo() {
         if (!text_buffer.canUndo() || cursor_undo_stack.empty()) return;
 
-        text_buffer.undo();
         auto cursor_cmd = cursor_undo_stack.top();
         cursor_undo_stack.pop();
+
+        text_buffer.undo();
+
         cursor_index = cursor_cmd.old_pos;
+        cursor.index_x = cursor_cmd.old_pos;
+
+        std::string text_before_cursor = text_buffer.getText().substr(0, cursor_index);
+        cursor.index_y = std::ranges::count(text_before_cursor, '\n');
+
         cursor_redo_stack.push(cursor_cmd);
     }
 
     void redo() {
         if (!text_buffer.canRedo() || cursor_redo_stack.empty()) return;
 
-        text_buffer.redo();
         auto cursor_cmd = cursor_redo_stack.top();
         cursor_redo_stack.pop();
+
+        text_buffer.redo();
+
         cursor_index = cursor_cmd.new_pos;
+        cursor.index_x = cursor_cmd.new_pos;
+
+        std::string text_before_cursor = text_buffer.getText().substr(0, cursor_index);
+        cursor.index_y = std::ranges::count(text_before_cursor, '\n');
+
         cursor_undo_stack.push(cursor_cmd);
     }
 

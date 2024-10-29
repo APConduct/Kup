@@ -6,7 +6,9 @@
 #define KUP_UTILS_H
 
 #include <raylib.h>
+#include <string>
 #include <vector>
+#include <bits/ranges_algo.h>
 
 float int_to_float(int number);
 int float_to_int(float number);
@@ -24,4 +26,14 @@ inline std::tuple<const Vector2*, const Vector2*> rect_to_vec_tuple(const Rectan
 };
 Vector2 rect_pos( Rectangle rect);
 Vector2 rect_size( Rectangle rect);
+
+
+inline unsigned int count_lines( std::string string)
+{
+    if (string.empty())
+    {
+        return 0;
+    }
+    return std::ranges::count(string, '\n')+1;
+};
 #endif //KUP_UTILS_H
