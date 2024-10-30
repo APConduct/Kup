@@ -12,14 +12,7 @@
 #include "font.h"
 #include "TextArea.hpp"
 
-#define ZERO 0
-#define ONE 1
-#define TWO 2
-#define THREE 3
-#define FOUR 4
-#define FIVE 5
-#define EIGHT 8
-#define TEN 10
+
 
 
 
@@ -74,7 +67,7 @@ int main(int argc, char **argv)
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
 
-    constexpr int GRIP_GAP = 8;
+    constexpr int GRIP_GAP = 5;
     float CURSOR_JESUS_SPACE = 2;
 
     std::string JB_MONO_REG_PATH =  "../src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
@@ -83,7 +76,7 @@ int main(int argc, char **argv)
 
     const auto font = LoadFontEx(BRASS_MONO_CODE_REG_PATH.c_str(),
         FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, -2);
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, -1.4);
     SetTargetFPS(120);
 
     float text_cursor_pos_x = 0, text_cursor_pos_y = 0;
@@ -124,7 +117,10 @@ int main(int argc, char **argv)
         float x_start = cast_to_float(text_area->get_x() - GRIP_GAP);
         float x_end = cast_to_float(text_area->get_x()- GRIP_GAP);
         float y_end = cast_to_float(GetScreenHeight()) - TOP_BAR_WIDTH;
-        DrawLineEx({x_start, text_area->get_pos_y()}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
+        DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
+
+        DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
+
 
         EndDrawing();
     }
@@ -132,4 +128,3 @@ int main(int argc, char **argv)
     return 0;
 
 }
-

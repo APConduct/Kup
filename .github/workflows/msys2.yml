@@ -13,9 +13,13 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: git mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-cmake  
+          install: git mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
       - name: Configure CMake
         run: cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./build
+      - name: Make script executable # Add this step
+        run: chmod +x ./ci-build.sh
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
