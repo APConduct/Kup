@@ -83,19 +83,7 @@ endif ()
 
 
 
-#find_package(PkgConfig REQUIRED)
 
-
-#pkg_check_modules(lua54 REQUIRED lua5.4)
-
-#FetchContent_Populate(lua54 URL
-#        https://www.lua.org/ftp/lua-5.4.7.tar.gz
-#        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lua54)
-
-
-
-#find_package(tinyfiledialogs CONFIG REQUIRED)
-#target_link_libraries(main PRIVATE tinyfiledialogs::tinyfiledialogs)
 
 
 set(tinyfiledialogs_SRC src/ext/tinyfd)
@@ -110,7 +98,6 @@ add_executable(Kup src/main.cpp
 )
 
 target_link_libraries(Kup PRIVATE raylib
-        #liblua
         tinyfiledialogs
         raygui
 )
