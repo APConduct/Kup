@@ -107,9 +107,6 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/uses_allocator_args.h \
  C:/msys64/ucrt64/include/c++/14.2.0/tuple \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/ranges_util.h \
- C:/msys64/ucrt64/include/lua.hpp C:/msys64/ucrt64/include/lua.h \
- C:/msys64/ucrt64/include/luaconf.h C:/msys64/ucrt64/include/lualib.h \
- C:/msys64/ucrt64/include/lauxlib.h \
  C:/Users/ajost1/CLionProjects/Kup/src/font.h \
  C:/Users/ajost1/CLionProjects/Kup/src/TextArea.hpp \
  C:/msys64/ucrt64/include/c++/14.2.0/algorithm \
@@ -139,6 +136,7 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/vector.tcc \
  C:/msys64/ucrt64/include/c++/14.2.0/array C:/msys64/ucrt64/include/lua.h \
+ C:/msys64/ucrt64/include/luaconf.h \
  C:/msys64/ucrt64/include/c++/14.2.0/sstream \
  C:/msys64/ucrt64/include/c++/14.2.0/istream \
  C:/msys64/ucrt64/include/c++/14.2.0/ios \
@@ -367,4 +365,6 @@ CMakeFiles\Kup.dir\src\main.cpp.obj.ddi: \
  C:/msys64/ucrt64/include/c++/14.2.0/latch \
  C:/msys64/ucrt64/include/c++/14.2.0/syncstream \
  C:/Users/ajost1/CLionProjects/Kup/src/ext/tinyfd/tinyfiledialogs.h \
- C:/Users/ajost1/CLionProjects/Kup/src/piece_table.hpp
+ C:/Users/ajost1/CLionProjects/Kup/src/piece_table.hpp \
+ C:/msys64/ucrt64/include/lua.hpp C:/msys64/ucrt64/include/lua.h \
+ C:/msys64/ucrt64/include/lualib.h C:/msys64/ucrt64/include/lauxlib.h
