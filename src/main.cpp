@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 
     constexpr int GRIP_GAP = 5;
 
-    std::string JB_MONO_REG_PATH =  "../src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
+    const std::string JB_MONO_REG_PATH =  "../src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
     const std::string BRASS_MONO_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMono-Regular.ttf";
     const std::string BRASS_MONO_CODE_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMonoCode-Regular.ttf";
     const std::string ZED_MONO_REG_PATH = "../src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 
     const auto font = LoadFontEx(JB_MONO_REG_PATH.c_str(),
         FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, font.glyphs->offsetX);
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, static_cast<float>(font.glyphs->offsetX));
     SetTargetFPS(120);
 
 
