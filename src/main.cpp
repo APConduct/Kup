@@ -72,10 +72,12 @@ int main(int argc, char **argv)
     std::string JB_MONO_REG_PATH =  "../src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
     const std::string BRASS_MONO_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMono-Regular.ttf";
     const std::string BRASS_MONO_CODE_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMonoCode-Regular.ttf";
+    const std::string ZED_MONO_REG_PATH = "../src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
+    const std::string IBM_PLEX_REG_PATH = "../src/resources/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf";
 
-    const auto font = LoadFontEx(BRASS_MONO_CODE_REG_PATH.c_str(),
+    const auto font = LoadFontEx(JB_MONO_REG_PATH.c_str(),
         FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, -1.4);
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, font.glyphs->offsetX);
     SetTargetFPS(120);
 
 
@@ -99,7 +101,7 @@ int main(int argc, char **argv)
                 "|",
                 cursor_pos,
                 text_area->get_fontSize(),
-                text_area->get_spacing(),
+                0,
                 text_area->cursor_visible ? SKYBLUE : BLANK);
         }
 

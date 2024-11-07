@@ -529,32 +529,6 @@ struct  TextArea {
             );
 
         }
-
-        //std::string display_text = text_buffer.get_text();
-
-        // Insert the input buffer at the cursor_old_struct position
-
-        //if (!input_buffer.empty()) {
-        //    display_text.insert(cursor_index, input_buffer);
-        //}
-
-        // Split into lines and render
-
-        //std::stringstream ss(display_text);
-        //std::string line;
-        //int start_y = 0;
-        //while (getline(ss, line, '\n')) {
-        //    DrawTextEx(
-        //        this->font,
-        //        line.c_str(),
-        //        {static_cast<float>(this->pos_x),
-        //         this->pos_y + static_cast<float>(this->font.baseSize) * (this->scale * static_cast<float>(start_y))},
-        //        this->fontSize,
-        //        this->spacing,
-        //        this->color
-        //    );
-        //    start_y++;
-        //}
     };
     [[nodiscard]] std::string get_current_line() const
     {
