@@ -225,6 +225,9 @@ struct  TextArea {
         while (!cursor_redo_stack.empty()) {
             cursor_redo_stack.pop();
         }
+        update_cursor_position();
+        render_cache.invalidate();
+        update_render_cache();
     }
 
 
@@ -262,10 +265,9 @@ struct  TextArea {
             text_buffer.redo();
 
             cursor_index = cursor_cmd.new_pos;
-            cursor.column = cursor_cmd.new_pos;
+            cursor.index = cursor_index;
 
-            std::string text_before_cursor = text_buffer.get_text().substr(0, cursor_index);
-            cursor.line = std::count(text_before_cursor.begin(), text_before_cursor.end(), '\n');
+            update_cursor_position();
 
             cursor_undo_stack.push(cursor_cmd);
 
@@ -347,13 +349,19 @@ struct  TextArea {
         while (getline(ss, s, '\n')) {
             v.push_back(s);
         }
-        v.emplace_back("");
+        if (display_text.empty() || display_text.back() == '\n'){
+            v.push_back("");
+        }
         return v;
     }
 
     [[nodiscard]] int refresh_cursor_x() const
     {
-        return static_cast<int>(this->text_vec().at(cursor.line).size());
+        auto lines = text_vec();
+        if (cursor.line < lines.size()){
+            return static_cast<int>(lines[cursor.line].size());
+        };
+        return 0;
     }
 
 
@@ -452,24 +460,20 @@ struct  TextArea {
             if (!input_buffer.empty()) {
                 // If we're composing, just remove from buffer
                 input_buffer.pop_back();
-                if (this->cursor.column > 0)
-                {
-                    this->cursor.column--;
-                }
-                cursor.index--;
-                compose_timer = 0.0f; // Reset timer
+                compose_timer = 0.0f;
+                update_render_cache();
             } else if (this->cursor_index > 0)
             {
-                if (this->cursor.column > 0)
+                size_t current_line = cursor.line;
+
+                this->remove(1);
+
+                if (cursor.line == current_line && cursor.column > 0)
                 {
                     this->cursor.column--;
-                }else
-                {
-                    this->cursor.line--;
                 }
-                this->remove(1);
+                update_cursor_position();
             }
-            this->cursor.column = refresh_cursor_x();
         }
 
         if (IsKeyPressed(KEY_ENTER))
@@ -479,13 +483,18 @@ struct  TextArea {
                 this->insert(input_buffer);
                 this->cursor.index += input_buffer.length();
                 this->input_buffer.clear();
-                this->cursor.column += input_buffer.length();
+                //this->cursor.column += input_buffer.length();
             }
             this->insert("\n");
-            this->cursor.line++;
-            this->cursor.column = text_vec().at(cursor.line).size();
+            cursor.index++;
+            //this->cursor.line++;
+            update_cursor_position(); //update line and column
+
+            //this->cursor.column = text_vec().at(cursor.line).size();
             is_composing = false;
             compose_timer = 0.0f;
+            render_cache.invalidate();
+            update_render_cache();
         };
 
         // Update cursor blink

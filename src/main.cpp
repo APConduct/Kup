@@ -80,25 +80,12 @@ int main(int argc, char **argv)
     auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, -1.4);
     SetTargetFPS(120);
 
-    float text_cursor_pos_x = 0, text_cursor_pos_y = 0;
-
 
     while (!WindowShouldClose())
     {
         text_area->Update();
 
-        text_cursor_pos_x =
-            CURSOR_JESUS_SPACE +
-                MeasureTextEx(
-                    text_area->font,
-                    text_area->get_current_line().substr(0,text_area->cursor.index).c_str(),
-                    text_area->get_fontSize(), text_area->spacing).x
-        + text_area->get_pos_x();
 
-
-        text_cursor_pos_y =
-            text_area->get_pos_y()
-            + (static_cast<float>(text_area->get_font().baseSize) * text_area->get_scale() * static_cast<float>(text_area->cursor.line));
         BeginDrawing();
         ClearBackground(BLACK);
         text_area->Render();
@@ -127,28 +114,6 @@ int main(int argc, char **argv)
 
         DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
 
-
-        if (text_area->cursor_visible) {
-            Vector2 cursor_pos = {
-                text_cursor_pos_x - text_area->get_fontSize()/CURSOR_OFFSET,
-                text_cursor_pos_y
-            };
-
-            // Draw cursor background highlight for selection (if implementing)
-            /*if (text_area->has_selection()) {
-                Rectangle sel_rect = {
-                    cursor_pos.x,
-                    cursor_pos.y,
-                    text_area->get_selection_width(),
-                    text_area->get_fontSize()
-                };
-                DrawRectangleRec(sel_rect, ColorAlpha(SKYBLUE, 0.3f));
-            }*/
-
-            // Draw cursor line
-
-
-        }
 
         EndDrawing();
     }
