@@ -99,7 +99,9 @@ endif ()
 
 
 set(tinyfiledialogs_SRC src/ext/tinyfd)
-add_library(tinyfiledialogs STATIC ${PROJECT_SOURCE_DIR}/src/ext/tinyfd/tinyfiledialogs.c)
+add_library(tinyfiledialogs STATIC)
+target_sources(tinyfiledialogs PRIVATE ${PROJECT_SOURCE_DIR}/src/ext/tinyfd/tinyfiledialogs.c)
+
 target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
 
 
