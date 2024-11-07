@@ -96,11 +96,6 @@ typedef std::string key_name;
 typedef std::tuple<key_name, KeyboardKey, key_function> kup_key;
 
 
-struct a_key
-{
-    std::string name;
-    int code;
-};
 
 inline int key_val(const std::string& name)
 {

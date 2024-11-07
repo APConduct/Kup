@@ -9,14 +9,12 @@
 #include <raylib.h>
 
 #include "api.h"
-#include "Piece.h"
 #include "font.h"
 
 // big structures
-//#include "piece_table_claude.hpp"
 #include "TextArea.hpp"
 
 // misc.
-#include "kuputils.h"
+#include "kuputils.hpp"
 
 #endif //KUP_H

@@ -9,6 +9,7 @@
 //#include <lua.hpp>
 //#include <lualib.h>
 //#include <lua.hpp>
+#include "lua.hpp"
 #include "font.h"
 #include "TextArea.hpp"
 
@@ -90,29 +91,34 @@ int main(int argc, char **argv)
             CURSOR_JESUS_SPACE +
                 MeasureTextEx(
                     text_area->font,
-                    text_area->get_current_line().substr(0,text_area->get_cursor_index_x()).c_str(),
+                    text_area->get_current_line().substr(0,text_area->cursor.index).c_str(),
                     text_area->get_fontSize(), text_area->spacing).x
         + text_area->get_pos_x();
 
 
         text_cursor_pos_y =
             text_area->get_pos_y()
-            + (static_cast<float>(text_area->get_font().baseSize) * text_area->get_scale() * static_cast<float>(text_area->get_cursor_index_y()));
+            + (static_cast<float>(text_area->get_font().baseSize) * text_area->get_scale() * static_cast<float>(text_area->cursor.line));
         BeginDrawing();
         ClearBackground(BLACK);
         text_area->Render();
-        if (text_area->get_font() != GetFontDefault())
-        {
-            //
-            DrawTextEx(GetFontDefault(), "|", {
-                text_cursor_pos_x - text_area->get_fontSize()/CURSOR_OFFSET, text_cursor_pos_y},
-                text_area->get_fontSize(),text_area->get_spacing(),
-                SKYBLUE);
-        }else
-        {
 
-            DrawText("|",static_cast<int>(text_cursor_pos_x),static_cast<int>(text_cursor_pos_y), static_cast<int>(text_area->get_fontSize()), WHITE);
+        // Draw cursor at correct position
+        if (text_area->focused){
+            Vector2 cursor_pos = {
+                text_area->get_cursor_x() - text_area->get_fontSize()/CURSOR_OFFSET,
+                text_area->get_cursor_y()
+            };
+            DrawTextEx(
+                GetFontDefault(),
+                "|",
+                cursor_pos,
+                text_area->get_fontSize(),
+                text_area->get_spacing(),
+                text_area->cursor_visible ? SKYBLUE : BLANK);
         }
+
+
 
         float x_start = cast_to_float(text_area->get_x() - GRIP_GAP);
         float x_end = cast_to_float(text_area->get_x()- GRIP_GAP);
@@ -121,6 +127,28 @@ int main(int argc, char **argv)
 
         DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
 
+
+        if (text_area->cursor_visible) {
+            Vector2 cursor_pos = {
+                text_cursor_pos_x - text_area->get_fontSize()/CURSOR_OFFSET,
+                text_cursor_pos_y
+            };
+
+            // Draw cursor background highlight for selection (if implementing)
+            /*if (text_area->has_selection()) {
+                Rectangle sel_rect = {
+                    cursor_pos.x,
+                    cursor_pos.y,
+                    text_area->get_selection_width(),
+                    text_area->get_fontSize()
+                };
+                DrawRectangleRec(sel_rect, ColorAlpha(SKYBLUE, 0.3f));
+            }*/
+
+            // Draw cursor line
+
+
+        }
 
         EndDrawing();
     }

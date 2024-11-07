@@ -4,14 +4,37 @@
 
 #ifndef PIECE_TABLE_HPP
 #define PIECE_TABLE_HPP
+#include <algorithm>
+#include <cstddef>
 #include <string>
 #include <utility>
 #include <vector>
 #include <memory>
 #include <stack>
 
-class PieceTable {
+struct  PieceTable {
 private:
+
+    size_t total_length{0};
+    struct LineCache{
+        std::vector<size_t>line_starts;
+        bool is_dirty{true};
+
+        void invalidate(){is_dirty = true;}
+        void update(const std::string& text){
+            if(!is_dirty)return;
+            line_starts.clear();
+            line_starts.push_back(0);
+            for(size_t i = 0; i < text.length(); i++){
+                if( text[i] == '\n')  line_starts.push_back(i+1);
+
+            }
+            is_dirty = false;
+        }
+    }line_cache;
+
+
+
     // Represents a piece of text
     struct Piece {
         bool isOriginal;
@@ -46,7 +69,7 @@ private:
         }
 
         void execute() override {
-            table.insertWithoutUndo(position, text);
+            table.insert_without_undo(position, text);
         }
 
         void undo() override {
@@ -61,21 +84,23 @@ private:
         size_t start;
         size_t end;
         std::vector<Piece> oldPieces;
-        std::string deletedText;
+        size_t old_total_length;
 
     public:
         DeleteCommand(PieceTable& t, size_t s, size_t e)
             : table(t), start(s), end(e) {
             oldPieces = table.pieces;
-            deletedText = table.getTextRange(start, end);
+            old_total_length = table.total_length;
         }
 
         void execute() override {
-            table.removeWithoutUndo(start, end);
+            table.remove_without_undo(start, end);
         }
 
         void undo() override {
             table.pieces = oldPieces;
+            table.total_length = old_total_length;
+            table.line_cache.invalidate();
         }
     };
 
@@ -89,8 +114,11 @@ private:
 
 
     // Internal insert without recording undo
-    void insertWithoutUndo(size_t pos, const std::string& text) {
+    void insert_without_undo(size_t pos, const std::string& text) {
         if (text.empty()) return;
+
+        // Endure position is valid
+        pos = std::min(pos, total_length);
 
         size_t currentPos = 0;
         size_t pieceIndex = 0;
@@ -137,11 +165,17 @@ private:
 
         addBuffer += text;
         pieces = std::move(newPieces);
+
+        total_length += text.length();
+        line_cache.invalidate();
     }
 
     // Internal remove without recording undo
-    void removeWithoutUndo(size_t start, size_t end) {
-        if (start >= end) return;
+    void remove_without_undo(size_t start, size_t end) {
+        if (start >= end || start >= total_length) return;
+
+        // Clamp end position to validate range
+        end = std::min(end, total_length);
 
         size_t currentPos = 0;
         size_t startPiece = 0;
@@ -193,6 +227,10 @@ private:
         }
 
         pieces = std::move(newPieces);
+
+        total_length -= (end - start);
+        line_cache.invalidate();
+
     }
 
 public:
@@ -250,7 +288,7 @@ public:
         undoStack.push(std::move(cmd));
     }
 
-    [[nodiscard]] std::string getText() const {
+    [[nodiscard]] std::string get_text() const {
         std::string result;
         for (const auto& piece : pieces) {
             const std::string& buffer = piece.isOriginal ? originalBuffer : addBuffer;
@@ -258,7 +296,7 @@ public:
         }
         return result;
     }
-    [[nodiscard]] std::string getTextRange(size_t start, size_t end) const {
+    [[nodiscard]] std::string get_text_in_range(size_t start, size_t end) const {
         std::string result;
         size_t currentPos = 0;
 
@@ -284,4 +322,3 @@ public:
 };
 
 #endif //PIECE_TABLE_HPP
-
