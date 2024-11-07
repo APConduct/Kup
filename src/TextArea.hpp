@@ -12,9 +12,8 @@
 #include <string>
 #include <vector>
 #include <bits/stdc++.h>
-#include <tinyfiledialogs.h>
+#include "ext/tinyfd/tinyfiledialogs.h"
 #include "piece_table.hpp"
-#include "kuputils.h"
 #include <raylib.h>
 #include <lua.hpp>
 

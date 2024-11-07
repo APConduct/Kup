@@ -13,11 +13,8 @@
 	"forward-modules-from-target-dirs" : [],
 	"include-dirs" : 
 	[
-		"C:\\Users\\ajost1\\CLionProjects\\Kup\\cmake-build-debug-msys-ucrt\\_deps\\raylib-src\\examples\\shapes",
 		"C:\\Users\\ajost1\\CLionProjects\\Kup\\src\\ext\\tinyfd",
-		"C:\\Users\\ajost1\\CLionProjects\\Kup\\luajit-2.1",
 		"_deps\\raylib-src\\examples\\shapes",
-		"C:\\Users\\ajost1\\CLionProjects\\Kup\\src\\ext\\nuklear",
 		"_deps\\raylib-src\\src",
 		"_deps\\raylib-src\\src\\external\\glfw\\include",
 		"\\projects\\CMake\\src"

@@ -50,7 +50,7 @@ if (NOT raygui_FOUND)
     FetchContent_GetProperties(raygui)
     if (NOT raygui_populated)
         set(FETCHCONTENT_QUIET NO)
-        FetchContent_Populate(raygui)
+        FetchContent_MakeAvailable(raygui)
         set(RAYGUI_ROOT ${raygui_SOURCE_DIR})
         set(RAYGUI_SRC ${raygui_SOURCE_DIR}/src)
         set(RAYGUI_EXAMPLES ${RAYGUI_ROOT}/examples)
@@ -111,18 +111,14 @@ target_link_libraries(Kup PRIVATE raylib
         #liblua
         tinyfiledialogs
         raygui
-        #tinyfiledialogs::tinyfiledialogs
 )
 
 
 
 
 target_include_directories(Kup PRIVATE
-        cmake-build-debug-msys-ucrt/_deps/raylib-src/examples/shapes
         ${tinyfiledialogs_SRC}
-        luajit-2.1
         ${raylib_SOURCE_DIR}/examples/shapes
-        src/ext/nuklear
 
 )
 

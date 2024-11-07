@@ -21,14 +21,14 @@ function(check_file_hash has_hash hash_is_good)
 
   set("${has_hash}" TRUE PARENT_SCOPE)
 
-  message(VERBOSE "verifying file...
+  message(STATUS "verifying file...
        file='C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz'")
 
   file("" "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
-    message(VERBOSE " hash of
+    message(STATUS " hash of
     C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz
   does not match expected value
     expected: ''
@@ -44,7 +44,7 @@ function(sleep_before_download attempt)
   endif()
 
   if(attempt EQUAL 1)
-    message(VERBOSE "Retrying...")
+    message(STATUS "Retrying...")
     return()
   endif()
 
@@ -66,7 +66,7 @@ function(sleep_before_download attempt)
     set(sleep_seconds 1200)
   endif()
 
-  message(VERBOSE "Retry after ${sleep_seconds} seconds (attempt #${attempt}) ...")
+  message(STATUS "Retry after ${sleep_seconds} seconds (attempt #${attempt}) ...")
 
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
@@ -75,17 +75,17 @@ if(EXISTS "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subb
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
-      message(VERBOSE "File already exists and hash match (skip download):
+      message(STATUS "File already exists and hash match (skip download):
   file='C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz'
   =''"
       )
       return()
     else()
-      message(VERBOSE "File already exists but hash mismatch. Removing...")
+      message(STATUS "File already exists but hash mismatch. Removing...")
       file(REMOVE "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz")
     endif()
   else()
-    message(VERBOSE "File already exists but no hash specified (use URL_HASH):
+    message(STATUS "File already exists but no hash specified (use URL_HASH):
   file='C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz'
 Old file will be removed and new file downloaded from URL."
     )
@@ -95,12 +95,12 @@ endif()
 
 set(retry_number 5)
 
-message(VERBOSE "Downloading...
+message(STATUS "Downloading...
    dst='C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz'
    timeout='none'
    inactivity timeout='none'"
 )
-set(download_retry_codes 7 6 8 15 28 35)
+set(download_retry_codes 7 6 8 15 28)
 set(skip_url_list)
 set(status_code)
 foreach(i RANGE ${retry_number})
@@ -109,9 +109,8 @@ foreach(i RANGE ${retry_number})
   endif()
   foreach(url IN ITEMS [====[https://github.com/raysan5/raygui/archive/refs/tags/4.0.tar.gz]====])
     if(NOT url IN_LIST skip_url_list)
-      message(VERBOSE "Using src='${url}'")
+      message(STATUS "Using src='${url}'")
 
-      
       
       
       
@@ -135,10 +134,10 @@ foreach(i RANGE ${retry_number})
       if(status_code EQUAL 0)
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
-          message(VERBOSE "Hash mismatch, removing...")
+          message(STATUS "Hash mismatch, removing...")
           file(REMOVE "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raygui-subbuild/raygui-populate-prefix/src/4.0.tar.gz")
         else()
-          message(VERBOSE "Downloading... done")
+          message(STATUS "Downloading... done")
           return()
         endif()
       else()

@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.5)
 get_filename_component(filename "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/5.0.tar.gz" ABSOLUTE)
 get_filename_component(directory "C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/_deps/raylib-src" ABSOLUTE)
 
-message(VERBOSE "extracting...
+message(STATUS "extracting...
      src='${filename}'
      dst='${directory}'"
 )
@@ -28,21 +28,21 @@ file(MAKE_DIRECTORY "${ut_dir}")
 
 # Extract it:
 #
-message(VERBOSE "extracting... [tar xfz]")
+message(STATUS "extracting... [tar xfz]")
 execute_process(COMMAND ${CMAKE_COMMAND} -E tar xfz ${filename} --touch
   WORKING_DIRECTORY ${ut_dir}
   RESULT_VARIABLE rv
 )
 
 if(NOT rv EQUAL 0)
-  message(VERBOSE "extracting... [error clean up]")
+  message(STATUS "extracting... [error clean up]")
   file(REMOVE_RECURSE "${ut_dir}")
   message(FATAL_ERROR "Extract of '${filename}' failed")
 endif()
 
 # Analyze what came out of the tar file:
 #
-message(VERBOSE "extracting... [analysis]")
+message(STATUS "extracting... [analysis]")
 file(GLOB contents "${ut_dir}/*")
 list(REMOVE_ITEM contents "${ut_dir}/.DS_Store")
 list(LENGTH contents n)
@@ -52,14 +52,14 @@ endif()
 
 # Move "the one" directory to the final directory:
 #
-message(VERBOSE "extracting... [rename]")
+message(STATUS "extracting... [rename]")
 file(REMOVE_RECURSE ${directory})
 get_filename_component(contents ${contents} ABSOLUTE)
 file(RENAME ${contents} ${directory})
 
 # Clean up:
 #
-message(VERBOSE "extracting... [clean up]")
+message(STATUS "extracting... [clean up]")
 file(REMOVE_RECURSE "${ut_dir}")
 
-message(VERBOSE "extracting... done")
+message(STATUS "extracting... done")
