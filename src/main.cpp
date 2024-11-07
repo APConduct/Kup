@@ -9,7 +9,6 @@
 //#include <lua.hpp>
 //#include <lualib.h>
 //#include <lua.hpp>
-#include "lua.hpp"
 #include "font.h"
 #include "TextArea.hpp"
 
@@ -56,7 +55,7 @@ struct Hue
 
 int main(int argc, char **argv)
 {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(1600, 960, "Kup");
 
     constexpr int GUI_BAR_UNIT = 64;
@@ -69,7 +68,6 @@ int main(int argc, char **argv)
     constexpr float GUI_LINE_WIDTH = 2;
 
     constexpr int GRIP_GAP = 5;
-    float CURSOR_JESUS_SPACE = 2;
 
     std::string JB_MONO_REG_PATH =  "../src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
     const std::string BRASS_MONO_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMono-Regular.ttf";
@@ -107,9 +105,9 @@ int main(int argc, char **argv)
 
 
 
-        float x_start = cast_to_float(text_area->get_x() - GRIP_GAP);
-        float x_end = cast_to_float(text_area->get_x()- GRIP_GAP);
-        float y_end = cast_to_float(GetScreenHeight()) - TOP_BAR_WIDTH;
+        auto x_start = static_cast<float>(text_area->get_x() - GRIP_GAP);
+        auto x_end = static_cast<float>(text_area->get_x()- GRIP_GAP);
+        auto y_end = static_cast<float>(GetScreenHeight() - TOP_BAR_WIDTH);
         DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
 
         DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
