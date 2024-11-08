@@ -354,14 +354,6 @@ struct  TextArea {
         return v;
     }
 
-    [[nodiscard]] int refresh_cursor_x() const
-    {
-        auto lines = text_vec();
-        if (cursor.line < lines.size()){
-            return static_cast<int>(lines[cursor.line].size());
-        };
-        return 0;
-    }
 
 
         float cursor_blink_timer = 0.0f;
