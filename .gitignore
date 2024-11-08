@@ -1,8 +1,15 @@
 # Xmake cache
 .xmake/
 
-# build/
-bin
+# debug build dir
+cmake-build-debug/
+
+# CI/general build dir
+build/
+
+
+# clangd cache from zed
+.cache/
 
 # MacOS Cache
 .DS_Store
