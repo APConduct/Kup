@@ -112,6 +112,7 @@ private:
 
     // Helper method to get text range
 
+public:
 
     // Internal insert without recording undo
     void insert_without_undo(size_t pos, const std::string& text) {
@@ -233,7 +234,6 @@ private:
 
     }
 
-public:
     explicit PieceTable(const std::string& initial = "") : originalBuffer(initial) {
         if (!initial.empty()) {
             pieces.emplace_back(true, 0, initial.length());
