@@ -5,11 +5,6 @@
 
 //#include <raygui.h>
 
-//#include <json/json.h>
-//#include <lua.hpp>
-//#include <lualib.h>
-//#include <lua.hpp>
-#include "font.h"
 #include "TextArea.hpp"
 
 

@@ -98,3 +98,9 @@
 1610	1745	7531167618592967	CMakeFiles/Kup.dir/src/main.cpp.obj.modmap	8083f98dcbb313f3
 1748	9294	7531167619974097	CMakeFiles/Kup.dir/src/main.cpp.obj	cc983e61b9d1d920
 9295	10029	7531167695432091	Kup.exe	1a2c8093eae3006f
+29	2033	7531170322319063	CMakeFiles/Kup.dir/src/main.cpp.obj.ddi	59e031d22e49f4ef
+2033	2128	7531170342367685	CMakeFiles/Kup.dir/CXX.dd	8083f98dcbb313f3
+2033	2128	7531170342367685	C:/Users/ajost1/CLionProjects/Kup/cmake-build-debug/CMakeFiles/Kup.dir/CXXModules.json	8083f98dcbb313f3
+2033	2128	7531170342367685	CMakeFiles/Kup.dir/src/main.cpp.obj.modmap	8083f98dcbb313f3
+2129	8956	7531170343325519	CMakeFiles/Kup.dir/src/main.cpp.obj	cc983e61b9d1d920
+8957	9850	7531170411604674	Kup.exe	1a2c8093eae3006f

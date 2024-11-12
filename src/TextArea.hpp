@@ -667,7 +667,7 @@ protected:
                 false
             };
             render_cache.lines.push_back(cached_line);
-            y += font.baseSize * scale;
+            y += static_cast<float>(font.baseSize) * scale;
         }
     }
     struct Event{
@@ -704,7 +704,7 @@ public:
 
         // count newlines for y position
         size_t newlines = std::count(text.begin(), text.end(), '\n');
-        y += newlines * fontSize;
+        y += static_cast<float>(newlines) * fontSize;
 
         // get x position
         size_t last_newline = text.rfind('\n');
