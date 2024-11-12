@@ -541,7 +541,7 @@ struct  TextArea {
 
     [[nodiscard]] size_t get_cursor_column() const
     {
-        return this->cursor.line;
+        return this->cursor.column;
     }
     [[nodiscard]] float get_scale() const
     {
