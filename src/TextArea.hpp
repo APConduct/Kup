@@ -128,14 +128,10 @@ struct  TextArea {
         float timer{0.0f};
         static constexpr float TIMEOUT = 0.5;
 
-        size_t backspace_size{0};
-
         void reset(){
             buffer.clear();
             is_active = false;
             timer = 0.0f;
-
-            backspace_size = 0;
         }
     } composition;
     struct RenderCache{
@@ -189,7 +185,6 @@ struct  TextArea {
         CursorCommand cmd = {old_pos, cursor.index};
         cursor_undo_stack.push(cmd);
 
-        //cursor_undo_stack.emplace(old_pos, cursor_index);
         // Clear redo stack
         while (!cursor_redo_stack.empty()) {
             cursor_redo_stack.pop();
