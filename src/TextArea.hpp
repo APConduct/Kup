@@ -86,7 +86,6 @@ struct  TextArea {
         }
     }
 
-
     // Add a cached length to avoid recalculating
     size_t total_length{0};
     // Add line index cache for faster line-based operations
@@ -129,10 +128,14 @@ struct  TextArea {
         float timer{0.0f};
         static constexpr float TIMEOUT = 0.5;
 
+        size_t backspace_size{0};
+
         void reset(){
             buffer.clear();
             is_active = false;
             timer = 0.0f;
+
+            backspace_size = 0;
         }
     } composition;
     struct RenderCache{
@@ -147,10 +150,6 @@ struct  TextArea {
         }
     }render_cache;
 
-
-
-
-
     PieceTable text_buffer;
     bool is_composing = false;
     float compose_timer = 0.0f;        // Timer for composition
@@ -161,11 +160,8 @@ struct  TextArea {
         size_t old_pos;
         size_t new_pos;
 
-        size_t old_pos_y;
-        size_t new_pos_y;
-
         CursorCommand(size_t old_pos, size_t new_pos)
-            : old_pos(old_pos), new_pos(new_pos), old_pos_y(old_pos), new_pos_y(new_pos) {}
+            : old_pos(old_pos), new_pos(new_pos) {}
     };
 
     explicit TextArea(const std::string& initial = "")
@@ -175,8 +171,6 @@ struct  TextArea {
         luaL_openlibs(L);
     }
 
-    size_t cursor_index{};
-
     std::stack<CursorCommand> cursor_undo_stack;
     std::stack<CursorCommand> cursor_redo_stack;
 
@@ -184,18 +178,15 @@ struct  TextArea {
         if (text.empty()) return;
 
         size_t text_length = text_buffer.get_text().length();
-        if (cursor_index > text_length) {
-            cursor_index = text_length;
+        if (cursor.index > text_length) {
             cursor.index = text_length;
-
         }
 
-        size_t old_pos = cursor_index;
-        text_buffer.insert(cursor_index, text);
-        cursor_index += text.length();
-        cursor.index = cursor_index;
+        size_t old_pos = cursor.index;
+        text_buffer.insert(cursor.index, text);
+        cursor.index += text.length();
 
-        CursorCommand cmd = {old_pos, cursor_index};
+        CursorCommand cmd = {old_pos, cursor.index};
         cursor_undo_stack.push(cmd);
 
         //cursor_undo_stack.emplace(old_pos, cursor_index);
@@ -209,17 +200,17 @@ struct  TextArea {
     }
 
     void remove(size_t length) {
-        if (cursor_index == 0 || length == 0) return;
+        if (cursor.index == 0 || length == 0) return;
 
         // Adjust length if it's more than available characters
-        length = std::min(length, cursor_index);
+        length = std::min(length, cursor.index);
 
-        size_t old_pos = cursor_index;
-        size_t remove_start = cursor_index - length;
+        size_t old_pos = cursor.index;
+        size_t remove_start = cursor.index - length;
 
-        text_buffer.remove(remove_start, cursor_index);
-        cursor_index = remove_start;
-        cursor_undo_stack.emplace(old_pos, cursor_index);
+        text_buffer.remove(remove_start, cursor.index);
+        cursor.index = remove_start;
+        cursor_undo_stack.emplace(old_pos, cursor.index);
 
         while (!cursor_redo_stack.empty()) {
             cursor_redo_stack.pop();
@@ -241,14 +232,10 @@ struct  TextArea {
 
             auto cursor_cmd = cursor_undo_stack.top();
             cursor_undo_stack.pop();
-
             text_buffer.undo();
 
-            cursor_index = cursor_cmd.old_pos;
-            cursor.index = cursor_index;
-
+            cursor.index = cursor_cmd.old_pos;
             update_cursor_position();
-
             cursor_redo_stack.push(cursor_cmd);
 
             render_cache.invalidate();
@@ -260,21 +247,15 @@ struct  TextArea {
 
             auto cursor_cmd = cursor_redo_stack.top();
             cursor_redo_stack.pop();
-
             text_buffer.redo();
 
-            cursor_index = cursor_cmd.new_pos;
-            cursor.index = cursor_index;
-
+            cursor.index = cursor_cmd.new_pos;
             update_cursor_position();
-
             cursor_undo_stack.push(cursor_cmd);
 
             render_cache.invalidate();
             update_render_cache();
         }
-
-
 
     TextArea()
     {
@@ -291,7 +272,7 @@ struct  TextArea {
         this->backspace_frame_counter = 0;
         this->spacing = 0;
         this->scale = 3;
-        this->cursor_index = 0;
+        this->cursor.index = 0;
 
         L = luaL_newstate();
         luaL_openlibs(L);
@@ -324,13 +305,7 @@ struct  TextArea {
 
 
     ~TextArea();
-    [[nodiscard]] float get_pos_y() const
-    {
-        return this->pos_y;
-    };
-
-
-
+    [[nodiscard]] float get_pos_y() const { return this->pos_y; };
 
     [[nodiscard]] std::vector<std::string> text_vec() const
     {
@@ -338,7 +313,7 @@ struct  TextArea {
 
         // Insert the input buffer at the cursor_old_struct position
         if (!input_buffer.empty()) {
-            display_text.insert(cursor_index, input_buffer);
+            display_text.insert(cursor.index, input_buffer);
         }
 
         std::vector<std::string> v;
@@ -389,6 +364,7 @@ struct  TextArea {
             {
                 this->redo();
             }
+            // return;
         }
 
         // check arrow keys before char input to not block movement with composition
@@ -453,14 +429,12 @@ struct  TextArea {
                 input_buffer.pop_back();
                 compose_timer = 0.0f;
                 update_render_cache();
-            } else if (this->cursor_index > 0)
+            } else if (this->cursor.index > 0)
             {
                 size_t current_line = cursor.line;
-
                 this->remove(1);
 
-                if (cursor.line == current_line && cursor.column > 0)
-                {
+                if (cursor.line == current_line && cursor.column > 0) {
                     this->cursor.column--;
                 }
                 update_cursor_position();
@@ -474,14 +448,11 @@ struct  TextArea {
                 this->insert(input_buffer);
                 this->cursor.index += input_buffer.length();
                 this->input_buffer.clear();
-                //this->cursor.column += input_buffer.length();
             }
             this->insert("\n");
             cursor.index++;
-            //this->cursor.line++;
             update_cursor_position(); //update line and column
 
-            //this->cursor.column = text_vec().at(cursor.line).size();
             is_composing = false;
             compose_timer = 0.0f;
             render_cache.invalidate();
@@ -506,11 +477,9 @@ struct  TextArea {
 
     void Render() const
     {
-
         if(render_cache.lines.empty()){
             update_render_cache();
         }
-
         for (const auto& line : render_cache.lines){
             DrawTextEx(
                 font, line.text.c_str(),
@@ -522,52 +491,33 @@ struct  TextArea {
 
         }
     };
-    [[nodiscard]] std::string get_current_line() const
-    {
+    [[nodiscard]] std::string get_current_line() const {
         return this->text_vec().at(this->cursor.line);
     }
-    [[nodiscard]] Font get_font() const
-    {
-        return this->font;
-    }
-    [[nodiscard]] float get_fontSize() const
-    {
-        return this->fontSize;
-    }
-    [[nodiscard]] size_t get_cursor_line() const
-    {
+
+    [[nodiscard]] Font get_font() const { return this->font; }
+
+    [[nodiscard]] float get_fontSize() const { return this->fontSize; }
+
+    [[nodiscard]] size_t get_cursor_line() const {
         return this->cursor.line;
     }
 
-    [[nodiscard]] size_t get_cursor_column() const
-    {
+    [[nodiscard]] size_t get_cursor_column() const {
         return this->cursor.column;
     }
-    [[nodiscard]] float get_scale() const
-    {
-        return this->scale;
-    }
-    [[nodiscard]] float get_spacing() const
-    {
-        return this->spacing;
-    }
 
-    void set_pos_x(const float x)
-    {
-        this->pos_x = x;
-    }
-    [[nodiscard]] float get_pos_x() const
-    {
-        return this->pos_x;
-    }
-    [[nodiscard]] int get_x() const
-    {
-        return static_cast<int>(this->pos_x);
-    }
-    [[nodiscard]] int get_y() const
-    {
-        return static_cast<int>(this->pos_y);
-    }
+    [[nodiscard]] float get_scale() const { return this->scale; }
+
+    [[nodiscard]] float get_spacing() const { return this->spacing; }
+
+    void set_pos_x(const float x) { this->pos_x = x; }
+
+    [[nodiscard]] float get_pos_x() const { return this->pos_x; }
+
+    [[nodiscard]] int get_x() const { return static_cast<int>(this->pos_x); }
+
+    [[nodiscard]] int get_y() const { return static_cast<int>(this->pos_y); }
     // Example binding implementation
     static int l_buffer_insert(lua_State* L) {
         auto* area = static_cast<TextArea*>(lua_touserdata(L, 1));
@@ -614,7 +564,6 @@ protected:
 
         if (cursor.index > text_length){
             cursor.index = text_length;
-            cursor_index = text_length;
         }
 
         if(cursor.index == 0){
