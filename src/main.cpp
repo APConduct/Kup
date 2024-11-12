@@ -70,7 +70,7 @@ int main(int argc, char **argv)
     const std::string ZED_MONO_REG_PATH = "../src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
     const std::string IBM_PLEX_REG_PATH = "../src/resources/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf";
 
-    const auto font = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
+    const auto font = LoadFontEx(JB_MONO_REG_PATH.c_str(),
         FONT_SIZE,nullptr,0);
     auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, static_cast<float>(font.glyphs->offsetX));
     SetTargetFPS(120);

@@ -1,4 +1,0 @@
-ToolSet: 13.0 w64 (local)@C:\msys64\ucrt64
-Options: 
-
-Options:-DCMAKE_MAKE_PROGRAM=C:/msys64/ucrt64/bin/ninja.exe
