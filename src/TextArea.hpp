@@ -319,7 +319,7 @@ struct  TextArea {
             v.push_back(s);
         }
         if (display_text.empty() || display_text.back() == '\n'){
-            v.push_back("");
+            v.emplace_back("");
         }
         return v;
     }
@@ -502,13 +502,7 @@ struct  TextArea {
         return this->cursor.column;
     }
 
-    [[nodiscard]] float get_scale() const { return this->scale; }
-
-    [[nodiscard]] float get_spacing() const { return this->spacing; }
-
     void set_pos_x(const float x) { this->pos_x = x; }
-
-    [[nodiscard]] float get_pos_x() const { return this->pos_x; }
 
     [[nodiscard]] int get_x() const { return static_cast<int>(this->pos_x); }
 
