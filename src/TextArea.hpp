@@ -223,7 +223,7 @@ struct  TextArea {
                 commit_position();
             }
 
-            if (!text_buffer.canUndo() || cursor_undo_stack.empty()) return;
+            if (!text_buffer.can_undo() || cursor_undo_stack.empty()) return;
 
             auto cursor_cmd = cursor_undo_stack.top();
             cursor_undo_stack.pop();
@@ -238,7 +238,7 @@ struct  TextArea {
         }
 
         void redo() {
-            if (!text_buffer.canRedo() || cursor_redo_stack.empty()) return;
+            if (!text_buffer.can_redo() || cursor_redo_stack.empty()) return;
 
             auto cursor_cmd = cursor_redo_stack.top();
             cursor_redo_stack.pop();
@@ -455,19 +455,20 @@ struct  TextArea {
         };
 
         // Update cursor blink
-                cursor_blink_timer += GetFrameTime();
-                if (cursor_blink_timer >= cursor_blink_rate) {
-                    cursor_visible = !cursor_visible;
-                    cursor_blink_timer = 0;
-                }
+        cursor_blink_timer += GetFrameTime();
+        if (cursor_blink_timer >= cursor_blink_rate) {
+            cursor_visible = !cursor_visible;
+            cursor_blink_timer = 0;
+        }
 
-                // Reset blink on any input
-                int key = GetKeyPressed();
-                if (key != 0){
-                    cursor_visible = true;
-                    cursor_blink_timer = 0;
-                }
+        // Reset blink on any input
+        int key = GetKeyPressed();
+        if (key != 0){
+            cursor_visible = true;
+            cursor_blink_timer = 0;
+        }
 
+        std::cout << text_buffer.get_text() << std::endl;
     };
 
     void Render() const

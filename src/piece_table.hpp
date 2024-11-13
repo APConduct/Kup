@@ -37,12 +37,12 @@ private:
 
     // Represents a piece of text
     struct Piece {
-        bool isOriginal;
+        bool is_original;
         size_t start;
         size_t length;
 
         Piece(bool orig, size_t s, size_t len)
-            : isOriginal(orig), start(s), length(len) {}
+            : is_original(orig), start(s), length(len) {}
     };
 
     // Base class for commands
@@ -58,14 +58,14 @@ private:
         PieceTable& table;
         size_t position;
         std::string text;
-        std::vector<Piece> oldPieces;
-        size_t addBufferLengthBefore;
+        std::vector<Piece> old_pieces;
+        size_t add_buffer_length_before;
 
     public:
         InsertCommand(PieceTable& t, size_t pos, std::string  txt)
             : table(t), position(pos), text(std::move(txt)) {
-            oldPieces = table.pieces;
-            addBufferLengthBefore = table.addBuffer.length();
+            old_pieces = table.pieces;
+            add_buffer_length_before = table.add_buffer.length();
         }
 
         void execute() override {
@@ -73,8 +73,8 @@ private:
         }
 
         void undo() override {
-            table.addBuffer.resize(addBufferLengthBefore);
-            table.pieces = oldPieces;
+            table.add_buffer.resize(add_buffer_length_before);
+            table.pieces = old_pieces;
         }
     };
 
@@ -83,13 +83,13 @@ private:
         PieceTable& table;
         size_t start;
         size_t end;
-        std::vector<Piece> oldPieces;
+        std::vector<Piece> old_pieces;
         size_t old_total_length;
 
     public:
         DeleteCommand(PieceTable& t, size_t s, size_t e)
             : table(t), start(s), end(e) {
-            oldPieces = table.pieces;
+            old_pieces = table.pieces;
             old_total_length = table.total_length;
         }
 
@@ -98,17 +98,17 @@ private:
         }
 
         void undo() override {
-            table.pieces = oldPieces;
+            table.pieces = old_pieces;
             table.total_length = old_total_length;
             table.line_cache.invalidate();
         }
     };
 
-    std::string originalBuffer;
-    std::string addBuffer;
+    std::string original_buffer;
+    std::string add_buffer;
     std::vector<Piece> pieces;
-    std::stack<std::unique_ptr<Command>> undoStack;
-    std::stack<std::unique_ptr<Command>> redoStack;
+    std::stack<std::unique_ptr<Command>> undo_stack;
+    std::stack<std::unique_ptr<Command>> redo_stack;
 
     // Helper method to get text range
 
@@ -121,51 +121,51 @@ public:
         // Endure position is valid
         pos = std::min(pos, total_length);
 
-        size_t currentPos = 0;
-        size_t pieceIndex = 0;
+        size_t current_pos = 0;
+        size_t piece_index = 0;
 
-        while (pieceIndex < pieces.size() && currentPos + pieces[pieceIndex].length <= pos) {
-            currentPos += pieces[pieceIndex].length;
-            pieceIndex++;
+        while (piece_index < pieces.size() && current_pos + pieces[piece_index].length <= pos) {
+            current_pos += pieces[piece_index].length;
+            piece_index++;
         }
 
-        std::vector<Piece> newPieces;
+        std::vector<Piece> new_pieces;
 
-        for (size_t i = 0; i < pieceIndex; i++) {
-            newPieces.push_back(pieces[i]);
+        for (size_t i = 0; i < piece_index; i++) {
+            new_pieces.push_back(pieces[i]);
         }
 
-        if (pieceIndex < pieces.size()) {
-            Piece& currentPiece = pieces[pieceIndex];
-            size_t offset = pos - currentPos;
+        if (piece_index < pieces.size()) {
+            Piece& currentPiece = pieces[piece_index];
+            size_t offset = pos - current_pos;
 
             if (offset > 0) {
-                newPieces.emplace_back(currentPiece.isOriginal,
+                new_pieces.emplace_back(currentPiece.is_original,
                                      currentPiece.start,
                                      offset);
             }
 
-            newPieces.emplace_back(false,
-                                 addBuffer.length(),
+            new_pieces.emplace_back(false,
+                                 add_buffer.length(),
                                  text.length());
 
             if (offset < currentPiece.length) {
-                newPieces.emplace_back(currentPiece.isOriginal,
+                new_pieces.emplace_back(currentPiece.is_original,
                                      currentPiece.start + offset,
                                      currentPiece.length - offset);
             }
 
-            for (size_t i = pieceIndex + 1; i < pieces.size(); i++) {
-                newPieces.push_back(pieces[i]);
+            for (size_t i = piece_index + 1; i < pieces.size(); i++) {
+                new_pieces.push_back(pieces[i]);
             }
         } else {
-            newPieces.emplace_back(false,
-                                 addBuffer.length(),
+            new_pieces.emplace_back(false,
+                                 add_buffer.length(),
                                  text.length());
         }
 
-        addBuffer += text;
-        pieces = std::move(newPieces);
+        add_buffer += text;
+        pieces = std::move(new_pieces);
 
         total_length += text.length();
         line_cache.invalidate();
@@ -178,44 +178,44 @@ public:
         // Clamp end position to validate range
         end = std::min(end, total_length);
 
-        size_t currentPos = 0;
-        size_t startPiece = 0;
+        size_t current_pos = 0;
+        size_t start_piece = 0;
 
         // Find start piece
-        while (startPiece < pieces.size() && currentPos + pieces[startPiece].length <= start) {
-            currentPos += pieces[startPiece].length;
-            startPiece++;
+        while (start_piece < pieces.size() && current_pos + pieces[start_piece].length <= start) {
+            current_pos += pieces[start_piece].length;
+            start_piece++;
         }
 
-        std::vector<Piece> newPieces;
+        std::vector<Piece> new_pieces;
 
         // Copy pieces before deletion
-        for (size_t i = 0; i < startPiece; i++) {
-            newPieces.push_back(pieces[i]);
+        for (size_t i = 0; i < start_piece; i++) {
+            new_pieces.push_back(pieces[i]);
         }
 
-        if (startPiece < pieces.size()) {
-            size_t startOffset = start - currentPos;
+        if (start_piece < pieces.size()) {
+            size_t startOffset = start - current_pos;
 
             if (startOffset > 0) {
                 // Keep the first part of the start piece
-                newPieces.emplace_back(pieces[startPiece].isOriginal,
-                                     pieces[startPiece].start,
+                new_pieces.emplace_back(pieces[start_piece].is_original,
+                                     pieces[start_piece].start,
                                      startOffset);
             }
 
             // Skip pieces until we reach the end position
-            size_t endPiece = startPiece;
-            while (endPiece < pieces.size() && currentPos + pieces[endPiece].length <= end) {
-                currentPos += pieces[endPiece].length;
+            size_t endPiece = start_piece;
+            while (endPiece < pieces.size() && current_pos + pieces[endPiece].length <= end) {
+                current_pos += pieces[endPiece].length;
                 endPiece++;
             }
 
-            if (endPiece < pieces.size() && currentPos < end) {
-                size_t endOffset = end - currentPos;
+            if (endPiece < pieces.size() && current_pos < end) {
+                size_t endOffset = end - current_pos;
                 if (endOffset < pieces[endPiece].length) {
                     // Keep the last part of the end piece
-                    newPieces.emplace_back(pieces[endPiece].isOriginal,
+                    new_pieces.emplace_back(pieces[endPiece].is_original,
                                          pieces[endPiece].start + endOffset,
                                          pieces[endPiece].length - endOffset);
                 }
@@ -223,18 +223,18 @@ public:
 
             // Add remaining pieces
             for (size_t i = endPiece + 1; i < pieces.size(); i++) {
-                newPieces.push_back(pieces[i]);
+                new_pieces.push_back(pieces[i]);
             }
         }
 
-        pieces = std::move(newPieces);
+        pieces = std::move(new_pieces);
 
         total_length -= (end - start);
         line_cache.invalidate();
 
     }
 
-    explicit PieceTable(const std::string& initial = "") : originalBuffer(initial) {
+    explicit PieceTable(const std::string& initial = "") : original_buffer(initial) {
         if (!initial.empty()) {
             pieces.emplace_back(true, 0, initial.length());
         }
@@ -243,77 +243,77 @@ public:
     void insert(size_t pos, const std::string& text) {
         auto cmd = std::make_unique<InsertCommand>(*this, pos, text);
         cmd->execute();
-        undoStack.push(std::move(cmd));
+        undo_stack.push(std::move(cmd));
 
         // Clear redo stack when new action is performed
-        while (!redoStack.empty()) {
-            redoStack.pop();
+        while (!redo_stack.empty()) {
+            redo_stack.pop();
         }
     }
 
     void remove(size_t start, size_t end) {
         auto cmd = std::make_unique<DeleteCommand>(*this, start, end);
         cmd->execute();
-        undoStack.push(std::move(cmd));
+        undo_stack.push(std::move(cmd));
 
         // Clear redo stack when new action is performed
-        while (!redoStack.empty()) {
-            redoStack.pop();
+        while (!redo_stack.empty()) {
+            redo_stack.pop();
         }
     }
 
-    [[nodiscard]] bool canUndo() const {
-        return !undoStack.empty();
+    [[nodiscard]] bool can_undo() const {
+        return !undo_stack.empty();
     }
 
-    [[nodiscard]] bool canRedo() const {
-        return !redoStack.empty();
+    [[nodiscard]] bool can_redo() const {
+        return !redo_stack.empty();
     }
 
     void undo() {
-        if (!canUndo()) return;
+        if (!can_undo()) return;
 
-        auto cmd = std::move(undoStack.top());
-        undoStack.pop();
+        auto cmd = std::move(undo_stack.top());
+        undo_stack.pop();
         cmd->undo();
-        redoStack.push(std::move(cmd));
+        redo_stack.push(std::move(cmd));
     }
 
     void redo() {
-        if (!canRedo()) return;
+        if (!can_redo()) return;
 
-        auto cmd = std::move(redoStack.top());
-        redoStack.pop();
+        auto cmd = std::move(redo_stack.top());
+        redo_stack.pop();
         cmd->execute();
-        undoStack.push(std::move(cmd));
+        undo_stack.push(std::move(cmd));
     }
 
     [[nodiscard]] std::string get_text() const {
         std::string result;
         for (const auto& piece : pieces) {
-            const std::string& buffer = piece.isOriginal ? originalBuffer : addBuffer;
+            const std::string& buffer = piece.is_original ? original_buffer : add_buffer;
             result += buffer.substr(piece.start, piece.length);
         }
         return result;
     }
     [[nodiscard]] std::string get_text_in_range(size_t start, size_t end) const {
         std::string result;
-        size_t currentPos = 0;
+        size_t current_pos = 0;
 
         for (const auto& piece : pieces) {
-            size_t pieceEnd = currentPos + piece.length;
+            size_t piece_end = current_pos + piece.length;
 
-            if (currentPos < end && pieceEnd > start) {
-                size_t pieceStart = std::max(start - currentPos, static_cast<size_t>(0));
+            if (current_pos < end && piece_end > start) {
+                size_t pieceStart = std::max(start - current_pos, static_cast<size_t>(0));
                 size_t pieceLength = std::min(piece.length - pieceStart,
-                                            end - (currentPos + pieceStart));
+                                            end - (current_pos + pieceStart));
 
-                const std::string& buffer = piece.isOriginal ? originalBuffer : addBuffer;
+                const std::string& buffer = piece.is_original ? original_buffer : add_buffer;
                 result += buffer.substr(piece.start + pieceStart, pieceLength);
             }
 
-            currentPos = pieceEnd;
-            if (currentPos >= end) break;
+            current_pos = piece_end;
+            if (current_pos >= end) break;
         }
 
         return result;
