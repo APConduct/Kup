@@ -112,13 +112,13 @@ struct  TextArea {
         size_t column{0};
         char symbol{'|'};
 
-                void update(const PieceTable& buffer){
-                    //Update line/column based on index
-                    std::string text = buffer.get_text().substr(0,index);
-                    line = std::count(text.begin(), text.end(), '\n');
-                    auto last_new_line = text.find_last_of('\n');
-                    column = last_new_line == std::string::npos ? index : index - last_new_line - 1;
-                }
+        void update(const PieceTable& buffer){
+            //Update line/column based on index
+            std::string text = buffer.get_text().substr(0,index);
+            line = std::count(text.begin(), text.end(), '\n');
+            auto last_new_line = text.find_last_of('\n');
+            column = last_new_line == std::string::npos ? index : index - last_new_line - 1;
+        }
 
     } cursor;
 
