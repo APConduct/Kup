@@ -128,12 +128,18 @@ struct  TextArea {
         float timer{0.0f};
         static constexpr float TIMEOUT = 0.5;
 
+        size_t delete_counter{0};
+
+
         void reset(){
             buffer.clear();
             is_active = false;
             timer = 0.0f;
+
+            delete_counter = 0;
         }
     } composition;
+
     struct RenderCache{
         struct Line{
             string text;
@@ -326,9 +332,81 @@ struct  TextArea {
 
 
 
-        float cursor_blink_timer = 0.0f;
-        float cursor_blink_rate = 0.53f;
-        bool cursor_visible = true;
+    float cursor_blink_timer = 0.0f;
+    float cursor_blink_rate = 0.53f;
+    bool cursor_visible = true;
+
+    protected:
+    void update_cursor_position(){
+        std::string text = text_buffer.get_text();
+        size_t text_length = text.length();
+
+        if (cursor.index > text_length){
+            cursor.index = text_length;
+        }
+
+        if(cursor.index == 0){
+            cursor.line = 0;
+            cursor.column = 0;
+        } else {
+            std::string text_before_cursor = text.substr(0, cursor.index);
+            cursor.line  = std::count(text_before_cursor.begin(), text_before_cursor.end(),'\n');
+            size_t last_newline = text_before_cursor.rfind('\n');
+            cursor.column = (last_newline == std::string::npos) ? cursor.index : cursor.index - last_newline - 1;
+
+        }
+    }
+    void commit_position(){
+        if (!input_buffer.empty()){
+
+            // Get current text length for bounds checking
+            size_t text_length = text_buffer.get_text().length();
+            if (cursor.index > text_length){
+                cursor.index = text_length;
+            }
+
+            string commit_text = input_buffer;
+            this->insert(commit_text); // insert as one operation
+            cursor.index += commit_text.length();
+            update_cursor_position(); // update line//column
+
+            input_buffer.clear();
+            is_composing = false;
+            compose_timer = 0.0f;
+            render_cache.invalidate();
+            update_render_cache();
+        }
+    }
+
+    void update_render_cache() const{
+        string display_text = text_buffer.get_text();
+        if(!this->input_buffer.empty()){
+            display_text.insert(cursor.index, input_buffer);
+        }
+
+        if (composition.delete_counter > 0) {
+            std::cout << composition.delete_counter << std::endl;
+            display_text.erase(cursor.index - composition.delete_counter, composition.delete_counter);
+
+        }
+
+        render_cache.lines.clear();
+        float y = pos_y;
+
+        std::stringstream ss(display_text);
+        std::string line;
+        while (std::getline(ss, line, '\n')){
+            RenderCache::Line cached_line{
+                line,
+                {pos_x, y},
+                false
+            };
+            render_cache.lines.push_back(cached_line);
+            y += static_cast<float>(font.baseSize) * scale;
+        }
+    }
+
+public:
     void Update()
     {
         // TODO - IMPL/DEF LINES BELOW
@@ -412,26 +490,44 @@ struct  TextArea {
 
             if (compose_timer >= COMPOSE_TIMEOUT)
             {
-                commit_position();
+                if (composition.delete_counter > 0) {
+                    remove(composition.delete_counter);
+                    composition.delete_counter = 0;
+                    is_composing = false;
+                    compose_timer = 0.0f;
+
+                    render_cache.invalidate();
+                    update_render_cache();
+                } else {
+                    commit_position();
+                }
             }
 
         }
 
         if (IsKeyPressed(KEY_BACKSPACE)){
-
             if (!input_buffer.empty()) {
                 // If we're composing, just remove from buffer
                 input_buffer.pop_back();
                 compose_timer = 0.0f;
-                update_render_cache();
             } else if (this->cursor.index > 0)
             {
-                size_t current_line = cursor.line;
-                this->remove(1);
 
-                if (cursor.line == current_line && cursor.column > 0) {
-                    this->cursor.column--;
+                if (!is_composing) {
+                    is_composing = true;
+                    composition.delete_counter = 0;
                 }
+                composition.delete_counter++;
+                compose_timer = 0.0f;
+
+                // size_t current_line = cursor.line;
+                // this->remove(1);
+
+                // if (cursor.line == current_line && cursor.column > 0) {
+                //     this->cursor.column--;
+                // }
+                update_render_cache();
+
                 update_cursor_position();
             }
         }
@@ -468,7 +564,7 @@ struct  TextArea {
             cursor_blink_timer = 0;
         }
 
-        std::cout << text_buffer.get_text() << std::endl;
+        // std::cout << text_buffer.get_text() << std::endl << composition.delete_counter << std::endl;
     };
 
     void Render() const
@@ -476,6 +572,12 @@ struct  TextArea {
         if(render_cache.lines.empty()){
             update_render_cache();
         }
+
+        //string display_text = text_buffer.get_text();
+        //if (composition.delete_counter > 0) {
+        //
+        //}
+
         for (const auto& line : render_cache.lines){
             DrawTextEx(
                 font, line.text.c_str(),
@@ -547,68 +649,7 @@ struct  TextArea {
     //    return 0;
     //}
 // @prefer: keep all non-public members as protected
-protected:
-    void update_cursor_position(){
-        std::string text = text_buffer.get_text();
-        size_t text_length = text.length();
 
-        if (cursor.index > text_length){
-            cursor.index = text_length;
-        }
-
-        if(cursor.index == 0){
-            cursor.line = 0;
-            cursor.column = 0;
-        } else {
-            std::string text_before_cursor = text.substr(0, cursor.index);
-            cursor.line  = std::count(text_before_cursor.begin(), text_before_cursor.end(),'\n');
-            size_t last_newline = text_before_cursor.rfind('\n');
-            cursor.column = (last_newline == std::string::npos) ? cursor.index : cursor.index - last_newline - 1;
-
-        }
-    }
-    void commit_position(){
-        if (!input_buffer.empty()){
-
-            // Get current text length for bounds checking
-            size_t text_length = text_buffer.get_text().length();
-            if (cursor.index > text_length){
-                cursor.index = text_length;
-            }
-
-            string commit_text = input_buffer;
-            this->insert(commit_text); // insert as one operation
-            cursor.index += commit_text.length();
-            update_cursor_position(); // update line//column
-
-            input_buffer.clear();
-            is_composing = false;
-            compose_timer = 0.0f;
-            render_cache.invalidate();
-            update_render_cache();
-        }
-    }
-
-    void update_render_cache() const{
-        string display_text = text_buffer.get_text();
-        if(!this->input_buffer.empty()){
-            display_text.insert(cursor.index, input_buffer);
-        }
-        render_cache.lines.clear();
-        float y = pos_y;
-
-        std::stringstream ss(display_text);
-        std::string line;
-        while (std::getline(ss, line, '\n')){
-            RenderCache::Line cached_line{
-                line,
-                {pos_x, y},
-                false
-            };
-            render_cache.lines.push_back(cached_line);
-            y += static_cast<float>(font.baseSize) * scale;
-        }
-    }
     struct Event{
         enum Type { Insert, Delete, CursorMove, CompositionStart, CompositionEnd};
         Type type;
@@ -639,7 +680,9 @@ public:
         float y =  pos_y;
 
         // get text up tp cursor
-        string text = text_buffer.get_text().substr(0, cursor.index);
+
+        size_t n_del = (composition.delete_counter > 0) ? composition.delete_counter : 0;
+        string text = text_buffer.get_text().substr(0, cursor.index - n_del);
 
         // count newlines for y position
         size_t newlines = std::count(text.begin(), text.end(), '\n');

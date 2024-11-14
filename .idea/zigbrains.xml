@@ -4,6 +4,6 @@
     <option name="zlsPath" value="C:\msys64\ucrt64\bin\zls.exe" />
   </component>
   <component name="ZigProjectSettings">
-    <option name="toolchainHomeDirectory" value="$USER_HOME$/AppData/Local/Microsoft/WinGet/Packages/zig.zig_Microsoft.Winget.Source_8wekyb3d8bbwe/zig-windows-x86_64-0.13.0" />
+    <option name="toolchainPath" value="C:\Users\ajost1\AppData\Local\Microsoft\WinGet\Packages\zig.zig_Microsoft.Winget.Source_8wekyb3d8bbwe\zig-windows-x86_64-0.13.0" />
   </component>
 </project>
