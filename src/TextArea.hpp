@@ -406,6 +406,16 @@ struct  TextArea {
         }
     }
 
+    void commit_deletion() {
+        remove(composition.delete_counter);
+        composition.delete_counter = 0;
+        is_composing = false;
+        compose_timer = 0.0f;
+
+        render_cache.invalidate();
+        update_render_cache();
+    }
+
 public:
     void Update()
     {
@@ -461,6 +471,11 @@ public:
         int char_key = GetCharPressed();
         while (char_key > 0) {
             if ((char_key >= 32) && (char_key < 127)) {
+
+                if (composition.delete_counter > 0) {
+                    commit_deletion();
+                }
+
                 const char new_char = static_cast<char>(char_key);
 
                 // Ensure cursor is within bounds before adding to input buffer
@@ -491,13 +506,7 @@ public:
             if (compose_timer >= COMPOSE_TIMEOUT)
             {
                 if (composition.delete_counter > 0) {
-                    remove(composition.delete_counter);
-                    composition.delete_counter = 0;
-                    is_composing = false;
-                    compose_timer = 0.0f;
-
-                    render_cache.invalidate();
-                    update_render_cache();
+                    commit_deletion();
                 } else {
                     commit_position();
                 }
@@ -519,6 +528,7 @@ public:
                 }
                 composition.delete_counter++;
                 compose_timer = 0.0f;
+
 
                 // size_t current_line = cursor.line;
                 // this->remove(1);
