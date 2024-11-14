@@ -519,6 +519,7 @@ public:
                 // If we're composing, just remove from buffer
                 input_buffer.pop_back();
                 compose_timer = 0.0f;
+                update_render_cache();
             } else if (this->cursor.index > 0)
             {
 
@@ -537,7 +538,6 @@ public:
                 //     this->cursor.column--;
                 // }
                 update_render_cache();
-
                 update_cursor_position();
             }
         }
