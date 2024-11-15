@@ -386,7 +386,8 @@ struct  TextArea {
 
         if (composition.delete_counter > 0) {
             std::cout << composition.delete_counter << std::endl;
-            display_text.erase(cursor.index - composition.delete_counter, composition.delete_counter);
+            if(cursor.index >= composition.delete_counter)
+            {display_text.erase(cursor.index - composition.delete_counter, composition.delete_counter);}
 
         }
 
@@ -527,8 +528,11 @@ public:
                     is_composing = true;
                     composition.delete_counter = 0;
                 }
-                composition.delete_counter++;
-                compose_timer = 0.0f;
+                if (cursor.index - composition.delete_counter > 0) {
+                    composition.delete_counter++;
+                    compose_timer = 0.0f;
+                }
+
 
 
                 // size_t current_line = cursor.line;

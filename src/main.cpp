@@ -64,21 +64,31 @@ int main(int argc, char **argv)
 
     constexpr int GRIP_GAP = 5;
 
-    const std::string JB_MONO_REG_PATH =  "../src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
+    const std::string JB_MONO_REG_PATH =  "src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
     const std::string BRASS_MONO_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMono-Regular.ttf";
     const std::string BRASS_MONO_CODE_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMonoCode-Regular.ttf";
-    const std::string ZED_MONO_REG_PATH = "../src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
+    const std::string ZED_MONO_REG_PATH = "src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
     const std::string IBM_PLEX_REG_PATH = "../src/resources/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf";
 
-    const auto font = LoadFontEx(JB_MONO_REG_PATH.c_str(),
+    const auto jb_mono_reg = LoadFontEx(JB_MONO_REG_PATH.c_str(),
         FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, font, FONT_SIZE, static_cast<float>(font.glyphs->offsetX));
+
+    const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
+        FONT_SIZE,nullptr,0);
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, jb_mono_reg, FONT_SIZE, static_cast<float>(jb_mono_reg.glyphs->offsetX));
     SetTargetFPS(120);
 
 
     while (!WindowShouldClose())
     {
         text_area->Update();
+
+
+        std::string dir_path(GetWorkingDirectory());
+        // dir_path.append("\\..");
+        FilePathList list = LoadDirectoryFiles(dir_path.c_str());
+        char** work_path = list.paths;
+        std::vector<string> paths(work_path, work_path + list.count);
 
 
         BeginDrawing();
@@ -109,6 +119,12 @@ int main(int argc, char **argv)
 
         DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
 
+
+        int jump = 40;
+        for (const auto & path : paths) {
+            DrawText(path.substr(dir_path.size()+1).c_str(), 40, jump, 20, WHITE);
+            jump += 40;
+        }
 
         EndDrawing();
     }
