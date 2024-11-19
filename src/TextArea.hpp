@@ -28,11 +28,13 @@ struct  TextArea {
     int FPS = GetFPS();
     float spacing {-2};
     float pos_x{}, pos_y{};
-    Color color{};
+    Color text_color{};
     float fontSize{};
     Font font{};
     float scale{1};
     std::string input_buffer;
+
+    Color bg_color{};
 
 
     void move_cursor_left(){
@@ -262,7 +264,7 @@ struct  TextArea {
     {
         this->pos_x = 0;
         this->pos_y = 0;
-        this->color = WHITE;
+        this->text_color = WHITE;
         this->fontSize = 20;
         this->font = GetFontDefault();
         this->focused = true;
@@ -285,7 +287,7 @@ struct  TextArea {
     {
         this->pos_x = pos_x;
         this->pos_y = pos_y;
-        this->color = WHITE;
+        this->text_color = WHITE;
         this->fontSize = font_size;
         this->font = font;
         this->focused = true;
@@ -598,7 +600,7 @@ public:
                 line.position,
                 fontSize,
                 spacing,
-                color
+                text_color
             );
 
         }

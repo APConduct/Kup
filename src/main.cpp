@@ -55,27 +55,37 @@ int main(int argc, char **argv)
 
     constexpr int GUI_BAR_UNIT = 64;
 
-    constexpr int FONT_SIZE = 40;
+    constexpr int BUFFER_FONT_SIZE = 40;
+    constexpr int UI_FONT_SIZE = 28;
+
     constexpr int FILE_MARGIN_WIDTH = 104;
     constexpr int SIDEBAR_WIDTH = GUI_BAR_UNIT;
-    constexpr int TOP_BAR_WIDTH = GUI_BAR_UNIT;
+    constexpr int TOP_BAR_WIDTH = 40;
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
 
     constexpr int GRIP_GAP = 5;
 
     const std::string JB_MONO_REG_PATH =  "src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
+    const std::string JB_MONO_THIN_PATH =  "src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Thin.ttf";
+
     const std::string BRASS_MONO_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMono-Regular.ttf";
     const std::string BRASS_MONO_CODE_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMonoCode-Regular.ttf";
     const std::string ZED_MONO_REG_PATH = "src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
     const std::string IBM_PLEX_REG_PATH = "../src/resources/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf";
 
-    const auto jb_mono_reg = LoadFontEx(JB_MONO_REG_PATH.c_str(),
-        FONT_SIZE,nullptr,0);
+    const auto jb_mono_reg_buffer = LoadFontEx(JB_MONO_REG_PATH.c_str(),
+        BUFFER_FONT_SIZE,nullptr,0);
+
+    const auto jb_mono_reg_ui = LoadFontEx(JB_MONO_REG_PATH.c_str(),
+        UI_FONT_SIZE,nullptr,0);
+
+    auto jb_mono_thin = LoadFontEx(JB_MONO_THIN_PATH.c_str(),
+        BUFFER_FONT_SIZE,nullptr,0);
 
     const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
-        FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, jb_mono_reg, FONT_SIZE, static_cast<float>(jb_mono_reg.glyphs->offsetX));
+        BUFFER_FONT_SIZE,nullptr,0);
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, static_cast<float>(jb_mono_reg_buffer.glyphs->offsetX));
     SetTargetFPS(120);
 
 
@@ -93,6 +103,22 @@ int main(int argc, char **argv)
 
         BeginDrawing();
         ClearBackground(BLACK);
+
+        // render FileTree text
+        int jump = UI_FONT_SIZE+6;
+        for (const auto & path : paths) {
+            DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {40, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
+                //static_cast<float>(jb_mono_reg.glyphs->offsetX),
+                0,
+                WHITE);
+            jump += UI_FONT_SIZE+6;
+        }
+
+        // render editor background
+        int tapx = static_cast<int>(text_area->pos_x)-GRIP_GAP;
+        int tapy = static_cast<int>(text_area->pos_y);
+        DrawRectangle(tapx, tapy, GetScreenWidth()-tapx, GetScreenHeight()-tapy, BLACK);
+
         text_area->Render();
 
         // Draw cursor at correct position
@@ -115,16 +141,13 @@ int main(int argc, char **argv)
         auto x_start = static_cast<float>(text_area->get_x() - GRIP_GAP);
         auto x_end = static_cast<float>(text_area->get_x()- GRIP_GAP);
         auto y_end = static_cast<float>(GetScreenHeight() - TOP_BAR_WIDTH);
-        DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
+        DrawLineEx({x_start, TOP_BAR_WIDTH}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
 
         DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
+        DrawLineEx({0, TOP_BAR_WIDTH}, {cast_to_float(GetScreenWidth()), TOP_BAR_WIDTH},GUI_LINE_WIDTH,WHITE);
 
 
-        int jump = 40;
-        for (const auto & path : paths) {
-            DrawText(path.substr(dir_path.size()+1).c_str(), 40, jump, 20, WHITE);
-            jump += 40;
-        }
+
 
         EndDrawing();
     }
