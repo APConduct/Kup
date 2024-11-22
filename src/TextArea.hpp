@@ -149,8 +149,8 @@ struct  TextArea {
             bool is_dirty{true};
         };
         mutable std::vector<Line> lines;
-        void invalidate() {
-            for (auto& line : lines) line.is_dirty = true;
+        void invalidate() const {
+            for (auto& [text, position, is_dirty] : lines) is_dirty = true;
         }
     }render_cache;
 
