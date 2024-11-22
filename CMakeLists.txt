@@ -16,6 +16,8 @@ include(cmake/FindLua51.cmake)
 # set(LIBRARY_OUTPUT_PATH  ../lib)
 # set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 
 # Dependencies
 set(RAYLIB_VERSION 5.0)

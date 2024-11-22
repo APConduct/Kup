@@ -1,29 +1,12 @@
 #include <raylib.h>
 #include <string>
+#include <vector>
 #define RAYGUI_IMPLEMENTATION
 
 
-//#include <raygui.h>
+#include "raygui.h"
 
 #include "TextArea.hpp"
-
-
-
-
-
-// casts template to float
-template<typename Number> float
-
-cast_to_float(Number number)
-{return static_cast<float>(number);}
-
-// casts template to int
-template<typename Number> int
-cast_to_int(){return static_cast<int>(Number());
-}
-// static casts a float to int
-
-// static casts an int to float
 
 // color values for raygui components
 enum hues
@@ -44,9 +27,10 @@ struct Hue
     unsigned char b;        // Color blue value
     unsigned char a;        // Color alpha value
 
+    Hue();
+    Hue(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+    Hue(unsigned char r, unsigned char g, unsigned char b);
 };
-
-
 
 int main(int argc, char **argv)
 {
@@ -55,24 +39,29 @@ int main(int argc, char **argv)
 
     constexpr int GUI_BAR_UNIT = 64;
 
-    constexpr int BUFFER_FONT_SIZE = 40;
-    constexpr int UI_FONT_SIZE = 28;
+    constexpr int BUFFER_FONT_SIZE = 32;
+    constexpr int UI_FONT_SIZE = 32;
 
     constexpr int FILE_MARGIN_WIDTH = 104;
     constexpr int SIDEBAR_WIDTH = GUI_BAR_UNIT;
-    constexpr int TOP_BAR_WIDTH = 40;
+    constexpr int MENU_BAR_WIDTH = 40;
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
 
-    constexpr int GRIP_GAP = 5;
 
-    const std::string JB_MONO_REG_PATH =  "src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
-    const std::string JB_MONO_THIN_PATH =  "src/resources/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Thin.ttf";
 
-    const std::string BRASS_MONO_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMono-Regular.ttf";
-    const std::string BRASS_MONO_CODE_REG_PATH =  "../src/resources/fonts/BrassMono/BrassMonoCode-Regular.ttf";
-    const std::string ZED_MONO_REG_PATH = "src/resources/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
-    const std::string IBM_PLEX_REG_PATH = "../src/resources/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf";
+    constexpr float FILE_TREE_START_TEST_WIDTH = 100;
+
+
+    constexpr int GRIP_GAP = static_cast<int>(GUI_LINE_WIDTH*2);
+
+    const std::string JB_MONO_REG_PATH =  "res/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf";
+    const std::string JB_MONO_THIN_PATH =  "res/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Thin.ttf";
+
+    const std::string BRASS_MONO_REG_PATH =  "res/fonts/BrassMono/BrassMono-Regular.ttf";
+    const std::string BRASS_MONO_CODE_REG_PATH =  "res/fonts/BrassMono/BrassMonoCode-Regular.ttf";
+    const std::string ZED_MONO_REG_PATH = "res/fonts/zed-mono-1.2.0/zed-mono-regular.ttf";
+    const std::string IBM_PLEX_REG_PATH = "res/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf";
 
     const auto jb_mono_reg_buffer = LoadFontEx(JB_MONO_REG_PATH.c_str(),
         BUFFER_FONT_SIZE,nullptr,0);
@@ -85,30 +74,24 @@ int main(int argc, char **argv)
 
     const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
         BUFFER_FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, static_cast<float>(jb_mono_reg_buffer.glyphs->offsetX));
+    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, static_cast<float>(jb_mono_reg_buffer.glyphs->offsetX));
     SetTargetFPS(120);
 
 
     while (!WindowShouldClose())
     {
         text_area->Update();
-
-
         std::string dir_path(GetWorkingDirectory());
-        // dir_path.append("\\..");
         FilePathList list = LoadDirectoryFiles(dir_path.c_str());
         char** work_path = list.paths;
-        std::vector<string> paths(work_path, work_path + list.count);
-
-
+        std::vector<string> paths = std::vector<std::string>(work_path, work_path + list.count);
         BeginDrawing();
         ClearBackground(BLACK);
 
         // render FileTree text
         int jump = UI_FONT_SIZE+6;
         for (const auto & path : paths) {
-            DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {40, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
-                //static_cast<float>(jb_mono_reg.glyphs->offsetX),
+            DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {80, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
                 0,
                 WHITE);
             jump += UI_FONT_SIZE+6;
@@ -136,17 +119,18 @@ int main(int argc, char **argv)
                 text_area->cursor_visible ? SKYBLUE : BLANK);
         }
 
-
-
         auto x_start = static_cast<float>(text_area->get_x() - GRIP_GAP);
         auto x_end = static_cast<float>(text_area->get_x()- GRIP_GAP);
-        auto y_end = static_cast<float>(GetScreenHeight() - TOP_BAR_WIDTH);
-        DrawLineEx({x_start, TOP_BAR_WIDTH}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
-
-        DrawLineEx({0, y_end}, {cast_to_float(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
-        DrawLineEx({0, TOP_BAR_WIDTH}, {cast_to_float(GetScreenWidth()), TOP_BAR_WIDTH},GUI_LINE_WIDTH,WHITE);
+        auto y_end = static_cast<float>(GetScreenHeight() - MENU_BAR_WIDTH);
+        // line between file tree and buffer view
+        DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
 
 
+        // line between sidebar menu and buffer view/file tree
+        DrawLineEx({SIDEBAR_WIDTH, 0}, {SIDEBAR_WIDTH, y_end}, GUI_LINE_WIDTH,WHITE);
+
+        // line between main content and bottom bar
+        DrawLineEx({0, y_end}, {static_cast<float>(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
 
 
         EndDrawing();

@@ -7,7 +7,11 @@
 
 #include <raylib.h>
 
-inline bool operator==(const Font& lhs, const Font& rhs){
+typedef Font rl_font;
+
+
+
+inline bool operator==(const rl_font& lhs, const rl_font& rhs){
     return (
         lhs.glyphs == rhs.glyphs &&
         lhs.recs == rhs.recs &&
