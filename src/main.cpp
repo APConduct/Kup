@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     constexpr int UI_FONT_SIZE = 32;
 
     constexpr int FILE_MARGIN_WIDTH = 104;
-    constexpr int SIDEBAR_WIDTH = GUI_BAR_UNIT;
+    //constexpr int SIDEBAR_WIDTH = GUI_BAR_UNIT;
     constexpr int MENU_BAR_WIDTH = 40;
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
@@ -74,7 +74,9 @@ int main(int argc, char **argv)
 
     const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
         BUFFER_FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((SIDEBAR_WIDTH + FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, static_cast<float>(jb_mono_reg_buffer.glyphs->offsetX));
+    auto* text_area = new kupui::TextArea((
+        //SIDEBAR_WIDTH +
+        FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, static_cast<float>(jb_mono_reg_buffer.glyphs->offsetX));
     SetTargetFPS(120);
 
 
@@ -91,7 +93,7 @@ int main(int argc, char **argv)
         // render FileTree text
         int jump = UI_FONT_SIZE+6;
         for (const auto & path : paths) {
-            DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {80, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
+            DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {20, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
                 0,
                 WHITE);
             jump += UI_FONT_SIZE+6;
@@ -127,7 +129,7 @@ int main(int argc, char **argv)
 
 
         // line between sidebar menu and buffer view/file tree
-        DrawLineEx({SIDEBAR_WIDTH, 0}, {SIDEBAR_WIDTH, y_end}, GUI_LINE_WIDTH,WHITE);
+        //DrawLineEx({SIDEBAR_WIDTH, 0}, {SIDEBAR_WIDTH, y_end}, GUI_LINE_WIDTH,WHITE);
 
         // line between main content and bottom bar
         DrawLineEx({0, y_end}, {static_cast<float>(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
