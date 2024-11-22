@@ -227,20 +227,16 @@ struct  TextArea {
     void undo() {
 
             // Commit pending input
-            if (is_composing || !input_buffer.empty()){
-                commit_position();
-            }
+            if (is_composing || !input_buffer.empty()) commit_position();
 
             if (!text_buffer.can_undo() || cursor_undo_stack.empty()) return;
 
             auto cursor_cmd = cursor_undo_stack.top();
             cursor_undo_stack.pop();
             text_buffer.undo();
-
             cursor.index = cursor_cmd.old_pos;
             update_cursor_position();
             cursor_redo_stack.push(cursor_cmd);
-
             render_cache.invalidate();
             update_render_cache();
         }
@@ -299,13 +295,7 @@ struct  TextArea {
         this->font = font;
         this->spacing = spacing;
         this->scale = 1;
-
-        //L = luaL_newstate();
-        //luaL_openlibs(L);
-
     };
-
-
 
     ~TextArea();
     [[nodiscard]] float get_pos_y() const { return this->pos_y; };
@@ -331,8 +321,6 @@ struct  TextArea {
         }
         return v;
     }
-
-
 
     float cursor_blink_timer = 0.0f;
     float cursor_blink_rate = 0.53f;
@@ -371,7 +359,6 @@ struct  TextArea {
             this->insert(commit_text); // insert as one operation
             cursor.index += commit_text.length();
             update_cursor_position(); // update line//column
-
             input_buffer.clear();
             is_composing = false;
             compose_timer = 0.0f;
@@ -387,7 +374,6 @@ struct  TextArea {
         }
 
         if (composition.delete_counter > 0) {
-            std::cout << composition.delete_counter << std::endl;
             if(cursor.index >= composition.delete_counter)
             {display_text.erase(cursor.index - composition.delete_counter, composition.delete_counter);}
 
@@ -414,7 +400,6 @@ struct  TextArea {
         composition.delete_counter = 0;
         is_composing = false;
         compose_timer = 0.0f;
-
         render_cache.invalidate();
         update_render_cache();
     }
@@ -492,12 +477,6 @@ public:
                 compose_timer = 0.0f; // Reset timer on new input
 
                 update_render_cache();
-
-                if (new_char == ' ' || new_char == '.' || new_char == ',' ||
-                    new_char == ';' || new_char == '!' || new_char == '?')
-                {
-                    commit_position();
-                }
             }
             char_key = GetCharPressed();
         }
@@ -514,7 +493,6 @@ public:
                     commit_position();
                 }
             }
-
         }
 
         if (IsKeyPressed(KEY_BACKSPACE)){
@@ -535,14 +513,6 @@ public:
                     compose_timer = 0.0f;
                 }
 
-
-
-                // size_t current_line = cursor.line;
-                // this->remove(1);
-
-                // if (cursor.line == current_line && cursor.column > 0) {
-                //     this->cursor.column--;
-                // }
                 update_render_cache();
                 update_cursor_position();
             }
@@ -579,8 +549,6 @@ public:
             cursor_visible = true;
             cursor_blink_timer = 0;
         }
-
-        // std::cout << text_buffer.get_text() << std::endl << composition.delete_counter << std::endl;
     };
 
     void Render() const
@@ -588,11 +556,6 @@ public:
         if(render_cache.lines.empty()){
             update_render_cache();
         }
-
-        //string display_text = text_buffer.get_text();
-        //if (composition.delete_counter > 0) {
-        //
-        //}
 
         for (const auto& line : render_cache.lines){
             DrawTextEx(
@@ -687,7 +650,7 @@ protected:
             handler(event);
         }
     }
-    lua_State* L;  // Lua state
+    lua_State* L{};  // Lua state
     // Core state variables...
 
 public:
@@ -696,7 +659,6 @@ public:
         float y =  pos_y;
 
         // get text up tp cursor
-
         size_t n_del = (composition.delete_counter > 0) ? composition.delete_counter : 0;
         string text = text_buffer.get_text().substr(0, cursor.index - n_del);
 
