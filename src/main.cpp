@@ -37,13 +37,10 @@ int main(int argc, char **argv)
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(1600, 960, "Kup");
 
-    constexpr int GUI_BAR_UNIT = 64;
-
     constexpr int BUFFER_FONT_SIZE = 32;
     constexpr int UI_FONT_SIZE = 32;
 
     constexpr int FILE_MARGIN_WIDTH = 104;
-    //constexpr int SIDEBAR_WIDTH = GUI_BAR_UNIT;
     constexpr int MENU_BAR_WIDTH = 40;
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
