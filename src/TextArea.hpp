@@ -25,17 +25,22 @@ namespace kupui {
 
 
 struct  TextArea {
+
+
     int FPS = GetFPS();
-    float spacing {-2};
-    float pos_x{}, pos_y{};
-    Color text_color{};
-    float fontSize{};
+    float spacing {0};
+    float pos_x{208}, pos_y{20};
+    Color text_color{WHITE};
+    float font_size{20};
     Font font{};
     float scale{1};
     std::string input_buffer;
+    bool focused{true};
 
-    Color bg_color{};
-
+    PieceTable text_buffer;
+    bool is_composing{false};
+    float compose_timer = 0.0f;        // Timer for composition
+    const float COMPOSE_TIMEOUT = 0.5f; // Half second timeout (adjust as needed)
 
     void move_cursor_left(){
         if (cursor.index > 0){
@@ -88,10 +93,7 @@ struct  TextArea {
         }
     }
 
-    // Add a cached length to avoid recalculating
-    size_t total_length{0};
     // Add line index cache for faster line-based operations
-
     struct LineCache{
         std::vector<size_t> line_starts;
         bool is_dirty{true};
@@ -115,7 +117,7 @@ struct  TextArea {
         char symbol{'|'};
 
         void update(const PieceTable& buffer){
-            //Update line/column based on index
+            //update line/column based on index
             std::string text = buffer.get_text().substr(0,index);
             line = std::count(text.begin(), text.end(), '\n');
             auto last_new_line = text.find_last_of('\n');
@@ -129,15 +131,12 @@ struct  TextArea {
         bool is_active{false};
         float timer{0.0f};
         static constexpr float TIMEOUT = 0.5;
-
         size_t delete_counter{0};
-
 
         void reset(){
             buffer.clear();
             is_active = false;
             timer = 0.0f;
-
             delete_counter = 0;
         }
     } composition;
@@ -154,10 +153,6 @@ struct  TextArea {
         }
     }render_cache;
 
-    PieceTable text_buffer;
-    bool is_composing = false;
-    float compose_timer = 0.0f;        // Timer for composition
-    const float COMPOSE_TIMEOUT = 0.5f; // Half second timeout (adjust as needed)
 
 
     struct CursorCommand {
@@ -171,8 +166,8 @@ struct  TextArea {
     explicit TextArea(const std::string& initial = "")
         : text_buffer(initial)
     {
-        L = luaL_newstate();
-        luaL_openlibs(L);
+//        L = luaL_newstate();
+//        luaL_openlibs(L);
     }
 
     std::stack<CursorCommand> cursor_undo_stack;
@@ -256,48 +251,19 @@ struct  TextArea {
             update_render_cache();
         }
 
-    TextArea()
-    {
-        this->pos_x = 0;
-        this->pos_y = 0;
-        this->text_color = WHITE;
-        this->fontSize = 20;
+    TextArea() {
         this->font = GetFontDefault();
-        this->focused = true;
-        this->cursor.column = 0;
-        this->cursor.line = 0;
-        this->cursor.symbol = *"|";
-        this->auto_backspace = false;
-        this->backspace_frame_counter = 0;
-        this->spacing = 0;
-        this->scale = 3;
-        this->cursor.index = 0;
 
-        L = luaL_newstate();
-        luaL_openlibs(L);
+        // L = luaL_newstate();
+        // luaL_openlibs(L);
     }
-    ;
 
     TextArea(const float pos_x, const float pos_y,
         const Font& font, const float font_size,const float spacing)
-    {
-        this->pos_x = pos_x;
-        this->pos_y = pos_y;
-        this->text_color = WHITE;
-        this->fontSize = font_size;
-        this->font = font;
-        this->focused = true;
-        this->cursor.column = 0;
-        this->cursor.line = 0;
-        this->cursor.symbol = *"|";
-        this->auto_backspace = false;
-        this->backspace_frame_counter = 0;
-        this->font = font;
-        this->spacing = spacing;
-        this->scale = 1;
-    };
+    : spacing(spacing), pos_x(pos_x), pos_y(pos_y), font_size(font_size), font(font)
+    {}
 
-    ~TextArea();
+    //~TextArea();
     [[nodiscard]] float get_pos_y() const { return this->pos_y; };
 
     [[nodiscard]] std::vector<std::string> text_vec() const
@@ -340,6 +306,7 @@ struct  TextArea {
             cursor.column = 0;
         } else {
             std::string text_before_cursor = text.substr(0, cursor.index);
+            // ReSharper disable once CppUseRangeAlgorithm
             cursor.line  = std::count(text_before_cursor.begin(), text_before_cursor.end(),'\n');
             size_t last_newline = text_before_cursor.rfind('\n');
             cursor.column = (last_newline == std::string::npos) ? cursor.index : cursor.index - last_newline - 1;
@@ -366,6 +333,18 @@ struct  TextArea {
             update_render_cache();
         }
     }
+
+
+    void commit_deletion() {
+        remove(composition.delete_counter);
+        composition.delete_counter = 0;
+        is_composing = false;
+        compose_timer = 0.0f;
+        render_cache.invalidate();
+        update_render_cache();
+    }
+
+public:
 
     void update_render_cache() const{
         string display_text = text_buffer.get_text();
@@ -395,17 +374,8 @@ struct  TextArea {
         }
     }
 
-    void commit_deletion() {
-        remove(composition.delete_counter);
-        composition.delete_counter = 0;
-        is_composing = false;
-        compose_timer = 0.0f;
-        render_cache.invalidate();
-        update_render_cache();
-    }
 
-public:
-    void Update()
+    void update()
     {
         // TODO - IMPL/DEF LINES BELOW
         // this->handle_input();
@@ -536,7 +506,7 @@ public:
             update_render_cache();
         };
 
-        // Update cursor blink
+        // update cursor blink
         cursor_blink_timer += GetFrameTime();
         if (cursor_blink_timer >= cursor_blink_rate) {
             cursor_visible = !cursor_visible;
@@ -551,7 +521,7 @@ public:
         }
     };
 
-    void Render() const
+    void render() const
     {
         if(render_cache.lines.empty()){
             update_render_cache();
@@ -561,7 +531,7 @@ public:
             DrawTextEx(
                 font, line.text.c_str(),
                 line.position,
-                fontSize,
+                font_size,
                 spacing,
                 text_color
             );
@@ -574,7 +544,7 @@ public:
 
     [[nodiscard]] Font get_font() const { return this->font; }
 
-    [[nodiscard]] float get_fontSize() const { return this->fontSize; }
+    [[nodiscard]] float get_fontSize() const { return this->font_size; }
 
     [[nodiscard]] size_t get_cursor_line() const {
         return this->cursor.line;
@@ -630,15 +600,15 @@ public:
 // @prefer: keep all non-public members as protected
 
     struct Event{
-        enum Type { Insert, Delete, CursorMove, CompositionStart, CompositionEnd};
+        enum class Type { Insert, Delete, CursorMove, CompositionStart, CompositionEnd};
         Type type;
         size_t position;
         string text;
     };
 
     std::vector<std::function<void(const Event&)>> event_handlers;
-    bool auto_backspace{};
-    int backspace_frame_counter{};
+    bool auto_backspace{false};
+    int backspace_frame_counter{0};
 public:
     void addEventListener(const std::function<void(const Event&)>& handler) {
         event_handlers.push_back(handler);
@@ -664,22 +634,22 @@ public:
 
         // count newlines for y position
         size_t newlines = std::count(text.begin(), text.end(), '\n');
-        y += static_cast<float>(newlines) * fontSize;
+        y += static_cast<float>(newlines) * font_size;
 
         // get x position
         size_t last_newline = text.rfind('\n');
         if (last_newline != std::string::npos){
             // If we're not on the first line, measure from the last newline
             string current_line = text.substr(last_newline + 1);
-            x += MeasureTextEx(font,current_line.c_str(), fontSize, spacing).x;
+            x += MeasureTextEx(font,current_line.c_str(), font_size, spacing).x;
         } else {
             // If we're on the first line, measure from the start
-            x += MeasureTextEx(font,text.c_str(), fontSize, spacing).x;
+            x += MeasureTextEx(font,text.c_str(), font_size, spacing).x;
         }
 
         // add composition buffer offset if composing
         if (is_composing && !input_buffer.empty()) {
-            x += MeasureTextEx(font,input_buffer.c_str(), fontSize, spacing).x;
+            x += MeasureTextEx(font,input_buffer.c_str(), font_size, spacing).x;
         }
 
         return {x, y};
@@ -689,10 +659,12 @@ public:
     float get_cursor_x() const { return get_cursor_screen_pos().x; }
     float get_cursor_y() const { return get_cursor_screen_pos().y; }
 
-    bool focused{true};
 
 };
 
 } // kupui
+inline std::unique_ptr<kupui::TextArea> create_text_area() {
+    return std::make_unique<kupui::TextArea>("  ");
+};
 
 #endif //TEXTAREA_HPP

@@ -6,6 +6,7 @@
 #define KFONT_H
 
 #include <raylib.h>
+#include <vector>
 
 typedef Font rl_font;
 
@@ -25,6 +26,26 @@ inline bool operator==(const rl_font& lhs, const rl_font& rhs){
         lhs.texture.mipmaps == rhs.texture.mipmaps);
 };
 
+inline bool operator!=(const rl_font& lhs, const rl_font& rhs) {
+    return !(lhs == rhs);
+}
 
+struct rl_glyph {
+    int x;
+    int y;
+    int width;
+    int height;
+    int id;
+};
+
+struct rl_texture {
+    int width;
+    int height;
+    int id;
+};
+
+struct FontSet {
+    std::vector<rl_font> fonts;
+};
 
 #endif //KFONT_H

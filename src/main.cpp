@@ -7,6 +7,10 @@
 #include "raygui.h"
 
 #include "TextArea.hpp"
+#include "editor.hpp"
+
+using std::string;
+using std::vector;
 
 // color values for raygui components
 enum hues
@@ -32,8 +36,15 @@ struct Hue
     Hue(unsigned char r, unsigned char g, unsigned char b);
 };
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
+
+    if (argc != 2) {
+        printf("Usage: ./main <Hue>\n");
+    }else {
+        std::cout << "\nOPTIONS IMPLEMENTATION IS IN PROGRESS.\nSTARTING KUP NORMALLY\n\n";
+    }
+
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(1600, 960, "Kup");
 
@@ -71,15 +82,20 @@ int main(int argc, char **argv)
 
     const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
         BUFFER_FONT_SIZE,nullptr,0);
-    auto* text_area = new kupui::TextArea((
-        //SIDEBAR_WIDTH +
-        FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, static_cast<float>(jb_mono_reg_buffer.glyphs->offsetX));
+
+
+    float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
+    float y = 60;
+    Font rn_font = jb_mono_reg_buffer;
+    float font_size = BUFFER_FONT_SIZE; // 32
+    float space = 0;
+
+    auto text_area = kupui::TextArea((FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
+    BufferTab bt = BufferTab();
     SetTargetFPS(120);
-
-
     while (!WindowShouldClose())
     {
-        text_area->Update();
+        text_area.update();
         std::string dir_path(GetWorkingDirectory());
         FilePathList list = LoadDirectoryFiles(dir_path.c_str());
         char** work_path = list.paths;
@@ -97,29 +113,42 @@ int main(int argc, char **argv)
         }
 
         // render editor background
-        int tapx = static_cast<int>(text_area->pos_x)-GRIP_GAP;
-        int tapy = static_cast<int>(text_area->pos_y);
+        int tapx = static_cast<int>(text_area.pos_x)-GRIP_GAP;
+        int tapy = static_cast<int>(text_area.pos_y);
         DrawRectangle(tapx, tapy, GetScreenWidth()-tapx, GetScreenHeight()-tapy, BLACK);
 
-        text_area->Render();
+        text_area.render();
+
+        if(text_area.render_cache.lines.empty()){
+            text_area.update_render_cache();
+        }
+        for (const auto& line : text_area.render_cache.lines){
+            DrawTextEx(
+                text_area.font, line.text.c_str(),
+                line.position,
+                text_area.font_size,
+                text_area.spacing,
+                text_area.text_color);
+        }
+
 
         // Draw cursor at correct position
-        if (text_area->focused){
+        if (text_area.focused){
             Vector2 cursor_pos = {
-                text_area->get_cursor_x() - text_area->get_fontSize()/CURSOR_OFFSET,
-                text_area->get_cursor_y()
+                text_area.get_cursor_x() - text_area.get_fontSize()/CURSOR_OFFSET,
+                text_area.get_cursor_y()
             };
             DrawTextEx(
                 GetFontDefault(),
                 "|",
                 cursor_pos,
-                text_area->get_fontSize(),
+                text_area.get_fontSize(),
                 0,
-                text_area->cursor_visible ? SKYBLUE : BLANK);
+                text_area.cursor_visible ? SKYBLUE : BLANK);
         }
 
-        auto x_start = static_cast<float>(text_area->get_x() - GRIP_GAP);
-        auto x_end = static_cast<float>(text_area->get_x()- GRIP_GAP);
+        auto x_start = static_cast<float>(text_area.get_x() - GRIP_GAP);
+        auto x_end = static_cast<float>(text_area.get_x()- GRIP_GAP);
         auto y_end = static_cast<float>(GetScreenHeight() - MENU_BAR_WIDTH);
         // line between file tree and buffer view
         DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
