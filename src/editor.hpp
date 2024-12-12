@@ -56,9 +56,7 @@ struct text_editor : View {
             tab.buffer->update();
         }
     }
-
-
-
+    
     text_editor();
 };
 

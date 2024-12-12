@@ -1,3 +1,4 @@
+#include "piece_table.hpp"
 #include <raylib.h>
 #include <string>
 #include <vector>
@@ -8,6 +9,7 @@
 
 #include "TextArea.hpp"
 #include "editor.hpp"
+#include "FileTree.hpp"
 
 using std::string;
 using std::vector;
@@ -92,25 +94,49 @@ int main(int argc, char *argv[])
 
     auto text_area = kupui::TextArea((FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
     BufferTab bt = BufferTab();
+
+    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0);
+    file_tree.set_root(GetWorkingDirectory());
+    file_tree.on_file_selected = [&text_area](const std::string& path){
+        // Load file content into text area
+        const char* content = LoadFileText(path.c_str());
+        if (content) {
+            std::string content_str(content);
+            text_area.load_content(content_str); // Copy to string
+            UnloadFileText(const_cast<char*>(content));
+
+            // Reset cursor and update display
+            text_area.cursor.index = 0;
+            text_area.update_cursor_position();
+            text_area.render_cache.invalidate();
+            text_area.update_render_cache();
+        }
+    };
+
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
         text_area.update();
-        std::string dir_path(GetWorkingDirectory());
-        FilePathList list = LoadDirectoryFiles(dir_path.c_str());
-        char** work_path = list.paths;
-        std::vector<string> paths = std::vector<std::string>(work_path, work_path + list.count);
+
+        file_tree.update();
+        //std::string dir_path(GetWorkingDirectory());
+        //FilePathList list = LoadDirectoryFiles(dir_path.c_str());
+        //char** work_path = list.paths;
+        //std::vector<string> paths = std::vector<std::string>(work_path, work_path + list.count);
+
         BeginDrawing();
         ClearBackground(BLACK);
 
+        file_tree.render();
+
         // render FileTree text
-        int jump = UI_FONT_SIZE+6;
-        for (const auto & path : paths) {
-            DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {20, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
-                0,
-                WHITE);
-            jump += UI_FONT_SIZE+6;
-        }
+        // int jump = UI_FONT_SIZE+6;
+        // for (const auto & path : paths) {
+        //     DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {20, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
+        //         0,
+        //         WHITE);
+        //     jump += UI_FONT_SIZE+6;
+        // }
 
         // render editor background
         int tapx = static_cast<int>(text_area.pos_x)-GRIP_GAP;
@@ -152,10 +178,6 @@ int main(int argc, char *argv[])
         auto y_end = static_cast<float>(GetScreenHeight() - MENU_BAR_WIDTH);
         // line between file tree and buffer view
         DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
-
-
-        // line between sidebar menu and buffer view/file tree
-        //DrawLineEx({SIDEBAR_WIDTH, 0}, {SIDEBAR_WIDTH, y_end}, GUI_LINE_WIDTH,WHITE);
 
         // line between main content and bottom bar
         DrawLineEx({0, y_end}, {static_cast<float>(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);

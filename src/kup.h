@@ -14,7 +14,5 @@
 // big structures
 #include "TextArea.hpp"
 
-// misc.
-#include "kuputils.hpp"
 
 #endif //KUP_H

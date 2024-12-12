@@ -102,6 +102,8 @@ target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
 
 add_executable(Kup src/main.cpp
         src/TextArea.hpp
+        src/FileTree.cpp
+        src/FileTree.hpp
 )
 
 target_link_libraries(Kup PRIVATE raylib

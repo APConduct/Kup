@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include <raylib.h>
+#include <memory>
 
 
 
@@ -30,7 +31,11 @@ struct text_view : View {
     void render() override {
         DrawTextEx(font,text.c_str(), this->origin,fontSize,spacing,this->color);
     };
+
+
+
 };
+
 
 
 
@@ -53,6 +58,8 @@ struct quantum_view : View {
             icon
         };
     }
+
+
 };
 
 #endif

@@ -9,6 +9,7 @@
 #include <functional>
 #include <lua.h>
 #include <sstream>
+#include <stack>
 #include <string>
 #include <vector>
 #include <bits/stdc++.h>
@@ -292,7 +293,6 @@ struct  TextArea {
     float cursor_blink_rate = 0.53f;
     bool cursor_visible = true;
 
-    protected:
     void update_cursor_position(){
         std::string text = text_buffer.get_text();
         size_t text_length = text.length();
@@ -313,6 +313,8 @@ struct  TextArea {
 
         }
     }
+protected:
+
     void commit_position(){
         if (!input_buffer.empty()){
 
@@ -612,6 +614,19 @@ public:
 public:
     void addEventListener(const std::function<void(const Event&)>& handler) {
         event_handlers.push_back(handler);
+    }
+
+    void load_content(const std::string& content){
+        text_buffer = PieceTable(content);
+        cursor.index = 0;
+        input_buffer.clear();
+        is_composing = false;
+        compose_timer = 0.0f;
+        cursor_undo_stack = std::stack<CursorCommand>();
+        cursor_redo_stack = std::stack<CursorCommand>();
+        update_cursor_position();
+        render_cache.invalidate();
+        update_render_cache();
     }
 
 protected:
