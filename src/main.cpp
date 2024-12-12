@@ -87,13 +87,8 @@ int main(int argc, char *argv[])
 
 
     float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
-    float y = 60;
-    Font rn_font = jb_mono_reg_buffer;
-    float font_size = BUFFER_FONT_SIZE; // 32
-    float space = 0;
 
-    auto text_area = kupui::TextArea((FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH),60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
-    BufferTab bt = BufferTab();
+    auto text_area = kupui::TextArea(x,60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
     FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0);
     file_tree.set_root(GetWorkingDirectory());
@@ -117,33 +112,21 @@ int main(int argc, char *argv[])
     while (!WindowShouldClose())
     {
         text_area.update();
-
         file_tree.update();
-        //std::string dir_path(GetWorkingDirectory());
-        //FilePathList list = LoadDirectoryFiles(dir_path.c_str());
-        //char** work_path = list.paths;
-        //std::vector<string> paths = std::vector<std::string>(work_path, work_path + list.count);
 
         BeginDrawing();
         ClearBackground(BLACK);
 
-        file_tree.render();
+        text_area.render();
 
         // render FileTree text
-        // int jump = UI_FONT_SIZE+6;
-        // for (const auto & path : paths) {
-        //     DrawTextEx(jb_mono_reg_ui, path.substr(dir_path.size()+1).c_str(), {20, 20+static_cast<float>(jump)}, UI_FONT_SIZE,
-        //         0,
-        //         WHITE);
-        //     jump += UI_FONT_SIZE+6;
-        // }
+        file_tree.render();
 
         // render editor background
         int tapx = static_cast<int>(text_area.pos_x)-GRIP_GAP;
         int tapy = static_cast<int>(text_area.pos_y);
         DrawRectangle(tapx, tapy, GetScreenWidth()-tapx, GetScreenHeight()-tapy, BLACK);
 
-        text_area.render();
 
         if(text_area.render_cache.lines.empty()){
             text_area.update_render_cache();
