@@ -1,4 +1,3 @@
-#include "piece_table.hpp"
 #include <raylib.h>
 #include <string>
 #include <vector>
@@ -12,7 +11,6 @@
 #include "FileTree.hpp"
 
 using std::string;
-using std::vector;
 
 // color values for raygui components
 enum hues
@@ -40,10 +38,7 @@ struct Hue
 
 int main(int argc, char *argv[])
 {
-
-    if (argc != 2) {
-        printf("Usage: ./main <Hue>\n");
-    }else {
+    if (argc == 2) {
         std::cout << "\nOPTIONS IMPLEMENTATION IS IN PROGRESS.\nSTARTING KUP NORMALLY\n\n";
     }
 

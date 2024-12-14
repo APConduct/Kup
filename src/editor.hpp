@@ -16,7 +16,6 @@
 #include <vector>
 #include <winnt.h>
 #include "TextArea.hpp"
-#include "piece_table.hpp"
 #include "view.hpp"
 
 using std::string;
@@ -29,11 +28,8 @@ struct BufferTab : View {
     bool is_active{false};
 
     BufferTab(
-        const string& filepath,
-        const Font& font,
-        float font_size,
-        float spacing) {
-
+        const string& filepath, const Font& font,
+        float font_size, float spacing) {
         path = filepath;
         name = GetFileName(filepath.c_str());
         // Position calculated by TextEditor
@@ -88,6 +84,12 @@ struct TextEditor : View {
         if (it != tabs.end()) {
             // File already open, switch to it
             size_t index = std::distance(tabs.begin(), it);
+            set_active_tab(index);
+        } else {
+            // Add new tab
+            auto new_tab = std::make_unique<BufferTab>(path, font, font_size, spacing);
+            new_tab->set_position(content_start.x,content_start.y);
+            tabs.push_back(std::move(new_tab));
             set_active_tab(tabs.size() - 1);
         }
     }
