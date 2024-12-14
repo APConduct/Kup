@@ -124,7 +124,6 @@ struct  TextArea {
             auto last_new_line = text.find_last_of('\n');
             column = last_new_line == std::string::npos ? index : index - last_new_line - 1;
         }
-
     } cursor;
 
     struct CompositionState {
@@ -152,7 +151,7 @@ struct  TextArea {
         void invalidate() const {
             for (auto& [text, position, is_dirty] : lines) is_dirty = true;
         }
-    }render_cache;
+    } render_cache;
 
 
 
