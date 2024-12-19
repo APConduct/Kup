@@ -8,13 +8,11 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <fibersapi.h>
 #include <iterator>
 #include <memory>
 #include <raylib.h>
 #include <string>
 #include <vector>
-#include <winnt.h>
 #include "TextArea.hpp"
 #include "view.hpp"
 
@@ -39,8 +37,7 @@ struct BufferTab : View {
 
         // Load content if file exists
         if (FileExists(path.c_str())) {
-            const char* content = LoadFileText(path.c_str());
-            if (content) {
+            if (const char* content = LoadFileText(path.c_str())) {
                 text_area->load_content(content);
                 UnloadFileText(const_cast<char*>(content));
             }
@@ -117,9 +114,9 @@ struct TextEditor : View {
 
             // Draw tab background
             Color tab_color = is_current ? DARKGRAY : GRAY;
-            DrawRectangle(tab_x, tab_y,
-                MeasureTextEx(font, tab->name.c_str(),
-                font_size/2, spacing).x +
+            DrawRectangle(static_cast<int>(tab_x), static_cast<int>(tab_y),
+                static_cast<int>(MeasureTextEx(font, tab->name.c_str(),
+                font_size/2, spacing).x) +
                 tab_padding*2, tab_height, tab_color);
 
             // Draw filename
@@ -141,15 +138,14 @@ struct TextEditor : View {
     void update() override {
         // Handle tab clicks
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            Vector2 mouse = GetMousePosition();
-            if (mouse.y < tab_height) { // Click in tab area
+            if (auto [x, y] = GetMousePosition(); y < tab_height) { // Click in tab area
                 float tab_x = content_start.x;
                 for (size_t i = 0; i < tabs.size(); i++) {
                     float tab_width = MeasureTextEx(font,
                         tabs[i]->name.c_str(), font_size/2,
                         spacing).x + tab_padding*3;
 
-                    if (mouse.x >= tab_x && mouse.x < tab_x + tab_width) {
+                    if (x >= tab_x && x < tab_x + tab_width) {
                         set_active_tab(i);
                         break;
                     }
