@@ -64,7 +64,7 @@ void FileTree::render_node(const FileNode& node, float& y_offset, int depth) {
 
     // Draw expand/collapse indicator for directories
     if (node.is_directory) {
-        const char* indicator = node.is_expanded ? "▼" : "►";
+        const char* indicator = node.is_expanded ? "v" : ">";
         DrawTextEx(font, indicator, {x - 15, y_offset}, font_size, spacing, text_color);
     }
 
