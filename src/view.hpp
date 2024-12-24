@@ -14,6 +14,10 @@ class View{
 
     Vector2 origin{};
     Vector2 size{};
+
+    [[nodiscard]] Rectangle get_bounds() const {
+        return Rectangle{ origin.x, origin.y, size.x, size.y };
+    };
 };
 
 std::unique_ptr<View> createView();
