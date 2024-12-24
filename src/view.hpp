@@ -3,8 +3,6 @@
 
 #include <raylib.h>
 
-
-
 class View{
     public:
     virtual ~View() = default;
@@ -19,8 +17,6 @@ class View{
     };
 };
 
-
-
 struct text_view : View {
     Font font;
     float fontSize;
@@ -34,13 +30,7 @@ struct text_view : View {
     void render() override {
         DrawTextEx(font,text.c_str(), this->origin,fontSize,spacing,this->color);
     };
-
-
-
 };
-
-
-
 
 struct quantum_view : View {
 
@@ -61,8 +51,6 @@ struct quantum_view : View {
             icon
         };
     }
-
-
 };
 
 #endif
