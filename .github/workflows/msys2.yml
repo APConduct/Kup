@@ -20,7 +20,7 @@ jobs:
           mkdir ./build
           cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./build
       - name: Make script executable # Add this step
-        run: chmod +x ./debug.sh
+        run: chmod +x ./ci-build.sh
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
