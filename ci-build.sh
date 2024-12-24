@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Install necessary dependencies
+sudo apt-get update
+sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+
 mkdir -p "build"
 cmake -B ./build/
 
