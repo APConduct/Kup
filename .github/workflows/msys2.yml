@@ -19,6 +19,7 @@ jobs:
       - name: Configure CMake
         run: |
           git submodule update --init --recursive
+          mkdir ./build
           cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -G Ninja -S . -B ./build
       - name: Make script executable # Add this step
         run: chmod +x ./ci-build.sh
