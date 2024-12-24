@@ -2,7 +2,7 @@
 
 # Install necessary dependencies
 sudo apt-get update
-sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+sudo apt-get install -y libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev lua5.1 liblua5.1-0-dev
 
 mkdir -p "build"
 cmake -B ./build/
