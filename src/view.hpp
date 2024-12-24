@@ -13,6 +13,7 @@ class View{
     virtual void update() = 0;
 
     Vector2 origin{};
+    Vector2 size{};
 };
 
 std::unique_ptr<View> createView();
