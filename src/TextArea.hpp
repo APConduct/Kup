@@ -320,7 +320,7 @@ protected:
 
             string commit_text = input_buffer;
             this->insert(commit_text); // insert as one operation
-            cursor.index += commit_text.length();
+            // cursor.index += commit_text.length();
             update_cursor_position(); // update line//column
             input_buffer.clear();
             is_composing = false;

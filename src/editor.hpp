@@ -82,7 +82,7 @@ struct TextEditor : View {
     float tab_padding{5};
     Vector2 content_start{208, 60}; // Start pos for text area
 
-
+    bool is_focused{true};
 
     TextEditor(const Font& editor_font, float size, float space)
         : font(editor_font), font_size(size), spacing(space) {}

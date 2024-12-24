@@ -142,19 +142,21 @@ int main(int argc, char *argv[])
         // }
 
         // Draw cursor at correct position
-        // if (text_area.focused){
-        //     Vector2 cursor_pos = {
-        //         text_area.get_cursor_x() - text_area.get_fontSize()/CURSOR_OFFSET,
-        //         text_area.get_cursor_y()
-        //     };
-        //     DrawTextEx(
-        //         GetFontDefault(),
-        //         "|",
-        //         cursor_pos,
-        //         text_area.get_fontSize(),
-        //         0,
-        //         text_area.cursor_visible ? SKYBLUE : BLANK);
-        // }
+        if (!editor.tabs.empty()) {
+            if (editor.is_focused){
+                Vector2 cursor_pos = {
+                    editor.tabs.at(editor.current_tab)->get_cursor_x() - editor.font_size/CURSOR_OFFSET,
+                    editor.tabs.at(editor.current_tab)->get_cursor_y()
+                };
+                DrawTextEx(
+                    GetFontDefault(),
+                    "|",
+                    cursor_pos,
+                    editor.font_size,
+                    0,
+                    editor.tabs.at(editor.current_tab)->text_area->cursor_visible ? SKYBLUE : BLANK);
+            }
+        }
 
         auto x_start = static_cast<float>(editor.content_start.x - GRIP_GAP);
         auto x_end = static_cast<float>(editor.content_start.x - GRIP_GAP);
