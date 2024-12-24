@@ -83,76 +83,81 @@ int main(int argc, char *argv[])
 
     float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
 
-    auto text_area = kupui::TextArea(x,60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
+    // auto text_area = kupui::TextArea(x,60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
+
+    TextEditor editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
     FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0);
     file_tree.set_root(GetWorkingDirectory());
-    file_tree.on_file_selected = [&text_area](const std::string& path){
-        // Load file content into text area
-        const char* content = LoadFileText(path.c_str());
-        if (content) {
-            std::string content_str(content);
-            text_area.load_content(content_str); // Copy to string
-            UnloadFileText(const_cast<char*>(content));
+    file_tree.on_file_selected = [&editor](const std::string& path){
+        editor.open_file(path);
+        //// Load file content into text area
+        // const char* content = LoadFileText(path.c_str());
+        // if (content) {
+            // std::string content_str(content);
+            // text_area.load_content(content_str); // Copy to string
+            // UnloadFileText(const_cast<char*>(content));
 
-            // Reset cursor and update display
-            text_area.cursor.index = 0;
-            text_area.update_cursor_position();
-            text_area.render_cache.invalidate();
-            text_area.update_render_cache();
-        }
+            //// Reset cursor and update display
+            // text_area.cursor.index = 0;
+            // text_area.update_cursor_position();
+            // text_area.render_cache.invalidate();
+            // text_area.update_render_cache();
+            // }
     };
 
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
-        text_area.update();
+        editor.update();
+
+        // text_area.update();
         file_tree.update();
 
         BeginDrawing();
         ClearBackground(BLACK);
 
-        text_area.render();
-
         // render FileTree text
         file_tree.render();
 
+
         // render editor background
-        int tapx = static_cast<int>(text_area.pos_x)-GRIP_GAP;
-        int tapy = static_cast<int>(text_area.pos_y);
+        int tapx = static_cast<int>(editor.content_start.x)-GRIP_GAP;
+        int tapy = static_cast<int>(editor.content_start.y);
         DrawRectangle(tapx, tapy, GetScreenWidth()-tapx, GetScreenHeight()-tapy, BLACK);
 
 
-        if(text_area.render_cache.lines.empty()){
-            text_area.update_render_cache();
-        }
-        for (const auto& line : text_area.render_cache.lines){
-            DrawTextEx(
-                text_area.font, line.text.c_str(),
-                line.position,
-                text_area.font_size,
-                text_area.spacing,
-                text_area.text_color);
-        }
-
+        // text_area.render();
+        editor.render();
+        // if(text_area.render_cache.lines.empty()){
+        //     text_area.update_render_cache();
+        // }
+        // for (const auto& line : text_area.render_cache.lines){
+        //     DrawTextEx(
+        //         text_area.font, line.text.c_str(),
+        //         line.position,
+        //         text_area.font_size,
+        //         text_area.spacing,
+        //         text_area.text_color);
+        // }
 
         // Draw cursor at correct position
-        if (text_area.focused){
-            Vector2 cursor_pos = {
-                text_area.get_cursor_x() - text_area.get_fontSize()/CURSOR_OFFSET,
-                text_area.get_cursor_y()
-            };
-            DrawTextEx(
-                GetFontDefault(),
-                "|",
-                cursor_pos,
-                text_area.get_fontSize(),
-                0,
-                text_area.cursor_visible ? SKYBLUE : BLANK);
-        }
+        // if (text_area.focused){
+        //     Vector2 cursor_pos = {
+        //         text_area.get_cursor_x() - text_area.get_fontSize()/CURSOR_OFFSET,
+        //         text_area.get_cursor_y()
+        //     };
+        //     DrawTextEx(
+        //         GetFontDefault(),
+        //         "|",
+        //         cursor_pos,
+        //         text_area.get_fontSize(),
+        //         0,
+        //         text_area.cursor_visible ? SKYBLUE : BLANK);
+        // }
 
-        auto x_start = static_cast<float>(text_area.get_x() - GRIP_GAP);
-        auto x_end = static_cast<float>(text_area.get_x()- GRIP_GAP);
+        auto x_start = static_cast<float>(editor.content_start.x - GRIP_GAP);
+        auto x_end = static_cast<float>(editor.content_start.x - GRIP_GAP);
         auto y_end = static_cast<float>(GetScreenHeight() - MENU_BAR_WIDTH);
         // line between file tree and buffer view
         DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);

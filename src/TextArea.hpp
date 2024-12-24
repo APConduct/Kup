@@ -20,14 +20,9 @@
 
 typedef std::string string;
 
-
-
 namespace kupui {
 
-
 struct  TextArea {
-
-
     int FPS = GetFPS();
     float spacing {0};
     float pos_x{208}, pos_y{20};

@@ -32,7 +32,7 @@ struct BufferTab : View {
         name = GetFileName(filepath.c_str());
         // Position calculated by TextEditor
         text_area = std::make_unique<kupui::TextArea>(
-            0, 0, font, font_size, spacing
+            208, 60, font, font_size, spacing
         );
 
         // Load content if file exists
@@ -58,6 +58,18 @@ struct BufferTab : View {
             text_area->pos_y = y;
         }
     }
+
+    Vector2 get_cursor_screen_pos(){
+        return text_area->get_cursor_screen_pos();
+    }
+
+    float get_cursor_x(){
+        return text_area->get_cursor_x();
+    }
+
+    float get_cursor_y(){
+        return text_area->get_cursor_y();
+    }
 };
 
 struct TextEditor : View {
@@ -69,6 +81,8 @@ struct TextEditor : View {
     float tab_height{25};
     float tab_padding{5};
     Vector2 content_start{208, 60}; // Start pos for text area
+
+
 
     TextEditor(const Font& editor_font, float size, float space)
         : font(editor_font), font_size(size), spacing(space) {}
