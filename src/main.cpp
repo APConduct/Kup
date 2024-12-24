@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 
     TextEditor editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
-    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, 208);
+    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x);
     file_tree.set_root(GetWorkingDirectory());
     file_tree.on_file_selected = [&editor](const std::string& path){
         editor.open_file(path);
