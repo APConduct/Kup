@@ -22,7 +22,7 @@ public:
     float font_size;
     float spacing;
     Color text_color{WHITE};
-    Vector2 position{20, 20};
+    Vector2 position{30, 10};
     float item_height;
 
     std::vector<FileNode> nodes;
@@ -36,6 +36,7 @@ public:
     FileTree(const Font& font, float font_size, float spacing)
         : font(font), font_size(font_size), spacing(spacing){
             item_height = font_size + 6;
+            origin.x = origin.y = 0;
     }
 
     void set_root(const std::string& path);
@@ -44,7 +45,7 @@ public:
 
     bool handle_click(Vector2 mouse_pos);
     void toggle_node(int index);
-    std::string get_selected_path() const;
+    [[nodiscard]] std::string get_selected_path() const;
 };
 
 #endif //FILETREE_HPP

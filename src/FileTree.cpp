@@ -36,7 +36,6 @@ void FileTree::toggle_node(int index) {
     }
 }
 
-
 void FileTree::load_directory(const std::string& path, FileNode& node) {
     FilePathList files = LoadDirectoryFiles(path.c_str());
 
