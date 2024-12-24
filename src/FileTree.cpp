@@ -90,7 +90,7 @@ void FileTree::render() {
 void FileTree::update() {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mouse = GetMousePosition();
-        handle_click(mouse);
+        if (mouse.x < width) handle_click(mouse);
     }
 }
 

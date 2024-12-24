@@ -28,6 +28,9 @@ public:
     std::vector<FileNode> nodes;
     int selected_index{-1};
 
+    // this might cause problems
+    float width{208};
+
 public:
     void load_directory(const std::string& path, FileNode& node);
     void render_node(const FileNode& node, float& y_offset, int depth = 0);
@@ -38,6 +41,14 @@ public:
             item_height = font_size + 6;
             origin.x = origin.y = 0;
     }
+
+    FileTree(const Font& font, float font_size, float spacing, float width)
+    : font(font), font_size(font_size), spacing(spacing), width(width){
+        item_height = font_size + 6;
+        origin.x = origin.y = 0;
+    }
+
+
 
     void set_root(const std::string& path);
     void render() override;
