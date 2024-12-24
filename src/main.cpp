@@ -3,7 +3,6 @@
 #include <vector>
 #define RAYGUI_IMPLEMENTATION
 
-
 #include "raygui.h"
 
 #include "TextArea.hpp"
@@ -53,10 +52,7 @@ int main(int argc, char *argv[])
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
 
-
-
     constexpr float FILE_TREE_START_TEST_WIDTH = 100;
-
 
     constexpr int GRIP_GAP = static_cast<int>(GUI_LINE_WIDTH*2);
 
@@ -80,30 +76,14 @@ int main(int argc, char *argv[])
     const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
         BUFFER_FONT_SIZE,nullptr,0);
 
-
     float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
-
-    // auto text_area = kupui::TextArea(x,60, jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
     TextEditor editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
-    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0);
+    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, 208);
     file_tree.set_root(GetWorkingDirectory());
     file_tree.on_file_selected = [&editor](const std::string& path){
         editor.open_file(path);
-        //// Load file content into text area
-        // const char* content = LoadFileText(path.c_str());
-        // if (content) {
-            // std::string content_str(content);
-            // text_area.load_content(content_str); // Copy to string
-            // UnloadFileText(const_cast<char*>(content));
-
-            //// Reset cursor and update display
-            // text_area.cursor.index = 0;
-            // text_area.update_cursor_position();
-            // text_area.render_cache.invalidate();
-            // text_area.update_render_cache();
-            // }
     };
 
     SetTargetFPS(120);
@@ -111,7 +91,6 @@ int main(int argc, char *argv[])
     {
         editor.update();
 
-        // text_area.update();
         file_tree.update();
 
         BeginDrawing();
@@ -120,26 +99,12 @@ int main(int argc, char *argv[])
         // render FileTree text
         file_tree.render();
 
-
         // render editor background
         int tapx = static_cast<int>(editor.content_start.x)-GRIP_GAP;
         int tapy = static_cast<int>(editor.content_start.y);
         DrawRectangle(tapx, tapy, GetScreenWidth()-tapx, GetScreenHeight()-tapy, BLACK);
 
-
-        // text_area.render();
         editor.render();
-        // if(text_area.render_cache.lines.empty()){
-        //     text_area.update_render_cache();
-        // }
-        // for (const auto& line : text_area.render_cache.lines){
-        //     DrawTextEx(
-        //         text_area.font, line.text.c_str(),
-        //         line.position,
-        //         text_area.font_size,
-        //         text_area.spacing,
-        //         text_area.text_color);
-        // }
 
         // Draw cursor at correct position
         if (!editor.tabs.empty()) {
@@ -166,7 +131,6 @@ int main(int argc, char *argv[])
 
         // line between main content and bottom bar
         DrawLineEx({0, y_end}, {static_cast<float>(GetScreenWidth()), y_end},GUI_LINE_WIDTH,WHITE);
-
 
         EndDrawing();
     }
