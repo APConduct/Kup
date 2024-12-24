@@ -22,7 +22,7 @@ public:
     float font_size;
     float spacing;
     Color text_color{WHITE};
-    Vector2 position{30, 10};
+    Vector2 position{10, 10};
     float item_height;
 
     std::vector<FileNode> nodes;
