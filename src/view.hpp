@@ -2,7 +2,6 @@
 #define VIEW_H
 
 #include <raylib.h>
-#include <memory>
 
 
 
@@ -20,8 +19,7 @@ class View{
     };
 };
 
-std::unique_ptr<View> createView();
-std::unique_ptr<View> createView(Vector2 origin);
+
 
 struct text_view : View {
     Font font;
