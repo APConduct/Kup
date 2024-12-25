@@ -3,3 +3,6 @@
 [submodule "src/ext/tinyfd"]
     path = src/ext/tinyfd
     url = https://git.code.sf.net/p/tinyfiledialogs/code
+[submodule "ext/raygui"]
+	path = ext/raygui
+	url = https://github.com/raysan5/raygui.git
