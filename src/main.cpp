@@ -5,9 +5,9 @@
 
 #include "raygui.h"
 
-#include "TextArea.hpp"
 #include "editor.hpp"
 #include "FileTree.hpp"
+#include "TextArea.hpp"
 
 using std::string;
 
