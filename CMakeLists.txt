@@ -59,16 +59,14 @@ if (NOT raygui_FOUND)
         set(FETCHCONTENT_QUIET NO)
         FetchContent_MakeAvailable(raygui)
         set(RAYGUI_ROOT ${raygui_SOURCE_DIR})
-        set(RAYGUI_SRC ${raygui_SOURCE_DIR}/src)
+        set(RAYGUI_SRC ${CMAKE_SOURCE_DIR}/ext/raygui/src)
         set(RAYGUI_EXAMPLES ${RAYGUI_ROOT}/examples)
 
         # raygui
         add_library(raygui INTERFACE)
         file(GLOB sources ${RAYGUI_SRC}/*.h)
         set(RAYGUI_HEADERS ${sources})
-        install(FILES
-                ${RAYGUI_HEADERS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/include
-        )
+        install(FILES ${RAYGUI_HEADERS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/include)
         target_include_directories(raygui INTERFACE ${RAYGUI_SRC})
     endif ()
 endif ()
@@ -116,7 +114,7 @@ target_link_libraries(Kup PRIVATE raylib
 
 target_include_directories(Kup PRIVATE
         ${tinyfiledialogs_SRC}
-        ${raylib_SOURCE_DIR}/examples/shapes
+        ${CMAKE_SOURCE_DIR}/src/../ext/raygui/src
 
 )
 
