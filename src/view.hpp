@@ -2,12 +2,13 @@
 #define VIEW_H
 
 #include <raylib.h>
+#include <string>
 
 class View{
     public:
     virtual ~View() = default;
     virtual void render() = 0;
-    virtual void update() = 0;
+    virtual void update(float delta_ime) = 0;
 
     Vector2 origin{};
     Vector2 size{};

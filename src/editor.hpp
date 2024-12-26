@@ -48,7 +48,7 @@ struct BufferTab : View {
         if (text_area) text_area->render();
     }
 
-    void update() override {
+    void update(float delta_time) override {
         if (text_area && is_active) text_area->update();
     }
 
@@ -149,7 +149,7 @@ struct TextEditor : View {
         }
     }
 
-    void update() override {
+    void update(float delta_time) override {
         // Handle tab clicks
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             if (auto [x, y] = GetMousePosition(); y < tab_height) { // Click in tab area
@@ -170,7 +170,7 @@ struct TextEditor : View {
 
         // Update current buffer
         if (!tabs.empty()) {
-            tabs[current_tab]->update();
+            tabs[current_tab]->update(delta_time);
         }
     }
 

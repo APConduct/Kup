@@ -1,6 +1,7 @@
+#include <cmath>
+#include <dde.h>
 #include <raylib.h>
 #include <string>
-#include <vector>
 #define RAYGUI_IMPLEMENTATION
 
 #include "raygui.h"
@@ -44,6 +45,11 @@ int main(int argc, char *argv[])
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(1600, 960, "Kup");
 
+    // Variables for timing
+    float last_time = 0.0f;
+    float delta_time = 0.0f;
+
+    // Load Fonts
     constexpr int BUFFER_FONT_SIZE = 32;
     constexpr int UI_FONT_SIZE = 32;
 
@@ -89,9 +95,13 @@ int main(int argc, char *argv[])
     SetTargetFPS(120);
     while (!WindowShouldClose())
     {
-        editor.update();
+        // Timing
+        float current_time = GetTime();
+        delta_time = current_time - last_time;
+        last_time = current_time;
 
-        file_tree.update();
+        editor.update(delta_time);
+        file_tree.update(delta_time);
 
         BeginDrawing();
         ClearBackground(BLACK);

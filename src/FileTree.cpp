@@ -87,7 +87,7 @@ void FileTree::render() {
     }
 }
 
-void FileTree::update() {
+void FileTree::update(float delta_time) {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mouse = GetMousePosition();
         if (mouse.x < width + origin.x && mouse.x > origin.x) handle_click(mouse);

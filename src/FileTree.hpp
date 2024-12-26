@@ -52,7 +52,7 @@ public:
 
     void set_root(const std::string& path);
     void render() override;
-    void update() override;
+    void update(float delta_time) override;
 
     bool handle_click(Vector2 mouse_pos);
     void toggle_node(int index);
