@@ -4,6 +4,7 @@
 #include <raylib.h>
 #include <string>
 
+template <typename T>
 class View{
     public:
     virtual ~View() = default;
@@ -18,7 +19,7 @@ class View{
     };
 };
 
-struct text_view : View {
+struct text_view : View<std::string> {
     Font font;
     float fontSize;
     float fontScale;
@@ -33,7 +34,8 @@ struct text_view : View {
     };
 };
 
-struct quantum_view : View {
+template <typename T>
+struct quantum_view : View<T> {
 
     Color color;
 
