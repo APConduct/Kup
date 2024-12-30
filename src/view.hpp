@@ -28,32 +28,9 @@ struct text_view : View<std::string> {
     Color color;
     ~text_view() override;
 
-
     void render() override {
         DrawTextEx(font,text.c_str(), this->origin,fontSize,spacing,this->color);
     };
-};
-
-template <typename T>
-struct quantum_view : View<T> {
-
-    Color color;
-
-    void render() override {
-        enum struct types {
-            pixel,
-            line,
-            rect,
-            rectline,
-            circ,
-            circline,
-            text,
-            ray,
-            image,
-            texture,
-            icon
-        };
-    }
 };
 
 #endif
