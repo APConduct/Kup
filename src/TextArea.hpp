@@ -493,7 +493,6 @@ public:
                 this->input_buffer.clear();
             }
             this->insert("\n");
-            cursor.index++;
             update_cursor_position(); //update line and column
 
             is_composing = false;
