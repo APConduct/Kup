@@ -90,7 +90,7 @@ endif ()
 
 
 
-
+add_subdirectory(libs/plastic)
 
 
 set(tinyfiledialogs_SRC src/ext/tinyfd)
@@ -112,6 +112,7 @@ add_executable(Kup src/main.cpp
 target_link_libraries(Kup PRIVATE raylib
         tinyfiledialogs
         raygui
+        plastic
 )
 
 
