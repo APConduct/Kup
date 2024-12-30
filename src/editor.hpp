@@ -20,8 +20,7 @@ using std::string;
 using std::vector;
 
 // Get the filename from a path
-template <typename T>
-struct BufferTab : View<T> {
+struct BufferTab : View<BufferTab> {
     string path;
     string name;
     std::unique_ptr<kupui::TextArea> text_area;
@@ -75,9 +74,8 @@ struct BufferTab : View<T> {
 };
 
 // TextEditor class
-template <typename T>
-struct TextEditor : View<T> {
-    vector<std::unique_ptr<BufferTab<T>>> tabs;
+struct TextEditor : View<TextEditor> {
+    vector<std::unique_ptr<BufferTab>> tabs;
     size_t current_tab{0};
     Font font{};
     float font_size{20};
@@ -102,7 +100,7 @@ struct TextEditor : View<T> {
             set_active_tab(index);
         } else {
             // Add new tab
-            auto new_tab = std::make_unique<BufferTab<T>>(path, font, font_size, spacing);
+            auto new_tab = std::make_unique<BufferTab>(path, font, font_size, spacing);
             new_tab->set_position(content_start.x,content_start.y);
             tabs.push_back(std::move(new_tab));
             set_active_tab(tabs.size() - 1);

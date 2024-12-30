@@ -84,9 +84,9 @@ int main(int argc, char *argv[])
 
     float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
 
-    TextEditor<FileNode> editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
+    TextEditor editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
-    FileTree<FileNode> file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x);
+    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x);
     file_tree.set_root(GetWorkingDirectory());
     file_tree.on_file_selected = [&editor](const std::string& path){
         editor.open_file(path);

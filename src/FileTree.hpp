@@ -26,8 +26,7 @@ struct FileNode {
     std::vector<FileNode> children;
 };
 
-template <typename T>
-class FileTree : public View<T> {
+class FileTree : public View<FileTree> {
 public:
     std::function<void(const std::string&)> on_file_selected;
     Font font;
