@@ -19,18 +19,4 @@ class View{
     };
 };
 
-struct text_view : View<std::string> {
-    Font font;
-    float fontSize;
-    float fontScale;
-    float spacing;
-    std::string text;
-    Color color;
-    ~text_view() override;
-
-    void render() override {
-        DrawTextEx(font,text.c_str(), this->origin,fontSize,spacing,this->color);
-    };
-};
-
 #endif
