@@ -19,6 +19,16 @@ namespace plastic {
 
     template<typename T>
     concept can_draw = requires(T t) {
+        { t.draw() }-> std::convertible_to<void>;
+    };
+
+    template<typename T>
+    concept can_render = requires(T t) {
+        { t.render() }-> std::convertible_to<void>;
+    };
+
+    template<typename T>
+    concept can_handle_input = requires(T t) {
         { t.handle_input() }-> std::convertible_to<void>;
     };
 
