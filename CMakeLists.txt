@@ -113,6 +113,7 @@ target_link_libraries(Kup PRIVATE raylib
         tinyfiledialogs
         raygui
         plastic
+
 )
 
 
