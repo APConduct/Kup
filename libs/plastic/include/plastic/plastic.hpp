@@ -150,7 +150,12 @@ namespace plastic {
             return Rectangle{
                 x, y,
                 static_cast<float>(GetScreenWidth()),
-                static_cast<float>(GetScreenHeight())};
+                static_cast<float>(GetScreenHeight())
+            };
+        }
+
+        Vector2 pos() {
+            return GetWindowPosition();
         }
     };
 
