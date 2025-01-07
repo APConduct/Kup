@@ -88,6 +88,21 @@ if(NOT Lua51_FOUND)
     endif ()
 endif ()
 
+find_package(glfw3 QUIET)
+
+if (NOT glfw3_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+            glfw
+            GIT_REPOSITORY https://github.com/glfw/glfw.git
+            GIT_TAG latest
+    )
+    FetchContent_GetProperties(glfw)
+    if (NOT glfw_POPULATED)
+        FetchContent_MakeAvailable(glfw)
+    endif ()
+endif ()
+
 
 
 add_subdirectory(libs/plastic)
@@ -113,7 +128,7 @@ target_link_libraries(Kup PRIVATE raylib
         tinyfiledialogs
         raygui
         plastic
-
+        glfw
 )
 
 
