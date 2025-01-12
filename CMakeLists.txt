@@ -119,9 +119,6 @@ add_executable(Kup src/main.cpp
         src/TextArea.hpp
         src/FileTree.cpp
         src/FileTree.hpp
-        plastic/include/plastic/entity.hpp
-        plastic/include/plastic/Model.hpp
-        plastic/include/plastic/View.hpp
 )
 
 target_link_libraries(Kup PRIVATE raylib
