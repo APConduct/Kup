@@ -11,7 +11,7 @@
 #include <memory>
 #include <raygui.h>
 #include <raymath.h>
-namespace plastic {
+namespace plastic::prototype {
 
     struct Window;
     struct Platform;
