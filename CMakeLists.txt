@@ -5,6 +5,11 @@ project(Kup)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 20)
 
+# Clear any existing content
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON) # Prevents CMake from trying to update already-downloaded content
+set(FETCHCONTENT_QUIET OFF) # Makes FetchContent output more verbose for debugging
+
+
 message(module ${CMAKE_MODULE_PATH})
 
 # UNCOMMENT ON INSTALL/RELEASE
@@ -22,6 +27,7 @@ set(RAYGUI_VERSION 4.0)
 set(LUA_VERSION 5.1)
 set(LUAJIT_VERSION 2.1)
 set(GLFW_VERSION 3.3.8)
+set(FREETYPE_VERSION 2.13.0)
 
 include(cmake/FindLua51.cmake)
 
@@ -103,6 +109,30 @@ if (NOT glfw3_FOUND)
 endif ()
 
 
+FetchContent_Declare(
+        freetype
+        GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
+        GIT_TAG VER-2-13-2
+        GIT_SHALLOW ON    # Only fetch the specified revision
+        GIT_PROGRESS ON   # Show progress during download
+)
+
+# Configure FreeType build options before making it available
+set(FT_DISABLE_ZLIB ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_BZIP2 ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_PNG ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_HARFBUZZ ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_BROTLI ON CACHE BOOL "" FORCE)
+
+# Error handling for FetchContent
+message(STATUS "Downloading and configuring FreeType...")
+FetchContent_MakeAvailable(freetype)
+
+if(NOT freetype_POPULATED)
+    message(FATAL_ERROR "Failed to populate FreeType")
+endif()
+
+
 
 add_subdirectory(libs/plastic)
 
@@ -125,6 +155,7 @@ target_link_libraries(Kup PRIVATE raylib
         raygui
         plastic
         glfw
+        freetype
 )
 
 
