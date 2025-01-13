@@ -7,11 +7,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 message(module ${CMAKE_MODULE_PATH})
 
-
-
-include(cmake/FindLua51.cmake)
-
-
 # UNCOMMENT ON INSTALL/RELEASE
 
 # set(EXECUTABLE_OUTPUT_PATH ../bin)
@@ -27,6 +22,9 @@ set(RAYGUI_VERSION 4.0)
 set(LUA_VERSION 5.1)
 set(LUAJIT_VERSION 2.1)
 set(GLFW_VERSION 3.3.8)
+
+include(cmake/FindLua51.cmake)
+
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 
