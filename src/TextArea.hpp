@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <functional>
-#include <lua.h>
+// #include <lua.h>
 #include <sstream>
 #include <stack>
 #include <string>
@@ -16,7 +16,7 @@
 #include "ext/tinyfd/tinyfiledialogs.h"
 #include "piece_table.hpp"
 #include <raylib.h>
-#include <lua.hpp>
+// #include <lua.hpp>
 
 typedef std::string string;
 
@@ -554,20 +554,21 @@ public:
     [[nodiscard]] int get_x() const { return static_cast<int>(this->pos_x); }
 
     [[nodiscard]] int get_y() const { return static_cast<int>(this->pos_y); }
+
     // Example binding implementation
-    static int l_buffer_insert(lua_State* L) {
-        auto* area = static_cast<TextArea*>(lua_touserdata(L, 1));
-        const char* text = luaL_checkstring(L, 2);
+    // static int l_buffer_insert(lua_State* L) {
+    //     auto* area = static_cast<TextArea*>(lua_touserdata(L, 1));
+    //     const char* text = luaL_checkstring(L, 2);
         // size_t pos = luaL_checkinteger(L, 3);
-        area->insert(text);
-        return 0;
-    }
+    //     area->insert(text);
+    //     return 0;
+    // }
 
 
     // Core API for Lua
-    static void registerLuaAPI(lua_State* L) {
+    // static void registerLuaAPI(lua_State* L) {
         // Buffer operations
-        lua_register(L, "buffer_insert", l_buffer_insert);
+        // lua_register(L, "buffer_insert", l_buffer_insert);
         //lua_register(L, "buffer_remove", l_buffer_remove);
         //lua_register(L, "buffer_get_text", l_buffer_get_text);
 
@@ -582,7 +583,7 @@ public:
         // Rendering
         //lua_register(L, "set_font", l_set_font);
         //lua_register(L, "set_colors", l_set_colors);
-    }
+    // }
 
     // Example binding implementation
     //static int l_buffer_insert(lua_State* L) {
@@ -628,7 +629,7 @@ protected:
             handler(event);
         }
     }
-    lua_State* L{};  // Lua state
+    // lua_State* L{};  // Lua state
     // Core state variables...
 
 public:
