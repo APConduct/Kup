@@ -5,6 +5,7 @@
 #ifndef PLASTIC_HPP
 #define PLASTIC_HPP
 
+#include <functional>
 #include <string>
 #include <utility>
 #include <raylib.h>
@@ -22,13 +23,6 @@ namespace plastic
         Color primary;
         Color secondary;
         Color tertiary;
-    };
-
-    struct Color {
-        int r;
-        int g;
-        int b;
-        int a;
     };
 
     // Style struct
@@ -182,6 +176,65 @@ namespace plastic
             return ctx;
         }
         [[nodiscard]] const Context& get_context() const { return ctx; }
+    };
+
+    struct Button : Component {
+        private:
+        std::string text;
+        std::function<void()> on_click;
+        bool was_pressed = false;
+        Font font{};
+
+        public:
+        Button(Context ctx, std::string text, std::function<void()> on_click)
+            : Component(std::move(ctx)), text(std::move(text)), on_click(std::move(on_click)) {}
+
+        Button(Context ctx, std::string text, std::function<void()> on_click, const Font& font)
+            : Component(std::move(ctx)), text(std::move(text)), on_click(std::move(on_click)), font(font) {}
+
+        void update() override {
+            Component::update();
+            if (!ctx.get_enabled()) return;
+
+            const bool is_pressed = ctx.get_hovered() && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
+            if (was_pressed && !is_pressed) {
+                on_click();
+            }
+            was_pressed = is_pressed;
+        }
+
+        void render() override {
+            const auto& style = ctx.get_style();
+            Rectangle bounds = ctx.get_bounds();
+
+            // Draw the button background
+            DrawRectangleRec(bounds, ctx.get_background_color());
+
+            // Draw the button border
+            if (style.border_width > 0) {
+                DrawRectangleLinesEx(bounds, style.border_width, ctx.get_border_color());
+            }
+
+            // Draw the button text
+            if (style.center_text) {
+                Vector2 text_size = MeasureTextEx(
+                    font, text.c_str(),
+                    static_cast<float>(style.font_size), style.font_spacing);
+                Vector2 text_pos = {
+                    bounds.x + bounds.width/2 - text_size.x * 0.5f,
+                    bounds.y + bounds.height/2 - text_size.y * 0.5f
+                };
+                DrawTextEx(
+                    font, text.c_str(), text_pos,
+                    static_cast<float>(style.font_size),
+                    style.font_spacing, style.text_color);
+            }else {
+                DrawTextEx(
+                    font, text.c_str(),
+                    {bounds.x + style.padding, bounds.y + style.padding},
+                    static_cast<float>(style.font_size), style.font_spacing, style.text_color);
+            }
+        }
     };
 }
 
