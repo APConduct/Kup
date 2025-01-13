@@ -26,6 +26,7 @@ set(RAYLIB_VERSION 5.0)
 set(RAYGUI_VERSION 4.0)
 set(LUA_VERSION 5.1)
 set(LUAJIT_VERSION 2.1)
+set(GLFW_VERSION 3.3.8)
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 
@@ -95,7 +96,7 @@ if (NOT glfw3_FOUND)
     FetchContent_Declare(
             glfw
             GIT_REPOSITORY https://github.com/glfw/glfw.git
-            GIT_TAG latest
+            GIT_TAG ${GLFW_VERSION}
     )
     FetchContent_GetProperties(glfw)
     if (NOT glfw_POPULATED)
