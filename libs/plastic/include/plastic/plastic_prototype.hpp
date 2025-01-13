@@ -1,5 +1,5 @@
-#ifndef PLASTIC_HPP
-#define PLASTIC_HPP
+#ifndef PLASTIC_PROTOTYPE_HPP
+#define PLASTIC_PROTOTYPE_HPP
 
 #include <chrono>
 #include <type_traits>
@@ -166,4 +166,4 @@ namespace plastic {
 
 }
 
-#endif //PLASTIC_HPP
+#endif //PLASTIC_PROTOTYPE_HPP
