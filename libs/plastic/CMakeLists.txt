@@ -5,7 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_library(plastic STATIC src/plastic_prototype.cpp include/plastic/plastic_prototype.hpp
         include/plastic/basic_concurrent_window.hpp
-        include/plastic/plastic.hpp)
+        include/plastic/plastic.hpp
+        include/plastic/rect.hpp
+        include/plastic/point.hpp
+        include/plastic/layout.hpp)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 

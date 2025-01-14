@@ -132,8 +132,6 @@ if(NOT freetype_POPULATED)
     message(FATAL_ERROR "Failed to populate FreeType")
 endif()
 
-
-
 add_subdirectory(libs/plastic)
 
 
