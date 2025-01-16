@@ -14,10 +14,10 @@ namespace plastic
         virtual ~Layout() = default;
 
         // Arrange the components in a container's bounds
-        virtual void arrange(const Rect& bounds, const std::vector<Component*>& components) = 0;
+        virtual void arrange(Container& container) = 0;
 
         // Calculate the desired size of the layout based on its children
-        virtual Size measure(const std::vector<Component*>& children) = 0;
+        virtual Size measure(Container& container) = 0;
     };
 }
 
