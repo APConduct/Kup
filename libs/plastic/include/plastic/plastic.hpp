@@ -19,12 +19,26 @@
 namespace plastic
 {
     // Forward declarations
+    struct Style;
     struct Context;
     struct Component;
     struct Element;
     struct Container;
     struct Layout;
     struct View;
+
+    struct App;
+    template <typename T> struct Model;
+    // template <typename T> struct View;
+
+
+    struct AppContext;
+    struct WindowContext;
+    template <typename T> struct ModelContext;
+    // template <typename T> struct ViewContext;
+
+    struct Button;
+    struct Window;
 
     // Experimental function pointer type for event handlers
     struct ColorScheme {
@@ -76,9 +90,9 @@ namespace plastic
         bool is_visible = true;
 
         public:
-        explicit Context(Rectangle bounds, Style style = Style{}) : bounds(bounds), style(std::move(style)) {}
+        explicit Context(const Rectangle bounds, Style style = Style{}) : bounds(bounds), style(std::move(style)) {}
 
-        void set_bounds(Rectangle bounds) {
+        void set_bounds(const Rectangle bounds) {
             this->bounds = bounds;
         }
 
@@ -94,25 +108,25 @@ namespace plastic
         [[nodiscard]] bool get_hovered() const {
             return is_hovered;
         }
-        void set_hovered(bool hovered) {
+        void set_hovered(const bool hovered) {
             is_hovered = hovered;
         }
         [[nodiscard]] bool get_active() const {
             return is_active;
         }
-        void set_active(bool active) {
+        void set_active(const bool active) {
             is_active = active;
         }
         [[nodiscard]] bool get_enabled() const {
             return is_enabled;
         }
-        void set_enabled(bool enabled) {
+        void set_enabled(const bool enabled) {
             is_enabled = enabled;
         }
         [[nodiscard]] bool get_visible() const {
             return is_visible;
         }
-        void set_visible(bool visible) {
+        void set_visible(const bool visible) {
             is_visible = visible;
         }
 
