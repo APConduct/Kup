@@ -7,12 +7,12 @@
 #include <memory>
 #include <vector>
 
-#include "layout.hpp"
 #include "plastic.hpp"
+#include "Rect.hpp"
 
 namespace plastic
 {
-    struct Layout;
+    struct Component;
 
     struct Container {
     protected:
@@ -27,20 +27,13 @@ namespace plastic
             this->layout = layout;
         }
 
-        void apply_layout() {
+        Rect measure(Rect& constraints) const {
             if (layout) {
-                layout->arrange(*this);
+                const Size layout_size = layout->measure(constraints);
+                return Rect(0,0,layout_size.width, layout_size.height);
             }
-        };
-
-        Rect measure(const Rect& constraints) {
-            if (layout) {
-                return layout->measure(*this);
-            }
-            return Rect{0,0,0,0};
+            return Rect();
         }
-
-        void measure();
 
     };
 }

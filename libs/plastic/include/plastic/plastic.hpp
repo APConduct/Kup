@@ -11,6 +11,9 @@
 #include <raylib.h>
 
 #include "rect.hpp"
+#include "point.hpp"
+#include "layout.hpp"
+#include "container.hpp"
 
 
 namespace plastic
@@ -18,6 +21,9 @@ namespace plastic
     // Forward declarations
     struct Context;
     struct Component;
+    struct Element;
+    struct Container;
+    struct Layout;
     struct View;
 
     // Experimental function pointer type for event handlers
