@@ -10,6 +10,8 @@
 #include <utility>
 #include <raylib.h>
 
+#include "rect.hpp"
+
 
 namespace plastic
 {
@@ -161,8 +163,12 @@ namespace plastic
 
         virtual ~Component() = default;
 
+
         virtual void render() = 0;
-        virtual void update() {
+        virtual void layout() = 0;
+        virtual Rect measure(const Rect& constraints) = 0;
+
+        virtual void update(float delta_time) {
             if (!ctx.get_enabled()) return;
 
             const Vector2 mouse_pos = GetMousePosition();
@@ -192,8 +198,8 @@ namespace plastic
         Button(Context ctx, std::string text, std::function<void()> on_click, const Font& font)
             : Component(std::move(ctx)), text(std::move(text)), on_click(std::move(on_click)), font(font) {}
 
-        void update() override {
-            Component::update();
+        void update(const float delta_time) override {
+            Component::update(delta_time);
             if (!ctx.get_enabled()) return;
 
             const bool is_pressed = ctx.get_hovered() && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
