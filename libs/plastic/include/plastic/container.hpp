@@ -12,8 +12,6 @@
 
 namespace plastic
 {
-    struct Component;
-
     struct Container {
     protected:
         std::vector<std::shared_ptr<Component>> children;
@@ -27,13 +25,7 @@ namespace plastic
             this->layout = layout;
         }
 
-        Rect measure(Rect& constraints) const {
-            if (layout) {
-                const Size layout_size = layout->measure(constraints);
-                return Rect(0,0,layout_size.width, layout_size.height);
-            }
-            return Rect();
-        }
+        Rect measure(Rect& constraints) const;
 
     };
 }
