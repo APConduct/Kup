@@ -6,6 +6,7 @@
 #define LAYOUT_HPP
 #include "plastic.hpp"
 #include "rect.hpp"
+#include "container.hpp"
 
 namespace plastic
 {

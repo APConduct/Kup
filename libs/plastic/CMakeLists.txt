@@ -9,7 +9,8 @@ add_library(plastic STATIC src/plastic_prototype.cpp include/plastic/plastic_pro
         include/plastic/rect.hpp
         include/plastic/point.hpp
         include/plastic/layout.hpp
-        include/plastic/vertical_layout.hpp)
+        include/plastic/vertical_layout.hpp
+        include/plastic/container.hpp)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 
