@@ -1,6 +1,7 @@
 #ifndef FILETREE_HPP
 #define FILETREE_HPP
 
+#include <algorithm>
 #include <functional>
 #include <string>
 #include <vector>
@@ -28,12 +29,24 @@ struct FileNode {
 
 class FileTree : public View<FileTree> {
 public:
+    Vector2 position{0,0};
+
+
+    // Scroll state
+    float scroll_offset_y{0};
+    float max_scroll{0};
+    float visible_height{static_cast<float>(GetScreenHeight()) - position.y};
+
+
+
+
+
+    // Callback for when a file is selected
     std::function<void(const std::string&)> on_file_selected;
     Font font;
     float font_size;
     float spacing;
     Color text_color{WHITE};
-    Vector2 position{10, 10};
     float item_height;
 
     std::vector<FileNode> nodes;
@@ -43,6 +56,56 @@ public:
     float width{208};
 
 public:
+// Helper function to check if Mouse is over the file tree
+[[nodiscard]] bool is_mouse_over() const {
+    Vector2 mouse = GetMousePosition();
+    return (
+        mouse.x >= position.x &&
+        mouse.x <= position.x + width &&
+        mouse.y >= position.y &&
+        mouse.y <= position.y + visible_height
+    );
+}
+
+// Scroll methods
+    void handle_scroll(){
+        // Only handle scroll if mouse is over the file tree
+        if (!is_mouse_over()) return;
+
+        float wheel = GetMouseWheelMove();
+        if (wheel != 0){
+            // Calculate max scroll before applying new scroll offset
+            update_content_height();
+            // Calculate maximum allowed scroll offset
+            float max_scroll_offset = std::max(0.0f, max_scroll - visible_height);
+
+            // Apply scroll with har clamp at boundaries
+            scroll_offset_y = std::clamp(
+                scroll_offset_y - wheel * 40.0f,
+                0.0f,               // Minimum
+                max_scroll_offset   // Maximum
+            );
+        }
+    }
+
+    void update_content_height() {
+        float total_height = 0;
+        for (const auto& node : nodes) {
+            total_height += calculate_node_height(node);
+        }
+        max_scroll = total_height ;//- position.y; // maybe change this to not subtract position.y
+    }
+
+    float calculate_node_height(const FileNode& node) const {
+        float height = item_height;
+        if (node.is_directory && node.is_expanded) {
+            for (const auto& child : node.children) {
+                height += calculate_node_height(child);
+            }
+        }
+        return height;
+    }
+
     void load_directory(const std::string& path, FileNode& node) {
         FilePathList files = LoadDirectoryFiles(path.c_str());
 
@@ -66,15 +129,28 @@ public:
 
     };
     void render_node(const FileNode& node, float& y_offset, int depth = 0) {
+        // Skip rendering if node is outside of view
+        if (y_offset + item_height < position.y - scroll_offset_y ||
+            y_offset > position.y - scroll_offset_y + visible_height){
+        // Update y_offset based on item height
+            y_offset += item_height;
+            if (node.is_directory && node.is_expanded){
+                for (const auto& child : node.children){
+                    render_node(child, y_offset, depth + 1);
+                }
+            }
+            return;
+        }
+
         float x = position.x + (static_cast<float>(depth) * 20.0f); // Indent based on depth
 
         // Draw expand/collapse indicator for directories
         if (node.is_directory) {
             const char* indicator = node.is_expanded ? "v" : ">";
-            DrawTextEx(font, indicator, {x, y_offset}, font_size, spacing, text_color);
+            DrawTextEx(font, indicator, {x+10, y_offset+10}, font_size, spacing, text_color);
         }
 
-        DrawTextEx(font, node.name.c_str(), {x+15, y_offset}, font_size, spacing, text_color);
+        DrawTextEx(font, node.name.c_str(), {x+25, y_offset+10}, font_size, spacing, text_color);
 
         y_offset += item_height;
 
@@ -137,13 +213,27 @@ public:
     }
 
     void render() override {
-        float y_offset = position.y;
+        BeginScissorMode(
+            static_cast<int>(position.x),
+            static_cast<int>(position.y),
+            static_cast<int>(width), static_cast<int>(visible_height)
+        );
+
+        float y_offset = position.y - scroll_offset_y;
         for (const auto& node : nodes) {
             render_node(node, y_offset, 0);
         }
+
+        EndScissorMode();
     }
 
     void update(float delta_time) override {
+        // Update visible height based on window size
+        // This is necessary because the window size can change
+        visible_height = static_cast<float>(GetScreenHeight()) - position.y;
+
+        handle_scroll();
+
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
             Vector2 mouse = GetMousePosition();
             if (mouse.x < width + this->origin.x && mouse.x > this->origin.x) handle_click(mouse);
@@ -152,7 +242,8 @@ public:
 
     bool handle_click(Vector2 mouse_pos) {
         // Calculate which item was clicked based on position and item height
-        float local_y = mouse_pos.y - position.y;
+        // Adjust for scroll offset
+        float local_y = mouse_pos.y - position.y + scroll_offset_y;
         int clicked_index = static_cast<int>(local_y / item_height);
 
         if (clicked_index >= 0) {
@@ -185,7 +276,7 @@ public:
 
             if (node.is_directory && node.is_expanded) {
                 for (auto& child : node.children) {
-                    if (find_node(child, current)) return true;;
+                    if (find_node(child, current)) return true;
                 }
             }
             return false;
@@ -199,9 +290,18 @@ public:
         // Toggle the found node
         if (target_node && target_node->is_directory) {
             target_node->is_expanded = !target_node->is_expanded;
-        }
 
-    };
+            // Update content height after toggling
+            update_content_height();
+
+            // Adjust scroll offset to keep content in view
+            float max_scroll_offset = std::max(0.0f, max_scroll - visible_height);
+            scroll_offset_y = std::min(scroll_offset_y, max_scroll_offset);
+        }
+    }
+
+
+
     [[nodiscard]] std::string get_selected_path() const;
 };
 

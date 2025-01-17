@@ -33,6 +33,13 @@ struct  TextArea {
     std::string input_buffer;
     bool focused{true};
 
+    // Scroll state
+    float scroll_offset_y{0};
+    float scroll_offset_x{0};
+    // Maybe make these more sophisticated
+    float visible_height{static_cast<float>(GetScreenHeight()) - pos_y};
+    float visible_width{static_cast<float>(GetScreenWidth()) - pos_x};
+
     PieceTable text_buffer;
     bool is_composing{false};
     float compose_timer = 0.0f;        // Timer for composition
@@ -86,6 +93,58 @@ struct  TextArea {
             // Position cursor at the same column in next line, or end of line is shorter
             cursor.index = std::min(next_line_start + column, next_line_end);
             update_cursor_position();
+        }
+    }
+
+    [[nodiscard]] bool is_mouse_over() const {
+        Vector2 mouse = GetMousePosition();
+        return (
+            mouse.x >= pos_x &&
+            mouse.x <= pos_x + visible_width &&
+            mouse.y >= pos_y &&
+            mouse.y <= pos_y + visible_height
+        );
+    }
+
+    void handle_scroll() {
+        // Only handle scroll if mouse is over the text area
+        if (!is_mouse_over()) return;
+
+        float wheel = GetMouseWheelMove();
+        if (wheel != 0) {
+            if (IsKeyDown(KEY_LEFT_SHIFT)){
+                // Horizontal scroll with shift+wheel
+                scroll_offset_x -= wheel * 40.0f;
+            } else {
+                // Vertical scroll
+                scroll_offset_y -= wheel * 40.0f;
+            }
+
+            // Calculate content bounds
+            float content_height = text_vec().size() * (font_size + spacing);
+            float content_width = 0;
+            for (const auto& line : text_vec()) {
+                content_width = std::max(
+                    content_width,
+                    MeasureTextEx(
+                        font,
+                        line.c_str(),
+                        font_size,
+                        spacing
+                    ).x);
+            }
+
+            // Clamp scroll values
+            scroll_offset_y = std::clamp(
+                scroll_offset_y,
+                0.0f,
+                std::max(0.0f, content_height - visible_height)
+            );
+            scroll_offset_x = std::clamp(
+                scroll_offset_x,
+                0.0f,
+                std::max(0.0f, content_width - visible_width)
+            );
         }
     }
 
@@ -304,7 +363,23 @@ struct  TextArea {
             cursor.line  = std::count(text_before_cursor.begin(), text_before_cursor.end(),'\n');
             size_t last_newline = text_before_cursor.rfind('\n');
             cursor.column = (last_newline == std::string::npos) ? cursor.index : cursor.index - last_newline - 1;
+        }
 
+        // adjust visible cursor position for scrolling
+        float cursor_screen_x = pos_x + (cursor.column * font_size) - scroll_offset_x;
+        float cursor_screen_y = pos_y + (cursor.line * (font_size + spacing)) - scroll_offset_y;
+
+        // Auto-scroll to keep cursor in view
+        if (cursor_screen_y < pos_y) {
+            scroll_offset_y = cursor.line * (font_size + spacing);
+        } else if (cursor_screen_y + font_size > pos_y + visible_height) {
+            scroll_offset_y = (cursor.line + 1) * (font_size + spacing) - visible_height;
+        }
+
+        if (cursor_screen_x < pos_x) {
+            scroll_offset_x = cursor.column * font_size;
+        } else if (cursor_screen_x + font_size > pos_x + visible_width) {
+            scroll_offset_x = (cursor.column + 1) * font_size - visible_width;
         }
     }
 protected:
@@ -373,6 +448,8 @@ public:
 
     void update()
     {
+        handle_scroll();
+
         // TODO - IMPL/DEF LINES BELOW
         // this->handle_input();
         // this->update_composition();
@@ -522,16 +599,27 @@ public:
             update_render_cache();
         }
 
-        for (const auto& line : render_cache.lines){
-            DrawTextEx(
-                font, line.text.c_str(),
-                line.position,
-                font_size,
-                spacing,
-                text_color
-            );
+        BeginScissorMode(pos_x, pos_y, visible_width, visible_height);
 
+        // Apply scroll offsets when rendering
+        for (const auto& line : render_cache.lines){
+            Vector2 pos = {
+                line.position.x - scroll_offset_x,
+                line.position.y - scroll_offset_y
+            };
+
+            // Only render if line is visible
+            if (pos.y + font_size >= pos_y && pos.y <= pos_y + visible_height){
+                DrawTextEx(
+                    font, line.text.c_str(),
+                    pos,
+                    font_size,
+                    spacing,
+                    text_color
+                );
+            }
         }
+        EndScissorMode();
     };
     [[nodiscard]] std::string get_current_line() const {
         return this->text_vec().at(this->cursor.line);
