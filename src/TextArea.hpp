@@ -40,6 +40,9 @@ struct  TextArea {
     float visible_height{static_cast<float>(GetScreenHeight()) - pos_y};
     float visible_width{static_cast<float>(GetScreenWidth()) - pos_x};
 
+    float total_height{0};
+    float max_width{0};
+
     PieceTable text_buffer;
     bool is_composing{false};
     float compose_timer = 0.0f;        // Timer for composition
@@ -106,45 +109,58 @@ struct  TextArea {
         );
     }
 
+    float calculate_max_width() {
+        float width = 0;
+        for (const auto& line : text_vec()) {
+            float line_width = MeasureTextEx(
+                font,
+                line.c_str(),
+                font_size,
+                spacing
+            ).x;
+            width = std::max(width, line_width);
+        }
+        return width;
+    }
+
+    void update_dimensions() {
+        // Update content bounds
+        max_width = calculate_max_width();
+        total_height = text_vec().size() * (font_size + spacing);
+
+        // Update visible area
+        visible_height = static_cast<float>(GetScreenHeight()) - pos_y;
+        visible_width = static_cast<float>(GetScreenWidth()) - pos_x;
+    }
+
     void handle_scroll() {
         // Only handle scroll if mouse is over the text area
         if (!is_mouse_over()) return;
 
-        float wheel = GetMouseWheelMove();
-        if (wheel != 0) {
+        Vector2 wheel = GetMouseWheelMoveV();
+        if (wheel.x != 0 || wheel.y != 0) {
             if (IsKeyDown(KEY_LEFT_SHIFT)){
                 // Horizontal scroll with shift+wheel
-                scroll_offset_x -= wheel * 40.0f;
+                scroll_offset_x = std::clamp(
+                    scroll_offset_x - wheel.y * 40.0f,
+                    0.0f,
+                    std::max(0.0f, max_width - visible_width)
+                );
             } else {
                 // Vertical scroll
-                scroll_offset_y -= wheel * 40.0f;
-            }
+                scroll_offset_y = std::clamp(
+                    scroll_offset_y - wheel.y * 40.0f,
+                    0.0f,
+                    std::max(0.0f, total_height - visible_height)
+                );
 
-            // Calculate content bounds
-            float content_height = text_vec().size() * (font_size + spacing);
-            float content_width = 0;
-            for (const auto& line : text_vec()) {
-                content_width = std::max(
-                    content_width,
-                    MeasureTextEx(
-                        font,
-                        line.c_str(),
-                        font_size,
-                        spacing
-                    ).x);
+                // Horizontal scroll
+                scroll_offset_x = std::clamp(
+                    scroll_offset_x - wheel.x * 40.0f,
+                    0.0f,
+                    std::max(0.0f, max_width - visible_width)
+                );
             }
-
-            // Clamp scroll values
-            scroll_offset_y = std::clamp(
-                scroll_offset_y,
-                0.0f,
-                std::max(0.0f, content_height - visible_height)
-            );
-            scroll_offset_x = std::clamp(
-                scroll_offset_x,
-                0.0f,
-                std::max(0.0f, content_width - visible_width)
-            );
         }
     }
 
@@ -448,6 +464,7 @@ public:
 
     void update()
     {
+        update_dimensions();
         handle_scroll();
 
         // TODO - IMPL/DEF LINES BELOW

@@ -37,8 +37,8 @@ public:
     float max_scroll{0};
     float visible_height{static_cast<float>(GetScreenHeight()) - position.y};
 
-
-
+    float max_width{0};
+    float scroll_offset_x{0};
 
 
     // Callback for when a file is selected
@@ -56,34 +56,67 @@ public:
     float width{208};
 
 public:
-// Helper function to check if Mouse is over the file tree
-[[nodiscard]] bool is_mouse_over() const {
-    Vector2 mouse = GetMousePosition();
-    return (
-        mouse.x >= position.x &&
-        mouse.x <= position.x + width &&
-        mouse.y >= position.y &&
-        mouse.y <= position.y + visible_height
-    );
-}
+    // Helper function to check if Mouse is over the file tree
+    [[nodiscard]] bool is_mouse_over() const {
+        Vector2 mouse = GetMousePosition();
+        return (
+            mouse.x >= position.x &&
+            mouse.x <= position.x + width &&
+            mouse.y >= position.y &&
+            mouse.y <= position.y + visible_height
+        );
+    }
 
-// Scroll methods
+    void update_dimensions() {
+        // Calculate max width by checking all visible nodes' names
+        max_width = 0;
+        std::function<void(const FileNode&, int)> measure_node =
+        [&](const FileNode& node, int depth) {
+            float indent = depth * 20.0f;
+            float node_width = indent + 40 + MeasureTextEx(font, node.name.c_str(), font_size, spacing).x;
+            max_width = std::max(max_width, node_width);
+
+            if (node.is_directory && node.is_expanded) {
+                for (const auto& child : node.children) {
+                    measure_node(child, depth + 1
+                    );
+                }
+            }
+        };
+
+        for (const auto& node : nodes) {
+            measure_node(node, 0);
+        }
+    }
+
+    // Scroll methods
     void handle_scroll(){
         // Only handle scroll if mouse is over the file tree
         if (!is_mouse_over()) return;
 
-        float wheel = GetMouseWheelMove();
-        if (wheel != 0){
+        // Get both verytical and horizontal scroll
+        Vector2 wheel = GetMouseWheelMoveV();
+        if (wheel.x != 0  || wheel.y != 0){
             // Calculate max scroll before applying new scroll offset
             update_content_height();
             // Calculate maximum allowed scroll offset
-            float max_scroll_offset = std::max(0.0f, max_scroll - visible_height);
+            //
+            // Vertical scroll
+            float max_scroll_y = std::max(0.0f, max_scroll - visible_height);
 
             // Apply scroll with har clamp at boundaries
             scroll_offset_y = std::clamp(
-                scroll_offset_y - wheel * 40.0f,
+                scroll_offset_y - wheel.y * 40.0f,
                 0.0f,               // Minimum
-                max_scroll_offset   // Maximum
+                max_scroll_y   // Maximum
+            );
+
+            // Horizontal scroll
+            float max_scroll_x = std::max(0.0f, max_width - width);
+            scroll_offset_x = std::clamp(
+                scroll_offset_x - wheel.x * 40.0f,
+                0.0f,
+                max_scroll_x
             );
         }
     }
@@ -93,7 +126,7 @@ public:
         for (const auto& node : nodes) {
             total_height += calculate_node_height(node);
         }
-        max_scroll = total_height ;//- position.y; // maybe change this to not subtract position.y
+        max_scroll = total_height ;
     }
 
     float calculate_node_height(const FileNode& node) const {
@@ -142,7 +175,7 @@ public:
             return;
         }
 
-        float x = position.x + (static_cast<float>(depth) * 20.0f); // Indent based on depth
+        float x = position.x + (static_cast<float>(depth) * 20.0f) - scroll_offset_x; // Indent based on depth
 
         // Draw expand/collapse indicator for directories
         if (node.is_directory) {
@@ -228,6 +261,8 @@ public:
     }
 
     void update(float delta_time) override {
+        update_dimensions();
+
         // Update visible height based on window size
         // This is necessary because the window size can change
         visible_height = static_cast<float>(GetScreenHeight()) - position.y;
