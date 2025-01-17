@@ -17,6 +17,7 @@
 #include "piece_table.hpp"
 #include <raylib.h>
 // #include <lua.hpp>
+#include "scroll_bar.hpp"
 
 typedef std::string string;
 
@@ -42,6 +43,9 @@ struct  TextArea {
 
     float total_height{0};
     float max_width{0};
+
+    ScrollBar vertical_scrollbar{true};
+    ScrollBar horizontal_scrollbar{false};
 
     PieceTable text_buffer;
     bool is_composing{false};
@@ -610,7 +614,7 @@ public:
         }
     };
 
-    void render() const
+    void render()
     {
         if(render_cache.lines.empty()){
             update_render_cache();
@@ -637,6 +641,23 @@ public:
             }
         }
         EndScissorMode();
+
+        // Render scrollbars
+        Rectangle v_bounds = {
+            pos_x + visible_width - 12, // scrollbar width 12
+            pos_y,
+            12,
+            visible_height
+        };
+        vertical_scrollbar.render(v_bounds, total_height, visible_height, scroll_offset_y);
+
+        Rectangle h_bounds = {
+            pos_x,
+            pos_y + visible_height - 12,
+            visible_width - 12, // Subtract vertical scrollbar width
+            12
+        };
+        horizontal_scrollbar.render(h_bounds, max_width, visible_width, scroll_offset_x);
     };
     [[nodiscard]] std::string get_current_line() const {
         return this->text_vec().at(this->cursor.line);

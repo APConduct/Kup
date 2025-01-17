@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     constexpr int UI_FONT_SIZE = 32;
 
     constexpr int FILE_MARGIN_WIDTH = 104;
-    constexpr int MENU_BAR_WIDTH = 40;
+    constexpr int MENU_BAR_WIDTH = 44;
     constexpr float CURSOR_OFFSET = 8;
     constexpr float GUI_LINE_WIDTH = 2;
 
