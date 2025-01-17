@@ -146,6 +146,8 @@ add_executable(Kup src/main.cpp
         src/TextArea.hpp
         src/FileTree.cpp
         src/FileTree.hpp
+        src/editor.hpp
+        src/scroll_bar.hpp
 )
 
 target_link_libraries(Kup PRIVATE raylib
