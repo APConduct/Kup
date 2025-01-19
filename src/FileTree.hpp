@@ -28,6 +28,10 @@ struct FileNode {
 };
 
 class FileTree : public View<FileTree> {
+    // this might cause problems
+    float width{0};
+    float space_below{0};
+
 public:
     Vector2 position{0,0};
 
@@ -35,7 +39,7 @@ public:
     // Scroll state
     float scroll_offset_y{0};
     float max_scroll{0};
-    float visible_height{static_cast<float>(GetScreenHeight()) - position.y};
+    float visible_height{static_cast<float>(GetScreenHeight()) - position.y - space_below};
 
     float max_width{0};
     float scroll_offset_x{0};
@@ -52,18 +56,17 @@ public:
     std::vector<FileNode> nodes;
     int selected_index{-1};
 
-    // this might cause problems
-    float width{208};
+
 
 public:
     // Helper function to check if Mouse is over the file tree
     [[nodiscard]] bool is_mouse_over() const {
-        Vector2 mouse = GetMousePosition();
+        auto [x, y] = GetMousePosition();
         return (
-            mouse.x >= position.x &&
-            mouse.x <= position.x + width &&
-            mouse.y >= position.y &&
-            mouse.y <= position.y + visible_height
+            x >= position.x &&
+            x <= position.x + width &&
+            y >= position.y &&
+            y <= position.y + visible_height
         );
     }
 
@@ -72,8 +75,8 @@ public:
         max_width = 0;
         std::function<void(const FileNode&, int)> measure_node =
         [&](const FileNode& node, int depth) {
-            float indent = depth * 20.0f;
-            float node_width = indent + 40 + MeasureTextEx(font, node.name.c_str(), font_size, spacing).x;
+            const float indent = static_cast<float>(depth) * 20.0f;
+            const float node_width = indent + 40 + MeasureTextEx(font, node.name.c_str(), font_size, spacing).x;
             max_width = std::max(max_width, node_width);
 
             if (node.is_directory && node.is_expanded) {
@@ -95,26 +98,26 @@ public:
         if (!is_mouse_over()) return;
 
         // Get both verytical and horizontal scroll
-        Vector2 wheel = GetMouseWheelMoveV();
-        if (wheel.x != 0  || wheel.y != 0){
+        auto [x, y] = GetMouseWheelMoveV();
+        if (x != 0  || y != 0){
             // Calculate max scroll before applying new scroll offset
             update_content_height();
             // Calculate maximum allowed scroll offset
             //
             // Vertical scroll
-            float max_scroll_y = std::max(0.0f, max_scroll - visible_height);
+            const float max_scroll_y = std::max(0.0f, max_scroll - visible_height);
 
             // Apply scroll with har clamp at boundaries
             scroll_offset_y = std::clamp(
-                scroll_offset_y - wheel.y * 40.0f,
+                scroll_offset_y - y * 40.0f,
                 0.0f,               // Minimum
                 max_scroll_y   // Maximum
             );
 
             // Horizontal scroll
-            float max_scroll_x = std::max(0.0f, max_width - width);
+            const float max_scroll_x = std::max(0.0f, max_width - width);
             scroll_offset_x = std::clamp(
-                scroll_offset_x - wheel.x * 40.0f,
+                scroll_offset_x - x * 40.0f,
                 0.0f,
                 max_scroll_x
             );
@@ -129,7 +132,7 @@ public:
         max_scroll = total_height ;
     }
 
-    float calculate_node_height(const FileNode& node) const {
+    [[nodiscard]] float calculate_node_height(const FileNode& node) const {
         float height = item_height;
         if (node.is_directory && node.is_expanded) {
             for (const auto& child : node.children) {
@@ -196,7 +199,7 @@ public:
         }
     }
 
-    FileNode* get_node_at_index(int index) {
+    FileNode* get_node_at_index(const int index) {
         int current_index = 0;
 
         std::function<FileNode*(FileNode&, int&)> find_node = [&](FileNode& node, int& current) -> FileNode* {
@@ -217,8 +220,8 @@ public:
         return  nullptr;
     }
 
-    FileTree(const Font& font, float font_size, float spacing)
-        : font(font), font_size(font_size), spacing(spacing){
+    FileTree(const Font& font, const float font_size, const float spacing, float width, float space_below)
+        : font(font), font_size(font_size), spacing(spacing), width(width), space_below(space_below) {
             item_height = font_size + 6;
             this->origin.x = this->origin.y = 0;
     }
@@ -249,7 +252,7 @@ public:
         BeginScissorMode(
             static_cast<int>(position.x),
             static_cast<int>(position.y),
-            static_cast<int>(width), static_cast<int>(visible_height)
+            static_cast<int>(width), static_cast<int>(visible_height) - space_below
         );
 
         float y_offset = position.y - scroll_offset_y;

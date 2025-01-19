@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
     TextEditor editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0);
 
-    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x);
+    FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x, MENU_BAR_WIDTH);
     file_tree.set_root(GetWorkingDirectory());
     file_tree.on_file_selected = [&editor](const std::string& path){
         editor.open_file(path);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
     while (!WindowShouldClose())
     {
         // Timing
-        float current_time = GetTime();
+        auto current_time = static_cast<float>(GetTime());
         delta_time = current_time - last_time;
         last_time = current_time;
 
@@ -136,6 +136,9 @@ int main(int argc, char *argv[])
         auto x_start = static_cast<float>(editor.content_start.x - GRIP_GAP);
         auto x_end = static_cast<float>(editor.content_start.x - GRIP_GAP);
         auto y_end = static_cast<float>(GetScreenHeight() - MENU_BAR_WIDTH);
+
+        //DrawRectangle(0,y_end,GetScreenWidth(),MENU_BAR_WIDTH,BLACK);
+
         // line between file tree and buffer view
         DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);
 
