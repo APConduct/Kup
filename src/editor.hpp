@@ -21,6 +21,8 @@ using std::vector;
 
 // Get the filename from a path
 struct BufferTab : View<BufferTab> {
+    float space_below{0};
+
     string path;
     string name;
     std::unique_ptr<kupui::TextArea> text_area;
@@ -28,12 +30,12 @@ struct BufferTab : View<BufferTab> {
 
     BufferTab(
         const string& filepath, const Font& font,
-        float font_size, float spacing) {
+        float font_size, float spacing, const float space_below): space_below(space_below) {
         path = filepath;
         name = GetFileName(filepath.c_str());
         // Position calculated by TextEditor
         text_area = std::make_unique<kupui::TextArea>(
-            208, 60, font, font_size, spacing
+            208, 60, font, font_size, spacing, space_below
         );
 
         // Load content if file exists
@@ -53,22 +55,22 @@ struct BufferTab : View<BufferTab> {
         if (text_area && is_active) text_area->update();
     }
 
-    void set_position(float x, float y){
+    void set_position(const float x, const float y) const{
         if (text_area) {
             text_area->pos_x = x;
             text_area->pos_y = y;
         }
     }
 
-    Vector2 get_cursor_screen_pos(){
+    [[nodiscard]] Vector2 get_cursor_screen_pos() const{
         return text_area->get_cursor_screen_pos();
     }
 
-    float get_cursor_x(){
+    [[nodiscard]] float get_cursor_x() const{
         return text_area->get_cursor_x();
     }
 
-    float get_cursor_y(){
+    [[nodiscard]] float get_cursor_y() const{
         return text_area->get_cursor_y();
     }
 };
@@ -76,6 +78,9 @@ struct BufferTab : View<BufferTab> {
 // TextEditor class
 struct TextEditor : View<TextEditor> {
     vector<std::unique_ptr<BufferTab>> tabs;
+
+    float space_below{0};
+
     size_t current_tab{0};
     Font font{};
     float font_size{20};
@@ -89,6 +94,9 @@ struct TextEditor : View<TextEditor> {
     TextEditor(const Font& editor_font, float size, float space)
         : font(editor_font), font_size(size), spacing(space) {}
 
+    TextEditor(const Font& editor_font, float size, float space, float space_below)
+        : space_below(space_below), font(editor_font), font_size(size),spacing(space) {}
+
     void open_file(const string& path) {
         // Check if file is open already
         auto it = std::find_if(tabs.begin(), tabs.end(),
@@ -100,7 +108,7 @@ struct TextEditor : View<TextEditor> {
             set_active_tab(index);
         } else {
             // Add new tab
-            auto new_tab = std::make_unique<BufferTab>(path, font, font_size, spacing);
+            auto new_tab = std::make_unique<BufferTab>(path, font, font_size, spacing, space_below);
             new_tab->set_position(content_start.x,content_start.y);
             tabs.push_back(std::move(new_tab));
             set_active_tab(tabs.size() - 1);
@@ -126,7 +134,7 @@ struct TextEditor : View<TextEditor> {
 
         for (size_t i = 0; i < tabs.size(); i++) {
             const auto& tab = tabs[i];
-            bool is_current = (i == current_tab);
+            const bool is_current = (i == current_tab);
 
             // Draw tab background
             Color tab_color = is_current ? DARKGRAY : GRAY;

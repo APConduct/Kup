@@ -24,7 +24,12 @@ typedef std::string string;
 namespace kupui {
 
 struct  TextArea {
+
+    
     int FPS = GetFPS();
+
+    float space_below{0};
+    
     float spacing {0};
     float pos_x{208}, pos_y{20};
     Color text_color{WHITE};
@@ -38,7 +43,7 @@ struct  TextArea {
     float scroll_offset_y{0};
     float scroll_offset_x{0};
     // Maybe make these more sophisticated
-    float visible_height{static_cast<float>(GetScreenHeight()) - pos_y};
+    float visible_height{static_cast<float>(GetScreenHeight()) - pos_y - space_below};
     float visible_width{static_cast<float>(GetScreenWidth()) - pos_x};
 
     float total_height{0};
@@ -133,7 +138,7 @@ struct  TextArea {
         total_height = text_vec().size() * (font_size + spacing);
 
         // Update visible area
-        visible_height = static_cast<float>(GetScreenHeight()) - pos_y;
+        visible_height = static_cast<float>(GetScreenHeight()) - pos_y - space_below;
         visible_width = static_cast<float>(GetScreenWidth()) - pos_x;
     }
 
@@ -141,26 +146,26 @@ struct  TextArea {
         // Only handle scroll if mouse is over the text area
         if (!is_mouse_over()) return;
 
-        Vector2 wheel = GetMouseWheelMoveV();
-        if (wheel.x != 0 || wheel.y != 0) {
+        auto [x, y] = GetMouseWheelMoveV();
+        if (x != 0 || y != 0) {
             if (IsKeyDown(KEY_LEFT_SHIFT)){
                 // Horizontal scroll with shift+wheel
                 scroll_offset_x = std::clamp(
-                    scroll_offset_x - wheel.y * 40.0f,
+                    scroll_offset_x - y * 40.0f,
                     0.0f,
                     std::max(0.0f, max_width - visible_width)
                 );
             } else {
                 // Vertical scroll
                 scroll_offset_y = std::clamp(
-                    scroll_offset_y - wheel.y * 40.0f,
+                    scroll_offset_y - y * 40.0f,
                     0.0f,
                     std::max(0.0f, total_height - visible_height)
                 );
 
                 // Horizontal scroll
                 scroll_offset_x = std::clamp(
-                    scroll_offset_x - wheel.x * 40.0f,
+                    scroll_offset_x - x * 40.0f,
                     0.0f,
                     std::max(0.0f, max_width - visible_width)
                 );
@@ -336,6 +341,12 @@ struct  TextArea {
         const Font& font, const float font_size,const float spacing)
     : spacing(spacing), pos_x(pos_x), pos_y(pos_y), font_size(font_size), font(font)
     {}
+
+    TextArea(const float pos_x, const float pos_y,
+        const Font& font, const float font_size,const float spacing, float space_below)
+    : spacing(spacing), pos_x(pos_x), pos_y(pos_y), font_size(font_size), font(font), space_below(space_below)
+    {}
+
 
     //~TextArea();
     [[nodiscard]] float get_pos_y() const { return this->pos_y; };
@@ -620,7 +631,11 @@ public:
             update_render_cache();
         }
 
-        BeginScissorMode(pos_x, pos_y, visible_width, visible_height);
+        BeginScissorMode(
+            pos_x,
+            pos_y,
+            visible_width,
+            visible_height);
 
         // Apply scroll offsets when rendering
         for (const auto& line : render_cache.lines){
@@ -647,7 +662,7 @@ public:
             pos_x + visible_width - 12, // scrollbar width 12
             pos_y,
             12,
-            visible_height
+            visible_height - space_below
         };
         vertical_scrollbar.render(v_bounds, total_height, visible_height, scroll_offset_y);
 
