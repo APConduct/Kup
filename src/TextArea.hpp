@@ -73,13 +73,12 @@ struct  TextArea {
 
     void move_cursor_up(){
 
-        std::string text = text_buffer.get_text();
-        size_t line_start = text.rfind('\n', cursor.index - 1);
-         if (line_start == std::string::npos){
+        const std::string text = text_buffer.get_text();
+        if (const size_t line_start = text.rfind('\n', cursor.index - 1); line_start == std::string::npos){
             cursor.index = 0;
         } else{
-            size_t prev_line_start = text.rfind('\n', line_start - 1);
-            size_t offset = cursor.index - line_start;
+            const size_t prev_line_start = text.rfind('\n', line_start - 1);
+            const size_t offset = cursor.index - line_start;
             if (prev_line_start == std::string::npos){
                 cursor.index = std::min(offset - 1, line_start);;
             } else{
@@ -118,7 +117,7 @@ struct  TextArea {
         );
     }
 
-    float calculate_max_width() {
+    float calculate_max_width() const {
         float width = 0;
         for (const auto& line : text_vec()) {
             float line_width = MeasureTextEx(
@@ -135,7 +134,7 @@ struct  TextArea {
     void update_dimensions() {
         // Update content bounds
         max_width = calculate_max_width();
-        total_height = text_vec().size() * (font_size + spacing);
+        total_height = static_cast<float>(text_vec().size()) * (font_size + spacing);
 
         // Update visible area
         visible_height = static_cast<float>(GetScreenHeight()) - pos_y - space_below;
@@ -283,7 +282,7 @@ struct  TextArea {
         length = std::min(length, cursor.index);
 
         size_t old_pos = cursor.index;
-        size_t remove_start = cursor.index - length;
+        const size_t remove_start = cursor.index - length;
 
         text_buffer.remove(remove_start, cursor.index);
         cursor.index = remove_start;
@@ -397,20 +396,20 @@ struct  TextArea {
         }
 
         // adjust visible cursor position for scrolling
-        float cursor_screen_x = pos_x + (cursor.column * font_size) - scroll_offset_x;
+        float cursor_screen_x = pos_x + (static_cast<float>(cursor.column) * font_size) - scroll_offset_x;
         float cursor_screen_y = pos_y + (cursor.line * (font_size + spacing)) - scroll_offset_y;
 
         // Auto-scroll to keep cursor in view
         if (cursor_screen_y < pos_y) {
-            scroll_offset_y = cursor.line * (font_size + spacing);
+            scroll_offset_y = static_cast<float>(cursor.line) * (font_size + spacing);
         } else if (cursor_screen_y + font_size > pos_y + visible_height) {
-            scroll_offset_y = (cursor.line + 1) * (font_size + spacing) - visible_height;
+            scroll_offset_y = static_cast<float>(cursor.line + 1) * (font_size + spacing) - visible_height;
         }
 
         if (cursor_screen_x < pos_x) {
-            scroll_offset_x = cursor.column * font_size;
+            scroll_offset_x = static_cast<float>(cursor.column) * font_size;
         } else if (cursor_screen_x + font_size > pos_x + visible_width) {
-            scroll_offset_x = (cursor.column + 1) * font_size - visible_width;
+            scroll_offset_x = static_cast<float>(cursor.column + 1) * font_size - visible_width;
         }
     }
 protected:
@@ -419,12 +418,11 @@ protected:
         if (!input_buffer.empty()){
 
             // Get current text length for bounds checking
-            size_t text_length = text_buffer.get_text().length();
-            if (cursor.index > text_length){
+            if (const size_t text_length = text_buffer.get_text().length(); cursor.index > text_length){
                 cursor.index = text_length;
             }
 
-            string commit_text = input_buffer;
+            const string commit_text = input_buffer;
             this->insert(commit_text); // insert as one operation
             // cursor.index += commit_text.length();
             update_cursor_position(); // update line//column
@@ -542,8 +540,7 @@ public:
                 const char new_char = static_cast<char>(char_key);
 
                 // Ensure cursor is within bounds before adding to input buffer
-                size_t text_length = text_buffer.get_text().length();
-                if (cursor.index > text_length){
+                if (const size_t text_length = text_buffer.get_text().length(); cursor.index > text_length){
                     cursor.index = text_length;
                 }
 
@@ -618,8 +615,7 @@ public:
         }
 
         // Reset blink on any input
-        int key = GetKeyPressed();
-        if (key != 0){
+        if (const int key = GetKeyPressed(); key != 0){
             cursor_visible = true;
             cursor_blink_timer = 0;
         }
@@ -632,10 +628,10 @@ public:
         }
 
         BeginScissorMode(
-            pos_x,
-            pos_y,
-            visible_width,
-            visible_height);
+            static_cast<int>(pos_x),
+            static_cast<int>(pos_y),
+            static_cast<int>(visible_width),
+            static_cast<int>(visible_height));
 
         // Apply scroll offsets when rendering
         for (const auto& line : render_cache.lines){
@@ -658,7 +654,7 @@ public:
         EndScissorMode();
 
         // Render scrollbars
-        Rectangle v_bounds = {
+        const Rectangle v_bounds = {
             pos_x + visible_width - 12, // scrollbar width 12
             pos_y,
             12,
@@ -666,7 +662,7 @@ public:
         };
         vertical_scrollbar.render(v_bounds, total_height, visible_height, scroll_offset_y);
 
-        Rectangle h_bounds = {
+        const Rectangle h_bounds = {
             pos_x,
             pos_y + visible_height - 12,
             visible_width - 12, // Subtract vertical scrollbar width
@@ -779,18 +775,17 @@ public:
         float y =  pos_y;
 
         // get text up tp cursor
-        size_t n_del = (composition.delete_counter > 0) ? composition.delete_counter : 0;
+        const size_t n_del = (composition.delete_counter > 0) ? composition.delete_counter : 0;
         string text = text_buffer.get_text().substr(0, cursor.index - n_del);
 
         // count newlines for y position
-        size_t newlines = std::count(text.begin(), text.end(), '\n');
+        const size_t newlines = std::count(text.begin(), text.end(), '\n');
         y += static_cast<float>(newlines) * font_size;
 
         // get x position
-        size_t last_newline = text.rfind('\n');
-        if (last_newline != std::string::npos){
+        if (const size_t last_newline = text.rfind('\n'); last_newline != std::string::npos){
             // If we're not on the first line, measure from the last newline
-            string current_line = text.substr(last_newline + 1);
+            const string current_line = text.substr(last_newline + 1);
             x += MeasureTextEx(font,current_line.c_str(), font_size, spacing).x;
         } else {
             // If we're on the first line, measure from the start

@@ -31,20 +31,20 @@ struct BufferTab : View<BufferTab> {
     BufferTab(
         const string& filepath, const Font& font,
         float font_size, float spacing, const float space_below): space_below(space_below) {
-        path = filepath;
-        name = GetFileName(filepath.c_str());
-        // Position calculated by TextEditor
-        text_area = std::make_unique<kupui::TextArea>(
-            208, 60, font, font_size, spacing, space_below
-        );
+            path = filepath;
+            name = GetFileName(filepath.c_str());
+            // Position calculated by TextEditor
+            text_area = std::make_unique<kupui::TextArea>(
+                208, 60, font, font_size, spacing, space_below
+            );
 
-        // Load content if file exists
-        if (FileExists(path.c_str())) {
-            if (const char* content = LoadFileText(path.c_str())) {
-                text_area->load_content(content);
-                UnloadFileText(const_cast<char*>(content));
+            // Load content if file exists
+            if (FileExists(path.c_str())) {
+                if (const char* content = LoadFileText(path.c_str())) {
+                    text_area->load_content(content);
+                    UnloadFileText(const_cast<char*>(content));
+                }
             }
-        }
     }
 
     void render() override {
@@ -79,6 +79,8 @@ struct BufferTab : View<BufferTab> {
 struct TextEditor : View<TextEditor> {
     vector<std::unique_ptr<BufferTab>> tabs;
 
+    float margin_x{5};
+
     float space_below{0};
 
     size_t current_tab{0};
@@ -91,11 +93,15 @@ struct TextEditor : View<TextEditor> {
 
     bool is_focused{true};
 
-    TextEditor(const Font& editor_font, float size, float space)
+    TextEditor(const Font& editor_font, const float size, const float space)
         : font(editor_font), font_size(size), spacing(space) {}
 
     TextEditor(const Font& editor_font, float size, float space, float space_below)
         : space_below(space_below), font(editor_font), font_size(size),spacing(space) {}
+
+    TextEditor(const Font& editor_font, float size, float space, float space_below, float margin_x)
+        : margin_x(margin_x), space_below(space_below), font(editor_font),font_size(size), spacing(space) {}
+
 
     void open_file(const string& path) {
         // Check if file is open already
@@ -115,7 +121,7 @@ struct TextEditor : View<TextEditor> {
         }
     }
 
-    void set_active_tab(size_t index) {
+    void set_active_tab(const size_t index) {
         if (index < tabs.size()) {
             // Deactivate current tab
             if (current_tab < tabs.size()) {
@@ -165,7 +171,7 @@ struct TextEditor : View<TextEditor> {
             if (auto [x, y] = GetMousePosition(); y < tab_height) { // Click in tab area
                 float tab_x = content_start.x;
                 for (size_t i = 0; i < tabs.size(); i++) {
-                    float tab_width = MeasureTextEx(font,
+                    const float tab_width = MeasureTextEx(font,
                         tabs[i]->name.c_str(), font_size/2,
                         spacing).x + tab_padding*3;
 

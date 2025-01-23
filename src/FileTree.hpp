@@ -22,7 +22,7 @@ struct IFileTreeModel {
 struct FileNode {
     std::string name;
     std::string path;
-    bool is_directory;
+    bool is_directory{};
     bool is_expanded{false};
     std::vector<FileNode> children;
 };
@@ -143,7 +143,7 @@ public:
     }
 
     void load_directory(const std::string& path, FileNode& node) {
-        FilePathList files = LoadDirectoryFiles(path.c_str());
+        const FilePathList files = LoadDirectoryFiles(path.c_str());
 
         for (int i = 0; i < files.count; i++) {
             std::string name = GetFileName(files.paths[i]);
