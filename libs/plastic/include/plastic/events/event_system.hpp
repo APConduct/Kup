@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
-#include <ctime>
 #include <format>
 #include <functional>
 #include <iterator>
@@ -13,7 +12,6 @@
 #include <mutex>
 #include <optional>
 #include <string>
-#include <tuple>
 #include <type_traits>
 #include <typeindex>
 #include <unordered_map>
@@ -21,7 +19,8 @@
 #include <vector>
 #include <variant>
 #include "raylib.h"
-
+#include "plastic/point.hpp"
+#include "plastic/rect.hpp"
 
 
 namespace plastic::events {
@@ -122,7 +121,7 @@ private:
 
 
 public:
-    TypedEventHandler(std::function<void(const T&)> handler) : handler(std::move(handler)) {}
+    explicit TypedEventHandler(std::function<void(const T&)> handler) : handler(std::move(handler)) {}
 
     void call(const Event& event) override {
         if (auto* e = std::get_if<T>(&event)){
@@ -393,7 +392,7 @@ public:
         }
 
         // visit the variant to get the correct type index
-        std::visit([this, event](const auto& concrete_event) {
+        std::visit([this, event]([[maybe_unused]] const auto& concrete_event) {
             auto type_index = std::type_index(typeid(concrete_event));
             auto it = handlers.find(type_index);
             if (it != handlers.end()){
@@ -452,7 +451,7 @@ public:
     static std::function<bool(const Event&)>
     create_type_filter(std::type_index allowed_type) {
         return [allowed_type](const Event& event) {
-            return std::visit([allowed_type](const auto& e) {
+            return std::visit([allowed_type]([[maybe_unused]] const auto& e) {
                 return std::type_index(typeid(e)) == allowed_type;
             }, event);
         };
@@ -460,7 +459,7 @@ public:
 
     static std::function<bool(const Event&)> create_mouse_filter() {
             return [](const Event& event) {
-                return std::visit([](const auto& e) {
+                return std::visit([]([[maybe_unused]] const auto& e) {
                     using T = std::decay_t<decltype(e)>;
                     return std::is_same_v<T, MouseMoveEvent> ||
                            std::is_same_v<T, MouseButtonEvent> ||
@@ -472,7 +471,7 @@ public:
 
     static std::function<bool(const Event&)> create_keyboard_filter() {
         return [](const Event& event) {
-            return std::visit([](const auto& e) {
+            return std::visit([]([[maybe_unused]] const auto& e) {
                 using T = std::decay_t<decltype(e)>;
                 return std::is_same_v<T, KeyPressEvent> ||
                        std::is_same_v<T, TextInputEvent>;
@@ -485,7 +484,10 @@ public:
 // Event listener interface with variadic templates
 template<typename... Events>
 class EventListener {
-    protected:
+public:
+    virtual ~EventListener() = default;
+
+protected:
     EventDispatcher& dispatcher;
 
     explicit EventListener(EventDispatcher& dispatcher) : dispatcher(dispatcher) {
@@ -527,7 +529,7 @@ class Component : public EventListener<
     FocusEvent
 > {
 protected:
-    Rectangle bounds;
+    plastic::Rect bounds;
     bool focused = false;
     bool hovered = false;
     bool active = false;
@@ -548,7 +550,7 @@ protected:
     virtual void on_focus(const FocusEvent& e) {}
 
     void handle_impl(const MouseMoveEvent& e) override {
-        hovered = CheckCollisionPointRec(e.position, bounds);
+        hovered = CheckCollisionPointRec(e.position, bounds.to_raylib());
         on_mouse_move(e);
     }
 
@@ -580,18 +582,31 @@ protected:
     }
 
     void set_bounds(const Rectangle& new_bounds) {
+        this->bounds = Rect(new_bounds);
+    }
+
+    void set_bounds(const Rect& new_bounds) {
         this->bounds = new_bounds;
     }
 
-    void set_active(bool active) {
+    void set_bounds(const Rectangle new_bounds) {
+        this->bounds = Rect(new_bounds);
+    }
+
+    void set_bounds(const Rect new_bounds) {
+        this->bounds = new_bounds;
+    }
+
+
+    void set_active(const bool active) {
         this->active = active;
     }
 
-    void set_focused(bool focused) {
+    void set_focused(const bool focused) {
         this->focused = focused;
     }
 
-    void set_hovered(bool hovered) {
+    void set_hovered(const bool hovered) {
         this->hovered = hovered;
     }
 
@@ -607,8 +622,8 @@ protected:
         return active;
     }
 
-    [[nodiscard]] const Rectangle& get_bounds() const {
-        return bounds;
+    [[nodiscard]] Rectangle get_bounds() const {
+        return bounds.to_raylib();
     }
 };
 
@@ -616,7 +631,7 @@ protected:
 class Button : public Component {
     std::string text;
     std::function<void()> click_handler;
-    Font font;
+    Font font{};
 
 public:
     Button(EventDispatcher& dispatcher, std::string text, std::function<void()> on_click) : Component(dispatcher), text(std::move(text)), click_handler(std::move(on_click)) {}
@@ -629,14 +644,14 @@ protected:
     }
 
     void render() const override {
-        DrawRectangleRec(bounds, is_active() ? DARKGRAY : (is_hovered() ? LIGHTGRAY : GRAY));
+        DrawRectangleRec(bounds.to_raylib(), is_active() ? DARKGRAY : (is_hovered() ? LIGHTGRAY : GRAY));
         const char* text_str = text.c_str();
-        Vector2 text_size = MeasureTextEx(font, text_str, 20, 1);
-        Vector2 text_pos = {
-            bounds.x + (bounds.width / 2 - text_size.x )/ 2,
-            bounds.y + bounds.height / 2 - text_size.y / 2
-        };
-        DrawTextEx(font, text_str, text_pos, 20, 1, WHITE);
+        auto [x, y] = MeasureTextEx(font, text_str, 20, 1);
+        const Point text_pos(
+            bounds.x + (bounds.width / 2 - x )/ 2,
+            bounds.y + bounds.height / 2 - y / 2
+        );
+        DrawTextEx(font, text_str, text_pos.to_raylib(), 20, 1, WHITE);
     }
 };
 
@@ -695,7 +710,10 @@ public:
 // Event listener with a single event type
     template<typename Event>
     class SingleEventListener {
-        protected:
+    public:
+        virtual ~SingleEventListener() = default;
+
+    protected:
         EventDispatcher& dispatcher;
 
         explicit SingleEventListener(EventDispatcher& dispatcher) : dispatcher(dispatcher) {
