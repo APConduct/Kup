@@ -12,12 +12,12 @@
 
 namespace plastic
 {
-    struct Container {
+    struct Container : Element {
     protected:
-        std::vector<std::shared_ptr<Component>> children;
+        std::vector<std::shared_ptr<Element>> children;
         std::shared_ptr<Layout> layout;
     public:
-        void add_child(const std::shared_ptr<Component>& child) {
+        void add_child(const std::shared_ptr<Element>& child) {
             children.push_back(child);
         }
 

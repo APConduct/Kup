@@ -21,8 +21,9 @@ namespace plastic
     // Forward declarations
     struct Style;
     struct Context;
-    struct Component;
     struct Element;
+    struct Component;
+
     struct Container;
     struct Layout;
     struct View;
@@ -41,6 +42,9 @@ namespace plastic
     struct Window;
 
     // Experimental function pointer type for event handlers
+
+
+
     struct ColorScheme {
         Color primary;
         Color secondary;
@@ -172,7 +176,14 @@ namespace plastic
         }
     };
 
-    struct Component {
+    struct Element {
+        virtual ~Element() = default;
+        virtual Rect measure(const Rect& constraints) = 0;
+        std::shared_ptr<Context> context;
+    };
+
+
+    struct Component  : Element {
         protected:
         Context ctx;
         // std::string id;
@@ -181,12 +192,12 @@ namespace plastic
         // Component(Rectangle bounds, Style style = Style{}) : ctx(bounds, style) {}
         explicit Component(Context ctx) : ctx(std::move(ctx)) {}
 
-        virtual ~Component() = default;
+        ~Component() override = default;
 
 
         virtual void render() = 0;
         virtual void layout() = 0;
-        virtual Rect measure(const Rect& constraints) = 0;
+        Rect measure(const Rect& constraints) override = 0;
 
         virtual void update(float delta_time) {
             if (!ctx.get_enabled()) return;
