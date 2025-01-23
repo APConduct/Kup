@@ -612,6 +612,49 @@ protected:
     }
 };
 
+// Example usage with custom component
+class Button : public Component {
+    std::string text;
+    std::function<void()> click_handler;
+    Font font;
+
+public:
+    Button(EventDispatcher& dispatcher, std::string text, std::function<void()> on_click) : Component(dispatcher), text(std::move(text)), click_handler(std::move(on_click)) {}
+
+protected:
+    void on_mouse_button(const MouseButtonEvent& e) override {
+        if (e.pressed && e.button == MOUSE_LEFT_BUTTON){
+            click_handler();
+        }
+    }
+
+    void render() const override {
+        DrawRectangleRec(bounds, is_active() ? DARKGRAY : (is_hovered() ? LIGHTGRAY : GRAY));
+        const char* text_str = text.c_str();
+        Vector2 text_size = MeasureTextEx(font, text_str, 20, 1);
+        Vector2 text_pos = {
+            bounds.x + (bounds.width / 2 - text_size.x )/ 2,
+            bounds.y + bounds.height / 2 - text_size.y / 2
+        };
+        DrawTextEx(font, text_str, text_pos, 20, 1, WHITE);
+    }
+};
+
+// Exa,ple usage with custom events
+
+struct ThemeChangeEvent {
+    std::string theme_name;
+    double timestamp;
+};
+
+using CustomEvents = std::variant<
+    ThemeChangeEvent,
+    CustomEvent<int>,
+    CustomEvent<std::string>
+>;
+
+using AnyEvent = std::variant<Event, CustomEvents>;
+
 class EventBatcher {
 private:
     std::vector<Event> batch;

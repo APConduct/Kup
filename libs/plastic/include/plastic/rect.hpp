@@ -43,6 +43,26 @@ namespace plastic {
         [[nodiscard]] Rectangle to_raylib() const {
             return {x, y, width, height};
         }
+
+        void apply_scissor() const {
+            BeginScissorMode(
+                static_cast<int>(x),
+                static_cast<int>(y),
+                static_cast<int>(width),
+                static_cast<int>(height));
+        }
+
+        void stop_scissor() const {
+            EndScissorMode();
+        }
+
+        void draw_lines(float thickness, Color color) const {
+            DrawRectangleLinesEx(to_raylib(), thickness, color);
+        }
+
+        void fill(Color color) const {
+            DrawRectangleRec(to_raylib(), color);
+        }
     };
 }
 
