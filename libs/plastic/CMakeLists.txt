@@ -11,7 +11,8 @@ add_library(plastic STATIC src/plastic_prototype.cpp include/plastic/plastic_pro
         include/plastic/layout.hpp
         include/plastic/vertical_layout.hpp
         include/plastic/container.hpp
-        include/plastic/events/event_system.hpp)
+        include/plastic/events/event_system.hpp
+        include/plastic/context.hpp)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 

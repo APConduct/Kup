@@ -5,15 +5,22 @@
 #ifndef PLASTIC_HPP
 #define PLASTIC_HPP
 
+#include <algorithm>
+#include <cfloat>
+#include <cmath>
+#include <cstdlib>
 #include <functional>
 #include <string>
 #include <utility>
 #include <raylib.h>
+#include <variant>
 
+#include "plastic/events/event_system.hpp"
 #include "rect.hpp"
 #include "point.hpp"
 #include "layout.hpp"
 #include "container.hpp"
+#include "context.hpp"
 
 
 namespace plastic
@@ -41,152 +48,38 @@ namespace plastic
     struct Button;
     struct Window;
 
-    // Experimental function pointer type for event handlers
 
-
-
-    struct ColorScheme {
-        Color primary;
-        Color secondary;
-        Color tertiary;
-    };
-
-    // Style struct
-    struct Style {
-        Color background_color;
-        Color text_color;
-        Color border_color;
-
-        Color hover_background_color;
-        Color hover_text_color;
-        Color hover_border_color;
-
-        Color active_background_color;
-        Color active_text_color;
-        Color active_border_color;
-
-        Color disabled_background_color;
-        Color disabled_text_color;
-        Color disabled_border_color;
-
-        float border_width = 1.0f;
-        float border_radius = 0.0f;
-        float padding = 5.0f;
-        float margin = 5.0f;
-        float font_spacing = 1.0f;
-
-        int font_size = 20;
-        bool center_text = true;
-
-        bool is_bold;
-        bool is_italic;
-        bool is_underlined;
-        std::string font_name;
-    };
-
-    struct Context {
-    private:
-        Rectangle bounds;
-        Style style;
-        bool is_hovered = false;
-        bool is_active = false;
-        bool is_enabled = true;
-        bool is_visible = true;
-
-        public:
-        explicit Context(const Rectangle bounds, Style style = Style{}) : bounds(bounds), style(std::move(style)) {}
-
-        void set_bounds(const Rectangle bounds) {
-            this->bounds = bounds;
-        }
-
-        [[nodiscard]] Rectangle get_bounds() const {
-            return bounds;
-        }
-        Style& get_style() {
-            return style;
-        }
-        [[nodiscard]] const Style& get_style() const {
-            return style;
-        }
-        [[nodiscard]] bool get_hovered() const {
-            return is_hovered;
-        }
-        void set_hovered(const bool hovered) {
-            is_hovered = hovered;
-        }
-        [[nodiscard]] bool get_active() const {
-            return is_active;
-        }
-        void set_active(const bool active) {
-            is_active = active;
-        }
-        [[nodiscard]] bool get_enabled() const {
-            return is_enabled;
-        }
-        void set_enabled(const bool enabled) {
-            is_enabled = enabled;
-        }
-        [[nodiscard]] bool get_visible() const {
-            return is_visible;
-        }
-        void set_visible(const bool visible) {
-            is_visible = visible;
-        }
-
-        // Get the text color based on the current state
-        [[nodiscard]] Color get_text_color() const {
-            if (!is_enabled) {
-                return style.disabled_text_color;
-            }
-            if (is_active) {
-                return style.active_text_color;
-            }
-            if (is_hovered) {
-                return style.hover_text_color;
-            }
-            return style.text_color;
-        }
-        // Get the border color based on the current state
-        [[nodiscard]] Color get_border_color() const {
-            if (!is_enabled) {
-                return style.disabled_border_color;
-            }
-            if (is_active) {
-                return style.active_border_color;
-            }
-            if (is_hovered) {
-                return style.hover_border_color;
-            }
-            return style.border_color;
-        }
-
-        // Get the background color based on the current state
-        [[nodiscard]] Color get_background_color() const {
-            if (!is_enabled) {
-                return style.disabled_background_color;
-            }
-            if (is_active) {
-                return style.active_background_color;
-            }
-            if (is_hovered) {
-                return style.hover_background_color;
-            }
-            return style.background_color;
-        }
-    };
 
     struct Element {
         virtual ~Element() = default;
         virtual Rect measure(const Rect& constraints) = 0;
+        virtual void layout(const plastic::Rect& bounds) = 0;
+
         std::shared_ptr<Context> context;
+
+        // Utility methods
+        [[nodiscard]] bool is_visible() const {
+            return context->get_visible();
+        }
+
+        [[nodiscard]] plastic::Rect get_bounds() const {
+            return context ? context->get_bounds(): plastic::Rect();
+        }
     };
 
 
     struct Component  : Element {
-        protected:
+
+    protected:
         Context ctx;
         // std::string id;
+        bool resizing{false};
+        plastic::Point<float> resize_start;
+        plastic::Rect original_bounds;
+
+        // Min and max size constraints
+        plastic::Size min_size{50,50};
+        plastic::Size max_size{FLT_MAX, FLT_MAX};
 
     public:
         // Component(Rectangle bounds, Style style = Style{}) : ctx(bounds, style) {}
@@ -194,17 +87,20 @@ namespace plastic
 
         ~Component() override = default;
 
+        // maybe change to smart pointer ctx instead
+        Rect measure(const plastic::Rect& constraints) override {
+            return ctx.get_bounds();
+        };
 
         virtual void render() = 0;
         virtual void layout() = 0;
-        Rect measure(const Rect& constraints) override = 0;
 
         virtual void update(float delta_time) {
             if (!ctx.get_enabled()) return;
 
             const Vector2 mouse_pos = GetMousePosition();
-            const Rectangle bounds = ctx.get_bounds();
-            const bool is_hovered = CheckCollisionPointRec(mouse_pos, bounds);
+            const Rect bounds = ctx.get_bounds();
+            const bool is_hovered = CheckCollisionPointRec(mouse_pos, bounds.to_raylib());
             ctx.set_hovered(is_hovered);
             ctx.set_active(is_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
         }
@@ -213,6 +109,83 @@ namespace plastic
             return ctx;
         }
         [[nodiscard]] const Context& get_context() const { return ctx; }
+
+        // TODO - MOVE LOGIC TO EXTERNAL EVENT VISITOR
+        void handle_event(const plastic::events::Event& event) {
+        std::visit([this](const auto& e) {this->process_event(e);}, event);
+        }
+
+    protected:
+        // Event handling
+        virtual void process_event(const events::MouseButtonEvent& e) {
+            const auto bounds = ctx.get_bounds();
+            const plastic::Point<float> mouse(e.position);
+            if (e.pressed) {
+                // Check if clicking near edges for resize
+                if (is_near_edge(mouse)) {
+                    resizing = true;
+                    resize_start = mouse;
+                    original_bounds = bounds;
+                }
+            } else {
+                resizing = false;
+            }
+        }
+
+        // Default implementation for event types
+        //
+
+        virtual void process_event(const events::MouseMoveEvent& e) {
+            handle_resize(plastic::Point<float>(e.position));
+        }
+
+        virtual void process_event(const events::MouseScrollEvent& e) {
+            // Handle mouse scroll event
+        }
+
+        virtual void process_event(const events::KeyPressEvent& e) {
+            // Handle key press event
+        }
+
+        // virtual void process_event(const events::KeyReleaseEvent& e) {
+            // Handle key release event
+        // }
+
+         virtual void process_event(const events::TextInputEvent& e) {}
+
+        virtual void process_event(const events::ResizeEvent& e) {}
+                // Handle window resize event
+
+        virtual void process_event(const events::FocusEvent& e) {}
+
+        virtual void process_event(const events::MouseDragEvent& e) {}
+
+
+
+        [[nodiscard]] bool is_near_edge(const plastic::Point<float>& point) const {
+            const auto bounds = ctx.get_bounds();
+            const float edge_threshold = 5.0f;
+
+            return (
+                std::abs(point.x - bounds.right()) < edge_threshold ||
+                std::abs(point.x - bounds.x) < edge_threshold ||
+                std::abs(point.y - bounds.bottom()) < edge_threshold ||
+                std::abs(point.y - bounds.y) < edge_threshold);
+        }
+
+        void handle_resize(const plastic::Point<float>& current_pos) {
+                    auto new_bounds = original_bounds;
+                    const auto delta = Point<float>(current_pos.x - resize_start.x, current_pos.y - resize_start.y);
+
+                    // Update bounds based on which edge is being dragged
+                    if (std::abs(current_pos.x - original_bounds.right()) < 5.0f) {
+                        new_bounds.width = std::clamp(
+                            original_bounds.width + delta.x,
+                            min_size.width,
+                            max_size.width
+                        );
+                    }
+                }
     };
 
     struct Button : Component {
@@ -242,14 +215,14 @@ namespace plastic
 
         void render() override {
             const auto& style = ctx.get_style();
-            Rectangle bounds = ctx.get_bounds();
+            Rect bounds = ctx.get_bounds();
 
             // Draw the button background
-            DrawRectangleRec(bounds, ctx.get_background_color());
+            DrawRectangleRec(bounds.to_raylib(), ctx.get_background_color());
 
             // Draw the button border
             if (style.border_width > 0) {
-                DrawRectangleLinesEx(bounds, style.border_width, ctx.get_border_color());
+                DrawRectangleLinesEx(bounds.to_raylib(), style.border_width, ctx.get_border_color());
             }
 
             // Draw the button text
