@@ -71,7 +71,7 @@ namespace plastic
         ~Component() override = default;
 
         // maybe change to smart pointer ctx instead
-        Rect measure(const plastic::Rect& constraints) override {
+        Rect measure(const Rect& constraints) override {
             return ctx.get_bounds();
         };
 
@@ -102,7 +102,7 @@ namespace plastic
         // Event handling
         virtual void process_event(const events::MouseButtonEvent& e) {
             const auto bounds = ctx.get_bounds();
-            const plastic::Point<float> mouse(e.position);
+            const Point<float> mouse(e.position);
             if (e.pressed) {
                 // Check if clicking near edges for resize
                 if (is_near_edge(mouse)) {
