@@ -89,7 +89,6 @@ namespace plastic
                 }
         [[nodiscard]] const std::shared_ptr<Context>& get_context() const { return ctx; }
 
-        // TODO - MOVE LOGIC TO EXTERNAL EVENT VISITOR
         void handle_event(const events::Event& event) {
         // std::visit([this](const auto& e) {this->process_event(e);}, event);
         std::visit(EventVisitor(this), event); // new way (keep old way for reference, remove new if it doesn't work)
@@ -139,9 +138,6 @@ namespace plastic
         virtual void process_event(const events::FocusEvent& e) {}
 
         virtual void process_event(const events::MouseDragEvent& e) {}
-
-        // END OF TODO_MOVE LOGIC TO EXTERNAL EVENT VISITOR
-
 
         [[nodiscard]] bool is_near_edge(const Point<float>& point) const {
             const auto bounds = ctx->get_bounds();
