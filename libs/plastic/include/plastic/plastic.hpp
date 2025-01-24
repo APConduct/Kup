@@ -241,7 +241,7 @@ namespace plastic
 
             // Draw the button border
             if (style.border_width > 0) {
-                DrawRectangleLinesEx(bounds.to_raylib(), style.border_width, ctx.get_border_color());
+                DrawRectangleLinesEx(bounds.to_raylib(), style.border_width, ctx->get_border_color());
             }
 
             // Draw the button text
