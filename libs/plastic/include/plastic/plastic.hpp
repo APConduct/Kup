@@ -100,7 +100,6 @@ namespace plastic
         };
 
     public:
-        // Component(Rectangle bounds, Style style = Style{}) : ctx(bounds, style) {}
         explicit Component(std::shared_ptr<Context> ctx) : Element(std::move(ctx)) {}
 
         ~Component() override = default;
