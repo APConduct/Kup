@@ -109,7 +109,7 @@ namespace plastic
             return ctx->get_bounds();
         };
 
-        virtual void render() = 0;
+        virtual void render() override = 0;
         virtual void layout() = 0;
 
         virtual void update(float delta_time) {
@@ -130,7 +130,7 @@ namespace plastic
         // TODO - MOVE LOGIC TO EXTERNAL EVENT VISITOR
         void handle_event(const events::Event& event) {
         // std::visit([this](const auto& e) {this->process_event(e);}, event);
-        std::visit(EventVisitor(this), event); // new way
+        std::visit(EventVisitor(this), event); // new way (keep old way for reference, remove new if it doesn't work)
         }
 
     protected:

@@ -7,13 +7,16 @@
 #include <memory>
 
 #include "context.hpp"
+#include "plastic/layout_properties.hpp"
 
 namespace plastic
 {
+
     struct Element {
         virtual ~Element() = default;
         virtual Rect measure(const Rect& constraints) = 0;
-        virtual void layout(const Rect& bounds) = 0;
+        virtual void layout(Rect& bounds) = 0;
+        virtual void render() = 0;
 
         std::shared_ptr<Context> ctx;
 
@@ -27,6 +30,18 @@ namespace plastic
         [[nodiscard]] Rect get_bounds() const {
             return ctx ? ctx->get_bounds(): Rect();
         }
+
+        virtual void set_layout_properties(const LayoutProperties& props) {
+            layout_properties = props;
+        }
+
+        [[nodiscard]] const LayoutProperties& get_layout_properties() const {
+            return layout_properties;
+        }
+
+
+    protected:
+        LayoutProperties layout_properties;
     };
 
 }
