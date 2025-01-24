@@ -112,7 +112,6 @@ namespace plastic
         }
 
         // Default implementation for event types
-        //
 
         virtual void process_event(const events::MouseMoveEvent& e) {
             handle_resize(plastic::Point<float>(e.position));

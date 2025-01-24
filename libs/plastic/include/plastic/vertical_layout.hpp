@@ -101,7 +101,6 @@ namespace plastic
             if (!children.empty()) {
                 result.height -= spacing;
             }
-
             return result;
         };
     };
