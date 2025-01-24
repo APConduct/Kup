@@ -34,28 +34,28 @@ namespace plastic
             // void operator()(const events::KeyReleaseEvent& e) {
             //     component->process_event(e);
             // }
-            void operator()(const events::MouseButtonEvent& e) {
+            void operator()(const events::MouseButtonEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::MouseMoveEvent& e) {
+            void operator()(const events::MouseMoveEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::MouseScrollEvent& e) {
+            void operator()(const events::MouseScrollEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::KeyPressEvent& e) {
+            void operator()(const events::KeyPressEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::TextInputEvent& e) {
+            void operator()(const events::TextInputEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::ResizeEvent& e) {
+            void operator()(const events::ResizeEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::FocusEvent& e) {
+            void operator()(const events::FocusEvent& e) const {
                 component->process_event(e);
             }
-            void operator()(const events::MouseDragEvent& e) {
+            void operator()(const events::MouseDragEvent& e) const {
                 component->process_event(e);
             }
 
