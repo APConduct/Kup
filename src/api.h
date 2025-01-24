@@ -5,15 +5,14 @@
 #ifndef KUP_API_H
 #define KUP_API_H
 
-#include <map>
 #include <raylib.h>
 #include <string>
-
+#include <unordered_map>
 
 
 typedef std::tuple<std::string, KeyboardKey> key_name_code_map;
 
-inline std::map<std::string, int> key_vals{
+inline std::unordered_map<std::string, int> key_vals{
     {"a", KEY_A},
     {"b", KEY_B},
     {"c", KEY_C},
