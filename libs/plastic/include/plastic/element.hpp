@@ -15,15 +15,17 @@ namespace plastic
         virtual Rect measure(const Rect& constraints) = 0;
         virtual void layout(const Rect& bounds) = 0;
 
-        std::shared_ptr<Context> context;
+        std::shared_ptr<Context> ctx;
+
+        explicit Element(std::shared_ptr<Context> ctx) : ctx(std::move(ctx)) {}
 
         // Utility methods
         [[nodiscard]] bool is_visible() const {
-            return context->get_visible();
+            return ctx->get_visible();
         }
 
         [[nodiscard]] Rect get_bounds() const {
-            return context ? context->get_bounds(): Rect();
+            return ctx ? ctx->get_bounds(): Rect();
         }
     };
 

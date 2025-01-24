@@ -10,6 +10,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <functional>
+#include <memory>
 #include <string>
 #include <utility>
 #include <raylib.h>
@@ -54,7 +55,7 @@ namespace plastic
     struct Component  : Element {
 
     protected:
-        Context ctx;
+        // Context ctx;
         // std::string id;
         bool resizing{false};
         Point<float> resize_start;
@@ -64,44 +65,79 @@ namespace plastic
         Size min_size{50,50};
         Size max_size{FLT_MAX, FLT_MAX};
 
+        struct EventVisitor {
+            Component* component;
+            explicit EventVisitor(Component* comp) : component(comp) {}
+
+            // void operator()(const events::KeyReleaseEvent& e) {
+            //     component->process_event(e);
+            // }
+            void operator()(const events::MouseButtonEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::MouseMoveEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::MouseScrollEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::KeyPressEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::TextInputEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::ResizeEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::FocusEvent& e) {
+                component->process_event(e);
+            }
+            void operator()(const events::MouseDragEvent& e) {
+                component->process_event(e);
+            }
+
+        };
+
     public:
         // Component(Rectangle bounds, Style style = Style{}) : ctx(bounds, style) {}
-        explicit Component(Context ctx) : ctx(std::move(ctx)) {}
+        explicit Component(std::shared_ptr<Context> ctx) : Element(std::move(ctx)) {}
 
         ~Component() override = default;
 
         // maybe change to smart pointer ctx instead
         Rect measure(const Rect& constraints) override {
-            return ctx.get_bounds();
+            return ctx->get_bounds();
         };
 
         virtual void render() = 0;
         virtual void layout() = 0;
 
         virtual void update(float delta_time) {
-            if (!ctx.get_enabled()) return;
+            if (!ctx->get_enabled()) return;
 
             const Vector2 mouse_pos = GetMousePosition();
-            const Rect bounds = ctx.get_bounds();
+            const Rect bounds = ctx->get_bounds();
             const bool is_hovered = CheckCollisionPointRec(mouse_pos, bounds.to_raylib());
-            ctx.set_hovered(is_hovered);
-            ctx.set_active(is_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
+            ctx->set_hovered(is_hovered);
+            ctx->set_active(is_hovered && IsMouseButtonPressed(MOUSE_LEFT_BUTTON));
         }
 
-        Context& get_context() {
-            return ctx;
-        }
-        [[nodiscard]] const Context& get_context() const { return ctx; }
+        std::shared_ptr<Context>& get_context() {
+                    return ctx;
+                }
+        [[nodiscard]] const std::shared_ptr<Context>& get_context() const { return ctx; }
 
         // TODO - MOVE LOGIC TO EXTERNAL EVENT VISITOR
         void handle_event(const events::Event& event) {
-        std::visit([this](const auto& e) {this->process_event(e);}, event);
+        // std::visit([this](const auto& e) {this->process_event(e);}, event);
+        std::visit(EventVisitor(this), event); // new way
         }
 
     protected:
         // Event handling
         virtual void process_event(const events::MouseButtonEvent& e) {
-            const auto bounds = ctx.get_bounds();
+            const auto bounds = ctx->get_bounds();
             const Point<float> mouse(e.position);
             if (e.pressed) {
                 // Check if clicking near edges for resize
@@ -147,7 +183,7 @@ namespace plastic
 
 
         [[nodiscard]] bool is_near_edge(const Point<float>& point) const {
-            const auto bounds = ctx.get_bounds();
+            const auto bounds = ctx->get_bounds();
             constexpr float edge_threshold = 5.0f;
 
             return (
@@ -180,17 +216,17 @@ namespace plastic
         Font font{};
 
         public:
-        Button(Context ctx, std::string text, std::function<void()> on_click)
-            : Component(std::move(ctx)), text(std::move(text)), on_click(std::move(on_click)) {}
+        Button(std::shared_ptr<Context> ctx, std::string text, std::function<void()> on_click)
+                    : Component(std::move(ctx)), text(std::move(text)), on_click(std::move(on_click)) {}
 
-        Button(Context ctx, std::string text, std::function<void()> on_click, const Font& font)
+        Button(std::shared_ptr<Context> ctx, std::string text, std::function<void()> on_click, const Font& font)
             : Component(std::move(ctx)), text(std::move(text)), on_click(std::move(on_click)), font(font) {}
 
         void update(const float delta_time) override {
             Component::update(delta_time);
-            if (!ctx.get_enabled()) return;
+            if (!ctx->get_enabled()) return;
 
-            const bool is_pressed = ctx.get_hovered() && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
+            const bool is_pressed = ctx->get_hovered() && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
             if (was_pressed && !is_pressed) {
                 on_click();
             }
@@ -198,11 +234,11 @@ namespace plastic
         }
 
         void render() override {
-            const auto& style = ctx.get_style();
-            const Rect bounds = ctx.get_bounds();
+            const auto& style = ctx->get_style();
+            const Rect bounds = ctx->get_bounds();
 
             // Draw the button background
-            DrawRectangleRec(bounds.to_raylib(), ctx.get_background_color());
+            DrawRectangleRec(bounds.to_raylib(), ctx->get_background_color());
 
             // Draw the button border
             if (style.border_width > 0) {
