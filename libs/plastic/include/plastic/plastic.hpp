@@ -50,22 +50,6 @@ namespace plastic
 
 
 
-    struct Element {
-        virtual ~Element() = default;
-        virtual Rect measure(const Rect& constraints) = 0;
-        virtual void layout(const plastic::Rect& bounds) = 0;
-
-        std::shared_ptr<Context> context;
-
-        // Utility methods
-        [[nodiscard]] bool is_visible() const {
-            return context->get_visible();
-        }
-
-        [[nodiscard]] plastic::Rect get_bounds() const {
-            return context ? context->get_bounds(): plastic::Rect();
-        }
-    };
 
 
     struct Component  : Element {
@@ -74,12 +58,12 @@ namespace plastic
         Context ctx;
         // std::string id;
         bool resizing{false};
-        plastic::Point<float> resize_start;
-        plastic::Rect original_bounds;
+        Point<float> resize_start;
+        Rect original_bounds;
 
         // Min and max size constraints
-        plastic::Size min_size{50,50};
-        plastic::Size max_size{FLT_MAX, FLT_MAX};
+        Size min_size{50,50};
+        Size max_size{FLT_MAX, FLT_MAX};
 
     public:
         // Component(Rectangle bounds, Style style = Style{}) : ctx(bounds, style) {}
@@ -111,7 +95,7 @@ namespace plastic
         [[nodiscard]] const Context& get_context() const { return ctx; }
 
         // TODO - MOVE LOGIC TO EXTERNAL EVENT VISITOR
-        void handle_event(const plastic::events::Event& event) {
+        void handle_event(const events::Event& event) {
         std::visit([this](const auto& e) {this->process_event(e);}, event);
         }
 
@@ -162,7 +146,7 @@ namespace plastic
 
 
 
-        [[nodiscard]] bool is_near_edge(const plastic::Point<float>& point) const {
+        [[nodiscard]] bool is_near_edge(const Point<float>& point) const {
             const auto bounds = ctx.get_bounds();
             const float edge_threshold = 5.0f;
 
@@ -173,9 +157,9 @@ namespace plastic
                 std::abs(point.y - bounds.y) < edge_threshold);
         }
 
-        void handle_resize(const plastic::Point<float>& current_pos) {
+        void handle_resize(const Point<float>& current_pos) {
                     auto new_bounds = original_bounds;
-                    const auto delta = Point<float>(current_pos.x - resize_start.x, current_pos.y - resize_start.y);
+                    const auto delta = Point(current_pos.x - resize_start.x, current_pos.y - resize_start.y);
 
                     // Update bounds based on which edge is being dragged
                     if (std::abs(current_pos.x - original_bounds.right()) < 5.0f) {
@@ -215,7 +199,7 @@ namespace plastic
 
         void render() override {
             const auto& style = ctx.get_style();
-            Rect bounds = ctx.get_bounds();
+            const Rect bounds = ctx.get_bounds();
 
             // Draw the button background
             DrawRectangleRec(bounds.to_raylib(), ctx.get_background_color());
@@ -227,12 +211,12 @@ namespace plastic
 
             // Draw the button text
             if (style.center_text) {
-                Vector2 text_size = MeasureTextEx(
+                auto [x, y] = MeasureTextEx(
                     font, text.c_str(),
                     static_cast<float>(style.font_size), style.font_spacing);
-                Vector2 text_pos = {
-                    bounds.x + bounds.width/2 - text_size.x * 0.5f,
-                    bounds.y + bounds.height/2 - text_size.y * 0.5f
+                const Vector2 text_pos = {
+                    bounds.x + bounds.width/2 - x * 0.5f,
+                    bounds.y + bounds.height/2 - y * 0.5f
                 };
                 DrawTextEx(
                     font, text.c_str(), text_pos,
