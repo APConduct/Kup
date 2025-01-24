@@ -18,9 +18,8 @@
 #include "plastic/events/event_system.hpp"
 #include "rect.hpp"
 #include "point.hpp"
-#include "layout.hpp"
-#include "container.hpp"
 #include "context.hpp"
+#include "element.hpp"
 
 
 namespace plastic
@@ -144,11 +143,12 @@ namespace plastic
 
         virtual void process_event(const events::MouseDragEvent& e) {}
 
+        // END OF TODO_MOVE LOGIC TO EXTERNAL EVENT VISITOR
 
 
         [[nodiscard]] bool is_near_edge(const Point<float>& point) const {
             const auto bounds = ctx.get_bounds();
-            const float edge_threshold = 5.0f;
+            constexpr float edge_threshold = 5.0f;
 
             return (
                 std::abs(point.x - bounds.right()) < edge_threshold ||
@@ -157,7 +157,7 @@ namespace plastic
                 std::abs(point.y - bounds.y) < edge_threshold);
         }
 
-        void handle_resize(const Point<float>& current_pos) {
+        void handle_resize(const Point<float>& current_pos) const {
                     auto new_bounds = original_bounds;
                     const auto delta = Point(current_pos.x - resize_start.x, current_pos.y - resize_start.y);
 
