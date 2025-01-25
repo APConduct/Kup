@@ -34,7 +34,7 @@ namespace plastic
         explicit Model(const T initial_state) : state(std::make_shared<T>(std::move(initial_state))) {}
 
         T get() const {
-            std::lock_guard<std::mutex> lock(state_mutex);
+            std::lock_guard lock(state_mutex);
             return *state;
         }
 
