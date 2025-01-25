@@ -39,6 +39,13 @@ namespace plastic
         Color disabled_text_color;
         Color disabled_border_color;
 
+        // Color for if there is a header
+        Color header_color;
+
+        // Color for if Element has/is button (most likely to be refactored)
+        Color button_color;
+
+
         float border_width = 1.0f;
         float border_radius = 0.0f;
         float padding = 5.0f;
