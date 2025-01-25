@@ -20,8 +20,9 @@ namespace plastic
         std::shared_ptr<Model<T>> model;
         RenderFunction render_fn;
 
+        // Render when state changes
         void render(const T& state) const {
-            render_function(state);
+            this->render(state);
         }
 
     public:
@@ -29,12 +30,13 @@ namespace plastic
         // Constructor
         explicit View(std::shared_ptr<Model<T>> model, RenderFunction render_func)
             : model(std::move(model)), render_fn(std::move(render_func)) {
-
+            // Subscribe to model updates
             this->model->subscribe([this](const T& state) {
                 this->render(state);
             });
         }
 
+        // Initial render
         void render() const {
             render_function(model->get());
         }
