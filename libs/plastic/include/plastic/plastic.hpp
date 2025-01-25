@@ -5,17 +5,7 @@
 #ifndef PLASTIC_HPP
 #define PLASTIC_HPP
 
-#include <algorithm>
-#include <cfloat>
-#include <cmath>
-#include <cstdlib>
-#include <functional>
-#include <memory>
-#include <string>
-#include <utility>
-#include <raylib.h>
-#include <variant>
-
+#include "plastic/config.hpp"
 #include "plastic/events/event_system.hpp"
 #include "rect.hpp"
 #include "point.hpp"

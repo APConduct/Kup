@@ -221,13 +221,13 @@ public:
     }
 
     FileTree(const Font& font, const float font_size, const float spacing, float width, float space_below)
-        : font(font), font_size(font_size), spacing(spacing), width(width), space_below(space_below) {
+        : width(width), space_below(space_below), font(font), font_size(font_size), spacing(spacing) {
             item_height = font_size + 6;
             this->origin.x = this->origin.y = 0;
     }
 
     FileTree(const Font& font, float font_size, float spacing, float width)
-    : font(font), font_size(font_size), spacing(spacing), width(width){
+    : width(width), font(font), font_size(font_size), spacing(spacing){
         item_height = font_size + 6;
         this->origin.x = this->origin.y = 0;
     }
@@ -252,7 +252,7 @@ public:
         BeginScissorMode(
             static_cast<int>(position.x),
             static_cast<int>(position.y),
-            static_cast<int>(width), static_cast<int>(visible_height) - space_below
+            static_cast<int>(width), static_cast<int>(visible_height - space_below)
         );
 
         float y_offset = position.y - scroll_offset_y;

@@ -84,7 +84,7 @@ namespace plastic
 
         // Screen space utilities
         [[nodiscard]] bool is_on_screen() const {
-            return x >= 0 && x <= GetScreenWidth() && y >= 0 && y <= GetScreenHeight();
+            return x >= 0 && x <= static_cast<float>(GetScreenWidth()) && y >= 0 && y <= static_cast<float>(GetScreenHeight());
         }
     };
 

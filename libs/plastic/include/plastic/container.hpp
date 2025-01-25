@@ -23,10 +23,13 @@ namespace plastic
 
         explicit Container(std::shared_ptr<Context> ctx) : Element(std::move(ctx)) {}
 
-        void add_child(const std::shared_ptr<Element> child) {
+        void add_child( std::shared_ptr<Element> child) {
             children.push_back(std::move(child));
             invalidate_layout();
         }
+
+
+
 
         void add_child(const std::shared_ptr<Element>& child) {
             children.push_back(child);
@@ -46,7 +49,7 @@ namespace plastic
             invalidate_layout();
         }
 
-        void set_layout(const std::shared_ptr<Layout> layout) {
+        void set_layout( std::shared_ptr<Layout> layout) {
             this->lay = std::move(layout);
             invalidate_layout();
         }

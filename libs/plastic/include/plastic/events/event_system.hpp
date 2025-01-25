@@ -3,7 +3,6 @@
 
 #include "plastic/config.hpp"
 #include <algorithm>
-#include <cmath>
 #include <cstddef>
 #include <format>
 #include <functional>
@@ -459,8 +458,8 @@ public:
 
     static std::function<bool(const Event&)> create_mouse_filter() {
             return [](const Event& event) {
-                return std::visit([]([[maybe_unused]] const auto& e) {
-                    using T = std::decay_t<decltype(e)>;
+                return std::visit([]<typename V>([[maybe_unused]] const V& e) {
+                    using T = std::decay_t<V>;
                     return std::is_same_v<T, MouseMoveEvent> ||
                            std::is_same_v<T, MouseButtonEvent> ||
                            std::is_same_v<T, MouseScrollEvent> ||
@@ -471,8 +470,8 @@ public:
 
     static std::function<bool(const Event&)> create_keyboard_filter() {
         return [](const Event& event) {
-            return std::visit([]([[maybe_unused]] const auto& e) {
-                using T = std::decay_t<decltype(e)>;
+            return std::visit([]<typename V>([[maybe_unused]] const V& e) {
+                using T = std::decay_t<V>;
                 return std::is_same_v<T, KeyPressEvent> ||
                        std::is_same_v<T, TextInputEvent>;
             }, event);

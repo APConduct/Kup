@@ -107,7 +107,7 @@ namespace plastic {
             bounds.fill(style.background_color);
 
             // Draw the panel header
-            Rect header_bounds(
+            const Rect header_bounds(
                 bounds.x,
                 bounds.y,
                 bounds.width,
@@ -121,7 +121,7 @@ namespace plastic {
                 title.c_str(),
                 plastic::Point(
                     header_bounds.x + 5,
-                    header_bounds.y + header_height / 2 - style.font_size / 2
+                    header_bounds.y + header_height / 2 - static_cast<float>(style.font_size) / 2
                 ).to_raylib(),
                 static_cast<float>(style.font_size),
                 0,
@@ -144,7 +144,7 @@ namespace plastic {
                     button_bounds.x + 4,
                     button_bounds.y
                 ).to_raylib(),
-                 style.font_size, 0, style.text_color
+                 static_cast<float>(style.font_size), 0, style.text_color
             );
 
             // Draw children if not collapsed
