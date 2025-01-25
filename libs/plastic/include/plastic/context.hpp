@@ -45,6 +45,7 @@ namespace plastic
         float margin = 5.0f;
         float font_spacing = 1.0f;
 
+        Font font;
         int font_size = 20;
         bool center_text = true;
 

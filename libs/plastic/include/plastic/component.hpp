@@ -8,6 +8,7 @@
 #include <algorithm>
 
 #include "element.hpp"
+#include "plastic/rect.hpp"
 #include "point.hpp"
 #include "raylib.h"
 #include "events/event_system.hpp"
@@ -72,7 +73,7 @@ namespace plastic
         };
 
         void render() override = 0;
-        virtual void layout() = 0;
+        virtual void layout(const Rect& bounds) = 0;
 
         virtual void update(float delta_time) {
             if (!ctx->get_enabled()) return;
