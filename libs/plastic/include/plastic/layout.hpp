@@ -6,8 +6,6 @@
 #define LAYOUT_HPP
 #include "plastic/element.hpp"
 #include "rect.hpp"
-#include <algorithm>
-#include <cfloat>
 #include <memory>
 #include <vector>
 #include "plastic/layout_properties.hpp"

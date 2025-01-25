@@ -20,20 +20,20 @@ namespace plastic
     struct Context;
     struct Element;
     struct Component;
+    struct Platform;
 
     struct Container;
     struct Layout;
-    struct View;
-
+    struct Text;
     struct App;
     template <typename T> struct Model;
-    // template <typename T> struct View;
+    template <typename T> struct View;
 
 
     struct AppContext;
     struct WindowContext;
     template <typename T> struct ModelContext;
-    // template <typename T> struct ViewContext;
+    template <typename T> struct ViewContext;
 
     struct Button;
     struct Window;
