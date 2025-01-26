@@ -28,16 +28,23 @@ namespace plastic
     struct App;
     template <typename T> struct Model;
     template <typename T> struct View;
+    struct AnyModel;
+    struct WindowModel;
+    struct WindowView;
+    struct AnyView;
 
 
     struct AppContext;
-    struct WindowContext;
     template <typename T> struct ModelContext;
     template <typename T> struct ViewContext;
-
+    struct WindowContext;
     struct Button;
+    struct ButtonView;
+    struct ButtonModel;
+
     struct Window;
 
+    struct AnyElement;
 
 
 

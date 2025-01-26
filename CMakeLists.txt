@@ -28,6 +28,7 @@ set(LUA_VERSION 5.1)
 set(LUAJIT_VERSION 2.1)
 set(GLFW_VERSION 3.3.8)
 set(FREETYPE_VERSION 2.13.0)
+set(sol2_VERSION 3.2.2)
 
 include(cmake/FindLua51.cmake)
 
@@ -77,6 +78,14 @@ if (NOT raygui_FOUND)
         target_include_directories(raygui INTERFACE ${RAYGUI_SRC})
     endif ()
 endif ()
+
+# Sol3
+FetchContent_Declare(
+        sol2
+        GIT_REPOSITORY https://github.com/ThePhD/sol2.git
+        GIT_TAG v${sol2_VERSION}
+)
+FetchContent_MakeAvailable(sol2)
 
 find_package(Lua51 REQUIRED)
 
@@ -133,6 +142,7 @@ if(NOT freetype_POPULATED)
 endif()
 
 add_subdirectory(libs/plastic)
+add_subdirectory(libs/hyro)
 
 
 set(tinyfiledialogs_SRC src/ext/tinyfd)
@@ -148,6 +158,8 @@ add_executable(Kup src/main.cpp
         src/FileTree.hpp
         src/editor.hpp
         src/scroll_bar.hpp
+        libs/hyro/include/hyro/hyro.hpp
+        libs/hyro/include/hyro/font.hpp
 )
 
 target_link_libraries(Kup PRIVATE raylib

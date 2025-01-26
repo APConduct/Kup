@@ -15,7 +15,7 @@
 
 namespace plastic
 {
-    struct Component  : Element {
+    struct Component  : element::Element {
 
     protected:
         // Context ctx;

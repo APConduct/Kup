@@ -19,7 +19,7 @@ namespace plastic
     public:
         explicit VerticalLayout(const float spacing = 0) : spacing(spacing) {};
 
-        void arrange( Rect& bounds, const std::vector<std::shared_ptr<Element>>& children) override {
+        void arrange( Rect& bounds, const std::vector<std::shared_ptr<element::Element>>& children) override {
             if (children.empty()) return;
 
             // First pass: calculate flexible space
@@ -88,7 +88,7 @@ namespace plastic
 
             }
         };
-        Size measure(const std::vector<std::shared_ptr<Element>>& children, const Size& available_size) override {
+        Size measure(const std::vector<std::shared_ptr<element::Element>>& children, const Size& available_size) override {
             Size result{0,0};
 
             for (const auto& child : children) {
