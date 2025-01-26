@@ -145,6 +145,10 @@ add_subdirectory(libs/plastic)
 add_subdirectory(libs/hyro)
 add_subdirectory(libs/solkup)
 add_subdirectory(libs/krusty)
+add_subdirectory(libs/lsp)
+add_subdirectory(libs/plugin)
+add_subdirectory(libs/term)
+add_subdirectory(libs/editor)
 
 
 set(tinyfiledialogs_SRC ext/tinyfd/tinyfd)
@@ -170,6 +174,7 @@ target_link_libraries(Kup PRIVATE raylib
         plastic
         glfw
         freetype
+        sol2
 )
 
 

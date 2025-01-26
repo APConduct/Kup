@@ -6,3 +6,5 @@ set(CMAKE_CXX_STANDARD 20)
 add_library(solkup INTERFACE)
 
 target_sources(solkup PRIVATE include/solkup/solkup.hpp include/solkup/kup.hpp)
+
+target_link_libraries(solkup INTERFACE raylib raygui plastic glfw freetype sol2)
