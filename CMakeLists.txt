@@ -143,11 +143,13 @@ endif()
 
 add_subdirectory(libs/plastic)
 add_subdirectory(libs/hyro)
+add_subdirectory(libs/solkup)
+add_subdirectory(libs/krusty)
 
 
-set(tinyfiledialogs_SRC src/ext/tinyfd)
+set(tinyfiledialogs_SRC ext/tinyfd/tinyfd)
 add_library(tinyfiledialogs STATIC)
-target_sources(tinyfiledialogs PRIVATE ${PROJECT_SOURCE_DIR}/src/ext/tinyfd/tinyfiledialogs.c)
+target_sources(tinyfiledialogs PRIVATE ${PROJECT_SOURCE_DIR}/ext/tinyfd/tinyfd/tinyfiledialogs.c)
 
 target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
 
@@ -176,6 +178,7 @@ target_link_libraries(Kup PRIVATE raylib
 target_include_directories(Kup PRIVATE
         ${tinyfiledialogs_SRC}
         ${CMAKE_SOURCE_DIR}/src/../ext/raygui/src
+        ${tinyfiledialogs_SRC}
 
 )
 

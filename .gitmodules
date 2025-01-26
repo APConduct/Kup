@@ -1,7 +1,7 @@
 
 
 [submodule "src/ext/tinyfd"]
-    path = src/ext/tinyfd
+	path = ext/tinyfd/tinyfd
     url = https://git.code.sf.net/p/tinyfiledialogs/code
 [submodule "ext/raygui"]
 	path = ext/raygui

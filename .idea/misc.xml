@@ -7,8 +7,10 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots>
       <file path="$PROJECT_DIR$/libs/hyro/include" />
+      <file path="$PROJECT_DIR$/libs/krusty/include" />
       <file path="$PROJECT_DIR$/libs/plastic/include" />
       <file path="$PROJECT_DIR$/libs/plastic/src" />
+      <file path="$PROJECT_DIR$/libs/solkup/include" />
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
     <libraryRoots>

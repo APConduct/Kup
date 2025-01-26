@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 #include <bits/stdc++.h>
-#include "ext/tinyfd/tinyfiledialogs.h"
+#include "tinyfiledialogs.h"
 #include "piece_table.hpp"
 #include <raylib.h>
 // #include <lua.hpp>
@@ -343,7 +343,7 @@ struct  TextArea {
 
     TextArea(const float pos_x, const float pos_y,
         const Font& font, const float font_size,const float spacing, float space_below)
-    : spacing(spacing), pos_x(pos_x), pos_y(pos_y), font_size(font_size), font(font), space_below(space_below)
+    : space_below(space_below), spacing(spacing), pos_x(pos_x), pos_y(pos_y), font_size(font_size), font(font)
     {}
 
 
@@ -397,7 +397,7 @@ struct  TextArea {
 
         // adjust visible cursor position for scrolling
         float cursor_screen_x = pos_x + (static_cast<float>(cursor.column) * font_size) - scroll_offset_x;
-        float cursor_screen_y = pos_y + (cursor.line * (font_size + spacing)) - scroll_offset_y;
+        float cursor_screen_y = pos_y + (static_cast<float>(cursor.line) * (font_size + spacing)) - scroll_offset_y;
 
         // Auto-scroll to keep cursor in view
         if (cursor_screen_y < pos_y) {
