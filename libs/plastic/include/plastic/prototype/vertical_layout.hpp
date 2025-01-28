@@ -6,11 +6,11 @@
 #define VERTICAL_LAYOUT_HPP
 #include "layout.hpp"
 #include "element.hpp"
-#include "plastic/layout_properties.hpp"
+#include "plastic/prototype/layout_properties.hpp"
 #include "rect.hpp"
 #include <memory>
 
-namespace plastic
+namespace plastic::proto
 {
     struct VerticalLayout : Layout {
     private:
@@ -75,7 +75,7 @@ namespace plastic
                         width = child_width;
                         break;
                     }
-                    case plastic::LayoutProperties::Alignment::Stretch:
+                    case LayoutProperties::Alignment::Stretch:
                         // Use full width
                         break;
 

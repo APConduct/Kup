@@ -10,7 +10,7 @@
 
 #include "model.hpp"
 
-namespace plastic
+namespace plastic::proto
 {
 
     template <typename T>

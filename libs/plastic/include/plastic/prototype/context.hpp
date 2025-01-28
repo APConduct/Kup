@@ -9,7 +9,7 @@
 
 #include "rect.hpp"
 
-namespace plastic
+namespace plastic::proto
 {
         // Experimental function pointer type for event handlers
 

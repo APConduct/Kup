@@ -7,7 +7,7 @@
 
 #include <raylib.h>
 
-namespace plastic::proto {
+namespace plastic {
     struct Size {
         float width;
         float height;

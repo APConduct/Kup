@@ -13,7 +13,7 @@
 #include "element.hpp"
 #include "layout.hpp"
 
-namespace plastic
+namespace plastic::proto
 {
     struct Container : Element {
     protected:

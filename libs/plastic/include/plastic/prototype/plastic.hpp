@@ -13,7 +13,7 @@
 #include "element.hpp"
 
 
-namespace plastic
+namespace plastic::proto
 {
     // Forward declarations
     struct Style;

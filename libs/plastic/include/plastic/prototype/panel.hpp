@@ -6,7 +6,7 @@
 #define PANEL_HPP
 
 #include "component.hpp"
-#include "plastic/context.hpp"
+#include "plastic//prototype/context.hpp"
 #include "../events/event_system.hpp"
 #include "point.hpp"
 #include "rect.hpp"
@@ -16,7 +16,7 @@
 #include <utility>
 #include <vector>
 
-namespace plastic {
+namespace plastic::proto {
 
     class Panel : public Component {
     private:
@@ -119,7 +119,7 @@ namespace plastic {
             DrawTextEx(
                 style.font,
                 title.c_str(),
-                plastic::Point(
+                plastic::proto::Point(
                     header_bounds.x + 5,
                     header_bounds.y + header_height / 2 - static_cast<float>(style.font_size) / 2
                 ).to_raylib(),
@@ -129,7 +129,7 @@ namespace plastic {
             );
 
             // Draw collapse/expand button
-            plastic::Rect button_bounds(
+            Rect button_bounds(
                 bounds.right() - 20,
                 bounds.y + 5,
                 15,
@@ -140,7 +140,7 @@ namespace plastic {
             DrawTextEx(
                 style.font,
                 collapsed ? "+" : "-",
-                plastic::Point<float>(
+                Point<float>(
                     button_bounds.x + 4,
                     button_bounds.y
                 ).to_raylib(),
@@ -160,14 +160,14 @@ namespace plastic {
         void process_event(const events::MouseButtonEvent& e) override {
             // Check for header click to toggle collapse
             if (e.pressed && e.button == MOUSE_BUTTON_LEFT) {
-                plastic::Rect header_bounds(
+                Rect header_bounds(
                     get_bounds().x,
                     get_bounds().y,
                     get_bounds().width,
                     header_height
                 );
 
-                if (header_bounds.contains(plastic::Point<float>(e.position).to_raylib())) {
+                if (header_bounds.contains(Point<float>(e.position).to_raylib())) {
                     collapsed = !collapsed;
                     layout(ctx->get_bounds());
                     return;

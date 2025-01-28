@@ -11,7 +11,7 @@
 #include "../layout_properties.hpp"
 
 
-namespace plastic
+namespace plastic::proto
 {
 
 

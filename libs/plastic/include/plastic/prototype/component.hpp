@@ -13,7 +13,7 @@
 #include "raylib.h"
 #include "../events/event_system.hpp"
 
-namespace plastic
+namespace plastic::proto
 {
     struct Component  : element::Element {
 
@@ -115,7 +115,7 @@ namespace plastic
         // Default implementation for event types
 
         virtual void process_event(const events::MouseMoveEvent& e) {
-            handle_resize(plastic::Point<float>(e.position));
+            handle_resize(plastic::proto::Point<float>(e.position));
         }
 
         virtual void process_event(const events::MouseScrollEvent& e) {

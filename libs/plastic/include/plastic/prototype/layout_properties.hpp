@@ -8,7 +8,7 @@
 #include "rect.hpp"
 #include <algorithm>
 #include <cfloat>
-namespace plastic {
+namespace plastic::proto {
     struct LayoutConstraints {
         Size min_size{0,0};
         Size max_size{FLT_MAX, FLT_MAX};

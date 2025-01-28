@@ -9,7 +9,7 @@
 #include "context.hpp"
 #include "layout_properties.hpp"
 
-namespace plastic::element
+namespace plastic::proto::element
 {
 
     struct Element {

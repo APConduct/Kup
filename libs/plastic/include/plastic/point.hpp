@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <raylib.h>
 #include <string>
-namespace plastic::proto
+namespace plastic
 {
     template <typename T>
     struct Point {

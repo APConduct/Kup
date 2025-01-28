@@ -7,7 +7,7 @@
 #include <functional>
 #include <memory>
 
-namespace plastic
+namespace plastic::proto
 {
 
     template <typename T>
