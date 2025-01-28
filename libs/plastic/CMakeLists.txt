@@ -3,7 +3,7 @@ project(plastic)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(plastic STATIC src/plastic_prototype.cpp include/plastic/plastic_prototype.hpp
+add_library(plastic STATIC
         include/plastic/basic_concurrent_window.hpp
         include/plastic/plastic.hpp
         include/plastic/rect.hpp
