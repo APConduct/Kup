@@ -4,22 +4,22 @@ project(plastic)
 set(CMAKE_CXX_STANDARD 20)
 
 add_library(plastic STATIC
-        include/plastic/basic_concurrent_window.hpp
-        include/plastic/plastic.hpp
-        include/plastic/rect.hpp
-        include/plastic/point.hpp
-        include/plastic/layout.hpp
-        include/plastic/vertical_layout.hpp
-        include/plastic/container.hpp
+        include/plastic/prototype/basic_concurrent_window.hpp
+        include/plastic/prototype/plastic.hpp
+        include/plastic/prototype/rect.hpp
+        include/plastic/prototype/point.hpp
+        include/plastic/prototype/layout.hpp
+        include/plastic/prototype/vertical_layout.hpp
+        include/plastic/prototype/container.hpp
         include/plastic/events/event_system.hpp
-        include/plastic/context.hpp
-        include/plastic/element.hpp
-        include/plastic/layout_properties.hpp
-        include/plastic/component.hpp
-        include/plastic/panel.hpp
-        include/plastic/model.hpp
-        include/plastic/view.hpp
-        include/plastic/any_context.hpp
+        include/plastic/prototype/context.hpp
+        include/plastic/prototype/element.hpp
+        include/plastic/prototype/layout_properties.hpp
+        include/plastic/prototype/component.hpp
+        include/plastic/prototype/panel.hpp
+        include/plastic/prototype/model.hpp
+        include/plastic/prototype/view.hpp
+        include/plastic/prototype/any_context.hpp
         src/plastic.cpp)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)

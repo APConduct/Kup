@@ -4,11 +4,11 @@
 
 #ifndef LAYOUT_HPP
 #define LAYOUT_HPP
-#include "plastic/element.hpp"
+#include "element.hpp"
 #include "rect.hpp"
 #include <memory>
 #include <vector>
-#include "plastic/layout_properties.hpp"
+#include "../layout_properties.hpp"
 
 
 namespace plastic

@@ -1,7 +1,7 @@
 #ifndef PLASTIC_EVENT_SYSTEM_HPP
 #define PLASTIC_EVENT_SYSTEM_HPP
 
-#include "plastic/config.hpp"
+#include "../prototype/config.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <format>
@@ -18,8 +18,8 @@
 #include <vector>
 #include <variant>
 #include "raylib.h"
-#include "plastic/point.hpp"
-#include "plastic/rect.hpp"
+#include "../prototype/point.hpp"
+#include "../prototype/rect.hpp"
 
 
 namespace plastic::events {

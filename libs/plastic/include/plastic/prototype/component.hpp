@@ -8,10 +8,10 @@
 #include <algorithm>
 
 #include "element.hpp"
-#include "plastic/rect.hpp"
+#include "rect.hpp"
 #include "point.hpp"
 #include "raylib.h"
-#include "events/event_system.hpp"
+#include "../events/event_system.hpp"
 
 namespace plastic
 {

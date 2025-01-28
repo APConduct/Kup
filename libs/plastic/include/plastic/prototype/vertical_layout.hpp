@@ -5,9 +5,9 @@
 #ifndef VERTICAL_LAYOUT_HPP
 #define VERTICAL_LAYOUT_HPP
 #include "layout.hpp"
-#include "plastic/element.hpp"
+#include "element.hpp"
 #include "plastic/layout_properties.hpp"
-#include "plastic/rect.hpp"
+#include "rect.hpp"
 #include <memory>
 
 namespace plastic

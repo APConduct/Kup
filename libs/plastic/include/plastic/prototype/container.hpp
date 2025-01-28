@@ -9,9 +9,9 @@
 #include <vector>
 
 #include "plastic.hpp"
-#include "Rect.hpp"
-#include "plastic/element.hpp"
-#include "plastic/layout.hpp"
+#include "rect.hpp"
+#include "element.hpp"
+#include "layout.hpp"
 
 namespace plastic
 {

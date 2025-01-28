@@ -7,9 +7,9 @@
 
 #include "component.hpp"
 #include "plastic/context.hpp"
-#include "plastic/events/event_system.hpp"
-#include "plastic/point.hpp"
-#include "plastic/rect.hpp"
+#include "../events/event_system.hpp"
+#include "point.hpp"
+#include "rect.hpp"
 #include <memory>
 #include <raylib.h>
 #include <string>

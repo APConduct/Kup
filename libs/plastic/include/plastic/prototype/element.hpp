@@ -7,7 +7,7 @@
 #include <memory>
 
 #include "context.hpp"
-#include "plastic/layout_properties.hpp"
+#include "layout_properties.hpp"
 
 namespace plastic::element
 {

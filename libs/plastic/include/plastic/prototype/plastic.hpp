@@ -5,8 +5,8 @@
 #ifndef PLASTIC_HPP
 #define PLASTIC_HPP
 
-#include "plastic/config.hpp"
-#include "plastic/events/event_system.hpp"
+#include "config.hpp"
+#include "../events/event_system.hpp"
 #include "rect.hpp"
 #include "point.hpp"
 #include "context.hpp"

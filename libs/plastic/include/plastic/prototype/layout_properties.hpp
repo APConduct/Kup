@@ -5,7 +5,7 @@
 #ifndef LAYOUT_PROPERTIES_HPP
 #define LAYOUT_PROPERTIES_HPP
 
-#include "plastic/rect.hpp"
+#include "rect.hpp"
 #include <algorithm>
 #include <cfloat>
 namespace plastic {
