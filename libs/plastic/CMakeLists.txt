@@ -11,7 +11,6 @@ add_library(plastic STATIC
         include/plastic/prototype/layout.hpp
         include/plastic/prototype/vertical_layout.hpp
         include/plastic/prototype/container.hpp
-        include/plastic/events/event_system.hpp
         include/plastic/prototype/context.hpp
         include/plastic/prototype/element.hpp
         include/plastic/prototype/layout_properties.hpp
@@ -20,7 +19,11 @@ add_library(plastic STATIC
         include/plastic/prototype/model.hpp
         include/plastic/prototype/view.hpp
         include/plastic/prototype/any_context.hpp
-        src/plastic.cpp)
+
+        include/plastic/events/event_system.hpp
+        src/plastic.cpp
+        include/plastic/point.hpp
+        include/plastic/rect.hpp)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 
