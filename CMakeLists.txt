@@ -141,6 +141,8 @@ if(NOT freetype_POPULATED)
     message(FATAL_ERROR "Failed to populate FreeType")
 endif()
 
+add_subdirectory(ext/tinyfd)
+
 add_subdirectory(libs/plastic)
 add_subdirectory(libs/hyro)
 add_subdirectory(libs/solkup)
@@ -169,6 +171,7 @@ add_executable(Kup src/main.cpp
 )
 
 target_link_libraries(Kup PRIVATE raylib
+        tinyfd
         tinyfiledialogs
         raygui
         plastic
@@ -183,7 +186,7 @@ target_link_libraries(Kup PRIVATE raylib
 target_include_directories(Kup PRIVATE
         ${tinyfiledialogs_SRC}
         ${CMAKE_SOURCE_DIR}/src/../ext/raygui/src
-        ${tinyfiledialogs_SRC}
+        ${tinyfd_SRC}
 
 )
 
