@@ -23,7 +23,8 @@ add_library(plastic STATIC
         include/plastic/events/event_system.hpp
         src/plastic.cpp
         include/plastic/point.hpp
-        include/plastic/rect.hpp)
+        include/plastic/rect.hpp
+        include/plastic/size.hpp)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 

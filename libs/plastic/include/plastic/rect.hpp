@@ -15,11 +15,12 @@ namespace plastic {
         explicit Size(const float width=0, const float height=0) : width(width), height(height) {}
     };
 
+    template <typename T>
     struct Rect {
-        float x;
-        float y;
-        float width;
-        float height;
+        T x;
+        T y;
+        T width;
+        T height;
 
         explicit Rect(const float x=0, const float y=0, const float width=0, const float height=0)
             : x(x), y(y), width(width), height(height) {}
