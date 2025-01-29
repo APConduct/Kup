@@ -40,8 +40,8 @@ target_sources(plastic
         include/modules/size.ixx
         include/modules/rect.ixx
         include/modules/edge.ixx
-        include/modules/Style.ixx
-
+        include/modules/style.ixx
+        include/modules/model.ixx
 )
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)

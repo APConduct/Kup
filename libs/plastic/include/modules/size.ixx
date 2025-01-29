@@ -13,10 +13,15 @@ export namespace plastic
     struct Size {
         static_assert(std::is_arithmetic_v<T>, "Size must be of an arithmetic type");
 
-        T width;
+        T width_;
         T height;
 
-        explicit Size(const float width=0, const float height=0) : width(width), height(height) {}
+        Size& width(const T width) {
+            this->width_ = width;
+            return *this;
+        }
+
+        explicit Size(const float width=0, const float height=0) : width_(width), height(height) {}
     };
 
 }
