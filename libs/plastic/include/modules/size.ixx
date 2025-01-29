@@ -14,14 +14,27 @@ export namespace plastic
         static_assert(std::is_arithmetic_v<T>, "Size must be of an arithmetic type");
 
         T width_;
-        T height;
+        T height_;
 
         Size& width(const T width) {
             this->width_ = width;
             return *this;
         }
 
-        explicit Size(const float width=0, const float height=0) : width_(width), height(height) {}
+        Size& height(const T height) {
+            this->height_ = height;
+            return *this;
+        }
+
+        T width() const {
+            return width_;
+        }
+
+        T height() const {
+            return height_;
+        }
+
+        explicit Size(const float width=0, const float height=0) : width_(width), height_(height) {}
     };
 
 }

@@ -29,6 +29,7 @@ add_library(plastic STATIC
         include/plastic/point.hpp
         include/plastic/rect.hpp
         include/plastic/size.hpp
+
 )
 
 target_sources(plastic
@@ -42,6 +43,11 @@ target_sources(plastic
         include/modules/edge.ixx
         include/modules/style.ixx
         include/modules/model.ixx
+        include/modules/element.ixx
+        include/modules/context.ixx
+        include/modules/color.ixx
+        include/modules/view.ixx
+        include/modules/div.ixx
 )
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)

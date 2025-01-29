@@ -5,17 +5,18 @@
 module;
 #include <optional>
 
-#include "raylib.h"
 
-export module Style;
+export module plastic.style;
 
 import plastic.point;
 import plastic.size;
 import plastic.rect;
 import plastic.edge;
+import plastic.color;
 
 export namespace plastic::style
 {
+
 
     struct BasicStyle {
         std::optional<Color> background_color;
@@ -57,6 +58,11 @@ export namespace plastic::style
         Edge padding{0,0,0,0};
         Edge margin{0,0,0,0};
         std::optional<Size<float>> preferred_size;
+
+        [[nodiscard]] Point<float> origin() const {
+            return Point<float>(padding.left, padding.top);
+
+        }
     };
 
     struct StyleSet {

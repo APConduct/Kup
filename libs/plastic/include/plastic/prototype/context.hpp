@@ -64,7 +64,7 @@ namespace plastic::proto
 
     struct Context {
     private:
-        plastic::Rect bounds;
+        Rect bounds;
         Style style;
         bool is_hovered = false;
         bool is_active = false;

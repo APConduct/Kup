@@ -5,6 +5,8 @@
 module;
 
 #include <algorithm>
+#include <functional>
+#include <vector>
 
 export module plastic.model;
 
@@ -12,14 +14,31 @@ export namespace plastic
 {
     template <typename T>
     struct Model {
+    private:
         T data;
 
 
+        std::vector<std::function<void(const T&)>> observers;
+    public:
 
+        void update(std::function<void(T&)> updater) {
+            updater(data);
+            is_dirty = true;
+            for (const auto& observer : observers) {
+                observer(data);
+            }
+        }
+
+        [[nodiscard]] const T& get() const {
+            return data;
+        }
+
+        void observe(std::function<void(const T&)> observer) {
+            observers.push_back(observer);
+        }
 
 
         bool is_dirty;
-
         Model() : data(), is_dirty(false) {}
         explicit Model(const T& data) : data(data), is_dirty(false) {}
         explicit Model(T&& data) : data(std::move(data)), is_dirty(false) {}
