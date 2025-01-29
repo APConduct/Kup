@@ -18,63 +18,119 @@ export namespace plastic
     struct Rect {
         static_assert(std::is_arithmetic_v<T>, "Rect must be of an arithmetic type");
 
-        T x;
-        T y;
-        T width;
-        T height;
+        T x_;
+        T y_;
+        T width_;
+        T height_;
 
         explicit Rect(const T x=0, const T y=0, const T width=0, const T height=0)
-            : x(x), y(y), width(width), height(height) {}
+            : x_(x), y_(y), width_(width), height_(height) {}
+
+        Rect& x(const T x) {
+            x_ = x;
+            return *this;
+        }
+
+        Rect& y(const T y) {
+            y_ = y;
+            return *this;
+        }
+
+        Rect& width(const T width) {
+            width_ = width;
+            return *this;
+        }
+
+        Rect& height(const T height) {
+            height_ = height;
+            return *this;
+        }
+
+        T x() const { return x_; }
+
+        T y() const { return y_; }
+
+        T width() const { return width_; }
+
+        T height() const { return height_; }
 
         bool contains(const Point<T>& point) const {
-            return point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height;
+            return point.x_ >= x_ && point.x_ <= x_ + width_ && point.y_ >= y_ && point.y_ <= y_ + height_;
         }
     };
 
     template <>
     struct Rect<float> {
-        float x, y, width, height;
+        float x_, y_, width_, height_;
         explicit Rect(const float x=0, const float y=0, const float width=0, const float height=0)
-            : x(x), y(y), width(width), height(height) {}
+            : x_(x), y_(y), width_(width), height_(height) {}
+
+        Rect& x(const float x) {
+            x_ = x;
+            return *this;
+        }
+
+        Rect& y(const float y) {
+            y_ = y;
+            return *this;
+        }
+
+        Rect& width(const float width) {
+            width_ = width;
+            return *this;
+        }
+
+        Rect& height(const float height) {
+            height_ = height;
+            return *this;
+        }
+
+        [[nodiscard]] float x() const { return x_; }
+
+        [[nodiscard]] float y() const { return y_; }
+
+        [[nodiscard]] float width() const { return width_; }
+
+        [[nodiscard]] float height() const { return height_; }
 
         static Rect from_rl(const Rectangle& rect) {
             return Rect(rect.x, rect.y, rect.width, rect.height);
         }
 
         [[nodiscard]] Rectangle to_rl() const {
-            return {x, y, width, height};
+            return {x_, y_, width_, height_};
         }
 
         [[nodiscard]] bool contains(const Point<float>& point) const {
-            return point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height;
+            return point.x >= x_ && point.x <= x_ + width_ && point.y >= y_ && point.y <= y_ + height_;
         }
 
         [[nodiscard]] bool contains(const float px, const float py) const {
-            return px >= x && px <= x + width && py >= y && py <= y + height;
+            return px >= x_ && px <= x_ + width_ && py >= y_ && py <= y_ + height_;
         }
 
         void draw_lines(const float thickness, const Color color) const {
-            DrawRectangleLinesEx({x, y, width, height}, thickness, color);
+            DrawRectangleLinesEx({x_, y_, width_, height_}, thickness, color);
         }
 
         void fill(const Color color) const {
             DrawRectangleRec(to_rl(), color);
         }
 
+        // MAYBE REMOVE THESE FUNCTIONS
         void apply_scissor() const {
             BeginScissorMode(
-                static_cast<int>(x),
-                static_cast<int>(y),
-                static_cast<int>(width),
-                static_cast<int>(height));
+                static_cast<int>(x_),
+                static_cast<int>(y_),
+                static_cast<int>(width_),
+                static_cast<int>(height_));
         }
 
-        // MAYBE REMOVE THESE FUNCTIONS
         static void stop_scissor() {
             EndScissorMode();
         }
 
-        [[nodiscard]] float right() const { return x + width; };
-        [[nodiscard]] float bottom() const { return y + height;}
+        [[nodiscard]] float right() const { return x_ + width_; };
+        [[nodiscard]] float bottom() const { return y_ + height_;}
     };
 }

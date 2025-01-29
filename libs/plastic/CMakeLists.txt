@@ -39,7 +39,8 @@ target_sources(plastic
         include/modules/point.ixx
         include/modules/size.ixx
         include/modules/rect.ixx
-
+        include/modules/edge.ixx
+        include/modules/Style.ixx
 
 )
 
