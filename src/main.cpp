@@ -12,6 +12,8 @@
 
 using std::string;
 
+import plastic;
+
 // color values for raygui components
 enum hues
 {

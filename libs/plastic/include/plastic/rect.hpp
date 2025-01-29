@@ -6,15 +6,18 @@
 #define RECT_HPP
 
 #include <raylib.h>
+#include <type_traits>
 
 namespace plastic {
+    template <typename T>
     struct Size {
-        float width;
-        float height;
+        static_assert(std::is_arithmetic_v<T>, "Size must be of an arithmetic type");
+
+        T width;
+        T height;
 
         explicit Size(const float width=0, const float height=0) : width(width), height(height) {}
     };
-
     template <typename T>
     struct Rect {
         T x;
@@ -24,9 +27,6 @@ namespace plastic {
 
         explicit Rect(const float x=0, const float y=0, const float width=0, const float height=0)
             : x(x), y(y), width(width), height(height) {}
-
-        explicit Rect(const Vector2& position, const Size& size)
-            : x(position.x), y(position.y), width(size.width), height(size.height) {}
 
         explicit Rect(const Rectangle& rect)
             : x(rect.x), y(rect.y), width(rect.width), height(rect.height) {}

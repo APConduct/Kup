@@ -3,6 +3,10 @@ project(plastic)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_CXX_SCAN_FOR_MODULES ON)
+
+
+
 add_library(plastic STATIC
         include/plastic/prototype/basic_concurrent_window.hpp
         include/plastic/prototype/plastic.hpp
@@ -24,7 +28,20 @@ add_library(plastic STATIC
         src/plastic.cpp
         include/plastic/point.hpp
         include/plastic/rect.hpp
-        include/plastic/size.hpp)
+        include/plastic/size.hpp
+)
+
+target_sources(plastic
+        PUBLIC
+        FILE_SET CXX_MODULES
+        FILES
+        include/modules/plastic.ixx
+        include/modules/point.ixx
+        include/modules/size.ixx
+        include/modules/rect.ixx
+
+
+)
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 
