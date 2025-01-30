@@ -14,7 +14,6 @@ export import plastic.context;
 export import plastic.element;
 export import plastic.model;
 export import plastic.view;
-export import plastic.div;
 
 
 

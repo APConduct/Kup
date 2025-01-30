@@ -47,8 +47,8 @@ target_sources(plastic
         include/modules/context.ixx
         include/modules/color.ixx
         include/modules/view.ixx
-        include/modules/div.ixx
 )
+
 
 target_link_libraries(plastic PUBLIC raylib raygui glfw)
 
