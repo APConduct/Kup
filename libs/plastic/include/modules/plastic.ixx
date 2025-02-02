@@ -18,6 +18,7 @@ export import plastic.window;
 export import plastic.events;
 export import plastic.application;
 export import plastic.app;
+export import plastic.event_system;
 
 
 

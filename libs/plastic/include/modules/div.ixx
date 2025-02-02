@@ -5,11 +5,9 @@
 export module plasyic.div;
 
 export import plastic.element;
+import plastic.context;
 
 export namespace plastic
 {
-    struct Div {
 
-
-    };
 }

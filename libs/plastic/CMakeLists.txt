@@ -55,14 +55,16 @@ target_sources(plastic
         include/modules/application.ixx
         include/modules/events.ixx
         include/modules/ref_count.ixx
-        include/modules/event_handler_base.ixx
-        include/modules/typed_event_handler.ixx
-        include/modules/event_queue.ixx
-        include/modules/event_dispatcher.ixx
-        include/modules/event_visitor.ixx
-        include/modules/event_listener.ixx
-        include/modules/event_batcher.ixx
-        include/modules/single_event_listener.ixx
+        include/modules/events/event_handler_base.ixx
+        include/modules/events/typed_event_handler.ixx
+        include/modules/events/event_queue.ixx
+        include/modules/events/event_dispatcher.ixx
+        include/modules/events/event_visitor.ixx
+        include/modules/events/event_listener.ixx
+        include/modules/events/event_batcher.ixx
+        include/modules/events/single_event_listener.ixx
+        include/modules/events/event_system.ixx
+
 
 )
 
