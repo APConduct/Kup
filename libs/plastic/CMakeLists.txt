@@ -25,6 +25,7 @@ add_library(plastic STATIC
         include/plastic/prototype/any_context.hpp
 
         include/plastic/events/event_system.hpp
+
 )
 
 target_sources(plastic
@@ -64,6 +65,9 @@ target_sources(plastic
         include/modules/events/event_batcher.ixx
         include/modules/events/single_event_listener.ixx
         include/modules/events/event_system.ixx
+        include/modules/vertical_layout.ixx
+        include/modules/layout_properties.ixx
+        include/modules/panel.ixx
 
 
 )
