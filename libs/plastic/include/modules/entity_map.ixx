@@ -42,13 +42,6 @@ export namespace plastic
 
     };
 
-    template<>
-    struct hash<EntityId> {
-        std::size_t operator()(const EntityId& id) const {
-            return std::hash<uint32_t>()(id.index()) ^ std::hash<Generation>()(id.generation());
-        }
-    };
-
     class World {
         struct EntitySlot {
             Generation generation;
@@ -131,3 +124,9 @@ export namespace plastic
 
     };
 }
+export template<>
+struct std::hash<plastic::EntityId> {
+    std::size_t operator()(const plastic::EntityId& id) const noexcept {
+        return std::hash<uint32_t>()(id.index()) ^ std::hash<plastic::Generation>()(id.generation());
+    }
+};
