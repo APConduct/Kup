@@ -58,6 +58,14 @@ export namespace plastic::style
         Edge<float> margin{0,0,0,0};
         std::optional<Size<float>> preferred_size;
 
+        void set_preferred_size(Size<float> size) {
+            preferred_size = size;
+        }
+
+        Size<float> get_preferred_size() const {
+            return preferred_size.value_or(Size<float>{0,0});
+        }
+
         [[nodiscard]] Point<float> origin() const {
             return Point<float>(padding.left, padding.top);
 

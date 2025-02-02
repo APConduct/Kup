@@ -11,7 +11,8 @@ export module plastic.element;
 import plastic.style;
 import plastic.context;
 import plastic.size;
-
+import plastic.layout_properties;
+import plastic.rect;
 
 export namespace plastic
 {
@@ -21,6 +22,8 @@ export namespace plastic
         style::Style style;
         Size<float> current_size{0,0};
         std::weak_ptr<Element> parent;
+        Rect<float> bounds;
+        LayoutProperties layout_properties;
 
         std::vector<std::shared_ptr<Element>> children;
 
@@ -28,12 +31,28 @@ export namespace plastic
         virtual ~Element() = default;
         virtual void mount(Context* cx) {};
         virtual void unmount(Context* cx) {};
-        virtual void layout(Context* cx) const = 0;
+        virtual void layout(Context* cx) = 0;
         virtual void paint(Context* cx) const = 0;
         // virtual void handle_event(Event& event, Context* cx) {};
          void add_child(const std::shared_ptr<Element>& child) {
             child->parent = shared_from_this();
             this->children.push_back(child);
+        }
+
+        LayoutProperties get_layout_properties() {
+            return layout_properties;
+        }
+
+        Rect<float> get_bounds() const {
+            return bounds;
+        }
+
+        void set_bounds(const Rect<float>& bounds) {
+            this->bounds = bounds;
+        }
+
+        void set_layout_properties(const LayoutProperties& properties) {
+            layout_properties = properties;
         }
 
         void set_style(const style::Style& style) {
@@ -50,6 +69,10 @@ export namespace plastic
 
         [[nodiscard]] const Size<float>& get_current_size() const {
             return current_size;
+        }
+
+        [[nodiscard]] Size<float> get_preferred_size() const {
+            return style.get_preferred_size();
         }
     };
 }

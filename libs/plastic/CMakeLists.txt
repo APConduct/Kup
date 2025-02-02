@@ -52,6 +52,9 @@ target_sources(plastic
         include/modules/panel.ixx
         include/modules/component.ixx
         include/modules/entity_map.ixx
+        include/modules/horizontal_layout.ixx
+        include/modules/vertical_layout.ixx
+        include/modules/layout.ixx
 
 )
 

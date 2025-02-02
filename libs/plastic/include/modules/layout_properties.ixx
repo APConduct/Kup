@@ -54,5 +54,22 @@ export namespace plastic
         };
 
         Alignment align_self{Alignment::Start};
+
+        bool fill_width{false};
+        bool fill_height{false};
+        float weight{1.0f}; // For weighted distributions
+
+        // Helper methods
+        [[nodiscard]] Size<float> constrain_size(const Size<float>& size) const {
+            return constraints.constrain(size);
+        }
+
+        [[nodiscard]] float get_total_horizontal_space() const {
+            return margin * 2 + padding * 2;
+        }
+
+        [[nodiscard]] float get_total_vertical_space() const {
+            return margin * 2 + padding * 2;
+        }
     };
 }

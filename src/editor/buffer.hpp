@@ -66,6 +66,11 @@ namespace kup {
             return content.get_text().substr(start, end - start);
         }
 
+        [[nodiscard]] size_t line_count() const {
+            update_cache();
+            return line_offsets.size();
+        }
+
         [[nodiscard]] BufferPosition index_to_position(size_t index) const {
             update_cache();
             auto it = std::upper_bound(line_offsets.begin(), line_offsets.end(), index);
