@@ -25,6 +25,7 @@ add_library(plastic STATIC
         include/plastic/prototype/any_context.hpp
 
         include/plastic/events/event_system.hpp
+        include/modules/entity_map.ixx
 
 )
 

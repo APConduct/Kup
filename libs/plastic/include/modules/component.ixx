@@ -3,3 +3,10 @@
 //
 
 export module plastic.component;
+
+export namespace plastic
+{
+    struct Component {
+        virtual ~Component() = default;
+    };
+}

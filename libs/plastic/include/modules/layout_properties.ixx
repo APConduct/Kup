@@ -35,4 +35,24 @@ export namespace plastic
             return result;
         }
     };
+
+    struct LayoutProperties {
+        // How much element grows relavtive to siblings
+        float flex_grow{0};
+        // How much the element shrinks relative to siblings
+        float flex_shrink{1};
+        Size<float> preferred_size{0,0};
+        LayoutConstraints constraints;
+        float margin{0};
+        float padding{0};
+
+        enum class Alignment {
+            Start,
+            Center,
+            End,
+            Stretch
+        };
+
+        Alignment align_self{Alignment::Start};
+    };
 }
