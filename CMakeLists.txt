@@ -174,6 +174,7 @@ add_executable(Kup src/main.cpp
         libs/hyro/include/hyro/font.hpp
 
         src/editor/buffer.hpp
+        src/editor/text_view.hpp
 )
 
 target_link_libraries(Kup PRIVATE raylib
