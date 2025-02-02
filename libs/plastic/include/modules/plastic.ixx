@@ -16,6 +16,8 @@ export import plastic.model;
 export import plastic.view;
 export import plastic.window;
 export import plastic.events;
+export import plastic.application;
+export import plastic.app;
 
 
 

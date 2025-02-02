@@ -17,8 +17,8 @@ export namespace plastic::events
 {
 
     struct MouseMoveEvent {
-        Size<float> position;
-        Size<float> delta;
+        Point<float> position;
+        Point<float> delta;
         double timestamp{};
     };
 
@@ -89,6 +89,7 @@ export namespace plastic::events
         T data;
         double timestamp;
     };
+
 
     using Event = std::variant<
         MouseMoveEvent,

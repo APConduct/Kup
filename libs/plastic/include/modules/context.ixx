@@ -1,8 +1,10 @@
 //
 // Created by ajost1 on 1/29/2025.
 //
-
+module;
+#include <memory>
 export module plastic.context;
+import plastic.events;
 
 export namespace plastic
 {
@@ -12,6 +14,6 @@ export namespace plastic
         virtual void request_point() = 0;
 
 
-        // dispatch_event(std::unique_ptr<Event> event) = 0;
+       // virtual void dispatch_event(std::unique_ptr<events::Event> event) = 0;
     };
 }

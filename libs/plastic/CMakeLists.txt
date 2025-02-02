@@ -25,12 +25,6 @@ add_library(plastic STATIC
         include/plastic/prototype/any_context.hpp
 
         include/plastic/events/event_system.hpp
-        src/plastic.cpp
-        include/plastic/point.hpp
-        include/plastic/rect.hpp
-        include/plastic/size.hpp
-
-
 )
 
 target_sources(plastic
@@ -60,7 +54,15 @@ target_sources(plastic
         include/modules/app.ixx
         include/modules/application.ixx
         include/modules/events.ixx
-
+        include/modules/ref_count.ixx
+        include/modules/event_handler_base.ixx
+        include/modules/typed_event_handler.ixx
+        include/modules/event_queue.ixx
+        include/modules/event_dispatcher.ixx
+        include/modules/event_visitor.ixx
+        include/modules/event_listener.ixx
+        include/modules/event_batcher.ixx
+        include/modules/single_event_listener.ixx
 
 )
 
