@@ -114,7 +114,7 @@ struct EventHandlerBase {
 
 // Typed event handler
 template<typename T>
-struct TypedEventHandler : public EventHandlerBase {
+struct TypedEventHandler : EventHandlerBase {
 private:
     std::function<void(const T&)> handler;
 
@@ -227,14 +227,14 @@ struct EventQueue {
     void push_front(T&& event) {
         static_assert(std::is_constructible_v<Event, std::decay<T>>, "Event type must be one of the variant alternatives");
 
-        std::lock_guard<std::mutex> lock(queue_mutex);
+        std::lock_guard lock(queue_mutex);
         queued_events.insert(queued_events.begin(), std::forward<T>(event));
     }
 
     // Merge annother event queue into this queue
     void merge(EventQueue& other) {
-        std::lock_guard<std::mutex> lock(queue_mutex);
-        std::lock_guard<std::mutex> other_lock(other.queue_mutex);
+        std::lock_guard lock(queue_mutex);
+        std::lock_guard other_lock(other.queue_mutex);
 
         queued_events.insert(
             queued_events.end(),

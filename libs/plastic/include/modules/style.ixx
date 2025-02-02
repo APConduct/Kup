@@ -17,7 +17,6 @@ import plastic.color;
 export namespace plastic::style
 {
 
-
     struct BasicStyle {
         std::optional<Color> background_color;
         std::optional<Color> background_hover;
@@ -29,8 +28,8 @@ export namespace plastic::style
         std::optional<Color> border_active;
         std::optional<Color> border_hover;
 
-        Edge padding{0,0,0,0};
-        Edge margin{0,0,0,0};
+        Edge<float> padding{0,0,0,0};
+        Edge<float> margin{0,0,0,0};
         std::optional<Size<float>> preferred_size;
     };
     struct Style {
@@ -55,8 +54,8 @@ export namespace plastic::style
         std::optional<Color> text_outline_active;
         std::optional<Color> text_outline_disabled;
 
-        Edge padding{0,0,0,0};
-        Edge margin{0,0,0,0};
+        Edge<float> padding{0,0,0,0};
+        Edge<float> margin{0,0,0,0};
         std::optional<Size<float>> preferred_size;
 
         [[nodiscard]] Point<float> origin() const {
@@ -97,8 +96,8 @@ export namespace plastic::style
         std::optional<Color> text_outline_active;
         std::optional<Color> text_outline_disabled;
 
-        Edge padding{0,0,0,0};
-        Edge margin{0,0,0,0};
+        Edge<float> padding{0,0,0,0};
+        Edge<float> margin{0,0,0,0};
         std::optional<Size<float>> preferred_size;
     };
 

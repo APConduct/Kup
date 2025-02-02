@@ -30,6 +30,7 @@ add_library(plastic STATIC
         include/plastic/rect.hpp
         include/plastic/size.hpp
 
+
 )
 
 target_sources(plastic
@@ -47,6 +48,20 @@ target_sources(plastic
         include/modules/context.ixx
         include/modules/color.ixx
         include/modules/view.ixx
+        include/modules/layout.ixx
+        include/modules/layout.ixx
+        include/modules/app_context.ixx
+        include/modules/div.ixx
+        include/modules/container.ixx
+        include/modules/window.ixx
+        include/modules/window_context.ixx
+        include/modules/view_context.ixx
+        include/modules/model_context.ixx
+        include/modules/app.ixx
+        include/modules/application.ixx
+        include/modules/events.ixx
+
+
 )
 
 
