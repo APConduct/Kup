@@ -97,7 +97,7 @@ export namespace plastic
             return current_size;
         }
 
-        virtual [[nodiscard]] Size<float> get_preferred_size() const {
+        [[nodiscard]] virtual Size<float> get_preferred_size() const {
             return style.get_preferred_size();
         }
     };
