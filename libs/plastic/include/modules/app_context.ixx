@@ -14,7 +14,7 @@ export namespace plastic::context
     struct AppContext {
 
     private:
-        std::pmr::vector<std::weak_ptr<Window>> windows_;
+        std::vector<std::weak_ptr<Window>> windows_;
 
     public:
         void add_window(const std::shared_ptr<Window>& window) {

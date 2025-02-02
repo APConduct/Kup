@@ -35,6 +35,10 @@ export namespace plastic
         }
 
         explicit Size(const float width=0, const float height=0) : width_(width), height_(height) {}
+
+        bool operator==(const Size& rhs) const {
+            return width_ == rhs.width_ && height_ == rhs.height_;
+        }
     };
 
 }

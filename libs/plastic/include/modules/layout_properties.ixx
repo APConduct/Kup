@@ -5,7 +5,6 @@
 module;
 #include <algorithm>
 #include <cfloat>
-
 export module plastic.layout_properties;
 import plastic.size;
 
@@ -71,5 +70,27 @@ export namespace plastic
         [[nodiscard]] float get_total_vertical_space() const {
             return margin * 2 + padding * 2;
         }
+
+        bool operator==(const LayoutProperties& other) const {
+            return flex_grow == other.flex_grow &&
+                   flex_shrink == other.flex_shrink &&
+                   preferred_size == other.preferred_size &&
+                   constraints.min_size == other.constraints.min_size &&
+                   constraints.max_size == other.constraints.max_size &&
+                   constraints.aspect_ratio == other.constraints.aspect_ratio &&
+                   constraints.preserve_aspect_ratio == other.constraints.preserve_aspect_ratio &&
+                   margin == other.margin &&
+                   padding == other.padding &&
+                   align_self == other.align_self &&
+                   fill_width == other.fill_width &&
+                   fill_height == other.fill_height &&
+                   weight == other.weight;
+        }
+
+        bool operator!=(const LayoutProperties& other) const {
+            return !(*this == other);
+        }
+
+        float spacing{0};
     };
 }

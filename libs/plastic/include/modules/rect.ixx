@@ -132,5 +132,9 @@ export namespace plastic
 
         [[nodiscard]] float right() const { return x_ + width_; };
         [[nodiscard]] float bottom() const { return y_ + height_;}
+
+        bool operator==(const Rect& other) const {
+            return x_ == other.x_ && y_ == other.y_ && width_ == other.width_ && height_ == other.height_;
+        }
     };
 }

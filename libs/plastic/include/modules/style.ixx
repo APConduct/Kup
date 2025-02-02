@@ -4,8 +4,6 @@
 
 module;
 #include <optional>
-
-
 export module plastic.style;
 
 import plastic.point;
@@ -62,13 +60,39 @@ export namespace plastic::style
             preferred_size = size;
         }
 
-        Size<float> get_preferred_size() const {
+        [[nodiscard]] Size<float> get_preferred_size() const {
             return preferred_size.value_or(Size<float>{0,0});
         }
 
         [[nodiscard]] Point<float> origin() const {
             return Point<float>(padding.left, padding.top);
 
+        }
+
+        bool operator==(const Style& rhs) const {
+            return background_color_normal == rhs.background_color_normal &&
+                   text_color_normal == rhs.text_color_normal &&
+                   text_hover == rhs.text_hover &&
+                   text_active == rhs.text_active &&
+                   border == rhs.border &&
+                   border_hover == rhs.border_hover &&
+                   border_active == rhs.border_active &&
+                   border_disabled == rhs.border_disabled &&
+                   hover == rhs.hover &&
+                   active == rhs.active &&
+                   disabled == rhs.disabled &&
+                   outline == rhs.outline &&
+                   outline_hover == rhs.outline_hover &&
+                   outline_active == rhs.outline_active &&
+                   outline_disabled == rhs.outline_disabled &&
+                   text_disabled == rhs.text_disabled &&
+                   text_outline == rhs.text_outline &&
+                   text_outline_hover == rhs.text_outline_hover &&
+                   text_outline_active == rhs.text_outline_active &&
+                   text_outline_disabled == rhs.text_outline_disabled &&
+                   padding == rhs.padding &&
+                   margin == rhs.margin &&
+                   preferred_size == rhs.preferred_size;
         }
     };
 

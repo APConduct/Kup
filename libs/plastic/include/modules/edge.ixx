@@ -20,6 +20,14 @@ export namespace plastic
         [[nodiscard]] Size<T> size() const {
             return Size<T>{right - left, bottom - top};
         }
+
+        bool operator==(const Edge& rhs) const {
+            return top == rhs.top && right == rhs.right && bottom == rhs.bottom && left == rhs.left;
+        }
+
+        bool operator!=(const Edge& rhs) const {
+            return !(rhs == *this);
+        }
     };
 
     template<>
@@ -32,6 +40,13 @@ export namespace plastic
 
         [[nodiscard]] Size<float> size() const {
             return Size<float>{right - left, bottom - top};
+        }
+
+        bool operator==(const Edge& rhs) const {
+            return top == rhs.top && right == rhs.right && bottom == rhs.bottom && left == rhs.left;
+        }
+        bool operator!=(const Edge& rhs) const {
+            return !(rhs == *this);
         }
 
 
