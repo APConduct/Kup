@@ -24,8 +24,7 @@ add_library(plastic STATIC
         include/plastic/prototype/view.hpp
         include/plastic/prototype/any_context.hpp
 
-        include/plastic/events/event_system.hpp
-        include/modules/entity_map.ixx
+
 
 )
 
@@ -69,7 +68,7 @@ target_sources(plastic
         include/modules/vertical_layout.ixx
         include/modules/layout_properties.ixx
         include/modules/panel.ixx
-
+        include/modules/component.ixx
 
 )
 
