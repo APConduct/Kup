@@ -9,7 +9,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 add_library(plastic STATIC
         include/plastic/config.hpp
-        )
+)
 
 target_sources(plastic
         PUBLIC
@@ -57,6 +57,8 @@ target_sources(plastic
         include/modules/vertical_layout.ixx
         include/modules/layout.ixx
         include/modules/layout_container.ixx
+        include/modules/stateful_view.ixx
+
 
 )
 

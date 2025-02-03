@@ -12,6 +12,7 @@ export module plastic.rect;
 import plastic.point;
 import plastic.size;
 
+
 export namespace plastic
 {
     template <typename T>
@@ -46,15 +47,15 @@ export namespace plastic
             return *this;
         }
 
-        T x() const { return x_; }
+        [[nodiscard]] T x() const { return x_; }
 
-        T y() const { return y_; }
+        [[nodiscard]] T y() const { return y_; }
 
-        T width() const { return width_; }
+        [[nodiscard]] T width() const { return width_; }
 
-        T height() const { return height_; }
+        [[nodiscard]] T height() const { return height_; }
 
-        bool contains(const Point<T>& point) const {
+        [[nodiscard]] bool contains(const Point<T>& point) const {
             return point.x_ >= x_ && point.x_ <= x_ + width_ && point.y_ >= y_ && point.y_ <= y_ + height_;
         }
     };
@@ -137,4 +138,24 @@ export namespace plastic
             return x_ == other.x_ && y_ == other.y_ && width_ == other.width_ && height_ == other.height_;
         }
     };
+
+    template <typename T>
+    Rect<T> make_rect(const T x, const T y, const T width, const T height) {
+        return Rect<T>(x, y, width, height);
+    }
+
+    template <typename T, typename U>
+    Rect<U> cast_rect(const Rect<T>& rect) {
+        return rect.template cast<U>();
+    }
+
+    template <>
+    Rect<int> cast_rect(const Rect<float>& rect) {
+        return Rect(
+            static_cast<int>(rect.x()),
+            static_cast<int>(rect.y()),
+            static_cast<int>(rect.width()),
+            static_cast<int>(rect.height()));
+    }
+
 }

@@ -11,6 +11,7 @@ import plastic.size;
 import plastic.rect;
 import plastic.edge;
 import plastic.color;
+import plastic.layout_properties;
 
 export namespace plastic::style
 {
@@ -31,6 +32,8 @@ export namespace plastic::style
         std::optional<Size<float>> preferred_size;
     };
     struct Style {
+        Style() = default;
+        LayoutProperties layout_properties;
         std::optional<Color> background_color_normal;
         std::optional<Color> text_color_normal;
         std::optional<Color> text_hover;

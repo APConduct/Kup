@@ -25,7 +25,7 @@ export namespace plastic::context
 
         void request_layout(){}
         template <typename T>
-        void focus(View<T>* view){}
+        void focus(View* view){}
         void focus(Element* view){}
 
 

@@ -175,6 +175,8 @@ add_executable(Kup src/main.cpp
 
         src/editor/buffer.hpp
         src/editor/text_view.hpp
+        src/editor/editor_view.hpp
+        src/editor/editor_state.hpp
 )
 
 target_link_libraries(Kup PRIVATE raylib
