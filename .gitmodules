@@ -1,11 +1,12 @@
 
 
-[submodule "src/ext/tinyfd"]
-	path = ext/tinyfd/tinyfd
-    url = https://git.code.sf.net/p/tinyfiledialogs/code
+
 [submodule "ext/raygui"]
 	path = ext/raygui
 	url = https://github.com/raysan5/raygui.git
 [submodule "ext/luajit/luaJIT"]
 	path = ext/luajit/luaJIT
 	url = https://github.com/LuaJIT/LuaJIT.git
+[submodule "ext/tinyfd/tinyfd"]
+	path = ext/tinyfd/tinyfd
+	url = https://git.code.sf.net/p/tinyfiledialogs/code
