@@ -27,7 +27,6 @@ target_sources(plastic
         include/modules/color.ixx
         include/modules/view.ixx
         include/modules/layout.ixx
-        include/modules/layout.ixx
         include/modules/app_context.ixx
         include/modules/div.ixx
         include/modules/container.ixx
@@ -54,8 +53,6 @@ target_sources(plastic
         include/modules/component.ixx
         include/modules/entity_map.ixx
         include/modules/horizontal_layout.ixx
-        include/modules/vertical_layout.ixx
-        include/modules/layout.ixx
         include/modules/layout_container.ixx
         include/modules/stateful_view.ixx
 
