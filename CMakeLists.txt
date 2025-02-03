@@ -34,7 +34,7 @@ set(GLFW_VERSION 3.3.8)
 set(FREETYPE_VERSION 2.13.0)
 set(sol2_VERSION 3.2.2)
 
-include(cmake/FindLua51.cmake)
+# include(cmake/FindLua51.cmake)
 
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
