@@ -28,13 +28,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Dependencies
 set(RAYLIB_VERSION 5.0)
 set(RAYGUI_VERSION 4.0)
-set(LUA_VERSION 5.1)
+#set(LUA_VERSION 5.1)
 set(LUAJIT_VERSION 2.1)
 set(GLFW_VERSION 3.3.8)
 set(FREETYPE_VERSION 2.13.0)
 set(sol2_VERSION 3.2.2)
 
-# include(cmake/FindLua51.cmake)
 
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
@@ -90,21 +89,6 @@ FetchContent_Declare(
         GIT_TAG v${sol2_VERSION}
 )
 FetchContent_MakeAvailable(sol2)
-
-#find_package(Lua51 REQUIRED)
-
-#if(NOT Lua51_FOUND)
-#    include(FetchContent)
-#    FetchContent_Declare(
-#            Lua51
-#            URL https://github.com/lua/lua/archive/refs/tags/v${LUA_VERSION}.tar.gz
-#    )
-#    FetchContent_GetProperties(Lua51)
-#    if (NOT Lua51_populated)
-#        set(FETCHCONTENT_QUIET NO)
-#        FetchContent_MakeAvailable(Lua_51)
-#    endif ()
-#endif ()
 
 find_package(glfw3 QUIET)
 
