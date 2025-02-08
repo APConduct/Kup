@@ -34,7 +34,20 @@ set(GLFW_VERSION 3.3.8)
 set(FREETYPE_VERSION 2.13.0)
 set(sol2_VERSION 3.2.2)
 
+find_package(glfw3 QUIET)
 
+if (NOT glfw3_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+            glfw
+            GIT_REPOSITORY https://github.com/glfw/glfw.git
+            GIT_TAG ${GLFW_VERSION}
+    )
+    FetchContent_GetProperties(glfw)
+    if (NOT glfw_POPULATED)
+        FetchContent_MakeAvailable(glfw)
+    endif ()
+endif ()
 
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
 
@@ -63,7 +76,6 @@ if (NOT raygui_FOUND)
     FetchContent_Declare(
             raygui
             URL https://github.com/raysan5/raygui/archive/refs/tags/${RAYGUI_VERSION}.tar.gz
-            SOURCE_DIR ${raygui_SOURCE_DIR}/projects/CMake
     )
     FetchContent_GetProperties(raygui)
     if (NOT raygui_populated)
@@ -89,21 +101,6 @@ FetchContent_Declare(
         GIT_TAG v${sol2_VERSION}
 )
 FetchContent_MakeAvailable(sol2)
-
-find_package(glfw3 QUIET)
-
-if (NOT glfw3_FOUND)
-    include(FetchContent)
-    FetchContent_Declare(
-            glfw
-            GIT_REPOSITORY https://github.com/glfw/glfw.git
-            GIT_TAG ${GLFW_VERSION}
-    )
-    FetchContent_GetProperties(glfw)
-    if (NOT glfw_POPULATED)
-        FetchContent_MakeAvailable(glfw)
-    endif ()
-endif ()
 
 
 FetchContent_Declare(

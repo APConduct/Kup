@@ -29,3 +29,4 @@ kbrainst
 .zig-cache
 
 .clangd
+/cmake-build-debug-msys2-ucrt/
