@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
+include(cmake/Dependencies.cmake)
+
 
 # Clear any existing content
 set(FETCHCONTENT_UPDATES_DISCONNECTED ON) # Prevents CMake from trying to update already-downloaded content
@@ -86,7 +88,6 @@ if (NOT raygui_FOUND)
         set(RAYGUI_EXAMPLES ${RAYGUI_ROOT}/examples)
 
         # raygui
-        add_library(raygui INTERFACE)
         file(GLOB sources ${RAYGUI_SRC}/*.h)
         set(RAYGUI_HEADERS ${sources})
         install(FILES ${RAYGUI_HEADERS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/include)
