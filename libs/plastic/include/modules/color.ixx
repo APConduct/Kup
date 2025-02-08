@@ -5,7 +5,15 @@
 module;
 
 #include <raylib.h>
+
+#if defined(__APPLE__)
+#include <__algorithm/clamp.h>
+#else
 #include <bits/algorithmfwd.h>
+#endif
+
+
+
 
 export module plastic.color;
 

@@ -12,7 +12,6 @@
 #include <stack>
 #include <string>
 #include <vector>
-#include <bits/stdc++.h>
 #include "tinyfiledialogs.h"
 #include "piece_table.hpp"
 #include <raylib.h>

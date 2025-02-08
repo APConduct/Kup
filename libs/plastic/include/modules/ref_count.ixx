@@ -4,6 +4,7 @@
 
 module;
 #include <atomic>
+#include <mutex>
 export module plastic.ref_count;
 
     template <typename T>
