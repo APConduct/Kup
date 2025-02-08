@@ -60,6 +60,6 @@ target_sources(plastic
 )
 
 
-target_link_libraries(plastic PUBLIC raylib glfw)
+target_link_libraries(plastic PUBLIC raylib)
 
 target_include_directories(plastic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
