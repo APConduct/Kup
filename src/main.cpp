@@ -2,9 +2,6 @@
 #include <dde.h>
 #include <raylib.h>
 #include <string>
-// #define RAYGUI_IMPLEMENTATION
-
-// #include "raygui.h"
 
 #include "editor.hpp"
 #include "FileTree.hpp"

@@ -4,7 +4,6 @@ project(Kup)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 include(cmake/Dependencies.cmake)
 message(module ${CMAKE_MODULE_PATH})
 
@@ -26,10 +25,7 @@ add_subdirectory(libs/plugin)
 add_subdirectory(libs/term)
 add_subdirectory(libs/editor)
 
-set(tinyfiledialogs_SRC ext/tinyfd/tinyfd)
-add_library(tinyfiledialogs STATIC)
-target_sources(tinyfiledialogs PRIVATE ${PROJECT_SOURCE_DIR}/ext/tinyfd/tinyfd/tinyfiledialogs.c)
-target_include_directories(tinyfiledialogs PUBLIC ${tinyfiledialogs_SCR})
+set(tinyfd_SRC ext/tinyfd/tinyfd)
 
 add_executable(Kup src/main.cpp
         src/TextArea.hpp
@@ -45,15 +41,12 @@ add_executable(Kup src/main.cpp
 
 target_link_libraries(Kup PRIVATE raylib
         tinyfd
-        tinyfiledialogs
         plastic
         freetype
         sol2
 )
 
 target_include_directories(Kup PRIVATE
-        ${tinyfiledialogs_SRC}
-        ${CMAKE_SOURCE_DIR}/src/../ext/raygui/src
         ${tinyfd_SRC}
 )
 
