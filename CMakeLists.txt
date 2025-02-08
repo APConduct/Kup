@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 include(cmake/Dependencies.cmake)
+include(cmake/fetch_glfw3.cmake)
 message(module ${CMAKE_MODULE_PATH})
 
 # UNCOMMENT ON INSTALL/RELEASE
