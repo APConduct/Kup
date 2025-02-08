@@ -47,7 +47,6 @@ add_executable(Kup src/main.cpp
 target_link_libraries(Kup PRIVATE raylib
         tinyfd
         tinyfiledialogs
-        raygui
         plastic
         glfw
         freetype
