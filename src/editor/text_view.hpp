@@ -10,6 +10,8 @@ import plastic.element;
 import plastic.style;
 import plastic.layout_properties;
 import plastic.style;
+import plastic.layout;
+import plastic.layout.flex_direction;
 
 namespace kup {
     struct TextView : plastic::View {
@@ -33,8 +35,8 @@ namespace kup {
         class Builder : public plastic::View::Builder<Builder> {
             State state;
         public:
-            Builder& with_buffer(std::shared_ptr<Buffer> buffer) {
-                state.buffer = std::move(buffer);
+            Builder& with_buffer(const std::shared_ptr<Buffer>& buffer) {
+                state.buffer = buffer;
                 return *this;
             }
 
@@ -52,10 +54,26 @@ namespace kup {
 
         static Builder create() { return {}; }
 
-        explicit TextView(State initial_state) : state(std::move(initial_state)) {}
+        explicit TextView(State  initial_state) : state(std::move(initial_state)) {}
 
         // TODO: implement render function
-        std::shared_ptr<plastic::Element> render(plastic::Context* cx) const override;
+        std::shared_ptr<plastic::Element> render(plastic::Context* cx) const override {
+            auto element = std::make_shared<TextElement>(state);
+
+            auto style = plastic::style::Style()
+                .with_text_color_normal(plastic::Color::from_rl(WHITE))
+                .bg(plastic::Color::rgb(20,20,20));
+
+            element->set_style(style);
+
+            auto layout = plastic::LayoutProperties()
+                .with_flex_grow(1)
+                .with_fill_height(true);
+
+            element->set_layout_properties(layout);
+
+            return element;
+        };
 
         void handle_event(plastic::events::Event& event, plastic::Context* cx) override {
             std::visit([this](const auto& e) {handle_event_impl(e);}, event);
@@ -145,6 +163,9 @@ namespace kup {
                 );
 
                 render_text(bounds);
+                if (state.has_focus) {
+                    render_cursor(bounds);
+                }
 
                 EndScissorMode();
             }

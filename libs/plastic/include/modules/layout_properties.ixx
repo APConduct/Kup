@@ -92,5 +92,22 @@ export namespace plastic
         }
 
         float spacing{0};
+
+
+        LayoutProperties& with_flex_grow(const float grow) {
+            flex_grow = grow;
+            return *this;
+        }
+
+        LayoutProperties& with_padding(const float padding) {
+            this->padding = padding;
+            return *this;
+        }
+
+        LayoutProperties& with_fill_height(const bool fill) {
+            fill_height = fill;
+            return *this;
+        }
+
     };
 }

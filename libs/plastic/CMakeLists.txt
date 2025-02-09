@@ -9,6 +9,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 add_library(plastic STATIC
         include/plastic/config.hpp
+        include/modules/layout/flex_direction.ixx
 )
 
 target_sources(plastic

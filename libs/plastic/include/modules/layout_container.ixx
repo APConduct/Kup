@@ -18,9 +18,10 @@ export namespace plastic
 {
     struct LayoutContainer : public Element {
     protected:
-        std::unique_ptr<Layout> layout_;
+        std::unique_ptr<Layout> layout_{};
     public:
-        explicit LayoutContainer(std::unique_ptr<Layout> l) : layout_(std::move(l)) {}
+        explicit LayoutContainer(std::unique_ptr<Layout> l) : Element(), layout_(std::move(l)) {
+        }
 
         void set_layout(std::unique_ptr<Layout> l) {
             layout_ = std::move(l);

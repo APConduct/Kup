@@ -33,7 +33,6 @@ export namespace plastic::style
     };
     struct Style {
         Style() = default;
-        LayoutProperties layout_properties;
         std::optional<Color> background_color_normal;
         std::optional<Color> text_color_normal;
         std::optional<Color> text_hover;
@@ -96,6 +95,20 @@ export namespace plastic::style
                    padding == rhs.padding &&
                    margin == rhs.margin &&
                    preferred_size == rhs.preferred_size;
+        }
+
+        bool operator!=(const Style& rhs) const {
+            return !(*this == rhs);
+        }
+
+        Style& with_text_color_normal(const Color& color) {
+            text_color_normal = color;
+            return *this;
+        }
+
+        Style& bg(const Color& color) {
+            background_color_normal = color;
+            return *this;
         }
     };
 
