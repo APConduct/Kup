@@ -62,7 +62,6 @@ namespace kup {
         explicit TextView(const std::shared_ptr<Buffer>& buffer, Font font, float font_size, float line_spacing)
             : state(std::move(buffer), font, font_size, line_spacing) {}
 
-        // TODO: implement render function
         std::shared_ptr<plastic::Element> render(plastic::Context* cx) const override {
             auto element = std::make_shared<TextElement>(state);
 
