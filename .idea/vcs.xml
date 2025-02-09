@@ -2,11 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cmake-build-debug-msys2-ucrt/_deps/freetype-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cmake-build-debug-msys2-ucrt/_deps/sol2-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/luajit/luaJIT" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/raygui" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/tinyfd/tinyfd" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../prix" vcs="Git" />
   </component>
 </project>

@@ -14,7 +14,6 @@ import plastic.style;
 namespace kup {
     struct TextView : plastic::View {
     private:
-
         struct State {
             std::shared_ptr<Buffer> buffer;
             BufferPosition cursor{};
@@ -22,30 +21,41 @@ namespace kup {
             float scroll_y{0};
             bool has_focus{false};
             plastic::style::Style style;
+            Font font{};
+            float font_size{};
+            float line_spacing{};
         };
-        std::shared_ptr<Buffer> buffer;
-
-
         // View state
-        float scroll_x{0};
-        float scroll_y{0};
-        BufferPosition cursor{};
-        bool has_focus{false};
-
         State state;
-        Font font;
-        float font_size;
-        float line_spacing;
-
-
-
 
     public:
-        TextView(std::shared_ptr<Buffer> buffer, const Font& font, float font_size, float spacing)
-            : font(font), font_size(font_size), line_spacing(spacing) {
-            state.buffer = std::move(buffer);
-            // update_metrics();
-        }
+        // fluent interface
+        class Builder : public plastic::View::Builder<Builder> {
+            State state;
+        public:
+            Builder& with_buffer(std::shared_ptr<Buffer> buffer) {
+                state.buffer = std::move(buffer);
+                return *this;
+            }
+
+            Builder& with_font(const Font& font, float font_size, float line_spacing) {
+                state.font = font;
+                state.font_size = font_size;
+                state.line_spacing = line_spacing;
+                return *this;
+            }
+
+            std::shared_ptr<TextView> build() {
+                return std::make_shared<TextView>(std::move(state));
+            }
+        };
+
+        static Builder create() { return {}; }
+
+        explicit TextView(State initial_state) : state(std::move(initial_state)) {}
+
+        // TODO: implement render function
+        std::shared_ptr<plastic::Element> render(plastic::Context* cx) const override;
 
         void handle_event(plastic::events::Event& event, plastic::Context* cx) override {
             std::visit([this](const auto& e) {handle_event_impl(e);}, event);
@@ -55,10 +65,6 @@ namespace kup {
             state.style = style;
         }
 
-
-
-
-
         void handle_event(const plastic::events::Event& event) {
             std::visit([this](const auto& e) {handle_event_impl(e);}, event);
         }
@@ -67,20 +73,9 @@ namespace kup {
 
         class TextElement : public plastic::Element {
         private:
-            std::shared_ptr<Buffer> buffer;
-            Font font;
-            float font_size;
-            float line_spacing;
-            float scroll_x{0};
-            float scroll_y{0};
-            bool has_focus{false};
-            BufferPosition cursor{};
-
+            State state;
 
         public:
-
-
-
             struct ViewMetrics {
                 mutable float line_height;
                 mutable float char_width;
@@ -89,37 +84,33 @@ namespace kup {
             } metrics{};
 
             void update_metrics() const {
-                metrics.line_height = font_size + line_spacing;
-                metrics.char_width = MeasureTextEx(font, "W", font_size, 0).x;
+                metrics.line_height = state.font_size + state.line_spacing;
+                metrics.char_width = MeasureTextEx(state.font, "W", state.font_size, 0).x;
 
                 const auto& bounds = get_style().padding.bounds();
                 metrics.visible_lines = static_cast<size_t>(bounds.height() / metrics.line_height);
                 metrics.visible_columns = static_cast<size_t>(bounds.width() / metrics.char_width);
             }
-            TextElement(
-                std::shared_ptr<Buffer> buffer,
-                const Font& font,
-                float font_size,
-                float line_spacing
-            ) : buffer(std::move(buffer)), font(font), font_size(font_size), line_spacing(line_spacing) {}
+
+            explicit TextElement(State state) : state(std::move(state)) {}
 
             void render_text(const plastic::Rect<float>& bounds) const {
-                const auto start_line = static_cast<size_t>(scroll_y / metrics.line_height);
+                const auto start_line = static_cast<size_t>(state.scroll_y / metrics.line_height);
                 const size_t end_line = std::min(
                     start_line + metrics.visible_lines + 1,
-                    buffer->line_count()
+                    state.buffer->line_count()
                 );
 
-                float y = (bounds.y()) - std::fmod(scroll_y, metrics.line_height);
+                float y = (bounds.y()) - std::fmod(state.scroll_y, metrics.line_height);
 
                 for (size_t i = start_line; i < end_line; ++i) {
-                    const std::string& line = buffer->get_line(i);
+                    const std::string& line = state.buffer->get_line(i);
                     DrawTextEx(
-                        font,
+                        state.font,
                         line.c_str(),
-                        {bounds.x() - scroll_x, y},
-                        font_size,
-                        line_spacing,
+                        {bounds.x() - state.scroll_x, y},
+                        state.font_size,
+                        state.line_spacing,
                         get_style().text_color_normal.value_or(WHITE).rl()
                     );
                     y += metrics.line_height;
@@ -127,10 +118,10 @@ namespace kup {
             }
 
             void render_cursor(const plastic::Rect<float>& bounds) const {
-                if (!has_focus) return;
+                if (!state.has_focus) return;
 
-                const float x = bounds.x() + static_cast<float>(cursor.column) * metrics.char_width - scroll_x;
-                const float y = bounds.y() + static_cast<float>(cursor.row) * metrics.line_height - scroll_y;
+                const float x = bounds.x() + static_cast<float>(state.cursor.column) * metrics.char_width - state.scroll_x;
+                const float y = bounds.y() + static_cast<float>(state.cursor.row) * metrics.line_height - state.scroll_y;
 
                 DrawRectangle(
                     static_cast<int>(x),
