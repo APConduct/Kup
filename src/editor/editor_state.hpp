@@ -12,6 +12,8 @@ namespace kup
     struct EditorState {
         std::shared_ptr<Buffer> buffer;
 
+        bool has_focus{false};
+
         // View state
         Font font{};
         float font_size{20.0f};
@@ -52,7 +54,6 @@ namespace kup
             bool status_bar_visible{true};
             bool gutter_visible{true};
         } features;
-
 
     };
 }

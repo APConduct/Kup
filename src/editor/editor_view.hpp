@@ -19,15 +19,19 @@ namespace kup
 {
     struct EditorView : public plastic::StatefulView<EditorState> {
     private:
-        Font font;
-        float font_size;
-        float line_spacing;
     public:
-        EditorView(EditorState initial_state, const Font& font, float font_size, float line_spacing)
-            : StatefulView(std::move(initial_state)), font(font), font_size(font_size), line_spacing(line_spacing) {}
+
+
+        explicit EditorView(EditorState initial_state)
+            : StatefulView(std::move(initial_state)) {}
+
+
 
         EditorView(const Font& font, float font_size, float line_spacing)
-            : StatefulView(EditorState{}), font(font), font_size(font_size), line_spacing(line_spacing) {
+            : StatefulView(EditorState{}) {
+            state.font = font;
+            state.font_size = font_size;
+            state.spacing = line_spacing;
             state.buffer = std::make_shared<Buffer>();
         }
 
@@ -38,32 +42,34 @@ namespace kup
                 );
 
             // Create and confgiure the line numbers
-            auto line_numbers = std::make_shared<LineNumberView>(
-                state.buffer,
-                font,
-                font_size,
-                line_spacing
-            );
-            auto line_numb_style = create_line_number_style();
-            line_numbers->set_style(line_numb_style);
+            if ( state.show_line_numbers )
+            {
+                auto line_numbers = TextView::create()
+                   .with_buffer(state.buffer)
+                   .with_font(state.font, state.font_size, state.spacing)
+                   .build();
+                line_numbers->set_style(create_line_number_style());
+                container->add_child(line_numbers->render(cx));
+            }
 
-            // Configure the text view
-            auto text_view = std::make_shared<TextView>(
-                state.buffer,
-                font,
-                font_size,
-                line_spacing
-            );
+            auto main_text = TextView::create()
+                .with_buffer(state.buffer)
+                .with_font(state.font, state.font_size, state.spacing)
+                .build();
 
-            auto text_style = create_text_view_style();
-            text_view->set_style(text_style);
+            main_text->set_style(create_text_view_style());
+            container->add_child(main_text->render(cx));
 
-            // Add views to the container
-            container->add_child(line_numbers->render(cx));
-            container->add_child(text_view->render(cx));
+            //if (state.show_minimap) {
+            //    auto minimap = MinimapView::create()
+            //        .with_buffer(state.buffer)
+            //        .with_font(state.font, state.font_size, state.spacing)
+            //        .build();
+            //
+            //    container->add_child(minimap->render(cx));
+            //}
 
             return container;
-
         }
 
         void handle_event(plastic::events::Event& event, plastic::Context* cx) override {
@@ -106,6 +112,36 @@ namespace kup
 
             return style;
         }
+    public:
+        class Builder : public View::Builder<Builder> {
+            EditorState state;
+        public:
+            Builder& with_font(const Font& font, float font_size, float line_spacing) {
+                state.font = font;
+                state.font_size = font_size;
+                state.spacing = line_spacing;
+                return *this;
+            }
+
+            Builder& show_line_numbers(bool show = true) {
+                state.show_line_numbers = show;
+                return *this;
+            }
+
+            Builder& show_minimap(bool show = true) {
+                state.show_minimap = show;
+                return *this;
+            }
+
+            std::shared_ptr<EditorView> build() {
+                return std::make_shared<EditorView>(std::move(state));
+            }
+        };
+
+        static Builder create() { return {}; }
+
+
+
     };
 
 };

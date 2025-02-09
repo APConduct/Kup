@@ -14,18 +14,22 @@ import plastic.layout.flex_direction;
 
 namespace kup {
     struct TextView : plastic::View {
-    private:
         struct State {
             std::shared_ptr<Buffer> buffer;
             BufferPosition cursor{};
             float scroll_x{0};
             float scroll_y{0};
             bool has_focus{false};
-            plastic::style::Style style;
+            plastic::style::Style style{};
             Font font{};
             float font_size{};
             float line_spacing{};
+            State() = default;
+            State(std::shared_ptr<Buffer> buffer, Font font, float font_size, float line_spacing)
+                : buffer(std::move(buffer)), font(font), font_size(font_size), line_spacing(line_spacing) {}
         };
+    private:
+
         // View state
         State state;
 
@@ -53,7 +57,10 @@ namespace kup {
 
         static Builder create() { return {}; }
 
-        explicit TextView(State  initial_state) : state(std::move(initial_state)) {}
+        explicit TextView(const State&  initial_state) : state(std::move(initial_state)) {}
+
+        explicit TextView(const std::shared_ptr<Buffer>& buffer, Font font, float font_size, float line_spacing)
+            : state(std::move(buffer), font, font_size, line_spacing) {}
 
         // TODO: implement render function
         std::shared_ptr<plastic::Element> render(plastic::Context* cx) const override {
@@ -109,7 +116,7 @@ namespace kup {
                 metrics.visible_columns = static_cast<size_t>(bounds.width() / metrics.char_width);
             }
 
-            explicit TextElement(State state) : state(std::move(state)) {}
+            explicit TextElement(const State& state) : state(std::move(state)) {}
 
             void render_text(const plastic::Rect<float>& bounds) const {
                 const auto start_line = static_cast<size_t>(state.scroll_y / metrics.line_height);

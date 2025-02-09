@@ -33,6 +33,7 @@ export namespace plastic::style
     };
     struct Style {
         Style() = default;
+        LayoutProperties layout_properties;
         std::optional<Color> background_color_normal;
         std::optional<Color> text_color_normal;
         std::optional<Color> text_hover;
