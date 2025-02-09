@@ -6,7 +6,6 @@ module;
 #include <cassert>
 #include <cstdint>
 #include <functional>
-#include <memory>
 #include <typeindex>
 
 export module plastic.entity_map;
