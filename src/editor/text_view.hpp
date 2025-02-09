@@ -3,7 +3,6 @@
 #include "buffer.hpp"
 #include <cmath>
 #include <memory>
-#include <raylib.h>
 #include <variant>
 import plastic;
 import plastic.element;
