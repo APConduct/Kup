@@ -24,6 +24,14 @@ export namespace plastic
 
         virtual void handle_event(events::Event& event, Context* cx) {};
 
+        virtual void mount(Context* cx) {
+            cx_ = cx;
+        }
+
+        virtual void unmount(Context* cx) {
+            cx_ = nullptr;
+        }
+
         [[nodiscard]] Context* get_context() const { return cx_; }
 
         template <typename Self>

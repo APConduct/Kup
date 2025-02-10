@@ -3,37 +3,76 @@
 //
 module;
 #include <memory>
+#include <string>
+// #include <thread>
 
 export module plastic.window;
 import plastic.element;
 import plastic.context;
 import plastic.size;
+import plastic.view;
 
 export namespace plastic
 {
     struct Window {
     private:
-        std::shared_ptr<Element> root;
+        std::shared_ptr<View> root;
         std::shared_ptr<Context> context;
         Size<float> size{0,0};
+
+        std::string title_;
+
+        // concurrency
+        // std::thread thread_;
+        // std::atomic<bool> running_;
+        // std::mutex render_mutex_;
+        // std::vector<std::function<void()>> renderers_;
+
 
         // thread_local static std::shared_ptr<Window> current_window;
 
     public:
-        void set_root(const std::shared_ptr<Element>& root) {
+
+        explicit Window(std::shared_ptr<Context> context) : context(std::move(context)) {}
+
+        [[nodiscard]] std::shared_ptr<Context> get_context() const {
+            return context;
+        }
+
+        [[nodiscard]] const Size<float>& get_size() const {
+            return size;
+        }
+
+        [[nodiscard]] const std::string& get_title() const {
+            return title_;
+        }
+
+        explicit Window(const std::shared_ptr<View>& root) : root(root) {}
+        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root) : root(root), context(context) {}
+        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root, const Size<float> size) : root(root), context(context), size(size) {}
+        explicit Window( const Size<float>& size) : size(size){}
+
+        void set_root(const std::shared_ptr<View>& root) {
             if (this->root) {
-                this->root->unmount(context.get());
+                this->root->render(context.get())->unmount(context.get());
             }
             this->root = root;
-            root->mount(context.get());
+            if (root)
+            {
+                root->render(context.get())->mount(context.get());
+            }
         }
 
         void handle_resize(const Size<float>& new_size) {
             size = new_size;
             if (root) {
-                root->layout(context.get());
-                root->paint(context.get());
+                root->render(context.get())->layout(context.get());
+                root->render(context.get())->paint(context.get());
             }
+        }
+
+        void set_title(const std::string& title) {
+            title_ = title;
         }
 
         // TODO - add event handling
