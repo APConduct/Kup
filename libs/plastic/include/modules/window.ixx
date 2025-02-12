@@ -6,6 +6,7 @@ module;
 #include <string>
 // #include <thread>
 
+#include <functional>
 export module plastic.window;
 import plastic.element;
 import plastic.context;
@@ -15,6 +16,9 @@ import plastic.view;
 export namespace plastic
 {
     struct Window {
+        std::vector<std::function<void()>> renderers_;
+        std::vector<std::function<void()>> updaters_;
+
     private:
         std::shared_ptr<View> root;
         std::shared_ptr<Context> context;
@@ -26,10 +30,9 @@ export namespace plastic
         // std::thread thread_;
         // std::atomic<bool> running_;
         // std::mutex render_mutex_;
-        // std::vector<std::function<void()>> renderers_;
 
 
-        // thread_local static std::shared_ptr<Window> current_window;
+
 
     public:
 

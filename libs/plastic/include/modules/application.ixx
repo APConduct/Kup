@@ -96,43 +96,11 @@ export namespace plastic
         }
 
 
-
-        std::function<void()> on_init;
-        std::function<void()> on_config;
-        std::function<void()> on_start;
-        std::function<void()> on_update;
-        std::function<void()> on_render;
-        std::function<void()> on_close;
-
-        [[noreturn]] virtual void run() const {
-            if (on_init) on_init();
-            if (on_config) on_config();
-            if (on_start) on_start();
-            while (!should_close) {
-                if (on_update) on_update();
-                if (on_render) on_render();
-            }
-            if (on_close) on_close();
-        }
-
+        [[noreturn]] virtual void run();
         virtual void close();
         virtual void stop();
 
-        virtual void update() {
-            if (on_update) on_update();
-        }
 
-        virtual void render() {
-            if (on_render) on_render();
-        }
-
-        virtual void init() {
-            if (on_init) on_init();
-        }
-
-        virtual void config() {
-            if (on_config) on_config();
-        }
 
     };
 }
