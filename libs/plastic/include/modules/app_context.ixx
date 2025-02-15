@@ -11,10 +11,13 @@ module;
 export module plastic.app_context;
 import plastic.window_base;
 import plastic.event_dispatcher;
+import plastic.window_options;
+import plastic.context;
+
 
 export namespace plastic::context
 {
-    struct AppContext {
+    struct AppContext  : public std::enable_shared_from_this<AppContext> {
 
     private:
         std::unordered_map<int, std::shared_ptr<WindowBase>> windows_;
@@ -86,6 +89,7 @@ export namespace plastic::context
                 f(*window);
             }
         }
+
 
 
 

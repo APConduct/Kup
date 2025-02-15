@@ -15,9 +15,10 @@ export namespace plastic
     public:
         static std::shared_ptr<Window> create(
             const std::shared_ptr<context::WindowContext>& context,
+            int window_id,
             const WindowOptions& options = WindowOptions{})
         {
-            auto window = std::make_shared<Window>(context);
+            auto window = std::make_shared<Window>(context, options.size);
 
             window->set_title(options.title);
 
