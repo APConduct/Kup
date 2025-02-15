@@ -13,7 +13,7 @@ export namespace plastic
         virtual ~WindowBase() = default;
 
         [[nodiscard]] virtual int id() const = 0;
-        virtual int request_close() = 0;
+        virtual void request_close() = 0;
         virtual void update() = 0;
         virtual void render() = 0;
         virtual Context& context() = 0;

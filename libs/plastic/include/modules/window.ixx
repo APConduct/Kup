@@ -7,6 +7,7 @@ module;
 // #include <thread>
 
 #include <functional>
+#include <utility>
 export module plastic.window;
 import plastic.element;
 import plastic.window_context;
@@ -16,11 +17,13 @@ import plastic.window_options;
 import plastic.platform;
 import plastic.events;
 import plastic.rect;
+import plastic.window_base;
+import plastic.context;
 
 
 export namespace plastic
 {
-    struct Window {
+    struct Window : WindowBase {
         std::vector<std::function<void()>> renderers_;
         std::vector<std::function<void()>> updaters_;
 
@@ -28,6 +31,7 @@ export namespace plastic
         std::shared_ptr<View> root_{};
         std::shared_ptr<plastic::context::WindowContext> context_{};
         Size<float> size{0,0};
+        WindowOptions options_;
 
         std::string title_;
 
@@ -66,9 +70,9 @@ export namespace plastic
         explicit Window(const std::shared_ptr<context::WindowContext>& context, const std::shared_ptr<View>& root, const Size<float> size) : root_(root), context_(context), size(size) {}
         explicit Window( const Size<float>& size) : size(size){}
         explicit Window(const std::shared_ptr<context::WindowContext>& context, const Size<float>& size) : context_(context), size(size) {}
-        explicit Window(const std::shared_ptr<context::WindowContext>& context, const Size<float>& size, const std::string& title) : context_(context), size(size), title_(title) {}
+        explicit Window(const std::shared_ptr<context::WindowContext>& context, const Size<float>& size, std::string  title) : context_(context), size(size), title_(std::move(title)) {}
         explicit Window(const std::shared_ptr<context::WindowContext>& context, const std::shared_ptr<View>& root, const Size<float>& size) : root_(root), context_(context), size(size) {}
-        explicit Window(const std::shared_ptr<context::WindowContext>& context, const std::shared_ptr<View>& root, const Size<float>& size, const std::string& title) : root_(root), context_(context), size(size), title_(title) {}
+        explicit Window(const std::shared_ptr<context::WindowContext>& context, const std::shared_ptr<View>& root, const Size<float>& size, std::string  title) : root_(root), context_(context), size(size), title_(std::move(title)) {}
         explicit Window(const int window_id, const std::weak_ptr<Platform>& platform) : window_id_(window_id), platform_(platform) {}
 
 
@@ -99,7 +103,7 @@ export namespace plastic
             }
         }
 
-        void request_close() {
+        void request_close() override {
             should_close_ = true;
             if (auto platform = platform_.lock()) {
                 platform->event_dispatcher().emit(events::WindowCloseEvent{window_id_});
@@ -111,9 +115,9 @@ export namespace plastic
 
         }
 
-        int id() const { return window_id_; }
-        bool should_close() const { return should_close_; }
-        const Rect<float>& bounds() const { return bounds_; }
+        [[nodiscard]] int id() const override { return window_id_; }
+        [[nodiscard]] bool should_close() const override { return should_close_; }
+        [[nodiscard]] const Rect<float>& bounds() const { return bounds_; }
         [[nodiscard]] context::WindowContext& context() const { return *context_; }
         [[nodiscard]] std::shared_ptr<plastic::View> root() const { return root_; }
 
@@ -133,6 +137,26 @@ export namespace plastic
             if (bounds_ != bounds) {
                 bounds_ = bounds;
                 context_->request_layout();
+            }
+        }
+
+        Context& context() override {
+            return *context_;
+        }
+
+        [[nodiscard]] const WindowOptions& options() const override {
+            return options_;
+        }
+
+        void update() override {
+            for (auto& updater : updaters_) {
+                updater();
+            }
+        }
+
+        void render() override {
+            for (auto& renderer : renderers_) {
+                renderer();
             }
         }
 
