@@ -7,7 +7,6 @@ module;
 // #include <thread>
 
 #include <functional>
-#include <utility>
 export module plastic.window;
 import plastic.element;
 import plastic.window_context;
