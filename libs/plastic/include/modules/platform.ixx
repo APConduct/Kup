@@ -11,6 +11,7 @@ import plastic.app_context;
 import plastic.event_dispatcher;
 import plastic.events;
 import plastic.size;
+import plastic.window_context;
 
 export namespace plastic
 {
@@ -64,5 +65,6 @@ export namespace plastic
             return event_dispatcher_;
         }
 
+        virtual std::shared_ptr<context::WindowContext> create_window_context() = 0;
     };
 }
