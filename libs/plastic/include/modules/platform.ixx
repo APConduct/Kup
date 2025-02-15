@@ -63,5 +63,6 @@ export namespace plastic
         [[nodiscard]] EventDispatcher& event_dispatcher() {
             return event_dispatcher_;
         }
+
     };
 }

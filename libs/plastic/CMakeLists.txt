@@ -60,6 +60,7 @@ target_sources(plastic
         include/modules/window/window_options.ixx
         include/modules/window/window_base.ixx
         include/modules/window/window_builder.ixx
+        include/modules/window/window_manager.ixx
 
 )
 

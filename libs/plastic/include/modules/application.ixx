@@ -5,6 +5,10 @@ module;
 #include <memory>
 #include <vector>
 #include <functional>
+#include <memory>
+#include <memory>
+#include <memory>
+#include <memory>
 #include <string>
 export module plastic.application;
 
@@ -14,6 +18,9 @@ import plastic.app_context;
 import plastic.element;
 import plastic.view;
 import plastic.platform;
+import plastic.window_manager;
+import plastic.window_options;
+import plastic.window_base;
 
 export namespace plastic
 {
@@ -21,6 +28,9 @@ export namespace plastic
         std::string app_name_;
         Size<float> default_window_size;
         std::shared_ptr<context::AppContext> app_context_;
+
+        std::shared_ptr<WindowManager> window_manager_;
+
         // std::shared_ptr<Platform> platform_{};
         bool is_running_{false};
 
@@ -82,10 +92,12 @@ export namespace plastic
 
         };
 
-        std::shared_ptr<Window> create_window() {
-            auto window = std::make_shared<Window>(default_window_size);
-            windows.push_back(window);
-            return window;
+        [[nodiscard]] std::shared_ptr<WindowBase> create_window() const {
+            return window_manager_->create_window(
+                WindowOptions{}
+                    .with_title(app_name_)
+                    .with_size(default_window_size)
+        );
         }
 
         virtual ~Application() = default;
@@ -106,6 +118,8 @@ export namespace plastic
         [[noreturn]] virtual void run();
         virtual void close();
         virtual void stop();
+
+
 
 
         // Main application run with context

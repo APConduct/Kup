@@ -77,6 +77,16 @@ export namespace plastic
             }
         }
 
+        [[nodiscard]] int next_window_id() const {
+            return next_window_id_;
+        }
+
+        void increment_window_id() {
+            next_window_id_++;
+        }
+
+
+
 
 
 

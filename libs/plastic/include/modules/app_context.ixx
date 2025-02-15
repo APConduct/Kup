@@ -9,8 +9,7 @@ module;
 export module plastic.app_context;
 import plastic.window_base;
 import plastic.event_dispatcher;
-import plastic.window_options;
-import plastic.context;
+
 
 
 export namespace plastic::context
@@ -19,21 +18,8 @@ export namespace plastic::context
 
     private:
         EventDispatcher event_dispatcher_;
-        int next_window_id_{0};
 
     public:
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -54,13 +40,7 @@ export namespace plastic::context
             return event_dispatcher_;
         }
 
-        [[nodiscard]] int next_window_id() const {
-            return next_window_id_;
-        }
 
-        void increment_window_id() {
-            next_window_id_++;
-        }
 
 
 

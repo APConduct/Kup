@@ -11,6 +11,7 @@ import plastic.app_context;
 import plastic.element;
 import plastic.context;
 import plastic.window_base;
+import plastic.events;
 
 
 export namespace plastic::context
@@ -87,6 +88,21 @@ export namespace plastic::context
 
         void focus(View* view){}
         void focus(Element* view){}
+
+        void request_paint() override {
+            // implement paint request
+            if (const auto window = window_.lock()) {
+                window->context().request_paint();
+            }
+        }
+
+        void dispatch_event(const events::Event& event) override {
+            // implement event dispatch
+            if (const auto window = window_.lock()) {
+                window->context().dispatch_event(event);
+            }
+        }
+
 
 
 
