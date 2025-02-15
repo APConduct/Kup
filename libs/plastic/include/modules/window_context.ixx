@@ -77,7 +77,14 @@ export namespace plastic::context
 
         }
 
-        template <typename T>
+        AppContext& app_context() {
+            return *app_context_;
+        }
+
+        std::shared_ptr<WindowBase> window() const {
+            return window_.lock();
+        }
+
         void focus(View* view){}
         void focus(Element* view){}
 

@@ -42,15 +42,6 @@ export namespace plastic
             return f(*this);
         }
 
-        // Window creation with Context
-        //template <typename F>
-        //auto create_window(F&& f) {
-        //    return with_platform([&](Platform& platform) {
-        //        auto window = std::make_shared<Window>(
-        //            app_context_->next_window_id(),
-        //            platform.shared_from_this());
-        //    });
-        //}
 
         template <typename F>
         void handle_events(F&& f) {

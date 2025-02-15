@@ -10,21 +10,28 @@ export module plastic.application;
 
 import plastic.window;
 import plastic.size;
-import plastic.context;
+import plastic.app_context;
 import plastic.element;
 import plastic.view;
+import plastic.platform;
 
 export namespace plastic
 {
     struct Application {
-
-
-
-        std::string app_name;
+        std::string app_name_;
         Size<float> default_window_size;
+        std::shared_ptr<context::AppContext> app_context_;
+        // std::shared_ptr<Platform> platform_{};
+        bool is_running_{false};
 
         Application(std::string  app_name, const Size<float>& default_window_size)
-            :app_name(std::move(app_name)), default_window_size(default_window_size) {}
+            :app_name_(std::move(app_name)), default_window_size(default_window_size) {}
+
+        explicit Application(std::string app_name = "Plastic App")
+            :app_name_(std::move(app_name)) {
+            app_context_ = std::make_shared<context::AppContext>();
+            // platform_ = std::make_shared<Platform>(app_context_);
+        }
 
         class Builder {
             std::string app_name {"Plastic App"};
@@ -52,7 +59,7 @@ export namespace plastic
         }
 
         class WindowBuilder {
-            std::shared_ptr<Window> window;
+            std::shared_ptr<Window> window{};
         public:
             explicit WindowBuilder(std::shared_ptr<Window> w) : window(std::move(w)) {}
 
@@ -87,7 +94,7 @@ export namespace plastic
         bool should_close{false};
         bool loop{true};
 
-        std::vector<std::shared_ptr<Window>> windows;
+        std::vector<std::shared_ptr<Window>> windows{};
 
     public:
 
@@ -99,6 +106,9 @@ export namespace plastic
         [[noreturn]] virtual void run();
         virtual void close();
         virtual void stop();
+
+
+        // Main application run with context
 
 
 

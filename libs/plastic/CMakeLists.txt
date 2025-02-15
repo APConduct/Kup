@@ -59,6 +59,8 @@ target_sources(plastic
         include/modules/platform.ixx
         include/modules/window/window_options.ixx
         include/modules/window/window_base.ixx
+        include/modules/window/window_builder.ixx
+
 )
 
 
