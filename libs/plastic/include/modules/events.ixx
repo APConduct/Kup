@@ -84,6 +84,11 @@ export namespace plastic::events
         double timestamp{};
     };
 
+    struct WindowCloseEvent {
+        int window_id;
+        double timestamp{};
+    };
+
     template<typename T>
     struct CustomEvent {
         T data;
@@ -100,6 +105,7 @@ export namespace plastic::events
         KeyReleaseEvent,
         TextInputEvent,
         ResizeEvent,
-        FocusEvent
+        FocusEvent,
+        WindowCloseEvent
         >;
 }
