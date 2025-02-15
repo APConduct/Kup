@@ -9,7 +9,7 @@ module;
 #include <functional>
 export module plastic.window;
 import plastic.element;
-import plastic.context;
+import plastic.window_context;
 import plastic.size;
 import plastic.view;
 import plastic.window_options;
@@ -23,12 +23,15 @@ export namespace plastic
         std::vector<std::function<void()>> updaters_;
 
     private:
-        std::shared_ptr<View> root_;
-        std::shared_ptr<Context> context_;
+        std::shared_ptr<View> root_{};
+        std::shared_ptr<plastic::context::WindowContext> context_{};
         Size<float> size{0,0};
 
         std::string title_;
 
+        int window_id_{};
+        std::weak_ptr<Platform> platform_{};
+        bool should_close_{false};
 
 
         // concurrency
@@ -41,9 +44,9 @@ export namespace plastic
 
     public:
 
-        explicit Window(std::shared_ptr<Context> context) : context_(std::move(context)) {}
+        explicit Window(std::shared_ptr<context::WindowContext> context) : context_(std::move(context)) {}
 
-        [[nodiscard]] std::shared_ptr<Context> get_context() const {
+        [[nodiscard]] std::shared_ptr<context::WindowContext> get_context() const {
             return context_;
         }
 
@@ -56,9 +59,16 @@ export namespace plastic
         }
 
         explicit Window(const std::shared_ptr<View>& root) : root_(root) {}
-        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root) : root_(root), context_(context) {}
-        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root, const Size<float> size) : root_(root), context_(context), size(size) {}
+        explicit Window(const std::shared_ptr<context::WindowContext>& context, const std::shared_ptr<View>& root) : root_(root), context_(context) {}
+        explicit Window(const std::shared_ptr<context::WindowContext>& context, const std::shared_ptr<View>& root, const Size<float> size) : root_(root), context_(context), size(size) {}
         explicit Window( const Size<float>& size) : size(size){}
+
+        template <typename F>
+        auto run(F&& f) -> decltype(f(context_)) {
+            return context_->run(std::forward<F>(f));
+        }
+
+
 
         void set_root(const std::shared_ptr<View>& root) {
             if (this->root_) {
