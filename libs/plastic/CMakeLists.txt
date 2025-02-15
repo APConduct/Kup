@@ -56,6 +56,9 @@ target_sources(plastic
         include/modules/layout_container.ixx
         include/modules/stateful_view.ixx
         include/modules/layout/flex_direction.ixx
+        include/modules/platform.ixx
+        include/modules/window/window_options.ixx
+        include/modules/window/window_base.ixx
 )
 
 

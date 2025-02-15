@@ -1,0 +1,23 @@
+//
+// Created by Aidan Jost on 2/15/25.
+//
+
+export module plastic.window_base;
+import plastic.context;
+import plastic.window_options;
+
+export namespace plastic
+{
+    class WindowBase {
+    public:
+        virtual ~WindowBase() = default;
+
+        [[nodiscard]] virtual int id() const = 0;
+        virtual int request_close() = 0;
+        virtual void update() = 0;
+        virtual void render() = 0;
+        virtual Context& context() = 0;
+        [[nodiscard]] virtual bool should_close() const = 0;
+        [[nodiscard]] virtual const WindowOptions& options() const = 0;
+    };
+}

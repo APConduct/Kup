@@ -12,6 +12,9 @@ import plastic.element;
 import plastic.context;
 import plastic.size;
 import plastic.view;
+import plastic.window_options;
+import plastic.platform;
+
 
 export namespace plastic
 {
@@ -20,11 +23,13 @@ export namespace plastic
         std::vector<std::function<void()>> updaters_;
 
     private:
-        std::shared_ptr<View> root;
-        std::shared_ptr<Context> context;
+        std::shared_ptr<View> root_;
+        std::shared_ptr<Context> context_;
         Size<float> size{0,0};
 
         std::string title_;
+
+
 
         // concurrency
         // std::thread thread_;
@@ -36,10 +41,10 @@ export namespace plastic
 
     public:
 
-        explicit Window(std::shared_ptr<Context> context) : context(std::move(context)) {}
+        explicit Window(std::shared_ptr<Context> context) : context_(std::move(context)) {}
 
         [[nodiscard]] std::shared_ptr<Context> get_context() const {
-            return context;
+            return context_;
         }
 
         [[nodiscard]] const Size<float>& get_size() const {
@@ -50,27 +55,27 @@ export namespace plastic
             return title_;
         }
 
-        explicit Window(const std::shared_ptr<View>& root) : root(root) {}
-        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root) : root(root), context(context) {}
-        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root, const Size<float> size) : root(root), context(context), size(size) {}
+        explicit Window(const std::shared_ptr<View>& root) : root_(root) {}
+        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root) : root_(root), context_(context) {}
+        explicit Window(const std::shared_ptr<Context>& context, const std::shared_ptr<View>& root, const Size<float> size) : root_(root), context_(context), size(size) {}
         explicit Window( const Size<float>& size) : size(size){}
 
         void set_root(const std::shared_ptr<View>& root) {
-            if (this->root) {
-                this->root->render(context.get())->unmount(context.get());
+            if (this->root_) {
+                this->root_->render(context_.get())->unmount(context_.get());
             }
-            this->root = root;
+            this->root_ = root;
             if (root)
             {
-                root->render(context.get())->mount(context.get());
+                root->render(context_.get())->mount(context_.get());
             }
         }
 
         void handle_resize(const Size<float>& new_size) {
             size = new_size;
-            if (root) {
-                root->render(context.get())->layout(context.get());
-                root->render(context.get())->paint(context.get());
+            if (root_) {
+                root_->render(context_.get())->layout(context_.get());
+                root_->render(context_.get())->paint(context_.get());
             }
         }
 
