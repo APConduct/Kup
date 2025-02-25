@@ -8,6 +8,8 @@ module;
 #include <string>
 #include <filesystem>
 #include <optional>
+#include <memory>
+#include <cstring>
 export module fs.path_list;
 
 import fs.config;
@@ -184,7 +186,7 @@ export namespace fs
             };
         }
 
-        static CStylePathList from(::FilePathList& path_list) {
+        static CStylePathList from(const ::FilePathList& path_list) {
             CStylePathList c_style_path_list{};
             c_style_path_list.capacity = path_list.capacity;
             c_style_path_list.count = path_list.count;
@@ -196,7 +198,9 @@ export namespace fs
     struct PathList {
         auto operator<=>(const PathList&) const {
 
-        };
+        }
+
+
         unsigned int count;             // Filepaths entries count
         unsigned int capacity;          // Filepaths max entries
         std::vector<std::string> paths; // Filepaths entries
@@ -228,7 +232,7 @@ export namespace fs
             return c_style_path_list;
         }
 
-        static PathList from(::FilePathList& path_list) {
+        static PathList from(const ::FilePathList& path_list) {
             PathList path_list_obj{};
             path_list_obj.capacity = path_list.capacity;
             path_list_obj.count = path_list.count;
@@ -239,16 +243,9 @@ export namespace fs
             return path_list_obj;
         }
 
-        static PathList from(const ::FilePathList path_list) {
-            PathList path_list_obj{};
-            path_list_obj.capacity = path_list.capacity;
-            path_list_obj.count = path_list.count;
-            path_list_obj.paths.reserve(path_list.count);
-            for (unsigned int i = 0; i < path_list.count; ++i) {
-                path_list_obj.paths.emplace_back(path_list.paths[i]);
-            }
-            return path_list_obj;
-        }
+
+
+
 
         static PathList from(const std::vector<std::string>& paths) {
             PathList path_list_obj{};
@@ -258,7 +255,7 @@ export namespace fs
             return path_list_obj;
         }
 
-        static PathList from(CStylePathList& c_style_path_list) {
+        static PathList from(const CStylePathList& c_style_path_list) {
             PathList path_list_obj{};
             path_list_obj.capacity = c_style_path_list.capacity;
             path_list_obj.count = c_style_path_list.count;

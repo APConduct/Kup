@@ -8,6 +8,7 @@ module;
 #include <vector>
 #include <functional>
 #include <variant>
+#include <memory>
 export module plastic.event_dispatcher;
 
 import plastic.event_base;

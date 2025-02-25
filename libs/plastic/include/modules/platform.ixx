@@ -16,6 +16,7 @@ module;
 #elif defined(_WIN32) || defined(_WIN64)
 #define PLASTIC_PLATFORM_WINDOWS 1
 #define PLASTIC_OS_NAME "Windows"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME "control"
 #define PLASTIC_DEFAULT_COMMAND_KEY_NAME_ALT "control"
 #define PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE "ctrl"
 #else
@@ -26,7 +27,6 @@ module;
 #endif
 
 #include <memory>
-#include <string>
 export module plastic.platform;
 
 import plastic.window_base;

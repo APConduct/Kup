@@ -3,6 +3,7 @@
 //
 
 module;
+#include <memory>
 #include <cassert>
 #include <cstdint>
 #include <functional>
