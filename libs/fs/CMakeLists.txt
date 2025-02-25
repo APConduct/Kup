@@ -8,11 +8,23 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 add_library(fs STATIC)
 
+target_sources(fs PUBLIC include/fs/fs_config.hpp)
+
 target_sources(fs
         PUBLIC
         FILE_SET CXX_MODULES
         FILES
+        include/modules/config.ixx
+        include/modules/path_list.ixx
         include/modules/fs.ixx
+        include/modules/tree.ixx
+
+)
+
+target_link_libraries(fs PUBLIC
+        raylib
+        sol2
+        ${PLATFORM_SPECIFIC_LIBS}
 )
 
 

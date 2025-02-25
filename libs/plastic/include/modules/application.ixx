@@ -4,11 +4,6 @@
 module;
 #include <memory>
 #include <vector>
-#include <functional>
-#include <memory>
-#include <memory>
-#include <memory>
-#include <memory>
 #include <string>
 export module plastic.application;
 

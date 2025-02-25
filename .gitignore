@@ -30,3 +30,4 @@ kbrainst
 
 .clangd
 /cmake-build-debug-msys2-ucrt/
+/build/

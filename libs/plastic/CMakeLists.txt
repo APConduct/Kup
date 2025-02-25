@@ -61,10 +61,10 @@ target_sources(plastic
         include/modules/window/window_base.ixx
         include/modules/window/window_builder.ixx
         include/modules/window/window_manager.ixx
-
+        include/modules/font.ixx
 )
 
 
-target_link_libraries(plastic PUBLIC raylib)
+target_link_libraries(plastic PUBLIC raylib fs)
 
 target_include_directories(plastic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

@@ -25,6 +25,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(ext/tinyfd)
 
+add_subdirectory(libs/fs)
 add_subdirectory(libs/plastic)
 add_subdirectory(libs/hyro)
 add_subdirectory(libs/solkup)
@@ -33,7 +34,6 @@ add_subdirectory(libs/lsp)
 add_subdirectory(libs/plugin)
 add_subdirectory(libs/term)
 add_subdirectory(libs/editor)
-add_subdirectory(libs/fs)
 
 set(tinyfd_SRC ext/tinyfd/tinyfd)
 

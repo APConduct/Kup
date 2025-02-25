@@ -2,6 +2,29 @@
 // Created by Aidan Jost on 2/14/25.
 //
 module;
+
+#if defined(__APPLE__)
+#define PLASTIC_PLATFORM_MACOS (TARGET_OS_MAC && !TARGET_OS_IOS && !TARGET_OS_TV && !TARGET_OS_WATCH)
+#define PLASTIC_OS_NAME "macOS"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME "command"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE "cmd"
+#elif defined(__linux__)
+#define PLASTIC_PLATFORM_LINUX 1
+#define PLASTIC_OS_NAME "Linux"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME "control"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE "ctrl"
+#elif defined(_WIN32) || defined(_WIN64)
+#define PLASTIC_PLATFORM_WINDOWS 1
+#define PLASTIC_OS_NAME "Windows"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME_ALT "control"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE "ctrl"
+#else
+#define PLASTIC_PLATFORM_UNKNOWN 1
+#define PLASTIC_OS_NAME "Unknown"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME "unknown"
+#define PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE "unknown"
+#endif
+
 #include <memory>
 #include <string>
 export module plastic.platform;
@@ -17,6 +40,18 @@ import plastic.entity_map;
 export namespace plastic
 {
     struct Platform : public std::enable_shared_from_this<plastic::Platform> {
+    public:
+        decltype(PLASTIC_OS_NAME) os_name_ {PLASTIC_OS_NAME};
+        decltype(PLASTIC_DEFAULT_COMMAND_KEY_NAME) default_command_key_name_ {PLASTIC_DEFAULT_COMMAND_KEY_NAME};
+        decltype(PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE) default_command_key_name_terse_ {PLASTIC_DEFAULT_COMMAND_KEY_NAME_TERSE};
+
+        decltype(PLASTIC_OS_NAME) os_name() const {
+            return os_name_;
+        }
+
+        decltype(PLASTIC_DEFAULT_COMMAND_KEY_NAME) default_command_key_name() const {
+            return default_command_key_name_;
+        }
     private:
         std::shared_ptr<plastic::context::AppContext> app_context_{};
         EventDispatcher event_dispatcher_;
