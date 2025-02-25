@@ -85,7 +85,11 @@ int main(int argc, char *argv[])
 
     float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
 
-    TextEditor editor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0, MENU_BAR_WIDTH, TA_LEFT_SPACE);
+    auto editor = TextEditor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0, MENU_BAR_WIDTH, TA_LEFT_SPACE);
+    editor.set_content_start(208, 40);
+    editor.set_tab_height(40);
+    editor.set_tab_padding(5);
+    editor.set_margin_x(5);
 
     FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x, MENU_BAR_WIDTH);
     file_tree.set_root(GetWorkingDirectory());

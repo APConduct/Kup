@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <iterator>
 #include <memory>
 #include <raylib.h>
 #include <string>
@@ -79,17 +78,18 @@ struct BufferTab : View<BufferTab> {
 struct TextEditor : View<TextEditor> {
     vector<std::unique_ptr<BufferTab>> tabs;
 
-    float margin_x{5};
+    float margin_x{};
 
-    float space_below{0};
+    float space_below{};
 
-    size_t current_tab{0};
+    size_t current_tab{};
     Font font{};
-    float font_size{20};
-    float spacing{0};
-    float tab_height{25};
-    float tab_padding{5};
-    Vector2 content_start{208, 60}; // Start pos for text area
+    float font_size{};
+    float spacing{};
+    float tab_padding{};
+    float tab_height{};
+
+    Vector2 content_start{0, 40}; // Start pos for text area
 
     bool is_focused{true};
 
@@ -103,10 +103,37 @@ struct TextEditor : View<TextEditor> {
         : margin_x(margin_x), space_below(space_below), font(editor_font),font_size(size), spacing(space) {}
 
 
+    void set_content_start(const float x, const float y) {
+        content_start = {x, y};
+    }
+
+    void set_tab_height(const float height) {
+        tab_height = height;
+    }
+
+    void set_font_size(const float size) {
+        font_size = size;
+    }
+    void set_spacing(const float space) {
+        spacing = space;
+    }
+
+    void set_tab_padding(const float padding) {
+        tab_padding = padding;
+    }
+
+    void set_margin_x(const float margin) {
+        margin_x = margin;
+    }
+
+
+
+
+
     void open_file(const string& path) {
         // Check if file is open already
-        auto it = std::find_if(tabs.begin(), tabs.end(),
-            [&path](const auto& tab) {return tab->path == path;});
+        auto it = std::ranges::find_if(tabs,
+                                       [&path](const auto& tab) {return tab->path == path;});
 
         if (it != tabs.end()) {
             // File already open, switch to it
@@ -145,9 +172,9 @@ struct TextEditor : View<TextEditor> {
             // Draw tab background
             Color tab_color = is_current ? DARKGRAY : GRAY;
             DrawRectangle(static_cast<int>(tab_x), static_cast<int>(tab_y),
-                static_cast<int>(MeasureTextEx(font, tab->name.c_str(),
+                static_cast<int>((MeasureTextEx(font, tab->name.c_str(),
                 font_size/2, spacing).x) +
-                tab_padding*2, tab_height, tab_color);
+                tab_padding*2), static_cast<int>(tab_height), tab_color);
 
             // Draw filename
             DrawTextEx(font, tab->name.c_str(),
@@ -192,7 +219,7 @@ struct TextEditor : View<TextEditor> {
 
     void close_current_tab() {
         if (!tabs.empty()) {
-            tabs.erase(tabs.begin() + current_tab);
+            tabs.erase(tabs.begin() + static_cast<long>(current_tab));
             if (current_tab >= tabs.size()) {
                 current_tab = tabs.empty() ? 0 : tabs.size() - 1;
             }
