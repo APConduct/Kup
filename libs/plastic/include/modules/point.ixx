@@ -4,7 +4,6 @@
 
 module;
 
-#include <type_traits>
 #include <raylib.h>
 #include <cmath>
 #include <cstddef>

@@ -6,7 +6,6 @@ module;
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
-#include <memory>
 #include <functional>
 #include <variant>
 export module plastic.event_dispatcher;
@@ -35,7 +34,7 @@ private:
     EventQueue event_queue;
 
     bool should_dispatch(const events::Event& event) {
-        return std::all_of(filters.begin(), filters.end(), [&event](const auto& filter) {
+        return std::ranges::all_of(filters, [&event](const auto& filter) {
             return filter(event);
         });
     }

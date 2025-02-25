@@ -95,7 +95,7 @@ export namespace plastic
             if (this->root_) {
                 this->root_->unmount(context_.get());
             }
-            this->root_ = std::move(root);
+            this->root_ = root;
             if (root_)
             {
                 root_->mount(context_.get());
@@ -109,7 +109,7 @@ export namespace plastic
             }
         }
 
-        void center_on_screen() {
+        static void center_on_screen() {
             // TODO - implement
 
         }

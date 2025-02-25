@@ -9,12 +9,14 @@ module;
 export module plastic.app_context;
 import plastic.window_base;
 import plastic.event_dispatcher;
+import plastic.context;
+import plastic.events;
 
 
 
 export namespace plastic::context
 {
-    struct AppContext  : std::enable_shared_from_this<AppContext> {
+    struct AppContext  : plastic::Context,  std::enable_shared_from_this<AppContext> {
 
     private:
         EventDispatcher event_dispatcher_;
@@ -39,6 +41,12 @@ export namespace plastic::context
         EventDispatcher& events() {
             return event_dispatcher_;
         }
+
+        void request_layout() override;
+        void request_paint() override;
+        void dispatch_event(const events::Event& event) override;
+
+
 
 
 

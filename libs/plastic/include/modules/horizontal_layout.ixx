@@ -1,6 +1,5 @@
 module;
 #include <vector>
-#include <algorithm>
 export module plastic.horizontal_layout;
 
 import plastic.layout;

@@ -73,10 +73,10 @@ export namespace plastic::context
             }
         }
 
-        void show_error(const std::string& message) {
-            // implement error handling
+        static void show_error(const std::string& message); // implement error handling
 
-        }
+
+
 
         AppContext& app_context() {
             return *app_context_;
@@ -86,8 +86,8 @@ export namespace plastic::context
             return window_.lock();
         }
 
-        void focus(View* view){}
-        void focus(Element* view){}
+        static void focus(View* view);
+        static void focus(Element* view);
 
         void request_paint() override {
             // implement paint request

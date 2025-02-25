@@ -7,7 +7,6 @@ module;
 #include <cstdint>
 #include <functional>
 #include <typeindex>
-#include <memory>
 
 export module plastic.entity_map;
 import plastic.component;

@@ -85,7 +85,7 @@ export namespace plastic::events
     };
 
     struct WindowCloseEvent {
-        int window_id;
+        int window_id{};
         double timestamp{};
     };
 

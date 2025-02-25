@@ -42,7 +42,7 @@ export namespace plastic
             for (const auto& event : batch) {
                 try {
                     dispatcher.emit(event);
-                } catch (const std::exception& e) {}
+                } catch ([[maybe_unused]] const std::exception& e) {}
             }
             batch.clear();
         }
