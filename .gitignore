@@ -21,9 +21,6 @@ build/
 # local brainstorm text files
 kbrainst
 
-# user-specific degug configuration files
-# @alias $XDG_CONFIG_HOME/kup
-# @alias_fallback
 .usr_test_cfg
 
 .zig-cache
