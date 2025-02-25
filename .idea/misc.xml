@@ -20,6 +20,7 @@
       <file path="$PROJECT_DIR$/ext/luajit" />
       <file path="$PROJECT_DIR$/ext/tinyfd" />
       <file path="$PROJECT_DIR$/libs/editor" />
+      <file path="$PROJECT_DIR$/libs/fs" />
       <file path="$PROJECT_DIR$/libs/hyro" />
       <file path="$PROJECT_DIR$/libs/krusty" />
       <file path="$PROJECT_DIR$/libs/lsp" />
