@@ -2,6 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Kup" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Kup/ext/luajit/luaJIT" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Kup/ext/raygui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Kup/ext/tinyfd/tinyfd" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/luajit/luaJIT" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/raygui" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/tinyfd/tinyfd" vcs="Git" />

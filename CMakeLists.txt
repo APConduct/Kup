@@ -2,14 +2,12 @@ cmake_minimum_required(VERSION 3.28)
 project(Kup)
 
 if (APPLE)
-    # set(CMAKE_CXX_COMPILER /opt/homebrew/opt/llvm/bin/clang++)
-    # set(CMAKE_C_COMPILER /opt/homebrew/opt/llvm/bin/clang)
-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
 
-    # link_directories("/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib")
-    # include_directories("/opt/homebrew/opt/llvm/include")
+    set(PLATFORM_SPECIFIC_LIBS c++ c++abi)
+else ()
+    set(PLATFORM_SPECIFIC_LIBS)
 endif()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
@@ -56,8 +54,7 @@ target_link_libraries(Kup PRIVATE raylib
         plastic
         freetype
         sol2
-        c++
-        c++abi
+        ${PLATFORM_SPECIFIC_LIBS}
 )
 
 target_include_directories(Kup PRIVATE
