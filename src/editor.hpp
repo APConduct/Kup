@@ -21,7 +21,6 @@ using std::vector;
 // Get the filename from a path
 struct BufferTab : View<BufferTab> {
     float space_below{0};
-
     string path;
     string name;
     std::unique_ptr<kupui::TextArea> text_area;
@@ -77,21 +76,16 @@ struct BufferTab : View<BufferTab> {
 // TextEditor class
 struct TextEditor : View<TextEditor> {
     vector<std::unique_ptr<BufferTab>> tabs;
-
     float margin_x{};
-
     float space_below{};
-
     size_t current_tab{};
     Font font{};
     float font_size{};
     float spacing{};
     float tab_padding{};
     float tab_height{};
-
-    Vector2 content_start{0, 40}; // Start pos for text area
-
-    bool is_focused{true};
+    Vector2 content_start{}; // Start pos for text area
+    bool is_focused{};
 
     TextEditor(const Font& editor_font, const float size, const float space)
         : font(editor_font), font_size(size), spacing(space) {}
@@ -126,6 +120,37 @@ struct TextEditor : View<TextEditor> {
         margin_x = margin;
     }
 
+    void set_focus(const bool focus) {
+        is_focused = focus;
+    }
+
+    void set_focused() {
+        is_focused = true;
+    }
+
+    [[nodiscard]] float get_margin_x() const {
+        return margin_x;
+    }
+
+    [[nodiscard]] float get_space_below() const {
+        return space_below;
+    }
+
+    [[nodiscard]] float get_tab_height() const {
+        return tab_height;
+    }
+
+    [[nodiscard]] float get_tab_padding() const {
+        return tab_padding;
+    }
+
+    [[nodiscard]] float get_font_size() const {
+        return font_size;
+    }
+
+    [[nodiscard]] float get_spacing() const {
+        return spacing;
+    }
 
 
 

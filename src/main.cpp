@@ -1,4 +1,3 @@
-#include <cmath>
 #include <raylib.h>
 #include <string>
 #include <iostream>
@@ -22,17 +21,6 @@ enum hues
     KUP_RED1 = 0xE8426CFF,
     KUP_GREEN = 0x38D17DFF
 
-};
-struct Hue
-{
-    unsigned char r;        // Color red value
-    unsigned char g;        // Color green value
-    unsigned char b;        // Color blue value
-    unsigned char a;        // Color alpha value
-
-    Hue();
-    Hue(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-    Hue(unsigned char r, unsigned char g, unsigned char b);
 };
 
 int main(int argc, char *argv[])
@@ -90,6 +78,7 @@ int main(int argc, char *argv[])
     editor.set_tab_height(40);
     editor.set_tab_padding(5);
     editor.set_margin_x(5);
+    editor.set_focused();
 
     FileTree file_tree(jb_mono_reg_ui, UI_FONT_SIZE, 0, x, MENU_BAR_WIDTH);
     file_tree.set_root(GetWorkingDirectory());
