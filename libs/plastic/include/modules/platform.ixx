@@ -12,6 +12,7 @@ import plastic.event_dispatcher;
 import plastic.events;
 import plastic.size;
 import plastic.window_context;
+import plastic.entity_map;
 
 export namespace plastic
 {
@@ -20,6 +21,8 @@ export namespace plastic
         std::shared_ptr<plastic::context::AppContext> app_context_{};
         EventDispatcher event_dispatcher_;
         bool initialized_{false};
+
+        World world_{}; // Entity Component System
 
     public:
         explicit Platform(std::shared_ptr<context::AppContext> app_context)
