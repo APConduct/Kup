@@ -14,6 +14,7 @@ import plastic.stateful_view;
 import plastic.context;
 import plastic.layout_container;
 import plastic.horizontal_layout;
+import plastic.event_visitor;
 
 namespace kup
 {
@@ -73,7 +74,11 @@ namespace kup
         }
 
         void handle_event(plastic::events::Event& event, plastic::Context* cx) override {
-            std::visit([this](const auto& e) {handle_event_impl(e);}, event);
+            if (std::visit(plastic::EventVisitor{}, event)) {
+                return;
+            }
+            StatefulView::handle_event(event, cx);
+
         }
 
         static plastic::style::Style create_line_number_style() {

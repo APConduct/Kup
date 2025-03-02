@@ -267,6 +267,13 @@ namespace kup
             return element;
         }
 
+        template<typename EventT>
+        void handle_event_impl(const EventT& event, plastic::Context* cx) const {
+            // Default implementation - silently ignore unhandled event types
+            (void)event; // Prevent unused parameter warning
+            (void)cx;    // Prevent unused parameter warning
+        }
+
         void handle_event(plastic::events::Event& event, plastic::Context* cx) override {
             std::visit([this, cx](auto&& e) {
                 handle_event_impl(e, cx);

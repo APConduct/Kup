@@ -13,7 +13,8 @@ import plastic.context;
 import plastic.size;
 import plastic.layout_properties;
 import plastic.rect;
-
+import plastic.events;
+import plastic.point;
 export namespace plastic
 {
     struct Element : std::enable_shared_from_this<Element>
@@ -100,5 +101,30 @@ export namespace plastic
         [[nodiscard]] virtual Size<float> get_preferred_size() const {
             return style.get_preferred_size();
         }
+
+        // Add to Element class in element.ixx
+        virtual bool handle_event(const events::Event& event, Context* cx) {
+             // Check if event is within bounds for mouse events
+             if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
+                 if (!bounds.contains(plastic::Point{mouse_event->position.width(), mouse_event->position.height()})) {
+                     return false; // Not in bounds
+                 }
+             }
+
+             // Process children in reverse order (front to back)
+             for (auto it = children.rbegin(); it != children.rend(); ++it) {
+                 if ((*it)->handle_event(event, cx)) {
+                     return true; // Event was handled by a child
+                 }
+             }
+
+             // Default implementations for common events
+             return process_event(event, cx);
+         }
+
+        // Protected method for specific element implementations to override
+        virtual bool process_event(const events::Event& event, Context* cx) {
+             return false; // Not handled by default
+         }
     };
 }

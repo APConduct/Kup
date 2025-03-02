@@ -79,6 +79,11 @@ export namespace plastic::events
         double timestamp{};
     };
 
+    struct WindowResizeEvent {
+        Size<float> size;
+        double timestamp{};
+    };
+
     struct FocusEvent {
         bool gained{};
         double timestamp{};

@@ -94,6 +94,12 @@ namespace kup {
 
     private:
 
+        template<typename EventT>
+            void handle_event_impl(const EventT& event) {
+            // Default implementation - silently ignore unhandled event types
+            (void)event; // Prevent unused parameter warning
+        }
+
         class TextElement : public plastic::Element {
         private:
             State state;
@@ -134,7 +140,7 @@ namespace kup {
                         {bounds.x() - state.scroll_x, y},
                         state.font_size,
                         state.line_spacing,
-                        get_style().text_color_normal.value_or(WHITE).rl()
+                        get_style().text_color_normal.value_or(plastic::Color::white()).rl()
                     );
                     y += metrics.line_height;
                 }
@@ -151,7 +157,7 @@ namespace kup {
                     static_cast<int>(y),
                     static_cast<int>(metrics.char_width),
                     static_cast<int>(metrics.line_height),
-                    get_style().text_color_normal.value_or(WHITE).rl()
+                    get_style().text_color_normal.value_or(plastic::Color::white()).rl()
                 );
             }
 

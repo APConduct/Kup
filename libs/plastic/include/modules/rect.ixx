@@ -58,6 +58,12 @@ export namespace plastic
         [[nodiscard]] bool contains(const Point<T>& point) const {
             return point.x_ >= x_ && point.x_ <= x_ + width_ && point.y_ >= y_ && point.y_ <= y_ + height_;
         }
+
+        template <typename O>
+        bool contains(const Point<O>& point) const {
+            return point.x >= x() && point.x <= x() + width()
+            && point.y >= y() && point.y <= y() + height();
+        }
     };
 
     template <>

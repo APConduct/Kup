@@ -3,6 +3,7 @@
 //
 module;
 #include <memory>
+#include <raylib.h>
 export module plastic.layout_container;
 
 import plastic.layout;
@@ -40,5 +41,33 @@ export namespace plastic
             }
             return Element::get_preferred_size();
         }
+
+        void paint(Context* cx) const override {
+            // Paint container background if specified
+            const auto& bounds = get_bounds();
+
+            // Draw background if color is specified
+            if (auto bg_color = get_style().background_color_normal) {
+                DrawRectangleRec(
+                    {bounds.x(), bounds.y(), bounds.width(), bounds.height()},
+                    bg_color->rl()
+                );
+            }
+
+            // Draw border if specified
+            if (auto border_color = get_style().border) {
+                DrawRectangleLinesEx(
+                    {bounds.x(), bounds.y(), bounds.width(), bounds.height()},
+                    1.0f,  // Border width
+                    border_color->rl()
+                );
+            }
+
+            // Paint all children
+            for (const auto& child : get_children()) {
+                child->paint(cx);
+            }
+
+        };
     };
 }

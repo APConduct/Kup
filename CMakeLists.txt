@@ -48,7 +48,9 @@ add_executable(Kup src/main.cpp
         src/editor/editor_view.hpp
         src/editor/editor_state.hpp
         src/editor/file_tree_view.hpp
-        src/editor/App.hpp
+        src/editor/app.hpp
+        src/editor/app.cpp
+
 )
 
 target_link_libraries(Kup PRIVATE raylib

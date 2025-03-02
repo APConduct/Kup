@@ -159,6 +159,15 @@ export namespace plastic
             }
         }
 
+        void dispatch_event(const events::Event& event) {
+            if (root_) {
+                auto element = root_->render(context_.get());
+                if (element) {
+                    element->handle_event(event, context_.get());
+                }
+            }
+        }
+
         // TODO - add event handling
     };
 }
