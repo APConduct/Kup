@@ -9,6 +9,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 add_library(plastic STATIC
         include/plastic/config.hpp
+
 )
 
 target_sources(plastic
@@ -62,6 +63,14 @@ target_sources(plastic
         include/modules/window/window_builder.ixx
         include/modules/window/window_manager.ixx
         include/modules/font.ixx
+        include/modules/audio/device.ixx
+        include/modules/audio/wave.ixx
+        include/modules/audio/sound.ixx
+        include/modules/audio/stream.ixx
+        include/modules/audio/music.ixx
+        include/modules/audio/callback.ixx
+        include/modules/audio/audio.ixx
+
 )
 
 
