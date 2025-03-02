@@ -3,7 +3,10 @@
 #include <cstddef>
 #include <raylib.h>
 #include <string>
-#include "../piece_table.hpp"
+#include "piece_table.hpp"
+#include <fstream>
+#include <vector>
+
 
 namespace kup {
     struct BufferPosition {
@@ -19,40 +22,40 @@ namespace kup {
 
     struct Buffer {
     private:
-        PieceTable content;
-        std::string filepath;
-        bool is_modified{false};
+        PieceTable content_;
+        std::string filepath_;
+        bool modified_{false};
 
         // Cache for line offsets
         mutable std::vector<size_t> line_offsets;
         mutable bool cache_valid{false};
 
     public:
-        explicit Buffer(std::string path = "") : filepath(std::move(path)) {
-            if (!filepath.empty() && FileExists(filepath.c_str())) {
-                if (const char* content = LoadFileText(filepath.c_str())) {
-                    this->content = PieceTable(content);
+        explicit Buffer(std::string path = "") : filepath_(std::move(path)) {
+            if (!filepath_.empty() && FileExists(filepath_.c_str())) {
+                if (const char* content = LoadFileText(filepath_.c_str())) {
+                    this->content_ = PieceTable(content);
                     UnloadFileText(const_cast<char*>(content));
                 }
             }
-        };
+        }
 
         void insert(size_t pos, const std::string& text){
-            content.insert(pos, text);
+            content_.insert(pos, text);
             // cache_valid = false;
-            is_modified = true;
+            modified_ = true;
             invalidate_cache();
         }
 
         void remove(size_t start, size_t end){
-            content.remove(start, end);
+            content_.remove(start, end);
             // cache_valid = false;
-            is_modified = true;
+            modified_ = true;
             invalidate_cache();
         }
 
         [[nodiscard]] std::string get_text() const {
-            return content.get_text();
+            return content_.get_text();
         }
 
         [[nodiscard]] std::string get_line(size_t line_number) const {
@@ -61,9 +64,9 @@ namespace kup {
                 return "";
             }
             size_t start = line_offsets[line_number];
-            size_t end = (line_number + 1 < line_offsets.size()) ? line_offsets[line_number + 1] - 1 : content.get_text().length();
+            size_t end = (line_number + 1 < line_offsets.size()) ? line_offsets[line_number + 1] - 1 : content_.get_text().length();
 
-            return content.get_text().substr(start, end - start);
+            return content_.get_text().substr(start, end - start);
         }
 
         [[nodiscard]] size_t line_count() const {
@@ -81,19 +84,19 @@ namespace kup {
 
         [[nodiscard]] size_t position_to_index(const BufferPosition& pos) const {
             update_cache();
-            if (pos.row >= line_offsets.size()) return content.get_text().length();
+            if (pos.row >= line_offsets.size()) return content_.get_text().length();
             return line_offsets[pos.row] + pos.column;
         }
 
         bool save() {
-                    if (!is_modified) return true;
-                    if (filepath.empty()) return false;
+                    if (!modified_) return true;
+                    if (filepath_.empty()) return false;
 
-                    const std::string& text = content.get_text();
-                    if (!SaveFileText(filepath.c_str(), const_cast<char*>(text.data()))) {
+                    const std::string& text = content_.get_text();
+                    if (!SaveFileText(filepath_.c_str(), const_cast<char*>(text.data()))) {
                         return false;
                     }
-                    is_modified = false;
+                    modified_ = false;
                     return true;
                 }
 
@@ -107,7 +110,7 @@ namespace kup {
                 line_offsets.clear();
                 line_offsets.push_back(0);
 
-                const std::string& text = content.get_text();
+                const std::string& text = content_.get_text();
                 for (size_t i = 0; i < text.length(); i++) {
                     if (text[i] == '\n') {
                         line_offsets.push_back(i + 1);

@@ -3,6 +3,7 @@
 //
 
 #include "app.hpp"
+#include "tinyfiledialogs.h"
 
 namespace kup
 {
@@ -55,7 +56,19 @@ namespace kup
     void App::handle_keyboard_shortcuts() {
         if (IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) {
             if (IsKeyPressed(KEY_O)) {
-                // TODO: Implement file dialog
+                // Open file dialog
+                char const* path = tinyfd_openFileDialog(
+                    "Open File",
+                    "",
+                    0,
+                    nullptr,
+                    nullptr,
+                    0
+                );
+
+                if (path != nullptr) {
+                    open_file(path);
+                }
             }
             if (IsKeyPressed(KEY_S)) {
                 // TODO: Implement save
@@ -67,6 +80,7 @@ namespace kup
             editor_view->set_state([&](EditorState& state) {
                 state.buffer = buffer;
             });
+            return;
         }
 
     }

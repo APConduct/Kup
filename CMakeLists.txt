@@ -50,6 +50,7 @@ add_executable(Kup src/main.cpp
         src/editor/file_tree_view.hpp
         src/editor/app.hpp
         src/editor/app.cpp
+        src/editor/piece_table.hpp
 
 )
 
