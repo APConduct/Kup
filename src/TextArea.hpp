@@ -460,7 +460,7 @@ protected:
             size_t delete_start = cursor.index - composition.delete_counter;
 
             // Explicitly delete ONLY from delete_start to cursor.index (nothing after)
-            text_buffer.remove(delete_start, cursor.index);
+            remove(delete_start, cursor.index);
 
             // Move cursor to position after deletion
             cursor.index = delete_start;
