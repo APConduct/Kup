@@ -27,7 +27,7 @@ struct  TextArea {
     float space_below{0};
     
     float spacing {0};
-    float pos_x{208}, pos_y{20};
+    float pos_x{208}, pos_y{40};
     Color text_color{WHITE};
     float font_size{20};
     Font font{};
@@ -662,6 +662,7 @@ public:
     void render()
     {
 
+
         if (first_render) {
             update_dimensions();
             update_cursor_position();
@@ -734,6 +735,7 @@ public:
     }
 
     void set_pos_x(const float x) { this->pos_x = x; }
+    void set_pos_y(const float y) { this->pos_y = y; }
 
     [[nodiscard]] int get_x() const { return static_cast<int>(this->pos_x); }
 
