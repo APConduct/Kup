@@ -22,7 +22,7 @@ namespace kup {
 
     struct Buffer {
     private:
-        PieceTable content_;
+        PieceTable content_{};
         std::string filepath_;
         bool modified_{false};
 
@@ -31,7 +31,7 @@ namespace kup {
         mutable bool cache_valid{false};
 
     public:
-        explicit Buffer(std::string path = "") : filepath_(std::move(path)) {
+        explicit Buffer(std::string path = "") : content_(""), filepath_(std::move(path)) {
             if (!filepath_.empty() && FileExists(filepath_.c_str())) {
                 if (const char* content = LoadFileText(filepath_.c_str())) {
                     this->content_ = PieceTable(content);

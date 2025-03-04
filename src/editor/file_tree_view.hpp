@@ -105,7 +105,29 @@ namespace kup
                 EndScissorMode();
             };
 
+            float estimate_subtree_height(const FileTreeState::Node& node) const {
+                float height = item_height;
+                if (node.is_directory && node.is_expanded) {
+                    for (const auto& child : node.children) {
+                        height += estimate_subtree_height(child);
+                    }
+                }
+                return height;
+            }
+
             void render_node(const FileTreeState::Node& node, float& y, float x, int depth) const {
+
+                // Skip if we are out of view bounds
+                if (y > get_bounds().y() + get_bounds().height()) {
+                    // Skip this node and estimate the height for its children if expanded
+                    if (node.is_directory && node.is_expanded) {
+                        y += estimate_subtree_height(node);
+                    } else {
+                        y += item_height;
+                    }
+                    return;
+                }
+
                 const float indent = static_cast<float>(depth) * 20.0f;
                 const float adjusted_x = x + indent - state.scroll_x;
                 const bool in_view = (y + item_height >= get_bounds().y() &&
@@ -314,24 +336,40 @@ namespace kup
     private:
 
         static void load_directory(const std::string& path, FileTreeState::Node& node) {
+            if (!DirectoryExists(path.c_str())) {
+                return;
+            }
             const FilePathList files = LoadDirectoryFiles(path.c_str());
 
-            for (int i = 0; i < files.count; i++) {
-                std::string name = GetFileName(files.paths[i]);
-                if (name == "." || name == "..") continue;
-                bool is_dir = DirectoryExists(files.paths[i]);
-                FileTreeState::Node child{
-                    .name = name,
-                    .path = files.paths[i],
-                    .is_directory = is_dir
-                };
+            try {
+                for (int i = 0; i < files.count; i++) {
+                    try {
+                        std::string name = GetFileName(files.paths[i]);
+                        if (name == "." || name == "..") continue;
+                        if (name.starts_with(".")) continue;
+                        bool is_dir = DirectoryExists(files.paths[i]);
+                        FileTreeState::Node child{
+                            .name = name,
+                            .path = files.paths[i],
+                            .is_directory = is_dir
+                        };
 
-                if (is_dir) {
-                    load_directory(files.paths[i], child);
+                        if (is_dir) {
+                            try {
+                                load_directory(files.paths[i], child);
+                            } catch (...) {
+                                // Silently handle exceptions
+                            }                }
+                        node.children.push_back(std::move(child));
+                    } catch (...) {
+                        // Handle exceptions silently
+                        continue;
+                    }
                 }
-                node.children.push_back(std::move(child));
+                UnloadDirectoryFiles(files);
+            } catch (...) {
+                // Handle exceptions silently
             }
-            UnloadDirectoryFiles(files);
         }
 
         [[nodiscard]] static plastic::style::Style create_tree_style() {

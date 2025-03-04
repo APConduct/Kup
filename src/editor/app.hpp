@@ -13,6 +13,7 @@
 namespace kup
 {
     class App {
+    public:
         struct Config {
             Font font;
             float font_size{20.0f};
@@ -30,6 +31,7 @@ namespace kup
         Config config;
         std::shared_ptr<FileTreeView> file_tree;
         std::shared_ptr<EditorView> editor_view;
+        std::shared_ptr<plastic::Context> context_;
 
         static constexpr float FILE_TREE_WIDTH = 200.0f;
         static constexpr float TOP_BAR_HEIGHT = 40.0f;
@@ -38,7 +40,7 @@ namespace kup
     public:
         explicit App(const Config& config);
         void update(float delta_time);
-        void render();
+        void render() const;
 
     private:
         void initialize_views();
