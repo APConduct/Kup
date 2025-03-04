@@ -129,6 +129,7 @@ public:
 
         std::vector<Piece> new_pieces;
 
+        new_pieces.reserve(piece_index);
         for (size_t i = 0; i < piece_index; i++) {
             new_pieces.push_back(pieces[i]);
         }
@@ -183,19 +184,8 @@ public:
 
         std::vector<Piece> new_pieces;
         size_t current_pos = 0;
-        size_t start_piece_idx = 0;
 
-
-
-        // Find start piece
-        // while (start_piece_idx < pieces.size() && current_pos + pieces[start_piece_idx].length <= start) {
-        //     current_pos += pieces[start_piece_idx].length;
-        //     start_piece_idx++;
-        // }
-
-        // Copy pieces before deletion
-        for (size_t i = 0; i < pieces.size(); i++) {
-            const Piece& current_piece = pieces[i];
+        for (const auto & current_piece : pieces) {
             size_t piece_end = current_pos + current_piece.length;
 
             if (piece_end <= start) {
