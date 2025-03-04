@@ -176,60 +176,66 @@ public:
         // Clamp end position to validate range
         end = std::min(end, total_length);
 
-        size_t current_pos = 0;
-        size_t start_piece = 0;
 
-        // Find start piece
-        while (start_piece < pieces.size() && current_pos + pieces[start_piece].length <= start) {
-            current_pos += pieces[start_piece].length;
-            start_piece++;
-        }
+
+        std::cout << "Removing from " << start << " to " << end << std::endl;
+        std::cout << "Text before: " << get_text() << std::endl;
 
         std::vector<Piece> new_pieces;
+        size_t current_pos = 0;
+        size_t start_piece_idx = 0;
+
+
+
+        // Find start piece
+        // while (start_piece_idx < pieces.size() && current_pos + pieces[start_piece_idx].length <= start) {
+        //     current_pos += pieces[start_piece_idx].length;
+        //     start_piece_idx++;
+        // }
 
         // Copy pieces before deletion
-        for (size_t i = 0; i < start_piece; i++) {
-            new_pieces.push_back(pieces[i]);
-        }
+        for (size_t i = 0; i < pieces.size(); i++) {
+            const Piece& current_piece = pieces[i];
+            size_t piece_end = current_pos + current_piece.length;
 
-        if (start_piece < pieces.size()) {
-            size_t startOffset = start - current_pos;
-
-            if (startOffset > 0) {
-                // Keep the first part of the start piece
-                new_pieces.emplace_back(pieces[start_piece].is_original,
-                                     pieces[start_piece].start,
-                                     startOffset);
+            if (piece_end <= start) {
+                new_pieces.push_back(current_piece);
+                current_pos = piece_end;
+                continue;
             }
 
-            // Skip pieces until we reach the end position
-            size_t endPiece = start_piece;
-            while (endPiece < pieces.size() && current_pos + pieces[endPiece].length <= end) {
-                current_pos += pieces[endPiece].length;
-                endPiece++;
+            if (current_pos >= end) {
+                new_pieces.push_back(current_piece);
+                current_pos = piece_end;
+                continue;
             }
 
-            if (endPiece < pieces.size() && current_pos < end) {
-                size_t endOffset = end - current_pos;
-                if (endOffset < pieces[endPiece].length) {
-                    // Keep the last part of the end piece
-                    new_pieces.emplace_back(pieces[endPiece].is_original,
-                                         pieces[endPiece].start + endOffset,
-                                         pieces[endPiece].length - endOffset);
-                }
+            if (current_pos < start) {
+                size_t keep_length = start - current_pos;
+                new_pieces.emplace_back(current_piece.is_original,
+                                     current_piece.start,
+                                     keep_length);
             }
 
-            // Add remaining pieces
-            for (size_t i = endPiece + 1; i < pieces.size(); i++) {
-                new_pieces.push_back(pieces[i]);
+            if (piece_end > end) {
+                size_t offset = end - current_pos;
+                size_t keep_length = piece_end - end;
+                new_pieces.emplace_back(
+                    current_piece.is_original,
+                    current_piece.start + offset,
+                    keep_length);
+
             }
+
+            current_pos = piece_end;
+
         }
 
         pieces = std::move(new_pieces);
-
         total_length -= (end - start);
         line_cache.invalidate();
 
+        std::cout << "Text after: " << get_text() << std::endl;
     }
 
     explicit PieceTable(const std::string& initial = "") : original_buffer(initial) {

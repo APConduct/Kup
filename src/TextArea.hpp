@@ -274,6 +274,25 @@ struct  TextArea {
         update_render_cache();
     }
 
+    void remove(size_t start, size_t end) {
+        if (start >= end || start >= text_buffer.get_text().length()) return;
+
+        size_t old_pos = cursor.index;
+        text_buffer.remove(start, end);
+        cursor.index = std::min(cursor.index, start);
+
+        CursorCommand cmd = {old_pos, cursor.index};
+        cursor_undo_stack.push(cmd);
+
+        // Clear redo stack
+        while (!cursor_redo_stack.empty()) {
+            cursor_redo_stack.pop();
+        }
+        update_cursor_position();
+        render_cache.invalidate();
+        update_render_cache();
+    }
+
     void remove(size_t length) {
         if (cursor.index == 0 || length == 0) return;
 
@@ -435,7 +454,19 @@ protected:
 
 
     void commit_deletion() {
-        remove(composition.delete_counter);
+
+        if (composition.delete_counter > 0 && cursor.index >= composition.delete_counter) {
+            // Calculate the range to delete (characters before cursor)
+            size_t delete_start = cursor.index - composition.delete_counter;
+
+            // Explicitly delete ONLY from delete_start to cursor.index (nothing after)
+            text_buffer.remove(delete_start, cursor.index);
+
+            // Move cursor to position after deletion
+            cursor.index = delete_start;
+            update_cursor_position();
+        }
+
         composition.delete_counter = 0;
         is_composing = false;
         compose_timer = 0.0f;
@@ -452,8 +483,10 @@ public:
         }
 
         if (composition.delete_counter > 0) {
-            if(cursor.index >= composition.delete_counter)
-            {display_text.erase(cursor.index - composition.delete_counter, composition.delete_counter);}
+            if(cursor.index >= composition.delete_counter) {
+                size_t delete_start = cursor.index - composition.delete_counter;
+                display_text.erase(delete_start, composition.delete_counter);
+            }
 
         }
 
@@ -563,6 +596,7 @@ public:
                 } else {
                     commit_position();
                 }
+                is_composing = false;
             }
         }
 
@@ -575,18 +609,15 @@ public:
             } else if (this->cursor.index > 0)
             {
 
-                if (!is_composing) {
-                    is_composing = true;
-                    composition.delete_counter = 0;
-                }
-                if (cursor.index - composition.delete_counter > 0) {
-                    composition.delete_counter++;
-                    compose_timer = 0.0f;
-                }
+                composition.delete_counter = 1;
+                is_composing = true;
+                compose_timer = 0.0f;
 
                 update_render_cache();
-                update_cursor_position();
+                // update_cursor_position();
             }
+            std::cout << "Backspace pressed" << std::endl;
+            std::cout << text_buffer.get_text().length() << std::endl;
         }
 
         if (IsKeyPressed(KEY_ENTER))
