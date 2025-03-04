@@ -133,7 +133,7 @@ public:
         return height;
     }
 
-    void load_directory(const std::string& path, FileNode& node) {
+    static void load_directory(const std::string& path, FileNode& node) {
         const FilePathList files = LoadDirectoryFiles(path.c_str());
 
         for (int i = 0; i < files.count; i++) {
