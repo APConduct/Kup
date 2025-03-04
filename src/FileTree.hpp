@@ -8,16 +8,7 @@
 #include <raylib.h>
 #include "view.hpp"
 
-template <typename T>
-struct IFileTreeModel {
-    virtual T& get_root() = 0;
-    virtual void add_file(const std::string& path) = 0;
-    virtual void remove_file(const std::string& path) = 0;
-    virtual ~IFileTreeModel() = default;
-    //virtual void rename_file(const std::string& path, const std::string& new_name) = 0;
-    //virtual T& get_child(const T& parent, int index) = 0;
-    //virtual int get_child_count(const T& parent) = 0;
-};
+
 
 struct FileNode {
     std::string name;
