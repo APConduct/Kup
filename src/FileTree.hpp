@@ -156,34 +156,41 @@ public:
 
     };
     void render_node(const FileNode& node, float& y_offset, int depth = 0) {
-        // Skip rendering if node is outside of view
-        if (y_offset + item_height < position.y - scroll_offset_y ||
-            y_offset > position.y - scroll_offset_y + visible_height){
-        // Update y_offset based on item height
+        // Calculate the actual screen position for this node
+        float screen_y = y_offset - scroll_offset_y;
+
+        // Skip rendering if node is completely outside visible area
+        if (screen_y > position.y + visible_height ||
+            screen_y + item_height < position.y) {
+
+            // Still update y_offset even when not rendering
             y_offset += item_height;
-            if (node.is_directory && node.is_expanded){
-                for (const auto& child : node.children){
+
+            // Continue traversing children if expanded - we need to update y_offset
+            if (node.is_directory && node.is_expanded) {
+                for (const auto& child : node.children) {
                     render_node(child, y_offset, depth + 1);
                 }
             }
             return;
-        }
+            }
 
         float x = position.x + (static_cast<float>(depth) * 20.0f) - scroll_offset_x; // Indent based on depth
 
         // Draw expand/collapse indicator for directories
         if (node.is_directory) {
             const char* indicator = node.is_expanded ? "v" : ">";
-            DrawTextEx(font, indicator, {x+10, y_offset+10}, font_size, spacing, text_color);
+            DrawTextEx(font, indicator, {x + 5, screen_y}, font_size, spacing, text_color);
         }
 
-        DrawTextEx(font, node.name.c_str(), {x+25, y_offset+10}, font_size, spacing, text_color);
+        // Draw the node name - position it after the indicator
+        DrawTextEx(font, node.name.c_str(), {x + 25, screen_y}, font_size, spacing, text_color);
 
+        // Update y_offset for next node
         y_offset += item_height;
 
-
         // Recursively render children if expanded
-        if (node.is_directory & node.is_expanded) {
+        if (node.is_directory && node.is_expanded) {
             for (const auto& child : node.children) {
                 render_node(child, y_offset, depth + 1);
             }
@@ -246,7 +253,7 @@ public:
             static_cast<int>(width), static_cast<int>(visible_height - space_below)
         );
 
-        float y_offset = position.y - scroll_offset_y;
+        float y_offset = position.y;
         for (const auto& node : nodes) {
             render_node(node, y_offset, 0);
         }

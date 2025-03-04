@@ -11,6 +11,7 @@
 #include <stack>
 #include <string>
 #include <vector>
+#include <iostream>
 #include "piece_table.hpp"
 #include <raylib.h>
 #include "scroll_bar.hpp"
@@ -21,11 +22,11 @@ namespace kupui {
 
 struct  TextArea {
 
-    
+
     int FPS = GetFPS();
 
     float space_below{0};
-    
+
     float spacing {0};
     float pos_x{0}, pos_y{0};
     Color text_color{WHITE};
