@@ -65,12 +65,6 @@ int main(int argc, char *argv[])
     const auto jb_mono_reg_ui = LoadFontEx(JB_MONO_REG_PATH.c_str(),
         UI_FONT_SIZE,nullptr,0);
 
-    auto jb_mono_thin = LoadFontEx(JB_MONO_THIN_PATH.c_str(),
-        BUFFER_FONT_SIZE,nullptr,0);
-
-    const auto zed_mono_reg = LoadFontEx(ZED_MONO_REG_PATH.c_str(),
-        BUFFER_FONT_SIZE,nullptr,0);
-
     float x = FILE_MARGIN_WIDTH + GRIP_GAP + FILE_TREE_START_TEST_WIDTH; // 208
 
     auto editor = TextEditor(jb_mono_reg_buffer, BUFFER_FONT_SIZE, 0, MENU_BAR_WIDTH, TA_LEFT_SPACE);
@@ -130,8 +124,6 @@ int main(int argc, char *argv[])
         auto x_start = static_cast<float>(editor.content_start.x - GRIP_GAP);
         auto x_end = static_cast<float>(editor.content_start.x - GRIP_GAP);
         auto y_end = static_cast<float>(GetScreenHeight() - MENU_BAR_WIDTH);
-
-        //DrawRectangle(0,y_end,GetScreenWidth(),MENU_BAR_WIDTH,BLACK);
 
         // line between file tree and buffer view
         DrawLineEx({x_start, 0}, {x_end, y_end},GUI_LINE_WIDTH,WHITE);

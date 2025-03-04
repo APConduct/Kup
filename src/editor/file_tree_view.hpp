@@ -5,7 +5,6 @@
 #ifndef FILE_TREE_VIEW_HPP
 #define FILE_TREE_VIEW_HPP
 
-#include <memory>
 #include <string>
 #include <vector>
 #include <functional>
@@ -290,7 +289,7 @@ namespace kup
         }
 
         template<typename EventT>
-        void handle_event_impl(const EventT& event, plastic::Context* cx) const {
+        static void handle_event_impl(const EventT& event, plastic::Context* cx) {
             // Default implementation - silently ignore unhandled event types
             (void)event; // Prevent unused parameter warning
             (void)cx;    // Prevent unused parameter warning
@@ -304,14 +303,14 @@ namespace kup
 
         void handle_event_impl(const plastic::events::MouseButtonEvent& event, plastic::Context* cx) const {
             if (event.pressed && event.button == MOUSE_BUTTON_LEFT) {
-                if (auto element = std::dynamic_pointer_cast<TreeElement>(render(cx))) {
+                if (const auto element = std::dynamic_pointer_cast<TreeElement>(render(cx))) {
                     element->handle_click(event.position.width(), event.position.height());
                 }
             }
         }
 
         void handle_event_impl(const plastic::events::MouseScrollEvent& event, plastic::Context* cx) const {
-            if (auto element = std::dynamic_pointer_cast<TreeElement>(render(cx))) {
+            if (const auto element = std::dynamic_pointer_cast<TreeElement>(render(cx))) {
                 if (element->handle_mouse_wheel(plastic::Point<float>(event.delta.width(), event.delta.height()))) {
                     cx->request_paint();
                 }
@@ -380,7 +379,7 @@ namespace kup
         };
 
     public:
-        class Builder : public plastic::View::Builder<Builder> {
+        class Builder : public View::Builder<Builder> {
             FileTreeState state{};
         public:
             Builder& with_font(const Font& font, float size, float spacing) {

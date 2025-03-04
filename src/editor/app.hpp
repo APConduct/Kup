@@ -39,13 +39,13 @@ namespace kup
 
     public:
         explicit App(const Config& config);
-        void update(float delta_time);
+        void update(float delta_time) const;
         void render() const;
 
     private:
         void initialize_views();
-        void handle_keyboard_shortcuts();
-        void open_file(const std::string& path);
+        void handle_keyboard_shortcuts() const;
+        void open_file(const std::string& path) const;
         void draw_dividers() const;
 
         void draw_divider(float x, float y, float width, float height) const;

@@ -50,7 +50,7 @@ namespace kup
         editor_view->mount(context_.get());
     }
 
-    void App::update(float delta_time) {
+    void App::update(const float delta_time) const {
         if (file_tree) file_tree->update(delta_time);
         if (editor_view) editor_view->update(delta_time);
         handle_keyboard_shortcuts();
@@ -63,7 +63,7 @@ namespace kup
         const auto window_height = static_cast<float>(GetScreenHeight());
 
         // Calculate view areas
-        plastic::Rect<float> file_tree_bounds{
+        const plastic::Rect file_tree_bounds{
             MARGIN,
             TOP_BAR_HEIGHT,
             FILE_TREE_WIDTH - MARGIN * 2,
@@ -71,7 +71,7 @@ namespace kup
 
         };
 
-        plastic::Rect<float> editor_bounds{
+        const plastic::Rect editor_bounds{
             FILE_TREE_WIDTH + MARGIN,
             TOP_BAR_HEIGHT,
             window_width - FILE_TREE_WIDTH - MARGIN * 2,
@@ -106,9 +106,8 @@ namespace kup
 
             // Debug output
             std::cout << "Rendering file tree" << std::endl;
-            auto element = file_tree->render(context_.get());
 
-            if (element) {
+            if (const auto element = file_tree->render(context_.get())) {
                 std::cout << "File tree element rendered" << std::endl;
                 element->set_bounds(file_tree_bounds);
                 element->paint(context_.get());
@@ -123,9 +122,7 @@ namespace kup
 
 
         if (editor_view) {
-            const EditorState& editor_state = editor_view->get_state();
-
-            if (editor_state.buffer != nullptr) {
+            if (const EditorState& editor_state = editor_view->get_state(); editor_state.buffer != nullptr) {
                 BeginScissorMode(
                    static_cast<int>(editor_bounds.x()),
                    static_cast<int>(editor_bounds.y()),
@@ -133,8 +130,7 @@ namespace kup
                    static_cast<int>(editor_bounds.height())
                );
 
-                auto element = editor_view->render(context_.get());
-                if (element) {
+                if (const auto element = editor_view->render(context_.get())) {
                     element->set_bounds(editor_bounds);
                     element->paint(context_.get());
                 }
@@ -148,7 +144,7 @@ namespace kup
 
     }
 
-    void App::handle_keyboard_shortcuts() {
+    void App::handle_keyboard_shortcuts() const {
         if (IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) {
             if (IsKeyPressed(KEY_O)) {
                 // Open file dialog
@@ -170,7 +166,7 @@ namespace kup
             }
         }
     }
-    void App::open_file(const std::string& path) {
+    void App::open_file(const std::string& path) const {
         if (auto buffer = std::make_shared<Buffer>(path)) {
             editor_view->set_state([buffer](EditorState& state) {
                 state.buffer = buffer;
