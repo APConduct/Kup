@@ -88,7 +88,7 @@ public:
         // Only handle scroll if mouse is over the file tree
         if (!is_mouse_over()) return;
 
-        // Get both verytical and horizontal scroll
+        // Get both vertical and horizontal scroll
         auto [x, y] = GetMouseWheelMoveV();
         if (x != 0  || y != 0){
             // Calculate max scroll before applying new scroll offset
