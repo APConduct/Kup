@@ -608,17 +608,17 @@ public:
                 update_render_cache();
             } else if (this->cursor.index > 0) {
 
-                if (is_composing && composition.delete_counter > 0) {
-                    commit_deletion();
-                }
+                compose_timer = 0.0f;
 
-                if (cursor.index > 0) {
-                    size_t delete_start = cursor.index - 1;
-                    remove(delete_start, cursor.index);
-                    update_cursor_position();
-                    render_cache.invalidate();
-                    update_render_cache();
+                if (is_composing && composition.delete_counter > 0) {
+                    // If already composing deletions, add to the counter
+                    composition.delete_counter++;
+                } else {
+                    // Start a new composition
+                    composition.delete_counter = 1;
+                    is_composing = true;
                 }
+                update_render_cache();
                 // update_cursor_position();
             }
             std::cout << "Backspace pressed" << std::endl;
