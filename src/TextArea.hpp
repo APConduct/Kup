@@ -606,14 +606,19 @@ public:
                 input_buffer.pop_back();
                 compose_timer = 0.0f;
                 update_render_cache();
-            } else if (this->cursor.index > 0)
-            {
+            } else if (this->cursor.index > 0) {
 
-                composition.delete_counter = 1;
-                is_composing = true;
-                compose_timer = 0.0f;
+                if (is_composing && composition.delete_counter > 0) {
+                    commit_deletion();
+                }
 
-                update_render_cache();
+                if (cursor.index > 0) {
+                    size_t delete_start = cursor.index - 1;
+                    remove(delete_start, cursor.index);
+                    update_cursor_position();
+                    render_cache.invalidate();
+                    update_render_cache();
+                }
                 // update_cursor_position();
             }
             std::cout << "Backspace pressed" << std::endl;
