@@ -40,6 +40,7 @@ struct BufferTab : View<BufferTab> {
             if (FileExists(path.c_str())) {
                 if (const char* content = LoadFileText(path.c_str())) {
                     text_area->load_content(content);
+                    text_area->update(); // Force update to immediately
                     UnloadFileText(const_cast<char*>(content));
                 }
             }

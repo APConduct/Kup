@@ -7,15 +7,12 @@
 #include <algorithm>
 #include <cstddef>
 #include <functional>
-// #include <lua.h>
 #include <sstream>
 #include <stack>
 #include <string>
 #include <vector>
-#include "tinyfiledialogs.h"
 #include "piece_table.hpp"
 #include <raylib.h>
-// #include <lua.hpp>
 #include "scroll_bar.hpp"
 
 typedef std::string string;
@@ -197,7 +194,7 @@ struct  TextArea {
         void update(const PieceTable& buffer){
             //update line/column based on index
             std::string text = buffer.get_text().substr(0,index);
-            line = std::count(text.begin(), text.end(), '\n');
+            line = std::ranges::count(text, '\n');
             auto last_new_line = text.find_last_of('\n');
             column = last_new_line == std::string::npos ? index : index - last_new_line - 1;
         }
@@ -477,6 +474,7 @@ protected:
 public:
 
     void update_render_cache() const{
+        const_cast<TextArea*>(this)->update_dimensions();
         string display_text = text_buffer.get_text();
         if(!this->input_buffer.empty()){
             display_text.insert(cursor.index, input_buffer);
@@ -656,8 +654,22 @@ public:
         }
     };
 
+private:
+    bool first_render{true};
+
+public:
+
     void render()
     {
+
+        if (first_render) {
+            update_dimensions();
+            update_cursor_position();
+            update_render_cache();
+            scroll_offset_x = 0;
+            scroll_offset_y = 0;
+            first_render = false;
+        }
         if(render_cache.lines.empty()){
             update_render_cache();
         }
@@ -790,13 +802,19 @@ public:
         compose_timer = 0.0f;
         cursor_undo_stack = std::stack<CursorCommand>();
         cursor_redo_stack = std::stack<CursorCommand>();
+
+        scroll_offset_x = 0;
+        scroll_offset_y = 0;
+
         update_cursor_position();
         render_cache.invalidate();
         update_render_cache();
+
+        update_dimensions();
     }
 
 protected:
-    void fireEvent(const Event& event) {
+    void fireEvent(const Event& event) const {
         for (const auto& handler : event_handlers) {
             handler(event);
         }
@@ -814,7 +832,7 @@ public:
         string text = text_buffer.get_text().substr(0, cursor.index - n_del);
 
         // count newlines for y position
-        const size_t newlines = std::count(text.begin(), text.end(), '\n');
+        const size_t newlines = std::ranges::count(text, '\n');
         y += static_cast<float>(newlines) * font_size;
 
         // get x position
