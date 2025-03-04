@@ -27,7 +27,7 @@ struct  TextArea {
     float space_below{0};
     
     float spacing {0};
-    float pos_x{208}, pos_y{40};
+    float pos_x{0}, pos_y{0};
     Color text_color{WHITE};
     float font_size{20};
     Font font{};
@@ -342,12 +342,7 @@ struct  TextArea {
             update_render_cache();
         }
 
-    TextArea() {
-        this->font = GetFontDefault();
 
-        // L = luaL_newstate();
-        // luaL_openlibs(L);
-    }
 
     TextArea(const float pos_x, const float pos_y,
         const Font& font, const float font_size,const float spacing)
@@ -359,8 +354,19 @@ struct  TextArea {
     : space_below(space_below), spacing(spacing), pos_x(pos_x), pos_y(pos_y), font_size(font_size), font(font)
     {}
 
+    TextArea& at_x(float x) {
+        this->pos_x = x;
+        return *this;
+    }
 
-    //~TextArea();
+    TextArea& at_y(float y) {
+        this->pos_y = y;
+        return *this;
+    }
+
+
+
+
     [[nodiscard]] float get_pos_y() const { return this->pos_y; };
 
     [[nodiscard]] std::vector<std::string> text_vec() const

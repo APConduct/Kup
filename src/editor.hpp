@@ -26,6 +26,9 @@ struct BufferTab : View<BufferTab> {
     std::unique_ptr<kupui::TextArea> text_area;
     bool is_active{false};
 
+    float pos_x {};
+    float pos_y {};
+
     BufferTab(
         const string& filepath, const Font& font,
         float font_size, float spacing, const float space_below): space_below(space_below) {
@@ -33,7 +36,7 @@ struct BufferTab : View<BufferTab> {
             name = GetFileName(filepath.c_str());
             // Position calculated by TextEditor
             text_area = std::make_unique<kupui::TextArea>(
-                208, 60, font, font_size, spacing, space_below
+                pos_x, pos_y, font, font_size, spacing, space_below
             );
 
             // Load content if file exists
@@ -44,6 +47,37 @@ struct BufferTab : View<BufferTab> {
                     UnloadFileText(const_cast<char*>(content));
                 }
             }
+    }
+
+    BufferTab(
+        const string& filepath, const Font& font,
+        float font_size, float spacing, const float space_below,
+        float x, float y): space_below(space_below), pos_x(x), pos_y(y) {
+        path = filepath;
+        name = GetFileName(filepath.c_str());
+        // Position calculated by TextEditor
+        text_area = std::make_unique<kupui::TextArea>(
+            pos_x, pos_y, font, font_size, spacing, space_below
+        );
+
+        // Load content if file exists
+        if (FileExists(path.c_str())) {
+            if (const char* content = LoadFileText(path.c_str())) {
+                text_area->load_content(content);
+                text_area->update(); // Force update to immediately
+                UnloadFileText(const_cast<char*>(content));
+            }
+        }
+    }
+
+    BufferTab& at_x(const float x) {
+        pos_x = x;
+        return *this;
+    }
+
+    BufferTab& at_y(const float y) {
+        pos_y = y;
+        return *this;
     }
 
     void render() override {
@@ -87,6 +121,8 @@ struct TextEditor : View<TextEditor> {
     float tab_height{};
     Vector2 content_start{}; // Start pos for text area
     bool is_focused{};
+
+
 
     TextEditor(const Font& editor_font, const float size, const float space)
         : font(editor_font), font_size(size), spacing(space) {}
@@ -167,7 +203,7 @@ struct TextEditor : View<TextEditor> {
             set_active_tab(index);
         } else {
             // Add new tab
-            auto new_tab = std::make_unique<BufferTab>(path, font, font_size, spacing, space_below);
+            auto new_tab = std::make_unique<BufferTab>(path, font, font_size, spacing, space_below, content_start.x, content_start.y);
             new_tab->set_position(content_start.x,content_start.y);
             tabs.push_back(std::move(new_tab));
             set_active_tab(tabs.size() - 1);
