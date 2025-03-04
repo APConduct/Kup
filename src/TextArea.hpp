@@ -227,8 +227,6 @@ struct  TextArea {
         }
     } render_cache;
 
-
-
     struct CursorCommand {
         size_t old_pos;
         size_t new_pos;
@@ -741,46 +739,6 @@ public:
 
     [[nodiscard]] int get_y() const { return static_cast<int>(this->pos_y); }
 
-    // Example binding implementation
-    // static int l_buffer_insert(lua_State* L) {
-    //     auto* area = static_cast<TextArea*>(lua_touserdata(L, 1));
-    //     const char* text = luaL_checkstring(L, 2);
-        // size_t pos = luaL_checkinteger(L, 3);
-    //     area->insert(text);
-    //     return 0;
-    // }
-
-
-    // Core API for Lua
-    // static void registerLuaAPI(lua_State* L) {
-        // Buffer operations
-        // lua_register(L, "buffer_insert", l_buffer_insert);
-        //lua_register(L, "buffer_remove", l_buffer_remove);
-        //lua_register(L, "buffer_get_text", l_buffer_get_text);
-
-        // Cursor operations
-        //lua_register(L, "cursor_move", l_cursor_move);
-        //lua_register(L, "cursor_get_position", l_cursor_get_position);
-
-        // Composition
-        //lua_register(L, "start_composition", l_start_composition);
-        //lua_register(L, "end_composition", l_end_composition);
-
-        // Rendering
-        //lua_register(L, "set_font", l_set_font);
-        //lua_register(L, "set_colors", l_set_colors);
-    // }
-
-    // Example binding implementation
-    //static int l_buffer_insert(lua_State* L) {
-    //    TextArea* area = (TextArea*)lua_touserdata(L, 1);
-    //    const char* text = luaL_checkstring(L, 2);
-    //    size_t pos = luaL_checkinteger(L, 3);
-    //    area->insert(text, pos);
-    //    return 0;
-    //}
-// @prefer: keep all non-public members as protected
-
     struct Event{
         enum class Type { Insert, Delete, CursorMove, CompositionStart, CompositionEnd};
         Type type;
@@ -821,8 +779,7 @@ protected:
             handler(event);
         }
     }
-    // lua_State* L{};  // Lua state
-    // Core state variables...
+
 
 public:
     Vector2 get_cursor_screen_pos() const {
