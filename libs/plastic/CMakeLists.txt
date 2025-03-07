@@ -10,6 +10,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 add_library(plastic STATIC
         include/plastic/config.hpp
 
+
 )
 
 target_sources(plastic
@@ -77,6 +78,8 @@ target_sources(plastic
         include/modules/component_registry.ixx
         include/modules/object_pool.ixx
         include/modules/text/rich_text.ixx
+        include/modules/theme.ixx
+        include/modules/text/text.ixx
 
 
 
