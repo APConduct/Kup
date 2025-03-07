@@ -72,7 +72,7 @@ target_sources(plastic
         include/modules/audio/audio.ixx
         include/modules/layout/grid_layout.ixx
         include/modules/command.ixx
-
+        include/modules/events/event_delegation.ixx
 
 )
 
