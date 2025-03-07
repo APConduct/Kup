@@ -29,8 +29,5 @@ export import plastic.component;
 export import plastic.entity_map;
 export import plastic.vertical_layout;
 export import plastic.horizontal_layout;
-
-
-
-
-
+export import plastic.grid_layout;
+export import plastic.command;

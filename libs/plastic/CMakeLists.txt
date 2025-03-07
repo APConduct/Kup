@@ -31,7 +31,7 @@ target_sources(plastic
         include/modules/app_context.ixx
         include/modules/div.ixx
         include/modules/container.ixx
-        include/modules/window.ixx
+        include/modules/window/window.ixx
         include/modules/window_context.ixx
         include/modules/view_context.ixx
         include/modules/model_context.ixx
@@ -70,6 +70,9 @@ target_sources(plastic
         include/modules/audio/music.ixx
         include/modules/audio/callback.ixx
         include/modules/audio/audio.ixx
+        include/modules/layout/grid_layout.ixx
+        include/modules/command.ixx
+
 
 )
 

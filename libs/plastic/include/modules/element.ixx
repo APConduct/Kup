@@ -4,6 +4,7 @@
 module;
 
 #include <memory>
+#include <ranges>
 #include <vector>
 
 export module plastic.element;
@@ -112,8 +113,8 @@ export namespace plastic
              }
 
              // Process children in reverse order (front to back)
-             for (auto it = children.rbegin(); it != children.rend(); ++it) {
-                 if ((*it)->handle_event(event, cx)) {
+             for (auto & it : std::ranges::reverse_view(children)) {
+                 if (it->handle_event(event, cx)) {
                      return true; // Event was handled by a child
                  }
              }
@@ -126,5 +127,65 @@ export namespace plastic
         virtual bool process_event(const events::Event& event, Context* cx) {
              return false; // Not handled by default
          }
+
+        void rm(const std::shared_ptr<Element>& child) {
+             // Find and remove the child
+             std::erase_if(children,
+                           [&child](const std::shared_ptr<Element>& e) {
+                               return e == child;
+                           });
+
+             // Notify the element it's been detached if needed
+             if (context) {
+                 child->unmount(context);
+             }
+
+             // Invalidate layout
+             invalidate();
+         }
+
+        void add(const std::shared_ptr<Element>& child) {
+             child->parent = shared_from_this();
+             children.push_back(child);
+
+             // If we're already mounted, mount the child too
+             if (context) {
+                 child->mount(context);
+             }
+
+             invalidate();
+         }
+
+        void remove_child(const std::shared_ptr<Element>& child) {
+             auto it = std::ranges::find(children, child);
+             if (it != children.end()) {
+                 // If mounted, unmount first
+                 if (context) {
+                     (*it)->unmount(context);
+                 }
+
+                 // Break parent relationship
+                 (*it)->parent.reset();
+
+                 // Remove from children vector
+                 children.erase(it);
+
+                 invalidate();
+             }
+         }
+
+        void clear_children() {
+             // Unmount all children if mounted
+             if (context) {
+                 for (auto& child : children) {
+                     child->unmount(context);
+                     child->parent.reset();
+                 }
+             }
+
+             children.clear();
+             invalidate();
+         }
+
     };
 }
