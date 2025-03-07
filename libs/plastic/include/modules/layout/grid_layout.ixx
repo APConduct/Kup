@@ -238,10 +238,10 @@ export namespace plastic
                 const auto& layout_props = child->get_layout_properties();
 
                 // Apply margin
-                x += layout_props.margin;
-                y += layout_props.margin;
-                width -= layout_props.margin * 2;
-                height -= layout_props.margin * 2;
+                x += layout_props.margin.left;
+                y += layout_props.margin.top;
+                width -= (layout_props.margin.left + layout_props.margin.right);
+                height -= (layout_props.margin.top + layout_props.margin.bottom);
 
                 // Position the child
                 child->set_bounds(Rect<float>{x, y, width, height});

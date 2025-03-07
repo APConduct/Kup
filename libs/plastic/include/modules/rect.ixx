@@ -11,6 +11,7 @@ export module plastic.rect;
 
 import plastic.point;
 import plastic.size;
+import plastic.color;
 
 
 export namespace plastic
@@ -117,11 +118,11 @@ export namespace plastic
         }
 
         void draw_lines(const float thickness, const Color color) const {
-            DrawRectangleLinesEx({x_, y_, width_, height_}, thickness, color);
+            DrawRectangleLinesEx({x_, y_, width_, height_}, thickness, color.rl());
         }
 
         void fill(const Color color) const {
-            DrawRectangleRec(to_rl(), color);
+            DrawRectangleRec(to_rl(), color.rl());
         }
 
         // MAYBE REMOVE THESE FUNCTIONS

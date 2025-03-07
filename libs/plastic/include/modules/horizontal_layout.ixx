@@ -59,7 +59,7 @@ export namespace plastic
                 width = params.constrain_size(Size<float>{width, size.height()}).width();
 
                 // Calculate vertical alignment
-                float y = bounds.y() + params.margin;
+                float y = bounds.y() + params.margin.top;
                 float height = bounds.height() - params.get_total_vertical_space();
 
                 switch (params.align_self) {
@@ -81,7 +81,7 @@ export namespace plastic
 
                         // Position the child
                 child->set_bounds(Rect{
-                    x + params.margin,
+                    x + params.margin.left,
                     y,
                     width,
                     height

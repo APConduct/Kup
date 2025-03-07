@@ -60,7 +60,7 @@ export namespace plastic
             height = params.constrain_size(Size<float>{size.width(), height}).height();
 
             // Calculate horizontal alignment
-            float x = bounds.x() + params.margin;
+            float x = bounds.x() + params.margin.left;
             float width = bounds.width() - params.get_total_horizontal_space();
 
             switch (params.align_self) {
@@ -83,7 +83,7 @@ export namespace plastic
             // Position the child
             child->set_bounds(Rect<float>{
                 x,
-                y + params.margin,
+                y + params.margin.top,
                 width,
                 height
             });

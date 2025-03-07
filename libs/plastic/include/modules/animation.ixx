@@ -44,7 +44,7 @@ export namespace plastic
         }
 
         static float ease_out_elastic(float start, float end, float progress) {
-            const float c4  = (2 * M_PI) / 3;
+            constexpr float c4  = (2 * M_PI) / 3;
             float delta = end - start;
 
             return static_cast<float>(progress == 0? start : progress == 1? end : start + delta * (std::pow(2, -10 * progress) * std::sin(progress * 10 - 0.75) * c4) + 1);
@@ -103,6 +103,55 @@ export namespace plastic
         }
     };
 
+    template <typename T>
+    class SpringAnimation {
+    private:
+        T target_;
+        T current_;
+        T velocity_;
+        float stiffness_{100.0f};
+        float damping_{10.0f};
+        float mass_{1.0f};
+        std::function<void(T)> on_update_;
+        bool active_{false};
+
+    public:
+        SpringAnimation(T initial, T target, std::function<void(T)> on_update)
+            : target_(target), current_(initial), velocity_{}, on_update_(std::move(on_update)) {}
+
+        void set_target(T target) {
+            target_ = target;
+            active_ = true;
+        }
+
+        void update(float dt) {
+            if (!active_) return;
+
+            // Spring physics
+            T force = (target_ - current_) * stiffness_;
+            T acceleration = force / mass_;
+            velocity_ = velocity_ * (1.0f - damping_ * dt) + acceleration * dt;
+            current_ = current_ + velocity_ * dt;
+
+            on_update_(current_);
+
+            // Check if spring has settled
+            T delta = target_ - current_;
+            if (std::abs(delta) < 0.01f && std::abs(velocity_) < 0.01f) {
+                current_ = target_;
+                velocity_ = T{};
+                active_ = false;
+                on_update_(current_);
+            }
+        }
+
+        void configure(float stiffness, float damping, float mass) {
+            stiffness_ = stiffness;
+            damping_ = damping;
+            mass_ = mass;
+        }
+    };
+
     class AnimationManager {
         std::vector<std::unique_ptr<Animation<float>>> float_animations_;
         std::vector<std::unique_ptr<Animation<Color>>> color_animations_;
@@ -140,4 +189,30 @@ export namespace plastic
             }
         }
     };
+
+    template<typename T>
+class TransitionProperty {
+    private:
+        T value_;
+        Animation<T> animation_;
+
+    public:
+        explicit TransitionProperty(T initial, float duration = 0.3f)
+            : value_(initial), animation_(initial, initial, duration, [this](const T& v) { value_ = v; }) {}
+
+        void set(const T& target) {
+            animation_.stop();
+            animation_ = Animation<T>(value_, target, animation_.duration_,
+                                     [this](const T& v) { value_ = v; });
+            animation_.start();
+        }
+
+        const T& get() const { return value_; }
+        explicit operator const T&() const { return value_; }
+    };
+
+
+
+
+
 }

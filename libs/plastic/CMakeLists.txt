@@ -86,6 +86,13 @@ target_sources(plastic
         include/modules/history.ixx
         include/modules/plugin.ixx
         include/modules/events/event_broadcast.ixx
+        include/modules/component_system.ixx
+        include/modules/layout/flex_layout.ixx
+        include/modules/router.ixx
+        include/modules/scrollable.ixx
+        include/modules/constraints.ixx
+        include/modules/virtual_list.ixx
+
 
 
 

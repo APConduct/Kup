@@ -7,6 +7,7 @@ module;
 #include <cfloat>
 export module plastic.layout_properties;
 import plastic.size;
+import plastic.edge;
 
 export namespace plastic
 {
@@ -42,7 +43,7 @@ export namespace plastic
         float flex_shrink{1};
         Size<float> preferred_size{0,0};
         LayoutConstraints constraints;
-        float margin{0};
+        Edge<float> margin{0};
         float padding{0};
 
         enum class Alignment {
@@ -64,11 +65,11 @@ export namespace plastic
         }
 
         [[nodiscard]] float get_total_horizontal_space() const {
-            return margin * 2 + padding * 2;
+            return margin.left + margin.right + padding * 2;
         }
 
         [[nodiscard]] float get_total_vertical_space() const {
-            return margin * 2 + padding * 2;
+            return margin.top + margin.bottom + padding * 2;
         }
 
         bool operator==(const LayoutProperties& other) const {

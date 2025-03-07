@@ -12,9 +12,11 @@ export namespace plastic
     template <typename T>
     struct Size {
         static_assert(std::is_arithmetic_v<T>, "Size must be of an arithmetic type");
+    private:
 
         T width_;
         T height_;
+    public:
 
         Size& width(const T width) {
             this->width_ = width;

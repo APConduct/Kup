@@ -40,13 +40,6 @@ export namespace plastic
         Rect<float> bounds_{};
 
 
-        // concurrency
-        // std::thread thread_;
-        // std::atomic<bool> running_;
-        // std::mutex render_mutex_;
-
-
-
 
     public:
 
