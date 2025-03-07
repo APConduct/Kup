@@ -79,7 +79,8 @@ target_sources(plastic
         include/modules/object_pool.ixx
         include/modules/text/rich_text.ixx
         include/modules/theme.ixx
-        include/modules/text/text.ixx
+        include/modules/text/text_fmt.ixx
+        include/modules/text/text_layout.ixx
 
 
 

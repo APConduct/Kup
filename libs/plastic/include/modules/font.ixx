@@ -96,9 +96,16 @@ export namespace plastic
     };
 
     struct Font : std::enable_shared_from_this<Font> {
-        ::Font font_;
+        ::Font font_{};
         [[nodiscard]] ::Font rl() const {
             return font_;
         }
+
+        static Font from(const ::Font& font) {
+            return Font{font};
+        }
+
+        Font() = default;
+        explicit Font(const ::Font& font) : font_(font) {};
     };
 }
