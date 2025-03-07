@@ -9,8 +9,6 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 add_library(plastic STATIC
         include/plastic/config.hpp
-
-
 )
 
 target_sources(plastic
@@ -77,10 +75,19 @@ target_sources(plastic
         include/modules/animation.ixx
         include/modules/component_registry.ixx
         include/modules/object_pool.ixx
-        include/modules/text/rich_text.ixx
+        include/modules/text/rich/rich_text.ixx
         include/modules/theme.ixx
         include/modules/text/text_fmt.ixx
         include/modules/text/text_layout.ixx
+        include/modules/text/rich_text.ixx
+        include/modules/optimized_renderer.ixx
+        include/modules/viewport_culling.ixx
+        include/modules/fs/filesystem.ixx
+        include/modules/history.ixx
+        include/modules/plugin.ixx
+        include/modules/events/event_broadcast.ixx
+
+
 
 
 

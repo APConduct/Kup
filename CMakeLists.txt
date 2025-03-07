@@ -60,6 +60,8 @@ target_link_libraries(Kup PRIVATE raylib
         freetype
         sol2
         ${PLATFORM_SPECIFIC_LIBS}
+        kup_editor
+
 )
 
 target_include_directories(Kup PRIVATE

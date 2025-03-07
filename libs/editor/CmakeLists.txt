@@ -3,6 +3,16 @@ project(kup_editor)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(kup_editor INTERFACE)
+add_library(kup_editor STATIC include/editor/editor.hpp
+)
+target_sources(kup_editor
+        PUBLIC
+        FILE_SET CXX_MODULES
+        FILES
+        include/modules/line_numbers.ixx
+        include/modules/syntax_highlighter.ixx
 
-target_sources(kup_editor PRIVATE include/editor/editor.hpp )
+)
+
+target_link_libraries(kup_editor PUBLIC plastic )
+

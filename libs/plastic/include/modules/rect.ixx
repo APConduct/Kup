@@ -143,6 +143,11 @@ export namespace plastic
         bool operator==(const Rect& other) const {
             return x_ == other.x_ && y_ == other.y_ && width_ == other.width_ && height_ == other.height_;
         }
+
+
+        [[nodiscard]] bool intersects (const Rect& bound) const {
+            return CheckCollisionRecs(bound.to_rl(), to_rl());
+        }
     };
 
     template <typename T>
@@ -163,5 +168,10 @@ export namespace plastic
             static_cast<int>(rect.width()),
             static_cast<int>(rect.height()));
     }
+
+    bool intersects(const Rect<float>& a, const Rect<float>& b) {
+        return a.x() < b.right() && a.right() > b.x() && a.y() < b.bottom() && a.bottom() > b.y();
+    }
+
 
 }

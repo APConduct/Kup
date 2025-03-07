@@ -187,5 +187,9 @@ export namespace plastic
              invalidate();
          }
 
+        bool is_visible(const Rect<float>& viewport) const {
+             return bounds.intersects(viewport);
+         }
+
     };
 }
