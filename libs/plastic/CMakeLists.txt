@@ -73,6 +73,12 @@ target_sources(plastic
         include/modules/layout/grid_layout.ixx
         include/modules/command.ixx
         include/modules/events/event_delegation.ixx
+        include/modules/animation.ixx
+        include/modules/component_registry.ixx
+        include/modules/object_pool.ixx
+        include/modules/text/rich_text.ixx
+
+
 
 )
 
