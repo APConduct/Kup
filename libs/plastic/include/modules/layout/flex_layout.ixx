@@ -36,7 +36,8 @@ export namespace plastic {
         End,
         SpaceBetween,
         SpaceAround,
-        SpaceEvenly
+        SpaceEvenly,
+        Stretch
     };
 
     struct FlexLayoutProperties : LayoutProperties {

@@ -16,11 +16,48 @@ import plastic.color;
 import plastic.style;
 import plastic.layout_properties;
 import plastic.context;
-import plastic.flex_layout;
+import plastic.rect;
+import plastic.point;
+import plastic.events;
 import plastic.edge;
+import plastic.flex_layout;
 
 export namespace plastic
 {
+    // Helper functions to match GPUI.rs style
+    Color rgb(uint32_t hex) {
+        uint8_t r = (hex >> 16) & 0xFF;
+        uint8_t g = (hex >> 8) & 0xFF;
+        uint8_t b = hex & 0xFF;
+        return Color::rgb(r, g, b);
+    }
+
+    Color rgba(uint32_t hex, float alpha) {
+        uint8_t r = (hex >> 16) & 0xFF;
+        uint8_t g = (hex >> 8) & 0xFF;
+        uint8_t b = hex & 0xFF;
+        return Color::rgba(r, g, b, static_cast<uint8_t>(alpha * 255));
+    }
+
+    inline float px(float value) {
+        return value;
+    }
+
+    inline Size<float> size(float width, float height) {
+        return Size<float>{width, height};
+    }
+
+    namespace Colors {
+        Color red() { return Color::rgb(0xff, 0, 0); }
+        Color green() { return Color::rgb(0, 0xff, 0); }
+        Color blue() { return Color::rgb(0, 0, 0xff); }
+        Color yellow() { return Color::rgb(0xff, 0xff, 0); }
+        Color black() { return Color::rgb(0, 0, 0); }
+        Color white() { return Color::rgb(0xff, 0xff, 0xff); }
+        Color gray() { return Color::rgb(0x80, 0x80, 0x80); }
+        Color transparent() { return Color::transparent(); }
+    }
+
     // Base builder for all elements
     template <typename Derived, typename ElementType>
     class ElementBuilder {
@@ -47,30 +84,21 @@ export namespace plastic
 
         // Common styling methods
         Derived& size(float width, float height) {
-            auto style = element_->get_style();
-            style.set_preferred_size(Size<float>{width, height});
-            element_->set_style(style);
-            return derived();
-        }
-
-        Derived& size(const Size<float>& size) {
-            auto style = element_->get_style();
-            style.set_preferred_size(size);
-            element_->set_style(style);
+            element_->set_preferred_size(width, height);
             return derived();
         }
 
         Derived& width(float width) {
-            auto size = element_->get_style().get_preferred_size();
+            auto size = element_->get_preferred_size();
             size.width(width);
-            element_->get_style().set_preferred_size(size);
+            element_->set_preferred_size(size);
             return derived();
         }
 
         Derived& height(float height) {
-            auto size = element_->get_style().get_preferred_size();
+            auto size = element_->get_preferred_size();
             size.height(height);
-            element_->get_style().set_preferred_size(size);
+            element_->set_preferred_size(size);
             return derived();
         }
 
@@ -112,23 +140,23 @@ export namespace plastic
         // Border methods
         Derived& border(float width, const Color& color) {
             auto style = element_->get_style();
-            style.border = color;
+            style.border_color = color;
             style.border_width = width;
             element_->set_style(style);
             return derived();
         }
 
         Derived& border_1() {
-            return border(1.0f, Color::black());
+            return border(1.0f, Colors::black());
         }
 
         Derived& border_2() {
-            return border(2.0f, Color::black());
+            return border(2.0f, Colors::black());
         }
 
         Derived& border_color(const Color& color) {
             auto style = element_->get_style();
-            style.border = color;
+            style.border_color = color;
             element_->set_style(style);
             return derived();
         }
@@ -164,30 +192,72 @@ export namespace plastic
 
         // Shadow effects
         Derived& shadow_sm() {
-            // Add shadow styling
+            auto style = element_->get_style();
+            style.shadow_radius = 2.0f;
+            style.shadow_offset = {1.0f, 1.0f};
+            style.shadow_color = rgba(0x000000, 0.2f);
+            element_->set_style(style);
             return derived();
         }
 
         Derived& shadow_md() {
-            // Add shadow styling
+            auto style = element_->get_style();
+            style.shadow_radius = 4.0f;
+            style.shadow_offset = {2.0f, 2.0f};
+            style.shadow_color = rgba(0x000000, 0.3f);
+            element_->set_style(style);
             return derived();
         }
 
         Derived& shadow_lg() {
-            // Add shadow styling
+            auto style = element_->get_style();
+            style.shadow_radius = 8.0f;
+            style.shadow_offset = {3.0f, 3.0f};
+            style.shadow_color = rgba(0x000000, 0.4f);
+            element_->set_style(style);
+            return derived();
+        }
+
+        // Radius
+        Derived& rounded(float radius) {
+            auto style = element_->get_style();
+            style.corner_radius = radius;
+            element_->set_style(style);
+            return derived();
+        }
+
+        Derived& rounded_sm() {
+            return rounded(4.0f);
+        }
+
+        Derived& rounded_md() {
+            return rounded(8.0f);
+        }
+
+        Derived& rounded_lg() {
+            return rounded(16.0f);
+        }
+
+        Derived& circle() {
+            return rounded(1000.0f); // Very large value to ensure circular shape
+        }
+
+        // Event handlers
+        Derived& on_click(std::function<void()> handler) {
+            // Implementation would connect to the element's event system
             return derived();
         }
     };
 
-    // Specific builder for containers like div
+    // Builder for div/container elements
     class DivBuilder : public ElementBuilder<DivBuilder, FlexBox> {
     public:
         explicit DivBuilder(std::shared_ptr<FlexBox> element = std::make_shared<FlexBox>())
             : ElementBuilder(std::move(element)) {}
 
-        // Flex methods
+        // Basic flex properties
         DivBuilder& flex() {
-            // Enable flex layout
+            // Base flex behavior is already enabled in FlexBox
             return *this;
         }
 
@@ -203,6 +273,16 @@ export namespace plastic
 
         DivBuilder& justify_center() {
             element_->with_justify_content(FlexAlign::Center);
+            return *this;
+        }
+
+        DivBuilder& justify_start() {
+            element_->with_justify_content(FlexAlign::Start);
+            return *this;
+        }
+
+        DivBuilder& justify_end() {
+            element_->with_justify_content(FlexAlign::End);
             return *this;
         }
 
@@ -231,22 +311,30 @@ export namespace plastic
             return *this;
         }
 
-        // Sizing helpers like in GPUI
-        DivBuilder& size_4() { return size(16, 16); }
-        DivBuilder& size_8() { return size(32, 32); }
-        DivBuilder& size_12() { return size(48, 48); }
-        DivBuilder& size_16() { return size(64, 64); }
+        DivBuilder& items_stretch() {
+            element_->with_align_items(FlexAlign::Stretch);
+            return *this;
+        }
 
         // Spacing methods
-        DivBuilder& gap_1() { return gap(4); }
-        DivBuilder& gap_2() { return gap(8); }
-        DivBuilder& gap_3() { return gap(12); }
-        DivBuilder& gap_4() { return gap(16); }
-
         DivBuilder& gap(float space) {
             element_->with_gap(space);
             return *this;
         }
+
+        DivBuilder& gap_1() { return gap(4); }
+        DivBuilder& gap_2() { return gap(8); }
+        DivBuilder& gap_3() { return gap(12); }
+        DivBuilder& gap_4() { return gap(16); }
+        DivBuilder& gap_5() { return gap(20); }
+
+        // Size helpers
+        DivBuilder& size_4() { return size(16, 16); }
+        DivBuilder& size_8() { return size(32, 32); }
+        DivBuilder& size_12() { return size(48, 48); }
+        DivBuilder& size_16() { return size(64, 64); }
+        DivBuilder& size_20() { return size(80, 80); }
+        DivBuilder& size_24() { return size(96, 96); }
 
         // Add children
         DivBuilder& child(const std::shared_ptr<Element>& child) {
@@ -258,16 +346,22 @@ export namespace plastic
             element_->add_child(std::make_shared<Text>(text));
             return *this;
         }
+
+        template<typename... Children>
+        DivBuilder& children(Children... children) {
+            (element_->add_child(children), ...);
+            return *this;
+        }
     };
 
-    // Specific builder for text elements
+    // Builder for text elements
     class TextBuilder : public ElementBuilder<TextBuilder, Text> {
     public:
         explicit TextBuilder(const std::string& text)
             : ElementBuilder(std::make_shared<Text>(text)) {}
     };
 
-    // Specific builder for button elements
+    // Builder for button elements
     class ButtonBuilder : public ElementBuilder<ButtonBuilder, Button> {
     public:
         explicit ButtonBuilder(const std::string& label)
@@ -279,7 +373,7 @@ export namespace plastic
         }
     };
 
-    // Factory functions for creating element builders
+    // Factory functions for creating builders
     inline DivBuilder div() {
         return DivBuilder();
     }
@@ -291,12 +385,4 @@ export namespace plastic
     inline ButtonBuilder button(const std::string& label) {
         return ButtonBuilder(label);
     }
-
-    // Helper for creating pixel dimensions like in GPUI
-    inline float px(float value) {
-        return value;
-    }
 }
-
-
-

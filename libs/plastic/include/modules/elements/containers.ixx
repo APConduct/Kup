@@ -32,8 +32,14 @@ export namespace plastic
         float border_width_{0};
         Color border_color_{Color::transparent()};
         bool clip_children_{false};
+        Size<float> preferred_size_{0, 0};
 
     public:
+        [[nodiscard]] Size<float> get_preferred_size() const override {
+            return preferred_size_;
+        }
+
+        static void set_preferred_size(Size<float> preferred_size) {}
         Container() = default;
 
         void paint(Context* cx) const override {
@@ -149,6 +155,7 @@ export namespace plastic
 
     // More flexible layout using FlexLayout
     class FlexBox : public LayoutContainer {
+        Size<float> preferred_size_{0, 0};
     public:
         FlexBox() : LayoutContainer(std::make_unique<FlexLayout>()) {}
 
@@ -201,6 +208,15 @@ export namespace plastic
                 invalidate();
             }
             return *this;
+        }
+
+        void set_preferred_size(float width, float height) {
+            preferred_size_.width(width);
+            preferred_size_.height(height);
+        }
+
+        [[nodiscard]] Size<float> get_preferred_size() const override {
+            return preferred_size_;
         }
     };
 }

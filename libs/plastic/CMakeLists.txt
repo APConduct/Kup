@@ -120,6 +120,7 @@ target_sources(plastic
         include/modules/element_builder.ixx
         include/modules/app_helpers.ixx
         include/modules/window/window_types.ixx
+        include/modules/app_runner.ixx
 
 
 

@@ -6,6 +6,8 @@ module;
 #include <string>
 #include <functional>
 export module plastic.app_helpers;
+import plastic.app;
+
 
 
 import plastic.window_types;
@@ -53,5 +55,21 @@ export namespace plastic
         return WindowOptions()
             .with_title(title)
             .with_bounds(Fullscreen());
+    }
+
+    template<typename F>
+    int run_app(const std::string& name, F&& setup_fn) {
+        auto app = create_app(name);
+        return app->run_with(std::forward<F>(setup_fn));
+    }
+
+    template<typename F>
+    int run(F&& setup_fn) {
+        return run_app("Plastic App", std::forward<F>(setup_fn));
+    }
+
+    template<typename F>
+    int run(const std::string& app_name, F&& setup_fn) {
+        return run_app(app_name, std::forward<F>(setup_fn));
     }
 }

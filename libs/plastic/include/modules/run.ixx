@@ -20,6 +20,7 @@ import plastic.graphics;
 import plastic.color;
 import plastic.size;
 import plastic.view_wrapper;
+import plastic.app_runner;
 
 export namespace plastic
 {
@@ -33,6 +34,8 @@ export namespace plastic
         if (!app.init()) {
             return 1;  // Error handling
         }
+
+
 
         // Create a simple view that just delegates to the user's UI creation function
         class SimpleView : public View {
@@ -53,6 +56,8 @@ export namespace plastic
             }
         };
 
+
+
         // Create the view with the user's UI function
         auto view = std::make_shared<SimpleView>(create_ui_fn, bg_color);
 
@@ -63,5 +68,17 @@ export namespace plastic
         // Run the app and return the result
         app.run();
         return 0;
+    }
+
+    // Top-level run function with app name
+    template<typename F>
+    inline int run(const std::string& app_name, F&& setup_fn) {
+        return AppRunner(app_name).run(std::forward<F>(setup_fn));
+    }
+
+    // Top-level run function with default name
+    template<typename F>
+    inline int run(F&& setup_fn) {
+        return AppRunner().run(std::forward<F>(setup_fn));
     }
 }
