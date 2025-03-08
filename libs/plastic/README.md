@@ -24,9 +24,10 @@ Plastic UI is a modern, flexible C++ UI library designed for creating rich and i
 ### Building from Source
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/plastic.git
-cd plastic
+# Clone the repository (within the kup repository, as for now)
+git clone https://github.com/APConduct/kup.git
+cd kup 
+# separate build configuration is not yet supported
 
 # Create build directory
 mkdir build && cd build
