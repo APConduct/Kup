@@ -109,6 +109,18 @@ target_sources(plastic
         include/modules/raylib_platform.ixx
         include/modules/platform_interface.ixx
         include/modules/elements/containers.ixx
+        include/modules/ui.ixx
+        include/modules/view_wrapper.ixx
+        include/modules/graphics.ixx
+        include/modules/input.ixx
+        include/modules/components.ixx
+        include/modules/reactive.ixx
+        include/modules/run.ixx
+        include/modules/state.ixx
+        include/modules/element_builder.ixx
+        include/modules/app_helpers.ixx
+
+
 
 )
 

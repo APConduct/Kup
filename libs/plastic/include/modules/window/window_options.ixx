@@ -75,5 +75,7 @@ export namespace plastic
             this->opacity = opacity;
             return *this;
         }
+
+
     };
 }

@@ -92,8 +92,18 @@ export namespace plastic::style
             return *this;
         }
 
+        Style& with_border(const Color& color) {
+            border = color;
+            return *this;
+        }
+
         Style& bg(const Color& color) {
             background_color_normal = color;
+            return *this;
+        }
+
+        Style& with_preferred_size(const Size<float>& size) {
+            preferred_size = size;
             return *this;
         }
     };

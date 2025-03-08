@@ -2,7 +2,7 @@
 // Created by ajost1 on 1/30/2025.
 //
 module;
-#include <memory>
+#include <functional>
 #include <string>
 export module plastic.app;
 import plastic.application;
@@ -15,6 +15,15 @@ import plastic.size;
 import plastic.raylib_platform;
 import plastic.window;
 import plastic.window_base;
+import plastic.element;
+import plastic.view;
+import plastic.context;
+import plastic.color;
+import plastic.view_wrapper;
+import plastic.rect;
+// import plastic.window_options;
+
+
 
 export namespace plastic
 {
@@ -36,6 +45,59 @@ export namespace plastic
         }
 
 
+        template<typename F>
+        int run_with(F&& setup_fn) {
+            if (!init()) {
+                return 1;
+            }
+
+            // Call setup function with 'this' pointer
+            setup_fn(this);
+
+            // Run the app
+            run();
+            return 0;
+        }
+
+        template<typename ViewType, typename... Args>
+        std::shared_ptr<Window> open_window(
+            // const WindowOptions& options,
+            Args&&... args
+        ) {
+            // Create window with existing method
+            auto window = create_window<ViewWrapper>();
+
+            // Apply window options
+            // if (!options.title.empty()) {
+            //     window->set_title(options.title);
+            // }
+
+            // if (options.window_bounds) {
+            //     const auto& bounds = options.window_bounds.value();
+            //     switch (bounds.type) {
+            //         case WindowBoundsType::Windowed:
+            //             window->set_bounds(Rect<float>{
+            //                 bounds.bounds.x,
+            //                 bounds.bounds.y,
+            //                 bounds.bounds.width,
+            //                 bounds.bounds.height
+            //             });
+            //         break;
+            //         case WindowBoundsType::Maximized:
+            //             window->maximize();
+            //         break;
+            //         case WindowBoundsType::Fullscreen:
+            //             window->set_fullscreen(true);
+            //         break;
+            //     }
+            // }
+
+            // Create and set view
+            auto view = std::make_shared<ViewType>(std::forward<Args>(args)...);
+            window->set_root(view);
+
+            return window;
+        }
 
         // virtual void init() = 0;
         // virtual void run() = 0;
@@ -65,7 +127,7 @@ export namespace plastic
             app_->window_manager_ = window_manager_;
         }
 
-        bool init() {
+        bool init() const {
             if (!platform_->initialize()) {
                 return false;
             }
@@ -92,7 +154,7 @@ export namespace plastic
             return window;
         }
 
-        void run() {
+        void run() const {
             if (!init()) {
                 throw std::runtime_error("Failed to initialize application");
             }
@@ -122,7 +184,12 @@ export namespace plastic
         // Run with a custom initialization function
         template<typename F>
         auto run(F&& f) -> decltype(f(*app_context_)) {
-            init();
+
+            auto init_success = init();
+            if (!init_success) {
+                throw std::runtime_error("Failed to initialize application");
+            }
+
             auto result = f(*app_context_);
             run();
             return result;
@@ -137,6 +204,83 @@ export namespace plastic
         // Get the window manager
         std::shared_ptr<WindowManager> window_manager() { return window_manager_; }
 
+        // Builder methods that return *this for chaining
+        App& with_title(std::string title) {
+            name_ = std::move(title);
+            return *this;
+        }
+
+        App& with_size(Size<float> size) {
+            default_window_size_ = size;
+            return *this;
+        }
+
+        // Method to quickly set up a UI function as the root view
+        template<typename ViewFn>
+        App& with_ui(ViewFn&& ui_fn, Color bg_color = Color::rgb(30, 30, 30)) {
+            // Create a simple function-based view
+            class FunctionView : public View {
+            private:
+                ViewFn ui_fn_;
+                Color bg_color_;
+
+            public:
+                FunctionView(ViewFn fn, Color bg_color)
+                    : ui_fn_(std::move(fn)), bg_color_(bg_color) {}
+
+                std::shared_ptr<Element> render(Context* cx) const override {
+                    return ui_fn_(cx);
+                }
+
+                void on_mount() override {
+                    set_background_color(bg_color_);
+                }
+            };
+
+            // Create a window if none exists
+            if (!window_manager_->has_windows()) {
+                auto view = std::make_shared<FunctionView>(std::forward<ViewFn>(ui_fn), bg_color);
+                auto window = create_window<ViewWrapper>();
+                window->set_root(view);
+            }
+
+            return *this;
+        }
+
+        int run_and_return() const {
+            if (!init()) {
+                return 1;
+            }
+
+            run();
+            return 0;
+        }
+
+
+
 
     };
+
+
+    inline int run_app(
+        std::string title,
+        std::function<std::shared_ptr<Element>(Context*)> create_ui_fn,
+        Size<float> size = Size<float>{800, 600},
+        Color bg_color = Color::rgb(30, 30, 30)
+        ) {
+
+        return App()
+            .with_title(std::move(title))
+            .with_size(size)
+            .with_ui(std::move(create_ui_fn), bg_color)
+            .run_and_return();
+        }
+
+    // Helper for creating an App instance
+    inline std::shared_ptr<App> create_app(const std::string& name = "Plastic App",
+                                           const Size<float>& size = Size<float>{800, 600}) {
+        return std::make_shared<App>(name, size);
+    }
+
+
 }

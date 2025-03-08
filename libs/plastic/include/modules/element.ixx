@@ -89,7 +89,7 @@ export namespace plastic
              invalidate();
         }
 
-        [[nodiscard]] const style::Style& get_style() const {
+        [[nodiscard]] style::Style get_style() const {
             return style;
         }
 

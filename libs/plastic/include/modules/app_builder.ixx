@@ -15,6 +15,7 @@ import plastic.window;
 import plastic.view;
 import plastic.layout_properties;
 import plastic.elements.containers;
+import plastic.view_wrapper;
 
 export namespace plastic
 {
@@ -121,21 +122,7 @@ export namespace plastic
                 root_view_ = std::make_shared<EmptyView>();
             }
 
-            // Now create the window with the view
-            class ViewWrapper : public View {
-            private:
-                std::shared_ptr<View> inner_view_;
 
-            public:
-                explicit ViewWrapper(std::shared_ptr<View> view) : inner_view_(std::move(view)) {}
-
-                std::shared_ptr<Element> render(Context* cx) const override {
-                    if (inner_view_) {
-                        return inner_view_->render(cx);
-                    }
-                    return std::make_shared<FlexBox>(); // Return empty container if no view
-                }
-            };
 
             // Create window with concrete view wrapper
             window = app.create_window<ViewWrapper>(root_view_);
@@ -182,6 +169,7 @@ export namespace plastic
 
             // Create window and set view
             auto view = std::make_shared<FunctionView>(build_ui_, background_color_);
+            window = app.create_window<ViewWrapper>(view);
             window->set_root(view);
 
             // Run the app
@@ -192,9 +180,13 @@ export namespace plastic
         // For more advanced usage, build and return the App instance
         std::shared_ptr<App> build() {
             auto app = std::make_shared<App>(title_, size_);
-            app->init();
+            auto init_result = app->init();
             return app;
         }
+
+
+
+
     };
 
     // Factory function for app creation
