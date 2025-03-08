@@ -180,13 +180,11 @@ export namespace plastic
         // For more advanced usage, build and return the App instance
         std::shared_ptr<App> build() {
             auto app = std::make_shared<App>(title_, size_);
-            auto init_result = app->init();
+            if (!app->init()) {
+                throw std::runtime_error("App initialization failed");
+            }
             return app;
         }
-
-
-
-
     };
 
     // Factory function for app creation

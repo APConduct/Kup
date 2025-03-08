@@ -36,7 +36,7 @@ export namespace plastic::components
         const std::shared_ptr<Element>& actions = nullptr,
         Color bg_color = ui::colors::surface
     ) {
-        auto container = ui::vstack(8);
+        auto container = ui::v_stack(8);
 
         // Add title if provided
         if (!title.empty()) {
@@ -57,7 +57,7 @@ export namespace plastic::components
         if (actions) {
             container->add_child(
                 ui::padding(
-                    ui::hstack(8, actions),
+                    ui::h_stack(8, actions),
                     16
                 )
             );
@@ -88,13 +88,13 @@ export namespace plastic::components
         bool show_cancel = true
     ) {
         // Create the dialog content
-        auto content = vstack(16,
+        auto content = v_stack(16,
             text(title, 20, colors::text),
             text(message, 16, colors::text_secondary)
         );
 
         // Create dialog actions
-        auto actions = hstack(8);
+        auto actions = h_stack(8);
 
         if (show_cancel) {
             actions->add_child(
@@ -127,7 +127,7 @@ export namespace plastic::components
         const std::string& label,
         std::shared_ptr<Element> input
     ) {
-        return vstack(4,
+        return v_stack(4,
             text(label, 14, colors::text_secondary),
             input
         );

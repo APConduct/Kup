@@ -21,6 +21,7 @@ import plastic.context;
 import plastic.color;
 import plastic.view_wrapper;
 import plastic.rect;
+import plastic.window_types;
 // import plastic.window_options;
 
 
@@ -61,36 +62,36 @@ export namespace plastic
 
         template<typename ViewType, typename... Args>
         std::shared_ptr<Window> open_window(
-            // const WindowOptions& options,
+            const window::WindowOptions& options,
             Args&&... args
         ) {
             // Create window with existing method
             auto window = create_window<ViewWrapper>();
 
             // Apply window options
-            // if (!options.title.empty()) {
-            //     window->set_title(options.title);
-            // }
+            if (!options.title.empty()) {
+                window->set_title(options.title);
+            }
 
-            // if (options.window_bounds) {
-            //     const auto& bounds = options.window_bounds.value();
-            //     switch (bounds.type) {
-            //         case WindowBoundsType::Windowed:
-            //             window->set_bounds(Rect<float>{
-            //                 bounds.bounds.x,
-            //                 bounds.bounds.y,
-            //                 bounds.bounds.width,
-            //                 bounds.bounds.height
-            //             });
-            //         break;
-            //         case WindowBoundsType::Maximized:
-            //             window->maximize();
-            //         break;
-            //         case WindowBoundsType::Fullscreen:
-            //             window->set_fullscreen(true);
-            //         break;
-            //     }
-            // }
+            if (options.window_bounds) {
+                const auto& bounds = options.window_bounds.value();
+                switch (bounds.type) {
+                    case window::WindowBoundsType::Windowed:
+                        window->set_bounds(Rect<float>{
+                            bounds.bounds.x,
+                            bounds.bounds.y,
+                            bounds.bounds.width,
+                            bounds.bounds.height
+                        });
+                    break;
+                    case window::WindowBoundsType::Maximized:
+                        window->maximize();
+                    break;
+                    case window::WindowBoundsType::Fullscreen:
+                        window->set_fullscreen(true);
+                    break;
+                }
+            }
 
             // Create and set view
             auto view = std::make_shared<ViewType>(std::forward<Args>(args)...);
@@ -255,7 +256,6 @@ export namespace plastic
             run();
             return 0;
         }
-
 
 
 

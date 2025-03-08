@@ -8,68 +8,50 @@ module;
 export module plastic.app_helpers;
 
 
-import plastic.app;
-import plastic.window;
-import plastic.point;
+import plastic.window_types;
 import plastic.size;
+import plastic.point;
 
 export namespace plastic
 {
-    // Bounds and WindowOptions structs (as defined earlier)
-    struct Bounds {
-        float x, y, width, height;
+    using Bounds = window::Bounds;
+    using WindowBoundsType = window::WindowBoundsType;
+    using WindowBounds = window::WindowBounds;
+    using WindowOptions = window::WindowOptions;
 
-        static Bounds centered(const std::optional<Point<float>> position,
-                              const Size<float>& size,
-                              const App* app) {
-            // Calculate centered position
-            // ... implementation ...
-            // Center the window
-
-        }
-    };
-
-    enum class WindowBoundsType {
-        Windowed,
-        Maximized,
-        Fullscreen
-    };
-
-    struct WindowBounds {
-        WindowBoundsType type;
-        Bounds bounds;
-
-        static WindowBounds Windowed(const Bounds& bounds) {
-            return {WindowBoundsType::Windowed, bounds};
-        }
-
-        static WindowBounds Maximized() {
-            return {WindowBoundsType::Maximized, {}};
-        }
-
-        static WindowBounds Fullscreen() {
-            return {WindowBoundsType::Fullscreen, {}};
-        }
-    };
-
-    namespace window
-    {
-        struct WindowOptions {
-            std::string title;
-            std::optional<WindowBounds> window_bounds;
-            bool decorations{true};
-            bool transparent{false};
-
-            static WindowOptions Default() {
-                return WindowOptions{};
-            }
-        };
+    // Helper functions for creating window bounds and options
+    inline WindowBounds Windowed(const Bounds& bounds) {
+        return WindowBounds::Windowed(bounds);
     }
 
-    // Run an app with a setup function
-    template<typename F>
-    int run_app(const std::string& name, F&& setup_fn) {
-        auto app = create_app(name);
-        return app->run_with(std::forward<F>(setup_fn));
+    inline WindowBounds Maximized() {
+        return WindowBounds::Maximized();
+    }
+
+    inline WindowBounds Fullscreen() {
+        return WindowBounds::Fullscreen();
+    }
+
+    // Helper for centering windows
+    inline Bounds centered_bounds(const Size<float>& size) {
+        return Bounds::centered(std::nullopt, size);
+    }
+
+    inline WindowBounds centered_window(const Size<float>& size) {
+        return Windowed(centered_bounds(size));
+    }
+
+    // Convenient window options factories
+    inline WindowOptions default_window(const std::string& title = "Plastic Window", const Size<float>& size = Size<float>{800, 600}) {
+        return WindowOptions()
+            .with_title(title)
+            .with_size(size)
+            .with_bounds(centered_window(size));
+    }
+
+    inline WindowOptions fullscreen_window(const std::string& title = "Plastic Window") {
+        return WindowOptions()
+            .with_title(title)
+            .with_bounds(Fullscreen());
     }
 }
