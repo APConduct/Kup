@@ -13,8 +13,19 @@ export module plastic.events;
 import plastic.point;
 import plastic.size;
 
+export namespace plastic
+{
+    inline double get_current_timestamp() {
+        return GetTime();
+    }
+}
+
 export namespace plastic::events
 {
+
+    inline double get_current_timestamp() {
+        return GetTime();
+    }
 
     struct MouseMoveEvent {
         Point<float> position;

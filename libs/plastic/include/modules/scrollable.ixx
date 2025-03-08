@@ -9,6 +9,8 @@ module;
 #include <functional>
 export module plastic.scrollable;
 
+import plastic.scrollable_base;
+
 
 import plastic.element;
 import plastic.rect;

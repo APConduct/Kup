@@ -8,7 +8,6 @@ module;
 #include <vector>
 #include <mutex>
 #include <optional>
-#include <raylib.h>
 #include <variant>
 export module plastic.event_queue;
 
@@ -145,9 +144,7 @@ export namespace plastic
     template<typename T>
     constexpr  bool is_valid_entry_v = std::is_constructible_v<events::Event, T>;
 
-    inline double get_current_timestamp() {
-        return GetTime();
-    }
+
 
     template<typename T, typename... Args>
     T create_event(Args&&... args) {

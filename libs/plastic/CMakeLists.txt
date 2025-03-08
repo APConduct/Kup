@@ -9,6 +9,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 add_library(plastic STATIC
         include/plastic/config.hpp
+
 )
 
 target_sources(plastic
@@ -92,11 +93,14 @@ target_sources(plastic
         include/modules/scrollable.ixx
         include/modules/constraints.ixx
         include/modules/virtual_list.ixx
-
-
-
-
-
+        include/modules/data_binding.ixx
+        include/modules/focus_manager.ixx
+        include/modules/events/focusable.ixx
+        include/modules/scrollable_base.ixx
+        include/modules/elements/tree_view.ixx
+        include/modules/render_batch.ixx
+        include/modules/gesture_recognizer.ixx
+        include/modules/text_selection.ixx
 
 )
 
