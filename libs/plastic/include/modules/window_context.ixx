@@ -12,6 +12,9 @@ import plastic.element;
 import plastic.context;
 import plastic.window_base;
 import plastic.events;
+import plastic.point;
+import plastic.size;
+import plastic.color;
 
 
 export namespace plastic::context
@@ -102,6 +105,35 @@ export namespace plastic::context
                 window->context().dispatch_event(event);
             }
         }
+
+        virtual void make_current() = 0;
+        virtual void process_events() = 0;
+        virtual bool should_close() const = 0;
+        virtual void request_close() = 0;
+        virtual void set_title(const std::string& title) = 0;
+        virtual void set_position(const Point<float>& position) = 0;
+        virtual void set_size(const Size<float>& size) = 0;
+        virtual Point<float> get_position() const = 0;
+        virtual Size<float> get_size() const = 0;
+        virtual void set_fullscreen(bool fullscreen) = 0;
+        virtual void set_vsync(bool vsync) = 0;
+        virtual void set_target_fps(int fps) = 0;
+        virtual void set_icon(const std::string& icon_path) {};
+        virtual void maximize() = 0;
+        virtual void minimize() = 0;
+        virtual void restore() = 0;
+        virtual void set_always_on_top(bool always_on_top) {};
+        virtual void set_opacity(float opacity) {};
+        virtual void set_visible(bool visible) = 0;
+        virtual void set_decorations(bool decorations) = 0;
+        virtual void set_transparent(bool transparent) = 0;
+        virtual void begin_render() = 0;
+        virtual void end_render() = 0;
+        virtual void clear_background(const Color& color) = 0;
+        virtual float get_frame_time() const = 0;
+
+
+
 
 
 

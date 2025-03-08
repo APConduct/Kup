@@ -36,10 +36,12 @@ import plastic.events;
 import plastic.size;
 import plastic.window_context;
 import plastic.entity_map;
+import plastic.platform_interface;
 
 export namespace plastic
 {
-    struct Platform : public std::enable_shared_from_this<plastic::Platform> {
+    struct Platform : public std::enable_shared_from_this<plastic::Platform>,
+                     public plastic::PlatformInterface {
     public:
         decltype(PLASTIC_OS_NAME) os_name_ {PLASTIC_OS_NAME};
         decltype(PLASTIC_DEFAULT_COMMAND_KEY_NAME) default_command_key_name_ {PLASTIC_DEFAULT_COMMAND_KEY_NAME};
@@ -52,7 +54,7 @@ export namespace plastic
         decltype(PLASTIC_DEFAULT_COMMAND_KEY_NAME) default_command_key_name() const {
             return default_command_key_name_;
         }
-    private:
+    protected:
         std::shared_ptr<plastic::context::AppContext> app_context_{};
         EventDispatcher event_dispatcher_;
         bool initialized_{false};
@@ -104,5 +106,11 @@ export namespace plastic
         }
 
         virtual std::shared_ptr<context::WindowContext> create_window_context() = 0;
+        virtual void set_vsync(bool vsync) = 0;
+        virtual void set_target_fps(int fps) = 0;
+
+        virtual float get_primary_display_width() const = 0;
+        virtual float get_primary_display_height() const = 0;
+        virtual void dispatch_event(const events::Event& event) = 0;
     };
 }

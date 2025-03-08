@@ -73,6 +73,14 @@ export namespace plastic {
         FlexLayoutProperties props_;
 
     public:
+
+        [[nodiscard]] FlexLayoutProperties props() const {
+            return props_;
+        }
+
+        void set_props(FlexLayoutProperties props) {
+            props_ = props;
+        }
         explicit FlexLayout(const FlexLayoutProperties& props = {})
             : props_(props) {}
 

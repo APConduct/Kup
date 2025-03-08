@@ -12,13 +12,7 @@ module;
 export module plastic.events;
 import plastic.point;
 import plastic.size;
-
-export namespace plastic
-{
-    inline double get_current_timestamp() {
-        return GetTime();
-    }
-}
+export import plastic.window_events;
 
 export namespace plastic::events
 {
@@ -59,6 +53,12 @@ export namespace plastic::events
         MouseButton button{};
         double timestamp{};
         std::optional<bool> shift{};
+    };
+
+    struct MouseWheelEvent {
+        float wheel{};
+        Point<float> delta;
+        double timestamp{};
     };
 
     struct KeyPressEvent {
@@ -122,6 +122,23 @@ export namespace plastic::events
         TextInputEvent,
         ResizeEvent,
         FocusEvent,
-        WindowCloseEvent
+        WindowCloseEvent,
+        WindowStateEvent,
+        WindowMovedEvent,
+        ContentChangeEvent,
+        LayoutRequestEvent,
+        ThemeChangeEvent,
+        WindowCreatedEvent,
+        WindowActivationEvent,
+        MouseWheelEvent,
+        WindowFullscreenEvent,
+        WindowTransparentEvent,
+        WindowDecorationsEvent,
+        WindowRestoreEvent,
+        WindowMaximizeEvent
+
         >;
+
+    using KeyboardKey = ::KeyboardKey;
+    using MouseButton = ::MouseButton;
 }

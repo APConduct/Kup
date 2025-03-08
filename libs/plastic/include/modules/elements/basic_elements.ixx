@@ -1,0 +1,502 @@
+//
+// Created by Aidan Jost on 3/7/25.
+//
+
+module;
+#include <string>
+#include <functional>
+#include <raylib.h>
+export module plastic.elements.basic;
+
+import plastic.element;
+import plastic.context;
+import plastic.rect;
+import plastic.color;
+import plastic.events;
+import plastic.size;
+import plastic.point;
+
+export namespace plastic
+{
+    class Text : public Element {
+    private:
+        std::string text_;
+        float font_size_{16.0f};
+        Color color_{Color::white()};
+
+    public:
+        Text() = default;
+
+        explicit Text(std::string text, float font_size = 16.0f, Color color = Color::white())
+    : text_(std::move(text)), font_size_(font_size), color_(color) {}
+
+        void paint(Context* cx) const override {
+            DrawText(
+                text_.c_str(),
+                static_cast<int>(bounds.x()),
+                static_cast<int>(bounds.y()),
+                static_cast<int>(font_size_),
+                color_.rl()
+            );
+        }
+
+        void layout(Context* cx) override {
+            // Measure the text to determine bounds
+            Vector2 size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+            current_size = Size<float>{size.x, size.y};
+        }
+
+        Text& with_text(std::string text) {
+            text_ = std::move(text);
+            invalidate();
+            return *this;
+        }
+
+        Text& with_font_size(float size) {
+            font_size_ = size;
+            invalidate();
+            return *this;
+        }
+
+        Text& with_color(const Color& color) {
+            color_ = color;
+            invalidate();
+            return *this;
+        }
+
+        [[nodiscard]] const std::string& text() const { return text_; }
+
+
+    };
+
+    class Button : public Element {
+    private:
+        std::string text_;
+        float font_size_{16.0f};
+        Color text_color_{Color::white()};
+        Color bg_color_{Color::rgb(66, 133, 244)};
+        Color hover_color_{Color::rgb(77, 144, 254)};
+        Color pressed_color_{Color::rgb(48, 115, 230)};
+        float corner_radius_{4.0f};
+        float padding_{10.0f};
+        bool is_hovered_{false};
+        bool is_pressed_{false};
+        std::function<void()> on_click_;
+
+    public:
+        Button() = default;
+
+        explicit Button(std::string text, std::function<void()> on_click = nullptr)
+            : text_(std::move(text)), on_click_(std::move(on_click)) {}
+
+        void paint(Context* cx) const override {
+            const auto& bounds = get_bounds();
+
+            // Determine the current background color based on state
+            Color current_bg;
+            if (is_pressed_) current_bg = pressed_color_;
+            else if (is_hovered_) current_bg = hover_color_;
+            else current_bg = bg_color_;
+
+            // Draw button background
+            if (corner_radius_ > 0) {
+                DrawRectangleRounded(bounds.to_rl(), corner_radius_, 10, current_bg.rl());
+            } else {
+                DrawRectangleRec(bounds.to_rl(), current_bg.rl());
+            }
+
+            // Draw text centered
+            Vector2 text_size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+            float text_x = bounds.x() + (bounds.width() - text_size.x) / 2;
+            float text_y = bounds.y() + (bounds.height() - text_size.y) / 2;
+
+            DrawText(
+                text_.c_str(),
+                static_cast<int>(text_x),
+                static_cast<int>(text_y),
+                static_cast<int>(font_size_),
+                text_color_.rl()
+            );
+        }
+
+        void layout(Context* cx) override {
+            // Calculate minimum button size based on text
+            Vector2 text_size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+            current_size = Size<float>{
+                text_size.x + padding_ * 2,
+                text_size.y + padding_ * 2
+            };
+        }
+
+        bool process_event(const events::Event& event, Context* cx) override {
+            if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
+                // Check if mouse is inside button
+                Point<float> mouse_pos{mouse_event->position.width(), mouse_event->position.height()};
+                bool is_inside = bounds.contains(mouse_pos);
+
+                if (is_inside && mouse_event->button == MouseButton::MOUSE_LEFT_BUTTON) {
+                    if (mouse_event->pressed) {
+                        is_pressed_ = true;
+                        invalidate();
+                        return true;
+                    } else if (is_pressed_) {
+                        is_pressed_ = false;
+                        if (on_click_) on_click_();
+                        invalidate();
+                        return true;
+                    }
+                }
+            } else if (auto* mouse_move = std::get_if<events::MouseMoveEvent>(&event)) {
+                Point<float> mouse_pos{mouse_move->position.x, mouse_move->position.y};
+                bool was_hovered = is_hovered_;
+                is_hovered_ = bounds.contains(mouse_pos);
+
+                if (was_hovered != is_hovered_) {
+                    invalidate();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        Button& with_font_size(float size) {
+            font_size_ = size;
+            invalidate();
+            return *this;
+        }
+
+        Button& with_colors(const Color& text, const Color& bg, const Color& hover, const Color& pressed) {
+            text_color_ = text;
+            bg_color_ = bg;
+            hover_color_ = hover;
+            pressed_color_ = pressed;
+            invalidate();
+            return *this;
+        }
+
+        Button& with_corner_radius(float radius) {
+            corner_radius_ = radius;
+            invalidate();
+            return *this;
+        }
+
+        Button& with_padding(float padding) {
+            padding_ = padding;
+            invalidate();
+            return *this;
+        }
+
+        Button& on_click(std::function<void()> callback) {
+            on_click_ = std::move(callback);
+            return *this;
+        }
+    };
+
+    class Spacer : public Element {
+    private:
+        Size<float> min_size_{0, 0};
+
+    public:
+        Spacer() = default;
+
+        explicit Spacer(float width, float height)
+            : min_size_{width, height} {}
+
+        explicit Spacer(Size<float> size)
+            : min_size_(size) {}
+
+        void paint(Context* cx) const override {
+            // Nothing to paint
+        }
+
+        void layout(Context* cx) override {
+            current_size = min_size_;
+        }
+
+        [[nodiscard]] Size<float> get_preferred_size() const override {
+            return min_size_;
+        }
+
+        Spacer& with_size(float width, float height) {
+            min_size_ = Size<float>{width, height};
+            invalidate();
+            return *this;
+        }
+
+
+    };
+
+    class TextField : public Element {
+    private:
+        std::string text_;
+        std::string placeholder_;
+        float font_size_{16.0f};
+        Color text_color_{Color::white()};
+        Color placeholder_color_{Color::rgb(150, 150, 150)};
+        Color bg_color_{Color::rgb(50, 50, 50)};
+        Color border_color_{Color::rgb(100, 100, 100)};
+        Color focused_border_color_{Color::rgb(66, 133, 244)};
+        float corner_radius_{4.0f};
+        float padding_{10.0f};
+        bool is_focused_{false};
+        std::function<void(const std::string&)> on_text_change_;
+
+    public:
+        TextField() = default;
+
+        explicit TextField(std::string placeholder, std::string initial_text = "")
+            : text_(std::move(initial_text)), placeholder_(std::move(placeholder)) {}
+
+        void paint(Context* cx) const override {
+            const auto& bounds = get_bounds();
+
+            // Draw background
+            if (corner_radius_ > 0) {
+                DrawRectangleRounded(bounds.to_rl(), corner_radius_, 10, bg_color_.rl());
+            } else {
+                DrawRectangleRec(bounds.to_rl(), bg_color_.rl());
+            }
+
+            // Draw border
+            if (corner_radius_ > 0) {
+                DrawRectangleRoundedLines(
+                    bounds.to_rl(),
+                    corner_radius_,
+                    10,
+                    (is_focused_ ? focused_border_color_ : border_color_).rl()
+                );
+            } else {
+                DrawRectangleLinesEx(
+                    bounds.to_rl(),
+                    1.0f,
+                    (is_focused_ ? focused_border_color_ : border_color_).rl()
+                );
+            }
+
+            // Draw text or placeholder
+            const std::string& display_text = text_.empty() ? placeholder_ : text_;
+            const Color& display_color = text_.empty() ? placeholder_color_ : text_color_;
+
+            DrawText(
+                display_text.c_str(),
+                static_cast<int>(bounds.x() + padding_),
+                static_cast<int>(bounds.y() + (bounds.height() - font_size_) / 2),
+                static_cast<int>(font_size_),
+                display_color.rl()
+            );
+
+            // Draw cursor if focused
+            if (is_focused_ && !text_.empty()) {
+                auto text_width = static_cast<float>(MeasureText(text_.c_str(), static_cast<int>(font_size_)));
+                float cursor_x = bounds.x() + padding_ + text_width;
+                float cursor_y = bounds.y() + (bounds.height() - font_size_) / 2;
+
+                DrawLineEx(
+                    {cursor_x, cursor_y},
+                    {cursor_x, cursor_y + font_size_},
+                    1.0f,
+                    text_color_.rl()
+                );
+            }
+        }
+
+        void layout(Context* cx) override {
+            // Calculate minimum size based on placeholder
+            auto text_width = static_cast<float>(MeasureText(placeholder_.c_str(), static_cast<int>(font_size_)));
+            current_size = Size<float>{
+                text_width + padding_ * 2,
+                font_size_ + padding_ * 2
+            };
+        }
+
+        bool process_event(const events::Event& event, Context* cx) override {
+            if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
+                // Check if mouse is inside field
+                Point<float> mouse_pos{mouse_event->position.width(), mouse_event->position.height()};
+                bool is_inside = bounds.contains(mouse_pos);
+
+                if (mouse_event->button == MouseButton::MOUSE_LEFT_BUTTON && mouse_event->pressed) {
+                    is_focused_ = is_inside;
+                    invalidate();
+                    return is_inside;
+                }
+            } else if (auto* key_event = std::get_if<events::KeyPressEvent>(&event)) {
+                if (is_focused_ && key_event->pressed) {
+                    // Handle key presses
+                    if (key_event->key == KeyboardKey::KEY_BACKSPACE && !text_.empty()) {
+                        text_.pop_back();
+                        if (on_text_change_) on_text_change_(text_);
+                        invalidate();
+                        return true;
+                    }
+                    return true;
+                }
+            } else if (auto* text_event = std::get_if<events::TextInputEvent>(&event)) {
+                if (is_focused_) {
+                    // Handle text input
+                    text_ += text_event->text;
+                    if (on_text_change_) on_text_change_(text_);
+                    invalidate();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        TextField& with_text(std::string text) {
+            text_ = std::move(text);
+            invalidate();
+            return *this;
+        }
+
+        TextField& with_placeholder(std::string placeholder) {
+            placeholder_ = std::move(placeholder);
+            invalidate();
+            return *this;
+        }
+
+        TextField& with_font_size(float size) {
+            font_size_ = size;
+            invalidate();
+            return *this;
+        }
+
+        TextField& with_colors(const Color& text, const Color& placeholder, const Color& bg, const Color& border) {
+            text_color_ = text;
+            placeholder_color_ = placeholder;
+            bg_color_ = bg;
+            border_color_ = border;
+            invalidate();
+            return *this;
+        }
+
+        TextField& on_text_change(std::function<void(const std::string&)> callback) {
+            on_text_change_ = std::move(callback);
+            return *this;
+        }
+
+        [[nodiscard]] const std::string& text() const { return text_; }
+    };
+
+    class Checkbox : public Element {
+    private:
+        bool checked_{false};
+        std::string label_;
+        float font_size_{16.0f};
+        Color text_color_{Color::white()};
+        Color check_color_{Color::rgb(66, 133, 244)};
+        Color box_color_{Color::rgb(50, 50, 50)};
+        Color border_color_{Color::rgb(100, 100, 100)};
+        float box_size_{18.0f};
+        float spacing_{8.0f};
+        std::function<void(bool)> on_change_;
+
+    public:
+        Checkbox() = default;
+
+        explicit Checkbox(std::string label, bool initial_checked = false)
+            : checked_(initial_checked), label_(std::move(label)) {}
+
+        void paint(Context* cx) const override {
+            const auto& bounds = get_bounds();
+
+            // Draw checkbox
+            float box_x = bounds.x();
+            float box_y = bounds.y() + (bounds.height() - box_size_) / 2;
+
+            // Draw box background
+            DrawRectangleRec(
+                {box_x, box_y, box_size_, box_size_},
+                box_color_.rl()
+            );
+
+            // Draw box border
+            DrawRectangleLinesEx(
+                {box_x, box_y, box_size_, box_size_},
+                1.0f,
+                border_color_.rl()
+            );
+
+            // Draw check mark if checked
+            if (checked_) {
+                DrawLine(
+                    static_cast<int>(box_x + box_size_ * 0.2f),
+                    static_cast<int>(box_y + box_size_ * 0.5f),
+                    static_cast<int>(box_x + box_size_ * 0.4f),
+                    static_cast<int>(box_y + box_size_ * 0.7f),
+                    check_color_.rl()
+                );
+                DrawLine(
+                    static_cast<int>(box_x + box_size_ * 0.4f),
+                    static_cast<int>(box_y + box_size_ * 0.7f),
+                    static_cast<int>(box_x + box_size_ * 0.8f),
+                    static_cast<int>(box_y + box_size_ * 0.3f),
+                    check_color_.rl()
+                );
+            }
+
+            // Draw label
+            DrawText(
+                label_.c_str(),
+                static_cast<int>(box_x + box_size_ + spacing_),
+                static_cast<int>(bounds.y() + (bounds.height() - font_size_) / 2),
+                static_cast<int>(font_size_),
+                text_color_.rl()
+            );
+        }
+
+        void layout(Context* cx) override {
+            // Calculate size based on checkbox and label
+            auto label_width = static_cast<float>(MeasureText(label_.c_str(), static_cast<int>(font_size_)));
+            current_size = Size<float>{
+                box_size_ + spacing_ + label_width,
+                std::max(box_size_, font_size_)
+            };
+        }
+
+        bool process_event(const events::Event& event, Context* cx) override {
+            if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
+                // Check if mouse is inside checkbox
+                Point<float> mouse_pos{mouse_event->position.width(), mouse_event->position.height()};
+                bool is_inside = bounds.contains(mouse_pos);
+
+                if (is_inside && mouse_event->button == MouseButton::MOUSE_LEFT_BUTTON && !mouse_event->pressed) {
+                    checked_ = !checked_;
+                    if (on_change_) on_change_(checked_);
+                    invalidate();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        Checkbox& with_checked(bool checked) {
+            checked_ = checked;
+            invalidate();
+            return *this;
+        }
+
+        Checkbox& with_label(std::string label) {
+            label_ = std::move(label);
+            invalidate();
+            return *this;
+        }
+
+        Checkbox& with_font_size(float size) {
+            font_size_ = size;
+            invalidate();
+            return *this;
+        }
+
+        Checkbox& on_change(std::function<void(bool)> callback) {
+            on_change_ = std::move(callback);
+            return *this;
+        }
+
+        [[nodiscard]] bool is_checked() const { return checked_; }
+    };
+
+
+}

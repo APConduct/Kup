@@ -10,6 +10,7 @@ set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 add_library(plastic STATIC
         include/plastic/config.hpp
 
+
 )
 
 target_sources(plastic
@@ -101,6 +102,13 @@ target_sources(plastic
         include/modules/render_batch.ixx
         include/modules/gesture_recognizer.ixx
         include/modules/text_selection.ixx
+        include/modules/window_lifecycle.ixx
+        include/modules/window_events.ixx
+        include/modules/elements/basic_elements.ixx
+        include/modules/app_builder.ixx
+        include/modules/raylib_platform.ixx
+        include/modules/platform_interface.ixx
+        include/modules/elements/containers.ixx
 
 )
 

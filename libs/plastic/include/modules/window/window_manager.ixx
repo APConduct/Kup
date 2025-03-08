@@ -12,6 +12,7 @@ import plastic.window_options;
 import plastic.window_builder;
 import plastic.window_context;
 import plastic.app_context;
+import plastic.raylib_platform;
 
 export namespace plastic
 {
@@ -36,7 +37,7 @@ export namespace plastic
             : app_context_(std::move(app_context)) {}
 
         std::shared_ptr<WindowBase> create_window(const WindowOptions& options = WindowOptions{}) {
-            auto context = std::make_shared<context::WindowContext>(app_context_);
+            auto context = std::make_shared<RaylibWindowContext>(next_window_id_, app_context_);
             auto window = WindowBuilder::create(context, next_window_id_, options);
             next_window_id_++;
 

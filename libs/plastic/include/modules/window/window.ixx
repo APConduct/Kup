@@ -18,6 +18,7 @@ import plastic.events;
 import plastic.rect;
 import plastic.window_base;
 import plastic.context;
+import plastic.events;
 
 
 export namespace plastic
@@ -162,5 +163,37 @@ export namespace plastic
         }
 
         // TODO - add event handling
+
+        void set_fullscreen(bool fullscreen) {
+            if (auto platform = platform_.lock()) {
+                if (fullscreen) {
+                    platform->event_dispatcher().emit(events::WindowFullscreenEvent(window_id_));
+                } else {
+                    platform->event_dispatcher().emit(events::WindowRestoreEvent(window_id_));
+                }
+            }
+        }
+
+        void set_size(const Size<float>& size) {
+            this->size = size;
+        }
+
+        void set_decorations(bool decorations) {
+            if (auto platform = platform_.lock()) {
+                platform->event_dispatcher().emit(events::WindowDecorationsEvent(window_id_, decorations));
+            }
+        }
+
+        void set_transparent(bool transparent) {
+            if (auto platform = platform_.lock()) {
+                platform->event_dispatcher().emit(events::WindowTransparentEvent(window_id_, transparent));
+            }
+        }
+
+        void maximize() {
+            if (auto platform = platform_.lock()) {
+                platform->event_dispatcher().emit(events::WindowMaximizeEvent(window_id_));
+            }
+        }
     };
 }

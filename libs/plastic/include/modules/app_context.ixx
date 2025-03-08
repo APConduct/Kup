@@ -11,6 +11,11 @@ import plastic.window_base;
 import plastic.event_dispatcher;
 import plastic.context;
 import plastic.events;
+import plastic.platform_interface;
+
+
+
+
 
 
 
@@ -20,10 +25,31 @@ export namespace plastic::context
 
     private:
         EventDispatcher event_dispatcher_;
+        std::weak_ptr<PlatformInterface> platform_{};
+        bool layout_requested_{false};
+        bool paint_requested_{false};
 
     public:
 
+        void set_platform(const std::shared_ptr<PlatformInterface>& platform) {
+            platform_ = platform;
+        }
 
+        std::shared_ptr<PlatformInterface> platform() {
+            return platform_.lock();
+        }
+
+        void request_layout() override {
+            layout_requested_ = true;
+        }
+
+        bool process_layout() {
+            if (layout_requested_) {
+                layout_requested_ = false;
+                return true;
+            }
+            return false;
+        }
 
         // Context passing pattern
         template<typename F>
@@ -42,20 +68,16 @@ export namespace plastic::context
             return event_dispatcher_;
         }
 
-        void request_layout() override;
-        void request_paint() override;
-        void dispatch_event(const events::Event& event) override;
+        void request_paint() override {
+            paint_requested_ = true;
+        }
+        void dispatch_event(const events::Event& event) override {
+            event_dispatcher_.emit(event);
 
-
-
-
-
-
-
-
-
-
-
-
+            // Forward to platform if needed
+            if (auto p = platform_.lock()) {
+                p->dispatch_event(event);
+            }
+        }
     };
 }
