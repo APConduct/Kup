@@ -1,0 +1,72 @@
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-CondensedLight.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-CondensedLight.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-Light.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-Light.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-Condensed.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-Condensed.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-Regular.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-CondensedMedium.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-CondensedMedium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-Medium.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-Medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-CondensedBold.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-CondensedBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2-Unhinted/Plasevka-Bold.woff2') format('woff2'), url('TTF-Unhinted/Plasevka-Bold.ttf') format('truetype');
+}

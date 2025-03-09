@@ -1,0 +1,72 @@
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-CondensedLight.woff2') format('woff2'), url('TTF/Plasevka-CondensedLight.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-Light.woff2') format('woff2'), url('TTF/Plasevka-Light.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-Condensed.woff2') format('woff2'), url('TTF/Plasevka-Condensed.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-Regular.woff2') format('woff2'), url('TTF/Plasevka-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-CondensedMedium.woff2') format('woff2'), url('TTF/Plasevka-CondensedMedium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-Medium.woff2') format('woff2'), url('TTF/Plasevka-Medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: condensed;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-CondensedBold.woff2') format('woff2'), url('TTF/Plasevka-CondensedBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Plasevka Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('WOFF2/Plasevka-Bold.woff2') format('woff2'), url('TTF/Plasevka-Bold.ttf') format('truetype');
+}
