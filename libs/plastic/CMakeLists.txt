@@ -130,3 +130,5 @@ target_sources(plastic
 target_link_libraries(plastic PUBLIC raylib fs)
 
 target_include_directories(plastic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_subdirectory(examples)

@@ -37,3 +37,4 @@ export import plastic.text.fmt;
 export import plastic.rich_text;
 export import plastic.object_pool;
 export import plastic.event_deligation;
+export import plastic.ui;

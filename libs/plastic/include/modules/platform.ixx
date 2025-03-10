@@ -111,6 +111,6 @@ export namespace plastic
 
         virtual float get_primary_display_width() const = 0;
         virtual float get_primary_display_height() const = 0;
-        virtual void dispatch_event(const events::Event& event) = 0;
+        virtual void dispatch_event(const events::Event& event) {};
     };
 }

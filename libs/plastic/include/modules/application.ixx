@@ -110,9 +110,22 @@ export namespace plastic
         }
 
 
-        [[noreturn]] virtual void run();
-        virtual void close();
-        virtual void stop();
+        [[noreturn]] virtual void run() {
+            is_running_ = true;
+            while (!should_close) {
+                // Main application loop logic
+            }
+            throw std::runtime_error("Application exited run loop");
+
+        };
+        virtual void close() {
+            should_close = true;
+            is_running_ = false;
+        };
+        virtual void stop() {
+            is_running_ = false;
+
+        };
 
 
 
