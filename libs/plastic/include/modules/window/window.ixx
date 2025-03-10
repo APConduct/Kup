@@ -19,6 +19,7 @@ import plastic.rect;
 import plastic.window_base;
 import plastic.context;
 import plastic.events;
+import plastic.color;
 
 
 export namespace plastic
@@ -85,6 +86,7 @@ export namespace plastic
             });
         }
 
+        // Add a renderer that draws the view's content
         void set_root(const std::shared_ptr<View>& root) {
             if (this->root_) {
                 this->root_->unmount(context_.get());
@@ -94,6 +96,24 @@ export namespace plastic
             {
                 root_->mount(context_.get());
             }
+
+            // Add a renderer that draws the view's content
+            renderers_.clear();
+            renderers_.push_back([this]() {
+                if (context_ && root_) {
+                    context_->begin_render();
+                    context_->clear_background(Color::rgb(30, 30, 30)); // Default background
+
+                    auto element = root_->render(context_.get());
+                    if (element) {
+                        element->layout(context_.get());
+                        element->paint(context_.get());
+                    }
+
+                    context_->end_render();
+                }
+            });
+
         }
 
         void request_close() override {
@@ -154,6 +174,15 @@ export namespace plastic
         }
 
         void dispatch_event(const events::Event& event) {
+
+            // First, check if this is a window close event
+            if (auto* close_event = std::get_if<events::WindowCloseEvent>(&event)) {
+                if (close_event->window_id == window_id_ || close_event->window_id == 0) {
+                    should_close_ = true;
+                    return;  // No need to process further
+                }
+            }
+
             if (root_) {
                 auto element = root_->render(context_.get());
                 if (element) {
