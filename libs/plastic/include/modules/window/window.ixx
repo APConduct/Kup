@@ -129,7 +129,9 @@ export namespace plastic
         }
 
         [[nodiscard]] int id() const override { return window_id_; }
-        [[nodiscard]] bool should_close() const override { return should_close_; }
+        [[nodiscard]] bool should_close() const override {
+            return should_close_ || (context_ && context_->should_close());
+        }
         [[nodiscard]] const Rect<float>& bounds() const { return bounds_; }
         [[nodiscard]] context::WindowContext& context() const { return *context_; }
         [[nodiscard]] std::shared_ptr<plastic::View> root() const { return root_; }

@@ -230,6 +230,13 @@ export namespace plastic
 
             // Process events and convert to our event system
             process_events();
+
+            // Check for window close events from raylib
+            if (WindowShouldClose()) {
+                // Emit window close event for the current window
+                events::WindowCloseEvent close_event{0, GetTime()};
+                event_dispatcher_.emit(close_event);
+            }
         }
 
         [[nodiscard]] bool supports_multiple_windows() const override {
@@ -420,7 +427,10 @@ export namespace plastic
             if (WindowShouldClose()) {
                 events::WindowCloseEvent event{0, GetTime()};  // Using 0 as the default window ID
                 event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
+
+                for (auto& [id, context] : window_contexts_) {
+                    context->request_close();
+                }
             }
         }
 
