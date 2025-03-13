@@ -13,10 +13,11 @@ import plastic.window_builder;
 import plastic.window_context;
 import plastic.app_context;
 import plastic.raylib_platform;
+import plastic.window_manager_interface;
 
 export namespace plastic
 {
-    class WindowManager {
+    class WindowManager : public WindowManagerInterface {
     private:
         std::shared_ptr<context::AppContext> app_context_{}; // Context passing pattern
         std::unordered_map<int, std::shared_ptr<WindowBase>> windows_;
@@ -25,6 +26,8 @@ export namespace plastic
 
 
     public:
+
+        WindowManager() = default;
 
         [[nodiscard]] std::shared_ptr<WindowBase> focused_window() const {
             return focused_window_;
@@ -46,7 +49,7 @@ export namespace plastic
 
         }
 
-        void remove_window(int window_id) {
+        void remove_window(int window_id) override {
             windows_.erase(window_id);
         }
 
@@ -59,7 +62,7 @@ export namespace plastic
             return windows_;
         }
 
-        [[nodiscard]] bool has_windows() const {
+        [[nodiscard]] bool has_windows() const override {
             return !windows_.empty();
         }
 
@@ -67,7 +70,7 @@ export namespace plastic
             return windows_.size();
         }
 
-        void add_window(const std::shared_ptr<WindowBase>& window) {
+        void add_window(const std::shared_ptr<WindowBase>& window) override {
             windows_.insert({window->id(), window});;
         }
 

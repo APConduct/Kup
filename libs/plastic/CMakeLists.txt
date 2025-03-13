@@ -115,8 +115,6 @@ add_library(plastic STATIC
         src/gen/fonts/plasevka/plasevka_medium.h
         src/gen/fonts/plasevka/plasevka_light.h
         src/gen/fonts/plasevka/plasevka_bold.h
-
-
 )
 
 target_sources(plastic
@@ -227,6 +225,9 @@ target_sources(plastic
         include/modules/app_helpers.ixx
         include/modules/window/window_types.ixx
         include/modules/app_runner.ixx
+        include/modules/window/window_manager_interface.ixx
+        include/modules/context_bridge.ixx
+
 
 
 

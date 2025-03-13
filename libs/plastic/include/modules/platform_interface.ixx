@@ -15,5 +15,6 @@ export namespace plastic {
         virtual void shutdown() = 0;
         virtual void update() = 0;
         virtual void dispatch_event(const events::Event& event) = 0;
+
     };
 }

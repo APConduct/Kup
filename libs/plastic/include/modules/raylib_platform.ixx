@@ -205,10 +205,13 @@ export namespace plastic
                 SetConfigFlags(FLAG_VSYNC_HINT);
             }
 
-            // Initialize Raylib but don't create a window yet
-            // We'll create windows on demand with create_window_context
-            InitWindow(0, 0, "");
-            SetWindowState(FLAG_WINDOW_HIDDEN);
+            InitWindow(800, 600, "Initializing...");
+
+
+            // Pre-warm resources for faster first render
+            GetFontDefault(); // Force font loading
+            MeasureText("", 1); // Initialize text measuring system
+
 
             // Initialize audio if needed
             InitAudioDevice();
@@ -220,6 +223,21 @@ export namespace plastic
             running_ = true;
             return true;
         }
+
+        static void warm_up_resources() {
+            // Pre-load default font and other resources
+            GetFontDefault();
+
+            // Force text measurement system initialization
+            MeasureText("Warmup text", 16);
+
+            // Pre-initialize other commonly used resources
+            Image dummy = GenImageColor(1, 1, ::WHITE);
+            Texture2D tex = LoadTextureFromImage(dummy);
+            UnloadTexture(tex);
+            UnloadImage(dummy);
+        }
+
 
         void shutdown() override {
             if (!initialized_) return;

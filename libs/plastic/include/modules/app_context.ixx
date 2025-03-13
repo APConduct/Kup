@@ -12,7 +12,7 @@ import plastic.event_dispatcher;
 import plastic.context;
 import plastic.events;
 import plastic.platform_interface;
-
+import plastic.window_manager_interface;
 
 
 
@@ -21,13 +21,16 @@ import plastic.platform_interface;
 
 export namespace plastic::context
 {
-    struct AppContext  : plastic::Context,  std::enable_shared_from_this<AppContext> {
+    struct AppContext  : Context,  std::enable_shared_from_this<AppContext> {
 
     private:
         EventDispatcher event_dispatcher_;
         std::weak_ptr<PlatformInterface> platform_{};
+        std::weak_ptr<WindowManagerInterface> window_manager_{};
         bool layout_requested_{false};
         bool paint_requested_{false};
+
+
 
     public:
 
@@ -60,6 +63,14 @@ export namespace plastic::context
         template<typename F>
         auto run(F&& f) -> decltype(f(*this)) {
             return with_context(std::forward<F>(f));
+        }
+
+        void set_window_manager(const std::shared_ptr<WindowManagerInterface>& window_manager) {
+            window_manager_ = window_manager;
+        }
+
+        std::shared_ptr<WindowManagerInterface> window_manager() {
+            return window_manager_.lock();
         }
 
 

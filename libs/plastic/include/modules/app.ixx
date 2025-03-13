@@ -40,6 +40,8 @@ export namespace plastic
         std::shared_ptr<context::AppContext> app_context_;
         std::shared_ptr<WindowManager> window_manager_;
         std::shared_ptr<Application> app_;
+        bool initialized_ = false;
+
 
 
     public:
@@ -115,7 +117,7 @@ export namespace plastic
 
 
         explicit App(std::string name = "Plastic App", Size<float> default_size = Size<float>{800, 600})
-    : name_(std::move(name)), default_window_size_(default_size)
+        : name_(std::move(name)), default_window_size_(default_size)
         {
             // Create app context
             app_context_ = std::make_shared<context::AppContext>();
@@ -130,6 +132,7 @@ export namespace plastic
             app_ = std::make_shared<Application>(name_, default_window_size_);
             app_->app_context_ = app_context_;
             app_->window_manager_ = window_manager_;
+
         }
 
         bool init() const {
