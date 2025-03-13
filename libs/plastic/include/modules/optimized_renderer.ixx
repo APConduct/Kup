@@ -3,8 +3,18 @@
 //
 
 module;
+
+#if defined(_WIN32)
+#include <bits/stdc++.h>
+#elif defined(__APPLE__)
 #include <__algorithm/ranges_max.h>
 #include <__algorithm/ranges_min.h>
+#endif
+
+
+
+
+
 #include <raylib.h>
 export module plastic.optimized_renderer;
 import plastic.element;
