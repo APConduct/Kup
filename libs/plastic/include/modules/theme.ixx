@@ -75,7 +75,7 @@ export namespace plastic
     };
 
     class ThemeManager {
-        static inline Theme current_theme_ = Theme::dark_theme();
+        static inline Theme current_theme_ { Theme::dark_theme()};
         static inline std::vector<std::function<void(const Theme&)>> observers_;
 
     public:
@@ -88,11 +88,11 @@ export namespace plastic
             notify_observers();
         }
 
-        static void observe(const std::function<void(const Theme&)>& observer) {
+        static inline void observe(const std::function<void(const Theme&)>& observer) {
             observers_.push_back(observer);
         }
 
-        static void notify_observers() {
+        static inline void notify_observers() {
             for (const auto& observer : observers_) {
                 observer(current_theme_);
             }
