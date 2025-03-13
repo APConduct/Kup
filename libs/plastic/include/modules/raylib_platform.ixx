@@ -110,7 +110,7 @@ export namespace plastic
             // Raylib has no direct API for this, but we can try
             #if defined(PLATFORM_DESKTOP)
             if (decorations) {
-                ClearWindowState(FLAG_WINDOW_UNDECORATED)
+                ClearWindowState(FLAG_WINDOW_UNDECORATED);
             } else {
                 SetWindowState(FLAG_WINDOW_UNDECORATED);
             }
