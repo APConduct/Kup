@@ -6,6 +6,7 @@ module;
 
 #if defined(_WIN32)
 #include <cmath>
+#include <memory>
 #endif
 
 export module plastic.animation;
