@@ -5,65 +5,100 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_regular.h
-        COMMAND xxd -i Rubik-Regular.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_regular.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Regular.ttf
+file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bin2h.cmake "
+file(READ \${FONT_FILE} CONTENT HEX)
+string(REGEX REPLACE \"([0-9a-f][0-9a-f])\" \"0x\\\\1, \" CONTENT \"\${CONTENT}\")
+string(REGEX REPLACE \", $\" \"\" CONTENT \"\${CONTENT}\")
+
+file(SIZE \${FONT_FILE} FILE_SIZE)
+
+# Format similar to xxd output with proper variable naming
+string(TOUPPER \${VARIABLE_NAME} VARIABLE_NAME_UPPER)
+set(FORMATTED_CONTENT \"\")
+set(LINE_LENGTH 0)
+set(INDEX 0)
+foreach(HEX_BYTE \${CONTENT})
+    if(\${LINE_LENGTH} EQUAL 0)
+        string(APPEND FORMATTED_CONTENT \"\\n  \")
+    endif()
+    string(APPEND FORMATTED_CONTENT \"\${HEX_BYTE}\")
+    math(EXPR LINE_LENGTH \"(\${LINE_LENGTH} + 1) % 12\")
+    math(EXPR INDEX \"\${INDEX} + 1\")
+endforeach()
+
+file(WRITE \${OUTPUT_FILE} \"#pragma once\\ninline unsigned char \${VARIABLE_NAME}_ttf[] = {\${FORMATTED_CONTENT}\\n};\\ninline unsigned int \${VARIABLE_NAME}_ttf_len = \${FILE_SIZE};\\n\")
+")
+
+# Replace the existing function with this pure CMake version
+function(add_font_header font_file output_file font_dir)
+    # Get the font name without extension for variable naming
+    get_filename_component(font_name ${font_file} NAME_WE)
+    string(REPLACE "-" "_" variable_name ${font_name})
+    string(TOLOWER ${variable_name} variable_name)
+
+    add_custom_command(
+            OUTPUT ${output_file}
+            COMMAND ${CMAKE_COMMAND}
+            -DFONT_FILE=${font_dir}/${font_file}
+            -DOUTPUT_FILE=${output_file}
+            -DVARIABLE_NAME=${variable_name}
+            -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bin2h.cmake
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            DEPENDS ${font_dir}/${font_file} ${CMAKE_CURRENT_SOURCE_DIR}/cmake/bin2h.cmake
+    )
+endfunction()
+
+add_font_header(
+        Rubik-Regular.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_regular.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
 )
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_medium.h
-        COMMAND xxd -i Rubik-Medium.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_medium.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Medium.ttf
+add_font_header(
+        Rubik-Medium.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_medium.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
 )
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_light.h
-        COMMAND xxd -i Rubik-Light.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_light.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Light.ttf
+add_font_header(
+        Rubik-Light.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_light.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
 )
 
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_bold.h
-        COMMAND xxd -i Rubik-Bold.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_bold.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Bold.ttf
+add_font_header(
+        Rubik-Bold.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_bold.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
 )
 
 
 
 
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_regular.h
-        COMMAND xxd -i Plasevka-Regular.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_regular.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Regular.ttf
+add_font_header(
+        Plasevka-Regular.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_regular.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
 )
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_medium.h
-        COMMAND xxd -i Plasevka-Medium.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_medium.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Medium.ttf
+add_font_header(
+        Plasevka-Medium.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_medium.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
 )
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_light.h
-        COMMAND xxd -i Plasevka-Light.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_light.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Light.ttf
+add_font_header(
+        Plasevka-Light.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_light.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
 )
 
-add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_bold.h
-        COMMAND xxd -i Plasevka-Bold.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_bold.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Bold.ttf
+add_font_header(
+        Plasevka-Bold.ttf
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_bold.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
 )
 
 
