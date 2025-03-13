@@ -18,6 +18,7 @@ import plastic.color;
 import plastic.events;
 import plastic.size;
 import plastic.point;
+import plastic.font_registry;
 
 export namespace plastic
 {
@@ -38,13 +39,27 @@ export namespace plastic
         }
 
         void paint(Context* cx) const override {
-            DrawText(
-                text_.c_str(),
-                static_cast<int>(bounds.x()),
-                static_cast<int>(bounds.y()),
-                static_cast<int>(font_size_),
-                color_.rl()
-            );
+            auto default_font = FontRegistry::get_global_default_font();
+
+            if (default_font && default_font->is_valid()) {
+                // Use our custom font
+                default_font->draw_text(
+                    text_,
+                    Point{bounds.x(), bounds.y()},
+                    font_size_,
+                    1.0f, // Use default spacing
+                    color_
+                );
+            } else {
+                // Fallback to Raylib's DrawText
+                DrawText(
+                    text_.c_str(),
+                    static_cast<int>(bounds.x()),
+                    static_cast<int>(bounds.y()),
+                    static_cast<int>(font_size_),
+                    color_.rl()
+                );
+            }
         }
 
         void layout(Context* cx) override {
@@ -54,8 +69,17 @@ export namespace plastic
         }
 
         void calculate_size() {
-            auto [x, y] = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
-            current_size = Size<float>{x, y};
+            auto default_font = FontRegistry::get_global_default_font();
+
+            if (default_font && default_font->is_valid()) {
+                // Measure using our custom font
+                current_size = default_font->measure_text(text_, font_size_, 1.0f);
+            } else {
+                // Fallback to Raylib's MeasureText
+                auto [x, y] = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+                current_size = Size<float>{x, y};
+            }
+
             size_calculated_ = true;
         }
 
@@ -121,18 +145,38 @@ export namespace plastic
                 DrawRectangleRec(bounds.to_rl(), current_bg.rl());
             }
 
-            // Draw text centered
-            Vector2 text_size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
-            float text_x = bounds.x() + (bounds.width() - text_size.x) / 2;
-            float text_y = bounds.y() + (bounds.height() - text_size.y) / 2;
+            // Get default font
+            auto default_font = FontRegistry::get_global_default_font();
 
-            DrawText(
-                text_.c_str(),
-                static_cast<int>(text_x),
-                static_cast<int>(text_y),
-                static_cast<int>(font_size_),
-                text_color_.rl()
-            );
+            // Draw text centered
+            if (default_font && default_font->is_valid()) {
+                // Measure text using our custom font
+                auto text_size = default_font->measure_text(text_, font_size_, 1.0f);
+                float text_x = bounds.x() + (bounds.width() - text_size.width()) / 2;
+                float text_y = bounds.y() + (bounds.height() - text_size.height()) / 2;
+
+                // Draw text using our custom font
+                default_font->draw_text(
+                    text_,
+                    Point{text_x, text_y},
+                    font_size_,
+                    1.0f,
+                    text_color_
+                );
+            } else {
+                // Fallback to Raylib's default font
+                Vector2 text_size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+                float text_x = bounds.x() + (bounds.width() - text_size.x) / 2;
+                float text_y = bounds.y() + (bounds.height() - text_size.y) / 2;
+
+                DrawText(
+                    text_.c_str(),
+                    static_cast<int>(text_x),
+                    static_cast<int>(text_y),
+                    static_cast<int>(font_size_),
+                    text_color_.rl()
+                );
+            }
         }
 
         void layout(Context* cx) override {

@@ -5,9 +5,9 @@ module;
 #include <memory>
 #include <stdexcept>
 #include <iostream>
-# include <string>;
-# include  <unordered_map>;
-#include  <any>;
+# include <string>
+# include  <unordered_map>
+#include  <any>
 
 export module plastic.plugin;
 

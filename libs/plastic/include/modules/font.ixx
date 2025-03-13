@@ -9,6 +9,7 @@ export module plastic.font;
 import plastic.point;
 import plastic.size;
 import plastic.rect;
+import plastic.color;
 
 
 
@@ -54,7 +55,7 @@ export namespace plastic
         }
 
         static Image from(const Font& font, const char *text, float font_size, float spacing, Color tint ) {
-            return from(ImageTextEx(font, text, font_size, spacing, tint));
+            return from(ImageTextEx(font, text, font_size, spacing, tint.rl()));
         }
 
         void save(const std::string& fileName) const {
@@ -107,5 +108,53 @@ export namespace plastic
 
         Font() = default;
         explicit Font(const ::Font& font) : font_(font) {};
+
+        // Load font from file
+        static std::shared_ptr<Font> load_from_file(const std::string& filename, int fontSize = 100, int* fontChars = nullptr, int glyphCount = 0) {
+            ::Font raylib_font = LoadFontEx(filename.c_str(), fontSize, fontChars, glyphCount);
+            return std::make_shared<Font>(raylib_font);
+        }
+
+        // Load font from memory
+        static std::shared_ptr<Font> load_from_memory(const std::string& fileType, const unsigned char* fileData, int dataSize,
+                                                    int fontSize = 100, int* fontChars = nullptr, int glyphCount = 0) {
+            ::Font raylib_font = LoadFontFromMemory(fileType.c_str(), fileData, dataSize, fontSize, fontChars, glyphCount);
+            return std::make_shared<Font>(raylib_font);
+        }
+
+        // Get default system font
+        static std::shared_ptr<Font> get_raylib_default() {
+            return std::make_shared<Font>(GetFontDefault());
+        }
+
+        void unload() {
+            UnloadFont(font_);
+            font_ = {};
+        }
+
+
+
+        // Measure text with this font
+        Size<float> measure_text(const std::string& text, float fontSize, float spacing = 1.0f) const {
+            Vector2 size = MeasureTextEx(font_, text.c_str(), fontSize, spacing);
+            return Size<float>{size.x, size.y};
+        }
+
+        // Draw text with this font
+        void draw_text(const std::string& text, const Point<float>& position,
+                      float fontSize, float spacing, const Color& color) const {
+            DrawTextEx(font_, text.c_str(), {position.x, position.y},
+                      fontSize, spacing, color.rl());
+        }
+
+        // Check if font is valid
+        [[nodiscard]] bool is_valid() const {
+            return font_.texture.id > 0;
+        }
+
+
+
+
+
     };
 }

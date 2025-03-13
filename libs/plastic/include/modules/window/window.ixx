@@ -149,6 +149,9 @@ export namespace plastic
 
         void set_title(const std::string& title) {
             title_ = title;
+            if (context_) {
+                context_->set_title(title);
+            }
         }
 
         void set_bounds(const Rect<float>& bounds) {

@@ -22,9 +22,13 @@ import plastic.layout_properties;
 import plastic.flex_layout;
 import plastic.app;
 import plastic.edge;
+import plastic.elements.styled_text;
+import plastic.font.weight;
 
 export namespace plastic::ui
 {
+
+    using FontWeight = plastic::font::Weight;
     // Factory functions for basic elements
     inline std::shared_ptr<Text> text(std::string content, float size = 16.0f, Color color = Color::white()) {
         return std::make_shared<Text>(std::move(content), size, color);
@@ -196,6 +200,43 @@ export namespace plastic::ui
             .run_and_return();
     }
 
+
+    inline std::shared_ptr<StyledText> styled_text(
+    std::string content,
+    std::string font_family = "Rubik",
+    FontWeight weight = FontWeight::Regular,
+    float size = 16.0f,
+    Color color = Color::white()
+) {
+        return std::make_shared<StyledText>(
+            std::move(content),
+            std::move(font_family),
+            weight,
+            size,
+            color
+        );
+    }
+
+    // Some common shortcuts
+    inline std::shared_ptr<StyledText> h1(std::string text, Color color = colors::text) {
+        return styled_text(std::move(text), "Rubik", FontWeight::Bold, 24.0f, color);
+    }
+
+    inline std::shared_ptr<StyledText> h2(std::string text, Color color = colors::text) {
+        return styled_text(std::move(text), "Rubik", FontWeight::Medium, 20.0f, color);
+    }
+
+    inline std::shared_ptr<StyledText> h3(std::string text, Color color = colors::text) {
+        return styled_text(std::move(text), "Rubik", FontWeight::Regular, 18.0f, color);
+    }
+
+    inline std::shared_ptr<StyledText> body(std::string text, Color color = colors::text) {
+        return styled_text(std::move(text), "Rubik", FontWeight::Regular, 16.0f, color);
+    }
+
+    inline std::shared_ptr<StyledText> code(std::string text, Color color = colors::text) {
+        return styled_text(std::move(text), "Plasevka", FontWeight::Regular, 14.0f, color);
+    }
 
 
 }

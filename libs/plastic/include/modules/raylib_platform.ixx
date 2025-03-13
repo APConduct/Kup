@@ -7,6 +7,7 @@ module;
 #include <unordered_map>
 #include <vector>
 #include <raylib.h>
+#include "GLFW/glfw3.h"
 export module plastic.raylib_platform;
 
 import plastic.platform;
@@ -18,6 +19,7 @@ import plastic.size;
 import plastic.rect;
 import plastic.color;
 import plastic.context;
+import plastic.font_registry;
 
 export namespace plastic
 {
@@ -25,6 +27,7 @@ export namespace plastic
     private:
         int window_id_;
         bool should_close_ = false;
+        std::string title_;
 
     public:
         explicit RaylibWindowContext(int window_id, const std::shared_ptr<context::AppContext>& app_context)
@@ -33,6 +36,11 @@ export namespace plastic
         void make_current() override {
             if (window_id_ != GetCurrentMonitor()) {
                 SetWindowMonitor(window_id_);
+            }
+
+            // After making window current, reapply stored settings
+            if (!title_.empty()) {
+                SetWindowTitle(title_.c_str());
             }
         }
 
@@ -49,7 +57,11 @@ export namespace plastic
         }
 
         void set_title(const std::string& title) override {
-            SetWindowTitle(title.c_str());
+            title_ = title;
+
+            make_current();
+
+            SetWindowTitle(title_.c_str());
         }
 
         void set_position(const Point<float>& position) override {
@@ -205,13 +217,15 @@ export namespace plastic
                 SetConfigFlags(FLAG_VSYNC_HINT);
             }
 
+
             InitWindow(800, 600, "Initializing...");
 
 
             // Pre-warm resources for faster first render
-            GetFontDefault(); // Force font loading
-            MeasureText("", 1); // Initialize text measuring system
+            FontRegistry::instance();
 
+            // Pre-warm resources for faster first render
+            warm_up_resources();
 
             // Initialize audio if needed
             InitAudioDevice();
@@ -488,5 +502,7 @@ export namespace plastic
                 pending_events_.push_back(event);
             }
         }
+
+
     };
 }

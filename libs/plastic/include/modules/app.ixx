@@ -142,6 +142,7 @@ export namespace plastic
             // Connect app context to platform
             app_context_->set_platform(platform_);
 
+
             return true;
         }
 
@@ -150,6 +151,9 @@ export namespace plastic
         std::shared_ptr<Window> create_window(Args&&... args) {
             auto window_context = platform_->create_window_context();
             auto window = std::make_shared<Window>(window_context, default_window_size_, name_);
+
+            // Set title immediately after creation
+            window_context->set_title(name_);
 
             // Create and set the root view
             auto view = std::make_shared<ViewType>(std::forward<Args>(args)...);

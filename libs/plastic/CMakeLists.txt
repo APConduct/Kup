@@ -230,6 +230,18 @@ target_sources(plastic
         include/modules/spring_animation.ixx
         include/modules/animation_manager.ixx
         include/modules/animation/transition_property.ixx
+        include/modules/font/key.ixx
+        include/modules/font/weight.ixx
+
+        include/modules/font/key/hash.ixx
+        include/modules/font/font_registry.ixx
+
+        include/modules/elements/styled_text.ixx
+        include/modules/font/utils.ixx
+
+
+
+
 
 
 
@@ -238,7 +250,7 @@ target_sources(plastic
 )
 
 
-target_link_libraries(plastic PUBLIC raylib fs)
+target_link_libraries(plastic PUBLIC raylib fs glfw)
 
 target_include_directories(plastic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src/gen)
 
