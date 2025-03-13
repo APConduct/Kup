@@ -5,10 +5,81 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
 
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_regular.h
+        COMMAND xxd -i Rubik-Regular.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_regular.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Regular.ttf
+)
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_medium.h
+        COMMAND xxd -i Rubik-Medium.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_medium.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Medium.ttf
+)
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_light.h
+        COMMAND xxd -i Rubik-Light.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_light.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Light.ttf
+)
+
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_bold.h
+        COMMAND xxd -i Rubik-Bold.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/rubik/rubik_bold.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Rubik/static/Rubik-Bold.ttf
+)
+
+
+
+
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_regular.h
+        COMMAND xxd -i Plasevka-Regular.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_regular.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Regular.ttf
+)
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_medium.h
+        COMMAND xxd -i Plasevka-Medium.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_medium.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Medium.ttf
+)
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_light.h
+        COMMAND xxd -i Plasevka-Light.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_light.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Light.ttf
+)
+
+add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_bold.h
+        COMMAND xxd -i Plasevka-Bold.ttf > ${CMAKE_CURRENT_SOURCE_DIR}/src/gen/fonts/plasevka/plasevka_bold.h
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/fonts/Plasevka/TTF/Plasevka-Bold.ttf
+)
 
 
 add_library(plastic STATIC
         include/plastic/config.hpp
+
+
+        src/gen/fonts/rubik/rubik_regular.h
+        src/gen/fonts/rubik/rubik_medium.h
+        src/gen/fonts/rubik/rubik_light.h
+        src/gen/fonts/rubik/rubik_bold.h
+
+        src/gen/fonts/plasevka/plasevka_regular.h
+        src/gen/fonts/plasevka/plasevka_medium.h
+        src/gen/fonts/plasevka/plasevka_light.h
+        src/gen/fonts/plasevka/plasevka_bold.h
 
 
 )
@@ -129,6 +200,6 @@ target_sources(plastic
 
 target_link_libraries(plastic PUBLIC raylib fs)
 
-target_include_directories(plastic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(plastic PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src/gen)
 
 add_subdirectory(examples)
