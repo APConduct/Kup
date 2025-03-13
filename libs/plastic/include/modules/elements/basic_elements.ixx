@@ -26,12 +26,16 @@ export namespace plastic
         std::string text_;
         float font_size_{16.0f};
         Color color_{Color::white()};
+        bool size_calculated_{false};
+    
 
     public:
         Text() = default;
 
         explicit Text(std::string text, float font_size = 16.0f, Color color = Color::white())
-    : text_(std::move(text)), font_size_(font_size), color_(color) {}
+    : text_(std::move(text)), font_size_(font_size), color_(color) {
+            calculate_size();
+        }
 
         void paint(Context* cx) const override {
             DrawText(
@@ -44,14 +48,23 @@ export namespace plastic
         }
 
         void layout(Context* cx) override {
-            // Measure the text to determine bounds
-            Vector2 size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
-            current_size = Size<float>{size.x, size.y};
+            if (!size_calculated_) {
+                calculate_size();
+            }
+        }
+
+        void calculate_size() {
+            auto [x, y] = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+            current_size = Size<float>{x, y};
+            size_calculated_ = true;
         }
 
         Text& with_text(std::string text) {
-            text_ = std::move(text);
-            invalidate();
+            if (text_ != text) {
+                text_ = std::move(text);
+                size_calculated_ = false;
+                invalidate();
+            }
             return *this;
         }
 
