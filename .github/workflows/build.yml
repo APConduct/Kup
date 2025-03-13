@@ -1,0 +1,193 @@
+name: Build Kup
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.os }}-build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            shell: msys2 {0}
+            msystem: MINGW64
+            packages: >-
+              mingw-w64-x86_64-clang
+              mingw-w64-x86_64-ninja
+              mingw-w64-x86_64-cmake
+              mingw-w64-x86_64-raylib
+              mingw-w64-x86_64-freetype
+              mingw-w64-x86_64-lua
+              mingw-w64-x86_64-sol2
+              mingw-w64-x86_64-dlfcn
+            
+          - os: macos-latest
+            packages: >-
+              llvm@17
+              ninja
+              cmake
+              raylib
+              freetype
+              lua
+              
+          - os: ubuntu-latest
+            packages: >-
+              clang-17
+              lld-17
+              libc++-17-dev
+              libc++abi-17-dev
+              ninja-build
+              cmake
+              libfreetype-dev
+              liblua5.3-dev
+              libopenal-dev
+              libvorbis-dev
+              libflac-dev
+              libgl1-mesa-dev
+              libglu1-mesa-dev
+              libx11-dev
+              libxrandr-dev
+              libxi-dev
+              libxcursor-dev
+              libxinerama-dev
+
+    defaults:
+      run:
+        shell: ${{ matrix.os == 'windows-latest' && 'msys2 {0}' || 'bash' }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    # Windows-specific setup
+    - name: Setup MSYS2
+      if: matrix.os == 'windows-latest'
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: ${{ matrix.msystem }}
+        update: true
+        install: git ${{ matrix.packages }}
+
+    # macOS-specific setup
+    - name: Setup macOS dependencies
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew update
+        brew install ${{ matrix.packages }}
+        
+        # Use LLVM Clang instead of Apple Clang
+        echo "CC=$(brew --prefix llvm@17)/bin/clang" >> $GITHUB_ENV
+        echo "CXX=$(brew --prefix llvm@17)/bin/clang++" >> $GITHUB_ENV
+        echo "$(brew --prefix llvm@17)/bin" >> $GITHUB_PATH
+        
+        # Install sol2 (Lua C++ binding library)
+        git clone https://github.com/ThePhD/sol2.git
+        cd sol2
+        mkdir build && cd build
+        cmake -G Ninja .. 
+        sudo ninja install
+        cd $GITHUB_WORKSPACE
+
+    # Ubuntu-specific setup
+    - name: Setup Ubuntu dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-17 main"
+        sudo apt-get update
+        sudo apt-get install -y ${{ matrix.packages }}
+        
+        # Set up clang-17 as the compiler
+        echo "CC=clang-17" >> $GITHUB_ENV
+        echo "CXX=clang++-17" >> $GITHUB_ENV
+        
+        # Install raylib from source
+        git clone https://github.com/raysan5/raylib.git
+        cd raylib
+        mkdir build && cd build
+        cmake -G Ninja -DCMAKE_C_COMPILER=clang-17 -DCMAKE_CXX_COMPILER=clang++-17 -DBUILD_SHARED_LIBS=OFF ..
+        ninja
+        sudo ninja install
+        cd $GITHUB_WORKSPACE
+        
+        # Install sol2 (Lua C++ binding library)
+        git clone https://github.com/ThePhD/sol2.git
+        cd sol2
+        mkdir build && cd build
+        cmake -G Ninja -DCMAKE_C_COMPILER=clang-17 -DCMAKE_CXX_COMPILER=clang++-17 ..
+        ninja
+        sudo ninja install
+        cd $GITHUB_WORKSPACE
+
+    # Create directories for generated fonts
+    - name: Prepare Font Directories
+      run: |
+        mkdir -p libs/plastic/src/gen/fonts/rubik
+        mkdir -p libs/plastic/src/gen/fonts/plasevka
+
+    # Configure and build with CMake + Ninja
+    - name: Configure CMake
+      run: |
+        mkdir -p build
+        cd build
+        cmake -G Ninja \
+          -DCMAKE_CXX_SCAN_FOR_MODULES=ON \
+          -DCMAKE_BUILD_TYPE=Release \
+          ..
+
+    - name: Build
+      run: |
+        cd build
+        ninja
+
+    # Create release package structure
+    - name: Package Release
+      run: |
+        mkdir -p kup-${{ matrix.os }}/bin
+        mkdir -p kup-${{ matrix.os }}/docs
+        
+        # Copy binary - handle Windows .exe extension
+        if [ "${{ matrix.os }}" == "windows-latest" ]; then
+          cp build/Kup.exe kup-${{ matrix.os }}/bin/
+        else
+          cp build/Kup kup-${{ matrix.os }}/bin/
+        fi
+        
+        # Copy documentation
+        cp README.md kup-${{ matrix.os }}/docs/
+        
+        # Create archive
+        if [ "${{ matrix.os }}" == "windows-latest" ]; then
+          7z a kup-${{ matrix.os }}.zip kup-${{ matrix.os }}
+        else
+          tar -czvf kup-${{ matrix.os }}.tar.gz kup-${{ matrix.os }}
+        fi
+
+    # Upload artifacts
+    - name: Upload Binary
+      uses: actions/upload-artifact@v3
+      with:
+        name: kup-${{ matrix.os }}-binary
+        path: |
+          build/Kup
+          build/Kup.exe
+          
+    # Upload packaged release
+    - name: Upload Release Package
+      uses: actions/upload-artifact@v3
+      with:
+        name: kup-${{ matrix.os }}-package
+        path: |
+          kup-${{ matrix.os }}.zip
+          kup-${{ matrix.os }}.tar.gz
