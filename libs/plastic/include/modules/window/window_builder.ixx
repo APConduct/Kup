@@ -16,7 +16,7 @@ export namespace plastic
         static std::shared_ptr<Window> create(
             const std::shared_ptr<context::WindowContext>& context,
             int window_id,
-            const WindowOptions& options = WindowOptions{})
+            const window::WindowOptions& options = window::WindowOptions{})
         {
             auto window = std::make_shared<Window>(context, options.size);
 

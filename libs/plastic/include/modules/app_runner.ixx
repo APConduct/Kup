@@ -7,7 +7,6 @@ module;
 export module plastic.app_runner;
 
 import plastic.app;
-import plastic.window_types;
 import plastic.size;
 import plastic.point;
 

@@ -39,7 +39,7 @@ export namespace plastic
         explicit WindowManager(std::shared_ptr<context::AppContext> app_context)
             : app_context_(std::move(app_context)) {}
 
-        std::shared_ptr<WindowBase> create_window(const WindowOptions& options = WindowOptions{}) {
+        std::shared_ptr<WindowBase> create_window(const window::WindowOptions& options = window::WindowOptions{}) {
             auto context = std::make_shared<RaylibWindowContext>(next_window_id_, app_context_);
             auto window = WindowBuilder::create(context, next_window_id_, options);
             next_window_id_++;

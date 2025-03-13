@@ -35,7 +35,7 @@ export namespace plastic
         std::shared_ptr<View> root_{};
         std::shared_ptr<plastic::context::WindowContext> context_{};
         Size<float> size{0,0};
-        WindowOptions options_;
+        window::WindowOptions options_;
 
         std::string title_;
 
@@ -162,7 +162,7 @@ export namespace plastic
             return *context_;
         }
 
-        [[nodiscard]] const WindowOptions& options() const override {
+        [[nodiscard]] const window::WindowOptions& options() const override {
             return options_;
         }
 

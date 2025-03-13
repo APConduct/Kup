@@ -18,6 +18,6 @@ export namespace plastic
         virtual void render() = 0;
         virtual Context& context() = 0;
         [[nodiscard]] virtual bool should_close() const = 0;
-        [[nodiscard]] virtual const WindowOptions& options() const = 0;
+        [[nodiscard]] virtual const window::WindowOptions& options() const = 0;
     };
 }

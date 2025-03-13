@@ -25,8 +25,7 @@ import plastic.context;
 import plastic.color;
 import plastic.view_wrapper;
 import plastic.rect;
-import plastic.window_types;
-// import plastic.window_options;
+import plastic.window_options;
 
 
 

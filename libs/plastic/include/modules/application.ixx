@@ -89,7 +89,7 @@ export namespace plastic
 
         [[nodiscard]] std::shared_ptr<WindowBase> create_window() const {
             return window_manager_->create_window(
-                WindowOptions{}
+                window::WindowOptions{}
                     .with_title(app_name_)
                     .with_size(default_window_size)
         );

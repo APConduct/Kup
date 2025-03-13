@@ -13,9 +13,9 @@ import plastic.app;
 
 
 
-import plastic.window_types;
 import plastic.size;
 import plastic.point;
+import plastic.window_options;
 
 export namespace plastic
 {
