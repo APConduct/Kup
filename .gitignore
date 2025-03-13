@@ -28,3 +28,4 @@ kbrainst
 .clangd
 /cmake-build-debug-msys2-ucrt/
 /build/
+/libs/plastic/src/gen/
