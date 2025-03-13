@@ -20,6 +20,7 @@ import plastic.rect;
 import plastic.color;
 import plastic.context;
 import plastic.font_registry;
+import plastic.glfw_window_raii;
 
 export namespace plastic
 {
@@ -32,6 +33,10 @@ export namespace plastic
     public:
         explicit RaylibWindowContext(int window_id, const std::shared_ptr<context::AppContext>& app_context)
             : WindowContext(app_context), window_id_(window_id) {}
+
+        explicit RaylibWindowContext(int window_id, const std::shared_ptr<context::AppContext>& app_context, GLFWwindow* window)
+            : WindowContext(app_context), window_id_(window_id) {}
+
 
         void make_current() override {
             if (window_id_ != GetCurrentMonitor()) {
@@ -196,7 +201,7 @@ export namespace plastic
     };
 
     class RaylibPlatform : public Platform {
-    private:
+    protected:
         bool running_ = false;
         std::unordered_map<int, std::shared_ptr<RaylibWindowContext>> window_contexts_;
         int next_window_id_ = 0;
@@ -505,4 +510,221 @@ export namespace plastic
 
 
     };
+
+    class RaylibMultiWindowPlatform : public RaylibPlatform {
+private:
+    std::unordered_map<int, std::unique_ptr<window::GLFWWindowRAII>> glfw_windows_;
+    std::unordered_map<GLFWwindow*, std::shared_ptr<RaylibWindowContext>> window_contexts_;
+
+public:
+    explicit RaylibMultiWindowPlatform(std::shared_ptr<context::AppContext> app_context)
+        : RaylibPlatform(std::move(app_context)) {}
+
+    bool initialize() override {
+        // Initialize GLFW directly
+        if (!glfwInit()) {
+            TraceLog(LOG_ERROR, "Failed to initialize GLFW");
+            return false;
+        }
+
+        // Set GLFW error callback
+        glfwSetErrorCallback([](int error, const char* description) {
+            TraceLog(LOG_ERROR, "GLFW Error %d: %s", error, description);
+        });
+
+        // Explicitly set GLFW hints before any window creation
+        glfwDefaultWindowHints(); // Reset all hints to defaults
+        // Set other GLFW hints
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // Windows start hidden until fully set up
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+        glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+
+
+        initialized_ = true;
+        running_ = true;
+        return true;
+    }
+
+    std::shared_ptr<context::WindowContext> create_window_context() override {
+        if (!initialized_) {
+            initialize();
+        }
+
+        int window_id = next_window_id_++;
+
+        // Create a new GLFW window
+        GLFWwindow* glfw_window = glfwCreateWindow(800, 600, "New Window", nullptr, nullptr);
+        if (!glfw_window) {
+            TraceLog(LOG_ERROR, "Failed to create GLFW window");
+            return nullptr;
+        }
+
+        // Store the window
+        glfw_windows_[window_id] = std::make_unique<window::GLFWWindowRAII>(glfw_window);
+
+        // Create a window context for this window
+        auto context = std::make_shared<RaylibWindowContext>(window_id, app_context_, glfw_window);
+        window_contexts_[glfw_window] = context;
+
+        // Set up GLFW callbacks for this window
+        setup_window_callbacks(glfw_window, window_id);
+
+        // Show the window
+        glfwShowWindow(glfw_window);
+
+        return context;
+    }
+
+    void update() override {
+        if (!initialized_) return;
+
+        // Process events for all windows
+        glfwPollEvents();
+
+        // Check for closed windows and handle other updates
+        std::vector<int> windows_to_remove;
+        for (const auto& [id, window] : glfw_windows_) {
+            if (glfwWindowShouldClose(window->get())) {
+                windows_to_remove.push_back(id);
+                events::WindowCloseEvent event{id, GetTime()};
+                event_dispatcher_.emit(event);
+            }
+        }
+
+        // Clean up closed windows
+        for (int id : windows_to_remove) {
+            close_window(id);
+        }
+    }
+
+    void shutdown() override {
+        // Clean up all windows
+        for (const auto& [id, window] : glfw_windows_) {
+            glfwDestroyWindow(window->get());
+        }
+        glfw_windows_.clear();
+        window_contexts_.clear();
+
+        // Terminate GLFW
+        glfwTerminate();
+        initialized_ = false;
+        running_ = false;
+    }
+
+
+        struct WindowUserData {
+        int window_id;
+        RaylibMultiWindowPlatform* platform;
+
+    };
+
+
+
+
+
+private:
+    void setup_window_callbacks(GLFWwindow* window, int window_id) {
+
+        auto* user_data = new WindowUserData{window_id, this};
+
+        glfwSetWindowUserPointer(window, user_data);
+
+
+        // Set resize callback
+        glfwSetWindowSizeCallback(window, [](GLFWwindow* w, int width, int height) {
+            auto* data = static_cast<WindowUserData*>(glfwGetWindowUserPointer(w));
+            if (!data) return;
+
+            // Create and dispatch resize event
+            events::ResizeEvent event{
+                Size<float>{static_cast<float>(width), static_cast<float>(height)},
+                GetTime()
+            };
+
+            // Get the window context and dispatch the event
+            if (auto context = data->platform->get_window_context(data->window_id)) {
+                context->dispatch_event(event);
+            }
+            });
+
+        // Set other callbacks: position, focus, mouse, keyboard, etc.
+        // ...
+
+        glfwSetKeyCallback(window, [](GLFWwindow* w, int key, int scancode, int action, int mods) {
+            auto* data = static_cast<WindowUserData*>(glfwGetWindowUserPointer(w));
+            if (!data) return;
+
+            events::KeyPressEvent event{
+                static_cast<events::KeyboardKey>(key),
+                action != GLFW_RELEASE,
+                action == GLFW_REPEAT,
+                scancode,
+                GetTime(),
+                (mods & GLFW_MOD_SHIFT) != 0,
+                glfwGetKey(w, GLFW_KEY_CAPS_LOCK) == GLFW_PRESS,
+                glfwGetKey(w, GLFW_KEY_NUM_LOCK) == GLFW_PRESS,
+                (mods & GLFW_MOD_CONTROL) != 0,
+                (mods & GLFW_MOD_SUPER) != 0,
+                (mods & GLFW_MOD_ALT) != 0
+            };
+
+            if (auto context = data->platform->get_window_context(data->window_id)) {
+                context->dispatch_event(event);
+            }
+        });
+
+        glfwSetCursorPosCallback(window, [](GLFWwindow* w, double x, double y) {
+        auto* data = static_cast<WindowUserData*>(glfwGetWindowUserPointer(w));
+
+    // Track previous position to calculate delta
+    static std::unordered_map<GLFWwindow*, Point<float>> last_positions;
+    Point<float> current{static_cast<float>(x), static_cast<float>(y)};
+
+    Point<float> delta{0, 0};
+    if (last_positions.contains(w)) {
+        delta.x = current.x - last_positions[w].x;
+        delta.y = current.y - last_positions[w].y;
+    }
+    last_positions[w] = current;
+
+    events::MouseMoveEvent event{
+        current,
+        delta,
+        GetTime()
+    };
+
+    if (auto context = data->platform->get_window_context(data->window_id)) {
+        context->dispatch_event(event);
+    }
+});
+
+
+    }
+
+    void close_window(int window_id) {
+        auto it = glfw_windows_.find(window_id);
+        if (it != glfw_windows_.end()) {
+            GLFWwindow* window = it->second->get();
+
+            // Free user data
+            void* user_ptr = glfwGetWindowUserPointer(window);
+            if (user_ptr) {
+                auto* data = static_cast<WindowUserData*>(user_ptr);
+                delete data; // Clean up the allocated memory
+            }
+
+            window_contexts_.erase(window);
+            glfwDestroyWindow(window);
+            glfw_windows_.erase(it);
+        }
+    }
+
+    std::shared_ptr<RaylibWindowContext> get_window_context(int window_id) {
+        auto it = glfw_windows_.find(window_id);
+        if (it != glfw_windows_.end()) {
+            return window_contexts_[it->second->get()];
+        }
+        return nullptr;
+    }
+};
 }

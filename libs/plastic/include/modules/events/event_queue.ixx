@@ -19,7 +19,7 @@ export namespace plastic
     struct EventQueue {
     private:
         std::vector<events::Event> queued_events;
-        std::mutex queue_mutex;
+        mutable std::mutex queue_mutex;
 
         static bool should_compress(const events::MouseMoveEvent& a, const events::MouseMoveEvent& b) {
             return a.timestamp - b.timestamp < 0.016; // less than 1 frame
@@ -102,7 +102,6 @@ export namespace plastic
 
         template<typename Func>
         void for_each(Func&& func) const {
-            std::lock_guard lock(const_cast<std::mutex&>(queue_mutex));
             for (const auto& event : queued_events) {
                 func(event);
             }

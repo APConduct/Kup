@@ -238,6 +238,7 @@ target_sources(plastic
 
         include/modules/elements/styled_text.ixx
         include/modules/font/utils.ixx
+        include/modules/window/glfw_window_raii.ixx
 
 
 

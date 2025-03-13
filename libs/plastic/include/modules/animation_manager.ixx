@@ -18,8 +18,13 @@ export namespace plastic
         std::vector<std::unique_ptr<Animation<Color>>> color_animations_;
         std::vector<std::unique_ptr<Animation<Point<float>>>> point_animations_;
 
+        std::mutex animations_mutex_;
+
+
     public:
         void update(float delta_time) {
+            std::lock_guard<std::mutex> guard(animations_mutex_);
+
             // Update all animations and remove completed ones
             auto update_and_filter = [delta_time](auto& animations) {
                 size_t write_index = 0;
@@ -41,6 +46,8 @@ export namespace plastic
 
         template <typename T>
         void add_animation(std::unique_ptr<Animation<T>> animation) {
+            std::lock_guard<std::mutex> guard(animations_mutex_);
+
             if constexpr (std::is_same_v<T, float>) {
                 float_animations_.push_back(std::move(animation));
             } else if constexpr  (std::is_same_v<T, Color>) {

@@ -267,7 +267,60 @@ export namespace plastic
             return 0;
         }
 
-        
+        template<typename ViewType, typename... Args>
+std::shared_ptr<Window> open_secondary_window(
+    const window::WindowOptions& options,
+    Args&&... args
+) {
+            if (!platform_->supports_multiple_windows()) {
+                throw std::runtime_error("Multiple windows are not supported on this platform");
+            }
+
+            // Create window context
+            auto window_context = platform_->create_window_context();
+
+            // Create window with the context
+            auto window = std::make_shared<Window>(window_context, options.size, options.title);
+
+            // Set window properties from options
+            if (!options.title.empty()) {
+                window->set_title(options.title);
+            }
+
+            if (options.window_bounds) {
+                const auto& bounds = options.window_bounds.value();
+                switch (bounds.type) {
+                    case window::WindowBoundsType::Windowed:
+                        window->set_bounds(Rect<float>{
+                            bounds.bounds.x,
+                            bounds.bounds.y,
+                            bounds.bounds.width,
+                            bounds.bounds.height
+                        });
+                    break;
+                    case window::WindowBoundsType::Maximized:
+                        window->maximize();
+                    break;
+                    case window::WindowBoundsType::Fullscreen:
+                        window->set_fullscreen(true);
+                    break;
+                }
+            }
+
+            // Create the view
+            auto view = std::make_shared<ViewType>(std::forward<Args>(args)...);
+            window->set_root(view);
+
+            // Add window to window manager
+            window_manager_->add_window(window);
+
+            return window;
+        }
+
+        bool supports_multiple_windows() const {
+            return platform_->supports_multiple_windows();
+        }
+
 
 
 
@@ -293,6 +346,8 @@ export namespace plastic
                                            const Size<float>& size = Size<float>{800, 600}) {
         return std::make_shared<App>(name, size);
     }
+
+
 
 
 }

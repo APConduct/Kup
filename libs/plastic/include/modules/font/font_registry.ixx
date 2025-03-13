@@ -100,6 +100,15 @@ export namespace plastic
                                           const unsigned char* data, int data_size) {
             // Load font from memory using your Font class
             ::Font raylib_font = LoadFontFromMemory(".ttf", data, data_size, 100, nullptr, 0);
+
+            // Check if font was successfully loaded
+            if (raylib_font.texture.id == 0) {
+                // Font failed to load
+                TraceLog(LOG_ERROR, "Failed to load font from memory");
+                return get_default_font(); // Return default font as fallback
+            }
+
+
             auto font = std::make_shared<Font>(raylib_font);
 
             // Register the font

@@ -20,6 +20,7 @@ export namespace plastic
     private:
         Rect<float> viewport_;
         bool enabled_{true};
+        std::vector<std::weak_ptr<Element>> tracked_elements_;
 
     public:
         explicit ViewportCulling(const Rect<float> &viewport) : viewport_(viewport) {}
