@@ -5,6 +5,9 @@ module;
 #include <unordered_map>
 #include <string>
 #include <functional>
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.event_broadcast;
 
 import plastic.event_dispatcher;

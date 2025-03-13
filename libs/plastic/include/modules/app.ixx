@@ -4,6 +4,10 @@
 module;
 #include <functional>
 #include <string>
+#if defined(_WIN32)
+#include <memory>
+#endif
+
 export module plastic.app;
 import plastic.application;
 import plastic.platform;

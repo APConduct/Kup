@@ -4,6 +4,9 @@
 
 module;
 #include <functional>
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.component_system;
 
 import plastic.element;

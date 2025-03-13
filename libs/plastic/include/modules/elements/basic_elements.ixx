@@ -6,6 +6,9 @@ module;
 #include <string>
 #include <functional>
 #include <raylib.h>
+#if defined(_WIN32)
+#include <variant>
+#endif
 export module plastic.elements.basic;
 
 import plastic.element;

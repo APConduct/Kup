@@ -4,6 +4,9 @@
 module;
 #include <raylib.h>
 #include <string>
+#if defined(_WIN32)
+#include <cmath>
+#endif
 export module line_numbers;
 import plastic.element;
 import plastic.color;

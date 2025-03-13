@@ -4,6 +4,9 @@
 module;
 #include <string>
 #include <functional>
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.app_builder;
 
 import plastic.element;

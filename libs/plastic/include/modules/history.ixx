@@ -9,6 +9,10 @@ module;
 #include <fstream>
 #include <functional>
 #include <stack>
+
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.history;
 
 import plastic.command;

@@ -10,6 +10,9 @@ module;
 #include <fstream>
 #include <map>
 #include <thread>
+#if defined(_WIN32)
+#include <functional>
+#endif
 export module plastic.filesystem;
 
 export namespace plastic

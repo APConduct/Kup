@@ -6,6 +6,10 @@ module;
 #include <algorithm>
 #include <memory>
 #include <ranges>
+#if defined(_WIN32)
+#include <vector>
+#include <limits>
+#endif
 
 export module plastic.flex_layout;
 

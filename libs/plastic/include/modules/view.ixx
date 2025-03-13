@@ -95,7 +95,7 @@ export namespace plastic
         }
 
         void remove_child(const std::shared_ptr<View>& child) {
-            auto it = std::find(children_.begin(), children_.end(), child);
+            auto it = std::ranges::find(children_, child);
             if (it != children_.end()) {
                 if (mounted_ && cx_) {
                     child->unmount(cx_);

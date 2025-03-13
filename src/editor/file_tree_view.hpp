@@ -10,6 +10,10 @@
 #include <functional>
 #include <optional>
 #include <raylib.h>
+#if defined(_WIN32)
+#include <algorithm>
+#include <variant>
+#endif
 import plastic;
 
 namespace kup

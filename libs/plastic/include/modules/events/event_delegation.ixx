@@ -6,6 +6,9 @@ module;
 #include <unordered_map>
 #include <functional>
 #include <string>
+#if defined(_WIN32)
+#include <variant>
+#endif
 export module plastic.event_deligation;
 
 import plastic.event_dispatcher;

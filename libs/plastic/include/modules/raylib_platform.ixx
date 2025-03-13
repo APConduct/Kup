@@ -109,14 +109,22 @@ export namespace plastic
         void set_decorations(bool decorations) override {
             // Raylib has no direct API for this, but we can try
             #if defined(PLATFORM_DESKTOP)
-            SetWindowState(FLAG_WINDOW_UNDECORATED, !decorations);
+            if (decorations) {
+                ClearWindowState(FLAG_WINDOW_UNDECORATED)
+            } else {
+                SetWindowState(FLAG_WINDOW_UNDECORATED);
+            }
             #endif
         }
 
         void set_transparent(bool transparent) override {
             #if defined(PLATFORM_DESKTOP)
             // This is a best effort, as Raylib doesn't fully support this
-            SetWindowState(FLAG_WINDOW_TRANSPARENT, transparent);
+            if (transparent) {
+                SetWindowState(FLAG_WINDOW_TRANSPARENT);
+            } else {
+                ClearWindowState(FLAG_WINDOW_TRANSPARENT);
+            }
             #endif
         }
 

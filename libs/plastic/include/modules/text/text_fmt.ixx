@@ -5,6 +5,11 @@ module;
 #include <string>
 #include <vector>
 #include <functional>
+
+#if defined(_WIN32)
+#include <optional>
+#include <cstdint>
+#endif
 export module plastic.text.fmt;
 
 import plastic.color;

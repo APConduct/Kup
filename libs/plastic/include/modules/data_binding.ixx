@@ -5,6 +5,9 @@
 module;
 #include <vector>
 #include <functional>
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.data_binding;
 
 import plastic.element;

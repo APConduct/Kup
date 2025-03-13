@@ -4,6 +4,10 @@
 module;
 #include <functional>
 
+#if defined(_WIN32)
+#include <cmath>
+#endif
+
 export module plastic.animation;
 
 import plastic.point;

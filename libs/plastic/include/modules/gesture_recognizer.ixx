@@ -5,6 +5,9 @@ module;
 #include <vector>
 #include <functional>
 #include <raylib.h>
+#if defined(_WIN32)
+#include <cmath>
+#endif
 export module plastic.gensture_recognizer;
 
 import plastic.point;

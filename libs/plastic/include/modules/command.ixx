@@ -5,6 +5,10 @@
 module;
 #include <string>
 #include <stack>
+#if defined(_WIN32)
+#include <memory>
+#endif
+
 export module plastic.command;
 
 export namespace plastic

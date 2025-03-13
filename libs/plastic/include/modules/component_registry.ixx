@@ -4,6 +4,9 @@
 module;
 #include <unordered_map>
 #include <functional>
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.component_registry;
 
 import plastic.element;

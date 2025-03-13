@@ -4,6 +4,9 @@
 module;
 #include <memory>
 #include <string>
+#if defined(_WIN32)
+#include <variant>
+#endif
 // #include <thread>
 
 #include <functional>

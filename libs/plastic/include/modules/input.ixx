@@ -4,6 +4,9 @@
 
 module;
 #include <functional>
+#if defined(_WIN32)
+#include <string>
+#endif
 export module plastic.input;
 
 import plastic.point;

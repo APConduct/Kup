@@ -7,6 +7,9 @@ module;
 #include <memory>
 #include <algorithm>
 #include <functional>
+#if defined(_WIN32)
+#include <variant>
+#endif
 export module plastic.scrollable;
 
 import plastic.scrollable_base;

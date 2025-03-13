@@ -6,6 +6,9 @@ module;
 #include <string>
 #include <vector>
 #include <functional>
+#if defined(_WIN32)
+#include <optional>
+#endif
 export module plastic.theme;
 
 import plastic.style;

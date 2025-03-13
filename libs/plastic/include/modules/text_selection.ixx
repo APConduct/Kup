@@ -4,6 +4,9 @@
 
 module;
 #include <vector>
+#if defined(_WIN32)
+#include <algorithm>
+#endif
 export module plastic.text_selection;
 
 

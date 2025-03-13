@@ -6,6 +6,9 @@ module;
 #include <memory>
 #include <vector>
 #include <raylib.h>
+#if defined(_WIN32)
+#include <variant>
+#endif
 export module plastic.focus_manager;
 
 import plastic.element;

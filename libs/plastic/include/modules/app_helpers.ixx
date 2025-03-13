@@ -5,6 +5,9 @@
 module;
 #include <string>
 #include <functional>
+#if defined(_WIN32)
+#include <optional>
+#endif
 export module plastic.app_helpers;
 import plastic.app;
 

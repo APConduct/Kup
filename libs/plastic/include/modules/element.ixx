@@ -7,6 +7,10 @@ module;
 #include <ranges>
 #include <vector>
 #include <any>
+#if defined(_WIN32)
+#include <unordered_map>
+#include <variant>
+#endif
 export module plastic.element;
 
 import plastic.style;

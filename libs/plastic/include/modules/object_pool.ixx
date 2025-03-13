@@ -3,6 +3,10 @@
 //
 module;
 #include <vector>
+#if defined(_WIN32)
+#include <algorithm>
+#include <memory>
+#endif
 export module plastic.object_pool;
 
 export namespace plastic

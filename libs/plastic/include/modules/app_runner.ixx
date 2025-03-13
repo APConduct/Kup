@@ -1,6 +1,9 @@
 module;
 #include <string>
 #include <functional>
+#if defined(_WIN32)
+#include <memory>
+#endif
 export module plastic.app_runner;
 
 import plastic.app;

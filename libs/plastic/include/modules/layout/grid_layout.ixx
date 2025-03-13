@@ -4,6 +4,10 @@ module;
 #include <unordered_map>
 #include <algorithm>
 #include <raylib.h>
+#if defined(_WIN32)
+#include <stdexcept>
+#include <memory>
+#endif
 
 export module plastic.grid_layout;
 
