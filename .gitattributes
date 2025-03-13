@@ -1,0 +1,7 @@
+vendor/* linguist-vendored
+lib/* linguist-vendored
+raylib/* linguist-vendored
+external/* linguist-vendored
+
+*.cpp linguist-language=C++
+*.hpp linguist-language=C++
