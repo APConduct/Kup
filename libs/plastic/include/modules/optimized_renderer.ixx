@@ -10,11 +10,6 @@ module;
 #include <__algorithm/ranges_max.h>
 #include <__algorithm/ranges_min.h>
 #endif
-
-
-
-
-
 #include <raylib.h>
 export module plastic.optimized_renderer;
 import plastic.element;
