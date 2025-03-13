@@ -167,6 +167,17 @@ export namespace plastic
         }
 
         void update() override {
+
+
+            // Update animations
+            if (context_ && root_) {
+                if (auto app_context = context_->app_context()) {
+                    if (auto animation_manager = app_context->get_animation_manager()) {
+                        animation_manager->update(context_->get_frame_time());
+                    }
+                }
+            }
+
             for (auto& updater : updaters_) {
                 updater();
             }

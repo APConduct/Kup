@@ -66,6 +66,8 @@ export namespace plastic
         return app->run_with(std::forward<F>(setup_fn));
     }
 
+
+
     template<typename F>
     int run(F&& setup_fn) {
         return run_app("Plastic App", std::forward<F>(setup_fn));

@@ -13,6 +13,8 @@ import plastic.context;
 import plastic.events;
 import plastic.platform_interface;
 import plastic.window_manager_interface;
+import plastic.animation_manager;
+import plastic.animation;
 
 
 
@@ -24,6 +26,7 @@ export namespace plastic::context
     struct AppContext  : Context,  std::enable_shared_from_this<AppContext> {
 
     private:
+        std::shared_ptr<AnimationManager> animation_manager_ {std::make_shared<AnimationManager>()};
         EventDispatcher event_dispatcher_;
         std::weak_ptr<PlatformInterface> platform_{};
         std::weak_ptr<WindowManagerInterface> window_manager_{};
@@ -33,6 +36,15 @@ export namespace plastic::context
 
 
     public:
+
+        std::shared_ptr<AnimationManager> get_animation_manager() {
+            return animation_manager_;
+        }
+
+        template <typename T>
+        void animate(Animation<T> animation) {
+            animation_manager_->add_animation(std::make_unique<Animation<T>>(std::move(animation)));
+        }
 
         void set_platform(const std::shared_ptr<PlatformInterface>& platform) {
             platform_ = platform;

@@ -210,18 +210,19 @@ export namespace plastic
          }
 
         bool propagate_event(const events::Event& event, Context* cx) {
+             // Find the target element(s) based on event type
              std::vector<std::shared_ptr<Element>> path;
+             bool handled = false;
 
-             // Find the path from root to target element that contains the point
              if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
-                 Point<float> point{mouse_event->position.width(), mouse_event->position.height()};
-                 find_event_path(shared_from_this(), point, path);
+                 // Build path for mouse events based on position
+                 build_hit_test_path(event, path);
              } else {
-                 // For non-mouse events, just use this element
-                 path.push_back(shared_from_this());
+                 // For non-positional events, handle focus-based dispatch
+                 build_focus_path(event, path);
              }
 
-             // Capturing phase (root to target)
+             // Capture phase (root to target)
              for (size_t i = 0; i < path.size(); ++i) {
                  if (path[i]->handle_capture_event(event, cx)) {
                      return true;
@@ -233,15 +234,67 @@ export namespace plastic
                  return true;
              }
 
-             // Bubbling phase (target to root)
+             // Bubble phase (target to root)
              for (size_t i = path.size(); i-- > 0;) {
                  if (path[i]->handle_bubble_event(event, cx)) {
                      return true;
                  }
              }
 
-             return false;
+             return handled;
          }
+
+        void build_focus_path(const events::Event& event, std::vector<std::shared_ptr<Element>>& path) {
+             path.push_back(shared_from_this());
+
+             // For keyboard events, follow the focus chain
+             bool has_focused_child = false;
+             for (const auto& child : children) {
+                 if (child->has_property("focused") && std::any_cast<bool>(child->get_property("focused"))) {
+                     child->build_focus_path(event, path);
+                     has_focused_child = true;
+                     break;
+                 }
+             }
+
+             // If no focused child and this element itself is focused, stop here
+             if (!has_focused_child && has_property("focused") && std::any_cast<bool>(get_property("focused"))) {
+                 return;
+             }
+         }
+
+        void build_hit_test_path(const events::Event& event, std::vector<std::shared_ptr<Element>>& path) {
+             path.push_back(shared_from_this());
+
+             // Extract position from event
+             Point<float> position;
+             std::visit([&position](const auto& e) {
+                 using T = std::decay_t<decltype(e)>;
+                 if constexpr (std::is_same_v<T, events::MouseButtonEvent>) {
+                     position = Point<float>{e.position.width(), e.position.height()};
+                 } else if constexpr (std::is_same_v<T, events::MouseMoveEvent>) {
+                     position = e.position;
+                 } else if constexpr (std::is_same_v<T, events::MouseScrollEvent>) {
+                     position = Point<float>{e.position.width(), e.position.height()};
+                 }
+             }, event);
+
+             // If point is outside bounds, don't check children
+             if (!bounds.contains(position)) {
+                 return;
+             }
+
+             // Find the child that contains the point (in reverse order - front to back)
+             for (auto it = children.rbegin(); it != children.rend(); ++it) {
+                 if ((*it)->get_bounds().contains(position)) {
+                     // Recursively build the path through this child
+                     (*it)->build_hit_test_path(event, path);
+                     break;
+                 }
+             }
+         }
+
+
 
             static void find_event_path(
                 const std::shared_ptr<Element>& element,

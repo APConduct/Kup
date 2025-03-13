@@ -226,6 +226,11 @@ target_sources(plastic
         include/modules/app_runner.ixx
         include/modules/window/window_manager_interface.ixx
         include/modules/context_bridge.ixx
+        include/modules/animation_base.ixx
+        include/modules/spring_animation.ixx
+        include/modules/animation_manager.ixx
+        include/modules/animation/transition_property.ixx
+
 
 
 

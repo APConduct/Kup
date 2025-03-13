@@ -23,15 +23,16 @@ export namespace plastic::context
         : public std::enable_shared_from_this<plastic::context::WindowContext>,
         public plastic::Context {
     private:
-        std::shared_ptr<AppContext> app_context_;
         std::weak_ptr<WindowBase> window_{};
         bool layout_requested_{false};
 
     public:
+        std::weak_ptr<AppContext> app_context_;
+
         explicit WindowContext(const std::shared_ptr<AppContext>& app_context) : app_context_(app_context) {}
 
-        [[nodiscard]] AppContext& app_context() const {
-            return *app_context_;
+        [[nodiscard]] const std::shared_ptr<AppContext> app_context() const {
+            return app_context_.lock();
         }
 
         template <typename T>
@@ -79,10 +80,8 @@ export namespace plastic::context
         static void show_error(const std::string& message); // implement error handling
 
 
-
-
-        AppContext& app_context() {
-            return *app_context_;
+        std::shared_ptr<AppContext> app_context() {
+            return app_context_.lock();
         }
 
         std::shared_ptr<WindowBase> window() const {
