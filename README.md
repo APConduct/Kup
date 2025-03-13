@@ -67,7 +67,7 @@ pacman -S mingw-w64-x86_64-clang mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja m
 ### Building
 1. Clone the repository:
 ```bash
-git clone https://github.com/APConduct/Kup.git
+git clone https://github.com/APConduct/Kup.git --recursive-submodules
 cd Kup
 ````
 
@@ -92,40 +92,3 @@ For convenience, you can use the provided build script:
 
 The project uses C++20 modules and requires a modern IDE with proper support. CLion 2024.3.3 is the recommended IDE for development.
 
-## Configuration
-
-Kup uses a hierarchical configuration system with Lua:
-
-```text
-~/.config/kup/
-├── init.lua          # Main config file
-├── lua/             # Lua modules
-├── plugins/         # Plugin directory
-└── after/          # Post-load scripts
-```
-
-### Basic Configuration
-
-```lua
--- Basic editor configuration
-kup.setup({
-  theme = "dark",
-  tabsize = 2,
-  autosave = true
-})
-```
-
-### Plugin Development
-
-```lua
--- Example plugin
-local Plugin = require('kup.plugin')
-
-return Plugin.new({
-  name = 'my-plugin',
-  setup = function(opts)
-    -- Plugin initialization
-  end,
-  -- Plugin features
-})
-```
