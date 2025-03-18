@@ -163,9 +163,14 @@ export namespace plastic
                 FlexLayoutProperties props;
                 props.with_align_items(FlexAlign::Center)
                     .with_justify_content(FlexAlign::Center)
-                    .with_gap(8);
+                    .with_gap(8)
+                    .with_padding(8);
                 layout->set_props(props);
             }
+
+            set_layout_properties(LayoutProperties()
+                .with_padding(8)
+                .with_margin(8));
         }
 
         template<typename... Children>

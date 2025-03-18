@@ -93,6 +93,18 @@ export namespace plastic {
             const auto& children = element.get_children();
             if (children.empty()) return;
 
+            // Ensure minimum size
+            auto min_size = measure(element);
+            float actual_width = std::max(bounds.width(), min_size.width());
+            float actual_height = std::max(bounds.height(), min_size.height());
+
+            Rect actual_bounds{
+                bounds.x(),
+                bounds.y(),
+                actual_width,
+                actual_height
+            };
+
             // Determine if we're in a horizontal or vertical layout
             bool is_horizontal = (props_.direction == FlexDirection::Row || props_.direction == FlexDirection::RowReverse);
             bool is_reverse = (props_.direction == FlexDirection::RowReverse || props_.direction == FlexDirection::ColumnReverse);
@@ -258,6 +270,11 @@ export namespace plastic {
         float main_size;
         if (params.flex_grow > 0 && total_flex > 0) {
             main_size = (remaining_space * params.flex_grow) / total_flex;
+            if (is_horizontal) {
+                main_size = std::max(main_size, size.width());  // Don't shrink below preferred size
+            } else {
+                main_size = std::max(main_size, size.height());
+            }
         } else {
             main_size = is_horizontal ? size.width() : size.height();
         }
@@ -307,14 +324,14 @@ export namespace plastic {
         // Build the child's bounds rectangle
         Rect<float> child_bounds;
         if (is_horizontal) {
-            child_bounds = Rect<float>{
+            child_bounds = Rect{
                 position + params.margin.left,
                 cross_position + params.margin.top,
                 main_size - params.get_total_horizontal_space(),
                 cross_size - params.get_total_vertical_space()
             };
         } else {
-            child_bounds = Rect<float>{
+            child_bounds = Rect{
                 cross_position + params.margin.left,
                 position + params.margin.top,
                 cross_size - params.get_total_horizontal_space(),
@@ -333,7 +350,7 @@ export namespace plastic {
 
         Size<float> measure(const Element& element) override {
             const auto& children = element.get_children();
-            if (children.empty()) return Size<float>{0, 0};
+            if (children.empty()) return element.get_preferred_size();
 
             bool is_horizontal = (props_.direction == FlexDirection::Row || props_.direction == FlexDirection::RowReverse);
 
@@ -347,16 +364,19 @@ export namespace plastic {
                     const auto& params = child->get_layout_properties();
                     auto size = child->get_preferred_size();
 
+
+                    float total_h_space = params.get_total_horizontal_space();
+                    float total_v_space = params.get_total_vertical_space();
                     // Add spacing
                     size.width(size.width() + params.get_total_horizontal_space());
                     size.height(size.height() + params.get_total_vertical_space());
 
                     if (is_horizontal) {
-                        main_axis_size += size.width();
+                        main_axis_size += size.width() + total_h_space;
                         cross_axis_size = std::max(cross_axis_size, size.height());
                     } else {
                         main_axis_size += size.height();
-                        cross_axis_size = std::max(cross_axis_size, size.width());
+                        cross_axis_size = std::max(cross_axis_size, size.width() + total_v_space);
                     }
 
                     // Add gap between elements (except for last element)
@@ -364,6 +384,11 @@ export namespace plastic {
                         main_axis_size += props_.gap;
                     }
                 }
+
+                // Add container's own padding and margins
+                const auto& container_props = element.get_layout_properties();
+                main_axis_size += container_props.get_total_horizontal_space();
+                cross_axis_size += container_props.get_total_vertical_space();
 
                 // Return size with proper orientation
                 return is_horizontal ?
