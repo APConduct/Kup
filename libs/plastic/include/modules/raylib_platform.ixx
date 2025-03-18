@@ -8,6 +8,7 @@ module;
 #include <vector>
 #include <raylib.h>
 #include "GLFW/glfw3.h"
+#include <iostream>
 export module plastic.raylib_platform;
 
 import plastic.platform;
@@ -481,6 +482,7 @@ export namespace plastic
 
         void process_mouse_button(int raylib_button, events::MouseButton our_button, const Point<float>& position) {
             if (IsMouseButtonPressed(raylib_button)) {
+                std::cout << "Platform: Mouse button pressed at " << position.x << "," << position.y << "\n";
                 events::MouseButtonEvent event{
                     Size<float>{position.x, position.y},
                     our_button,

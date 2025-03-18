@@ -207,23 +207,15 @@ export namespace plastic
         }
 
         void dispatch_event(const events::Event& event) {
-
-            // First, check if this is a window close event
-            if (auto* close_event = std::get_if<events::WindowCloseEvent>(&event)) {
-                if (close_event->window_id == window_id_ || close_event->window_id == 0) {
-                    should_close_ = true;
-                    return;  // No need to process further
-                }
-            }
-
+            std::cout << "Window: Received event\n";
             if (root_) {
                 auto element = root_->render(context_.get());
                 if (element) {
+                    std::cout << "Window: Dispatching to root element\n";
                     element->handle_event(event, context_.get());
                 }
             }
         }
-
         // TODO - add event handling
 
         void set_fullscreen(bool fullscreen) {

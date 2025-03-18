@@ -7,6 +7,7 @@ module;
 #include <ranges>
 #include <vector>
 #include <any>
+#include <iostream>
 #if defined(_WIN32)
 #include <unordered_map>
 #include <variant>
@@ -113,11 +114,16 @@ export namespace plastic
         virtual bool handle_event(const events::Event& event, Context* cx) {
              // Check if event is within bounds for mouse events
              if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
-                 if (!bounds.contains(plastic::Point{mouse_event->position.width(), mouse_event->position.height()})) {
-                     return false; // Not in bounds
+                 Point<float> pos{mouse_event->position.width(), mouse_event->position.height()};
+                 std::cout << "Element: Handling event at " << pos.x << "," << pos.y
+                           << " bounds: " << bounds.x() << "," << bounds.y()
+                           << "," << bounds.width() << "," << bounds.height() << "\n";
+
+                 if (!bounds.contains(pos)) {
+                     std::cout << "Element: Point outside bounds\n";
+                     return false;
                  }
              }
-
              // Process children in reverse order (front to back)
              for (auto & it : std::ranges::reverse_view(children)) {
                  if (it->handle_event(event, cx)) {

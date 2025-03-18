@@ -6,6 +6,7 @@ module;
 #include <string>
 #include <functional>
 #include <raylib.h>
+#include <iostream>
 #if defined(_WIN32)
 #include <variant>
 #endif
@@ -209,27 +210,39 @@ export namespace plastic
         bool process_event(const events::Event& event, Context* cx) override {
             if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
                 Point<float> mouse_pos{mouse_event->position.width(), mouse_event->position.height()};
+
+                std::cout << "Button: Processing mouse event at " << mouse_pos.x << "," << mouse_pos.y
+                          << " bounds: " << bounds.x() << "," << bounds.y()
+                          << "," << bounds.width() << "," << bounds.height() << "\n";
+
                 bool is_inside = bounds.contains(mouse_pos);
+                std::cout << "Button: Mouse " << (is_inside ? "inside" : "outside") << " bounds\n";
 
                 if (is_inside && mouse_event->button == MouseButton::MOUSE_LEFT_BUTTON) {
                     if (mouse_event->pressed) {
+                        std::cout << "Button: Pressed\n";
                         is_pressed_ = true;
                         invalidate();
                         return true;
                     } else if (is_pressed_) {
+                        std::cout << "Button: Released, executing callback\n";
                         is_pressed_ = false;
-                        if (on_click_) on_click_(); // Make sure this is called
+                        if (on_click_) {
+                            on_click_();
+                        } else {
+                            std::cout << "Button: No callback registered\n";
+                        }
                         invalidate();
                         return true;
                     }
                 }
             }
             return false;
-
         }
-
         Button& on_click(std::function<void()> callback) {
-            on_click_ = std::move(callback);
+            if (callback) {
+                on_click_ = std::move(callback);
+            }
             return *this;
         }
 

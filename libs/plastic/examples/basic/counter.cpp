@@ -28,15 +28,20 @@ public:
         counter_text_ = std::make_shared<Text>(std::to_string(count_), 32, colors::text);
 
         minus_button_ = std::make_shared<Button>("-", [this]() {
+            std::cout << "Minus button clicked!\n";
             count_--;
             counter_text_->with_text(std::to_string(count_));
+            if (cx_) cx_->request_paint();
+
         });
+        // minus_button_->set_bounds(Rect<float>(0,0,50,50));
         minus_button_->set_style(button_style);
         minus_button_->with_padding(12);
 
         plus_button_ = std::make_shared<Button>("+", [this]() {
             count_++;
             counter_text_->with_text(std::to_string(count_));
+            if (cx_) cx_->request_paint();
         });
         plus_button_->set_style(button_style);
         plus_button_->with_padding(12);
