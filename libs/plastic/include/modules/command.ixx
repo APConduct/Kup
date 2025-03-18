@@ -26,10 +26,53 @@ export namespace plastic
         std::stack<std::unique_ptr<Command>> redo_stack;
 
     public:
-        void execute(std::unique_ptr<Command> cmd);
-        [[nodiscard]] bool can_undo() const;
-        [[nodiscard]] bool can_redo() const;
-        void undo();
-        void redo();
+        void execute(std::unique_ptr<Command> cmd) {
+            // Execute the command
+            cmd->execute();
+
+            // Add to undo stack
+            undo_stack.push(std::move(cmd));
+
+            // Clear redo stack since a new action was performed
+            while (!redo_stack.empty()) {
+                redo_stack.pop();
+            }
+        };
+        [[nodiscard]] bool can_undo() const {
+            return !undo_stack.empty();
+
+        };
+        [[nodiscard]] bool can_redo() const {
+            return !redo_stack.empty();
+
+        };
+        void undo() {
+            if (can_undo()) {
+                // Get the command from undo stack
+                auto cmd = std::move(undo_stack.top());
+                undo_stack.pop();
+
+                // Undo it
+                cmd->undo();
+
+                // Move to redo stack
+                redo_stack.push(std::move(cmd));
+            }
+
+        };
+        void redo() {
+            if (can_redo()) {
+                // Get the command from redo stack
+                auto cmd = std::move(redo_stack.top());
+                redo_stack.pop();
+
+                // Execute it again
+                cmd->execute();
+
+                // Move back to undo stack
+                undo_stack.push(std::move(cmd));
+            }
+
+        };
     };
 }

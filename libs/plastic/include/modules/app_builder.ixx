@@ -83,7 +83,7 @@ export namespace plastic
                     FunctionView(std::function<std::shared_ptr<Element>(Context*)> build_ui, Color bg_color)
                         : build_ui_(std::move(build_ui)), background_color_(bg_color) {}
 
-                    std::shared_ptr<Element> render(Context* cx) const override {
+                    std::shared_ptr<Element> render(Context* cx)  override {
                         // Create the user's UI
                         auto user_ui = build_ui_(cx);
 
@@ -113,7 +113,7 @@ export namespace plastic
                 // Create default empty view
                 class EmptyView : public View {
                 public:
-                    std::shared_ptr<Element> render(Context* cx) const override {
+                    std::shared_ptr<Element> render(Context* cx)  override {
                         auto container = std::make_shared<FlexBox>();
                         auto style = container->get_style();
                         style.background_color_normal = background_color_;
@@ -160,7 +160,7 @@ export namespace plastic
                 FunctionView(std::function<std::shared_ptr<Element>(Context*)> build_ui, Color bg_color)
                     : build_ui_(std::move(build_ui)), background_color_(bg_color) {}
 
-                std::shared_ptr<Element> render(Context* cx) const override {
+                std::shared_ptr<Element> render(Context* cx)  override {
                     return build_ui_(cx);
                 }
 

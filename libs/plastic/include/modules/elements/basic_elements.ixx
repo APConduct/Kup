@@ -123,11 +123,14 @@ export namespace plastic
         bool is_pressed_{false};
         std::function<void()> on_click_;
 
+
     public:
-        Button() = default;
+        Button() : Button("Button") {};
 
         explicit Button(std::string text, std::function<void()> on_click = nullptr)
-            : text_(std::move(text)), on_click_(std::move(on_click)) {}
+            : text_(std::move(text)), on_click_(std::move(on_click)) {
+            bounds = Rect<float>{0, 0, 100, 40};
+        }
 
         void paint(Context* cx) const override {
             const auto& bounds = get_bounds();
@@ -190,7 +193,6 @@ export namespace plastic
 
         bool process_event(const events::Event& event, Context* cx) override {
             if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
-                // Check if mouse is inside button
                 Point<float> mouse_pos{mouse_event->position.width(), mouse_event->position.height()};
                 bool is_inside = bounds.contains(mouse_pos);
 
@@ -201,22 +203,19 @@ export namespace plastic
                         return true;
                     } else if (is_pressed_) {
                         is_pressed_ = false;
-                        if (on_click_) on_click_();
+                        if (on_click_) on_click_(); // Make sure this is called
                         invalidate();
                         return true;
                     }
                 }
-            } else if (auto* mouse_move = std::get_if<events::MouseMoveEvent>(&event)) {
-                Point<float> mouse_pos{mouse_move->position.x, mouse_move->position.y};
-                bool was_hovered = is_hovered_;
-                is_hovered_ = bounds.contains(mouse_pos);
-
-                if (was_hovered != is_hovered_) {
-                    invalidate();
-                    return true;
-                }
             }
             return false;
+
+        }
+
+        Button& on_click(std::function<void()> callback) {
+            on_click_ = std::move(callback);
+            return *this;
         }
 
         Button& with_font_size(float size) {
@@ -246,10 +245,6 @@ export namespace plastic
             return *this;
         }
 
-        Button& on_click(std::function<void()> callback) {
-            on_click_ = std::move(callback);
-            return *this;
-        }
     };
 
     class Spacer : public Element {

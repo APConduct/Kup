@@ -239,7 +239,7 @@ export namespace plastic
                 FunctionView(ViewFn fn, Color bg_color)
                     : ui_fn_(std::move(fn)), bg_color_(bg_color) {}
 
-                std::shared_ptr<Element> render(Context* cx) const override {
+                std::shared_ptr<Element> render(Context* cx)  override {
                     return ui_fn_(cx);
                 }
 

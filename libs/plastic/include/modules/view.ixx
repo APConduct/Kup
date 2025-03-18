@@ -29,17 +29,16 @@ export namespace plastic
         View() = default;
         virtual ~View() = default;
 
-        virtual std::shared_ptr<Element> render(Context* cx) const = 0;
+        virtual std::shared_ptr<Element> render(Context* cx) = 0;
 
-        virtual void update(float delta_time) {};
+        void update(float delta_time) {};
 
-        virtual void handle_event(events::Event& event, Context* cx) {};
+        void handle_event(events::Event& event, Context* cx) {};
 
-        virtual void mount(Context* cx) {
+        void mount(Context* cx) {
             cx_ = cx;
         }
-
-        virtual void unmount(Context* cx) {
+        void unmount(Context* cx) {
             cx_ = nullptr;
         }
 

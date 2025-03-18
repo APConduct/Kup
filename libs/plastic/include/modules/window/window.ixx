@@ -243,5 +243,7 @@ export namespace plastic
                 platform->event_dispatcher().emit(events::WindowMaximizeEvent(window_id_));
             }
         }
+
+
     };
 }

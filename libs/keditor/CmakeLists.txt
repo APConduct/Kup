@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.28)
+project(keditor)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_library(keditor STATIC
+)
+target_sources(keditor
+        PUBLIC
+        FILE_SET CXX_MODULES
+        FILES
+        proto/line_numbers.ixx
+        proto/syntax_highlighter.ixx
+
+)
+
+target_link_libraries(keditor PUBLIC plastic )
+

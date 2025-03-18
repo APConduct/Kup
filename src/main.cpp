@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
         // render FileTree text
         file_tree.render();
 
-        // render editor background
+        // render keditor background
         int tapx = static_cast<int>(editor.content_start.x)-GRIP_GAP;
         int tapy = static_cast<int>(editor.content_start.y);
         DrawRectangle(tapx, tapy, GetScreenWidth()-tapx, GetScreenHeight()-tapy, BLACK);

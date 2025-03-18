@@ -47,7 +47,7 @@ export namespace plastic
             SimpleView(std::function<std::shared_ptr<Element>(Context*)> create_ui_fn, Color bg_color)
                 : create_ui_fn_(std::move(create_ui_fn)), bg_color_(bg_color) {}
 
-            std::shared_ptr<Element> render(Context* cx) const override {
+            std::shared_ptr<Element> render(Context* cx)  override {
                 return create_ui_fn_(cx);
             }
 
@@ -72,13 +72,13 @@ export namespace plastic
 
     // Top-level run function with app name
     template<typename F>
-    inline int run(const std::string& app_name, F&& setup_fn) {
+    int run(const std::string& app_name, F&& setup_fn) {
         return AppRunner(app_name).run(std::forward<F>(setup_fn));
     }
 
     // Top-level run function with default name
     template<typename F>
-    inline int run(F&& setup_fn) {
+    int run(F&& setup_fn) {
         return AppRunner().run(std::forward<F>(setup_fn));
     }
 }

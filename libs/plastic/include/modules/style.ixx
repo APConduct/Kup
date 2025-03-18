@@ -39,6 +39,7 @@ export namespace plastic::style
         std::optional<Color> text_outline_hover;
         std::optional<Color> text_outline_active;
         std::optional<Color> text_outline_disabled;
+        std::optional<float> corner_radius;
 
         Edge<float> padding{0,0,0,0};
         Edge<float> margin{0,0,0,0};
@@ -89,6 +90,16 @@ export namespace plastic::style
 
         Style& with_text_color_normal(const Color& color) {
             text_color_normal = color;
+            return *this;
+        }
+
+        Style& with_text_hover(const Color& color) {
+            text_hover = color;
+            return *this;
+        }
+
+        Style& with_corner_radius(float radius) {
+            corner_radius = radius;
             return *this;
         }
 

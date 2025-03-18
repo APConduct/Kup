@@ -129,9 +129,24 @@ export namespace plastic
              return process_event(event, cx);
          }
 
+        template<typename T, typename VariantType>
+        std::optional<std::reference_wrapper<const T>> get_if_event(const VariantType& event) {
+             if (const T* ptr = std::get_if<T>(&event)) {
+                 return std::reference_wrapper<const T>(*ptr);
+             }
+             return std::nullopt;
+         }
+
+
         // Protected method for specific element implementations to override
         virtual bool process_event(const events::Event& event, Context* cx) {
-             return false; // Not handled by default
+             if (auto mouse_event = get_if_event<events::MouseButtonEvent>(event)) {
+                 const auto& e = mouse_event->get();
+                 // Now safely use e
+                 // ...
+                 return true;
+             }
+             return false;
          }
 
         void rm(const std::shared_ptr<Element>& child) {
@@ -293,6 +308,8 @@ export namespace plastic
                  }
              }
          }
+
+
 
 
 

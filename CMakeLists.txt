@@ -33,7 +33,7 @@ add_subdirectory(libs/krusty)
 add_subdirectory(libs/lsp)
 add_subdirectory(libs/plugin)
 add_subdirectory(libs/term)
-add_subdirectory(libs/editor)
+add_subdirectory(libs/keditor)
 
 set(tinyfd_SRC ext/tinyfd/tinyfd)
 
@@ -60,7 +60,7 @@ target_link_libraries(Kup PRIVATE raylib
         freetype
         sol2
         ${PLATFORM_SPECIFIC_LIBS}
-        kup_editor
+        keditor
 
 )
 

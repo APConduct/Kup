@@ -3,10 +3,9 @@
 //
 import plastic;
 
-using namespace plastic;
 
 int main() {
-    return ui::run("Hello Plastic", [](Context* ctx) {
-        return ui::text("Hello, Plastic!");
+    return plastic::ui::run("Hello Plastic", [](plastic::Context*) {
+        return plastic::ui::text("Hello, Plastic!");
     });
 }

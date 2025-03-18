@@ -110,5 +110,10 @@ export namespace plastic
             return *this;
         }
 
+        LayoutProperties& with_preferred_size(const Size<float> preferred_size) {
+            this->preferred_size = preferred_size;
+            return *this;
+        }
+
     };
 }

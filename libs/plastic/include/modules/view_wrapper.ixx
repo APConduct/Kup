@@ -20,7 +20,7 @@ export namespace plastic
     public:
         explicit ViewWrapper(std::shared_ptr<View> view = nullptr) : inner_view_(std::move(view)) {}
 
-        std::shared_ptr<Element> render(Context* cx) const override {
+        std::shared_ptr<Element> render(Context* cx) override {
             if (inner_view_) {
                 return inner_view_->render(cx);
             }
