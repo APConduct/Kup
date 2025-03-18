@@ -211,14 +211,14 @@ export namespace plastic
             if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
                 Point<float> mouse_pos{mouse_event->position.width(), mouse_event->position.height()};
 
-                std::cout << "Button: Processing mouse event at " << mouse_pos.x << "," << mouse_pos.y
-                          << " bounds: " << bounds.x() << "," << bounds.y()
-                          << "," << bounds.width() << "," << bounds.height() << "\n";
+                std::cout << "Button: Processing mouse event at " << mouse_pos.x << "," << mouse_pos.y << "\n";
+                std::cout << "Button bounds: " << bounds.x() << "," << bounds.y()
+                          << " " << bounds.width() << "x" << bounds.height() << "\n";
 
                 bool is_inside = bounds.contains(mouse_pos);
                 std::cout << "Button: Mouse " << (is_inside ? "inside" : "outside") << " bounds\n";
 
-                if (is_inside && mouse_event->button == MouseButton::MOUSE_LEFT_BUTTON) {
+                if (is_inside) {
                     if (mouse_event->pressed) {
                         std::cout << "Button: Pressed\n";
                         is_pressed_ = true;

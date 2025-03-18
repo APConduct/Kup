@@ -493,9 +493,13 @@ export namespace plastic
                     GetTime()
                 };
                 this->event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
-            }
-            else if (IsMouseButtonReleased(raylib_button)) {
+
+                // Make sure the event reaches the window
+                if (auto window = window_contexts_.begin()->second) {
+                    window->dispatch_event(event);
+                }
+            } else if (IsMouseButtonReleased(raylib_button)) {
+                std::cout << "Platform: Mouse button released at " << position.x << "," << position.y << "\n";
                 events::MouseButtonEvent event{
                     Size<float>{position.x, position.y},
                     our_button,
@@ -505,8 +509,11 @@ export namespace plastic
                     IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT),
                     GetTime()
                 };
-                event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
+                this->event_dispatcher_.emit(event);
+
+                if (auto window = window_contexts_.begin()->second) {
+                    window->dispatch_event(event);
+                }
             }
         }
 

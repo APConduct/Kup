@@ -34,6 +34,7 @@ export namespace plastic
 
     private:
         std::shared_ptr<View> root_{};
+        std::shared_ptr<Element> current_element_{};
         std::shared_ptr<plastic::context::WindowContext> context_{};
         Size<float> size{0,0};
         window::WindowOptions options_;
@@ -209,15 +210,19 @@ export namespace plastic
         void dispatch_event(const events::Event& event) {
             std::cout << "Window: Received event\n";
             if (root_) {
-                auto element = root_->render(context_.get());
-                if (element) {
-                    std::cout << "Window: Dispatching to root element\n";
-                    element->handle_event(event, context_.get());
+                // Don't recreate the element tree for every event
+                if (auto element = root_->render(context_.get())) {
+                    // Store the element if we haven't already
+                    if (!current_element_) {
+                        current_element_ = element;
+                        // Initial layout
+                        current_element_->set_bounds(Rect<float>{0, 0, size.width(), size.height()});
+                        current_element_->layout(context_.get());
+                    }
+                    current_element_->handle_event(event, context_.get());
                 }
             }
         }
-        // TODO - add event handling
-
         void set_fullscreen(bool fullscreen) {
             if (auto platform = platform_.lock()) {
                 if (fullscreen) {
