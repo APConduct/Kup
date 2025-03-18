@@ -104,6 +104,21 @@ export namespace plastic
             return *this;
         }
 
+        [[nodiscard]] Size<float> get_preferred_size() const override {
+            // Use cached size if available
+            if (size_calculated_) {
+                return current_size;
+            }
+
+            // Otherwise calculate it
+            auto default_font = FontRegistry::get_global_default_font();
+            if (default_font && default_font->is_valid()) {
+                return default_font->measure_text(text_, font_size_, 1.0f);
+            }
+            Vector2 size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+            return Size<float>{size.x, size.y};
+        };
+
         [[nodiscard]] const std::string& text() const { return text_; }
 
 

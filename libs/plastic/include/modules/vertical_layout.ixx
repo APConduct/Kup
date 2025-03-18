@@ -5,6 +5,7 @@
 module;
 #include <algorithm>
 #include <vector>
+#include <iostream>
 export module plastic.vertical_layout;
 import plastic.layout;
 import plastic.layout_properties;
@@ -15,82 +16,34 @@ export namespace plastic
 {
     struct VerticalLayout : public Layout {
         void arrange(Element& element, const Rect<float>& bounds) override {
+            std::cout << "VerticalLayout arranging within bounds: "
+              << bounds.width() << "x" << bounds.height() << "\n";
             const auto& children = element.get_children();
             if (children.empty()) return;
 
-            // First pass: measure children and calculate total flex
-            float total_flex = 0;
-            float total_fixed_height = 0;
-            std::vector<Size<float>> sizes;
-            sizes.reserve(children.size());
+            const auto& props = element.get_layout_properties();
+            float y = bounds.y() + props.padding;
+            float content_width = bounds.width() - (props.padding * 2);
 
-            for (const auto& child : children) {
-                const auto& params = child->get_layout_properties();
-                auto size = measure(*child);
+            // Distribute elements vertically
+            for (size_t i = 0; i < children.size(); ++i) {
+                auto& child = children[i];
+                auto child_size = child->get_preferred_size();
 
-                if (params.flex_grow > 0) {
-                    total_flex += params.flex_grow;
-                } else {
-                    total_fixed_height += size.height() + params.get_total_vertical_space();
+                // Position child
+                child->set_bounds(Rect<float>{
+                    bounds.x() + props.padding,
+                    y,
+                    content_width,
+                    child_size.height()
+                });
+
+                y += child_size.height();
+                if (i < children.size() - 1) {
+                    y += props.spacing;
                 }
-                sizes.push_back(size);
             }
-
-            float total_spacing = 0;
-            if (!children.empty()) {
-                total_spacing = element.get_layout_properties().spacing * (static_cast<float>(children.size()) - 1);
-            }
-            float remaining_height = bounds.height() - total_fixed_height - total_spacing;
-
-
-        // Second pass: arrange children
-        float y = bounds.y();
-
-        for (size_t i = 0; i < children.size(); ++i) {
-            const auto& child = children[i];
-            const auto& params = child->get_layout_properties();
-            const auto& size = sizes[i];
-
-            float height = size.height();
-            if (params.flex_grow > 0) {
-                height = (remaining_height * params.flex_grow) / total_flex;
-            }
-
-            // Apply constraints
-            height = params.constrain_size(Size<float>{size.width(), height}).height();
-
-            // Calculate horizontal alignment
-            float x = bounds.x() + params.margin.left;
-            float width = bounds.width() - params.get_total_horizontal_space();
-
-            switch (params.align_self) {
-                case LayoutProperties::Alignment::Center:
-                    x += (width - size.width()) / 2;
-                    width = size.width();
-                    break;
-                case LayoutProperties::Alignment::Start:
-                    width = size.width();
-                    break;
-                case LayoutProperties::Alignment::End:
-                    x += width - size.width();
-                    width = size.width();
-                    break;
-                case LayoutProperties::Alignment::Stretch:
-                    // Use full width
-                    break;
-            }
-
-            // Position the child
-            child->set_bounds(Rect<float>{
-                x,
-                y + params.margin.top,
-                width,
-                height
-            });
-
-            y += height + params.get_total_vertical_space() + element.get_layout_properties().spacing;
         }
-    }
 
     Size<float> measure(const Element& element) override {
         const auto& children = element.get_children();

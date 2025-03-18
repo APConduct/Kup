@@ -31,7 +31,17 @@ export namespace plastic
 
         void layout(Context* cx) override {
             if (layout_) {
-                layout_->arrange(*this, get_bounds());
+
+                // First measure our size
+                current_size = layout_->measure(*this);
+
+                // Call the layout engine
+                layout_->arrange(*this, bounds);
+
+                // Layout children
+                for (const auto& child : children) {
+                    child->layout(cx);
+                }
             }
         }
 

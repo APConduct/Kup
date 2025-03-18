@@ -12,6 +12,7 @@ import plastic.model;
 import plastic.context;
 import plastic.events;
 import plastic.color;
+import plastic.rect;
 
 export namespace plastic
 {
@@ -37,6 +38,9 @@ export namespace plastic
 
         void mount(Context* cx) {
             cx_ = cx;
+
+            mounted_ = true;
+            on_mount();
         }
         void unmount(Context* cx) {
             cx_ = nullptr;

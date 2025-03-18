@@ -1,5 +1,6 @@
 module;
 #include <vector>
+#include <iostream>
 export module plastic.horizontal_layout;
 
 import plastic.layout;
@@ -13,81 +14,36 @@ export namespace plastic
     struct HorizontalLayout : public Layout {
     public:
         void arrange(Element& element, const Rect<float>& bounds) override {
+
+            std::cout << "HorizontalLayout arranging within bounds: "
+                << bounds.width() << "x" << bounds.height() << "\n";
+
+
+
             const auto& children = element.get_children();
             if (children.empty()) return;
 
-            // First pass: measure children and calculate total flex
-            float total_flex = 0;
-            float total_fixed_width = 0;
-            std::vector<Size<float>> sizes;
-            sizes.reserve(children.size());
+            const auto& props = element.get_layout_properties();
+            float x = bounds.x() + props.padding;
+            float content_height = bounds.height() - (props.padding * 2);
 
-            for (const auto& child : children) {
-                const auto& params = child->get_layout_properties();
-                auto size = measure(*child);
-
-                if (params.flex_grow > 0) {
-                    total_flex += params.flex_grow;
-                } else {
-                    total_fixed_width += size.width() + params.get_total_horizontal_space();
-                }
-                sizes.push_back(size);
-            }
-
-            float total_spacing = 0;
-            if (!children.empty()) {
-                total_spacing = element.get_layout_properties().spacing * (static_cast<float>(children.size()) - 1);
-
-            }
-            float remaining_width = bounds.width() - total_fixed_width - total_spacing;
-
-
-                    // Second pass: arrange children
-            float x = bounds.x();
-
+            // Distribute elements horizontally
             for (size_t i = 0; i < children.size(); ++i) {
-                const auto& child = children[i];
-                const auto& params = child->get_layout_properties();
-                const auto& size = sizes[i];
+                auto& child = children[i];
+                auto child_size = child->get_preferred_size();
 
-                float width = size.width();
-                if (params.flex_grow > 0) {
-                    width = (remaining_width * params.flex_grow) / total_flex;
-                }
-
-                // Apply constraints
-                width = params.constrain_size(Size<float>{width, size.height()}).width();
-
-                // Calculate vertical alignment
-                float y = bounds.y() + params.margin.top;
-                float height = bounds.height() - params.get_total_vertical_space();
-
-                switch (params.align_self) {
-                    case LayoutProperties::Alignment::Center:
-                        y += (height - size.height()) / 2;
-                    height = size.height();
-                    break;
-                    case LayoutProperties::Alignment::Start:
-                        height = size.height();
-                    break;
-                    case LayoutProperties::Alignment::End:
-                        y += height - size.height();
-                    height = size.height();
-                    break;
-                    case LayoutProperties::Alignment::Stretch:
-                        // Use full height
-                            break;
-                }
-
-                        // Position the child
-                child->set_bounds(Rect{
-                    x + params.margin.left,
-                    y,
-                    width,
-                    height
+                // Position child
+                child->set_bounds(Rect<float>{
+                    x,
+                    bounds.y() + props.padding,
+                    child_size.width(),
+                    content_height
                 });
 
-                x += width + params.get_total_horizontal_space() + element.get_layout_properties().spacing;
+                x += child_size.width();
+                if (i < children.size() - 1) {
+                    x += props.spacing;
+                }
             }
         }
 

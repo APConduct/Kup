@@ -7,6 +7,7 @@ module;
 #include <string>
 #include <vector>
 #include <raylib.h>
+#include <iostream>
 export module plastic.elements.containers;
 
 import plastic.element;
@@ -151,6 +152,7 @@ export namespace plastic
             set_layout_properties(props);
             return *this;
         }
+
     };
 
     // More flexible layout using FlexLayout
@@ -230,7 +232,18 @@ export namespace plastic
         }
 
         [[nodiscard]] Size<float> get_preferred_size() const override {
+            if (auto layout = dynamic_cast<FlexLayout*>(layout_.get())) {
+                return layout->measure(*this);
+            }
             return preferred_size_;
         }
+
+        void layout(Context* cx) override {
+            std::cout << "FlexBox layout - bounds: "
+              << bounds.width() << "x" << bounds.height() << "\n";
+
+            // Call base layout implementation
+            LayoutContainer::layout(cx);
+        };
     };
 }

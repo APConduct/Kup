@@ -4,6 +4,7 @@
 module;
 #include <memory>
 #include <string>
+#include <iostream>
 #if defined(_WIN32)
 #include <variant>
 #endif
@@ -109,6 +110,7 @@ export namespace plastic
 
                     auto element = root_->render(context_.get());
                     if (element) {
+                        element->set_bounds(Rect<float>{0, 0, size.width(), size.height()});
                         element->layout(context_.get());
                         element->paint(context_.get());
                     }
@@ -187,7 +189,19 @@ export namespace plastic
         }
 
         void render() override {
+            std::cout << "Window render - size: " << size.width() << "x" << size.height() << "\n";
+
+
+
             for (auto& renderer : renderers_) {
+                if (root_) {
+                    auto element = root_->render(context_.get());
+                    if (element) {
+                        // Set the bounds to the full window size
+                        element->set_bounds(Rect<float>{0, 0, size.width(), size.height()});
+                        std::cout << "Setting root element bounds to: " << size.width() << "x" << size.height() << "\n";
+                    }
+                }
                 renderer();
             }
         }
