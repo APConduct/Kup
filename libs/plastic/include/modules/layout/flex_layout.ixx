@@ -94,36 +94,25 @@ export namespace plastic {
             const auto& children = element.get_children();
             if (children.empty()) return;
 
-            // First measure all children to get total size needed
-            float total_width = 0;
-            float total_height = 0;
+            // First measure children
             std::vector<Size<float>> child_sizes;
+            float total_height = 0;
+            float max_width = 0;
 
             for (const auto& child : children) {
                 auto size = child->get_preferred_size();
                 child_sizes.push_back(size);
-                total_width = std::max(total_width, size.width());
                 total_height += size.height();
+                max_width = std::max(max_width, size.width());
             }
 
-            // Calculate starting position based on alignment
-            float start_x = bounds.x();
-            float start_y = bounds.y();
-
-            // Apply justify_content
-            switch (props_.justify_content) {
-                case FlexAlign::Center:
-                    start_y += (bounds.height() - total_height) / 2;
-                    break;
-                case FlexAlign::End:
-                    start_y += bounds.height() - total_height;
-                    break;
-                default:
-                    break;
+            // Add gaps to total height
+            if (children.size() > 1) {
+                total_height += props_.gap * (children.size() - 1);
             }
 
-            // Apply align_items
-            float content_width = bounds.width();
+            // Calculate starting position for vertical centering
+            float start_y = bounds.y() + (bounds.height() - total_height) / 2;
 
             // Position each child
             float current_y = start_y;
@@ -131,29 +120,8 @@ export namespace plastic {
                 auto& child = children[i];
                 const auto& child_size = child_sizes[i];
 
-                float child_x = start_x;
-
-                // Apply align_items for horizontal positioning
-                switch (props_.align_items) {
-                    case FlexAlign::Center:
-                        child_x += (content_width - child_size.width()) / 2;
-                        break;
-                    case FlexAlign::End:
-                        child_x += content_width - child_size.width();
-                        break;
-                    case FlexAlign::Stretch:
-                        // Use full width
-                        child->set_bounds(Rect<float>{
-                            start_x,
-                            current_y,
-                            content_width,
-                            child_size.height()
-                        });
-                        current_y += child_size.height() + props_.gap;
-                        continue;
-                    default:
-                        break;
-                }
+                // Calculate horizontal position for center alignment
+                float child_x = bounds.x() + (bounds.width() - child_size.width()) / 2;
 
                 // Set the child bounds
                 child->set_bounds(Rect<float>{
@@ -167,12 +135,11 @@ export namespace plastic {
             }
 
             std::cout << "FlexLayout arranging:\n"
-          << "  Bounds: " << bounds.width() << "x" << bounds.height() << "\n"
-          << "  Total content size: " << total_width << "x" << total_height << "\n"
-          << "  Start position: " << start_x << "," << start_y << "\n";
-
-        }
-    private:
+                      << "  Bounds: " << bounds.width() << "x" << bounds.height() << "\n"
+                      << "  Total height: " << total_height << "\n"
+                      << "  Max width: " << max_width << "\n"
+                      << "  Start Y: " << start_y << "\n";
+        }    private:
         // Helper method to get the main axis size of an element
         static float get_main_size(const std::shared_ptr<Element>& child,
                            const LayoutProperties& params,

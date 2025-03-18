@@ -262,7 +262,7 @@ export namespace plastic
 
         [[nodiscard]] Size<float> get_preferred_size() const override {
             // Calculate minimum button size based on text
-            Vector2 text_size = MeasureTextEx(GetFontDefault(), text_.c_str(), font_size_, 1.0f);
+            Vector2 text_size = MeasureTextEx(font::get_default()->rl(), text_.c_str(), font_size_, 1.0f);
             return Size<float>{
                 text_size.x + padding_ * 2,
                 text_size.y + padding_ * 2
