@@ -3,6 +3,7 @@
 //
 
 module;
+#include <iostream>
 #include <algorithm>
 #include <memory>
 #include <ranges>
@@ -93,147 +94,84 @@ export namespace plastic {
             const auto& children = element.get_children();
             if (children.empty()) return;
 
-            // Ensure minimum size
-            auto min_size = measure(element);
-            float actual_width = std::max(bounds.width(), min_size.width());
-            float actual_height = std::max(bounds.height(), min_size.height());
+            // First measure all children to get total size needed
+            float total_width = 0;
+            float total_height = 0;
+            std::vector<Size<float>> child_sizes;
 
-            Rect actual_bounds{
-                bounds.x(),
-                bounds.y(),
-                actual_width,
-                actual_height
-            };
-
-            // Determine if we're in a horizontal or vertical layout
-            bool is_horizontal = (props_.direction == FlexDirection::Row || props_.direction == FlexDirection::RowReverse);
-            bool is_reverse = (props_.direction == FlexDirection::RowReverse || props_.direction == FlexDirection::ColumnReverse);
-
-            // Calculate total flex and fixed sizes
-            float total_flex = 0.0f;
-            float total_fixed_size = 0.0f;
-            float total_gaps = props_.gap * std::max(0.0f, static_cast<float>(children.size() - 1));
-
-            std::vector<Size<float>> sizes;
-            sizes.reserve(children.size());
-
-            std::vector<float> flex_grow_values;
-            flex_grow_values.reserve(children.size());
-
-            // First pass: measure children and calculate total flex
             for (const auto& child : children) {
-                const auto& params = child->get_layout_properties();
-                auto size = measure(*child);
-
-                // Store measured size
-                sizes.push_back(size);
-
-                // Store flex grow value
-                flex_grow_values.push_back(params.flex_grow);
-
-                // If this child uses flex grow, add to total
-                if (params.flex_grow > 0) {
-                    total_flex += params.flex_grow;
-                } else {
-                    // Otherwise, add its fixed dimension to total
-                    if (is_horizontal) {
-                        total_fixed_size += size.width() + params.get_total_horizontal_space();
-                    } else {
-                        total_fixed_size += size.height() + params.get_total_vertical_space();
-                    }
-                }
+                auto size = child->get_preferred_size();
+                child_sizes.push_back(size);
+                total_width = std::max(total_width, size.width());
+                total_height += size.height();
             }
 
-            // Calculate remaining space for flex items
-            float main_axis_size = is_horizontal ? bounds.width() : bounds.height();
-            float remaining_space = std::max(0.0f, main_axis_size - total_fixed_size - total_gaps);
+            // Calculate starting position based on alignment
+            float start_x = bounds.x();
+            float start_y = bounds.y();
 
-            // Handle wrapping if enabled
-            if (props_.wrap != FlexWrap::NoWrap) {
-                arrange_wrapped(element, bounds, is_horizontal, is_reverse);
-                return;
+            // Apply justify_content
+            switch (props_.justify_content) {
+                case FlexAlign::Center:
+                    start_y += (bounds.height() - total_height) / 2;
+                    break;
+                case FlexAlign::End:
+                    start_y += bounds.height() - total_height;
+                    break;
+                default:
+                    break;
             }
 
-            // Second pass: arrange children
-            float position = is_horizontal ? bounds.x() : bounds.y();
+            // Apply align_items
+            float content_width = bounds.width();
 
-            // Handle justify-content for initial position
-            if (total_fixed_size + total_gaps + (total_flex > 0 ? 0 : remaining_space) < main_axis_size) {
-                switch (props_.justify_content) {
+            // Position each child
+            float current_y = start_y;
+            for (size_t i = 0; i < children.size(); i++) {
+                auto& child = children[i];
+                const auto& child_size = child_sizes[i];
+
+                float child_x = start_x;
+
+                // Apply align_items for horizontal positioning
+                switch (props_.align_items) {
                     case FlexAlign::Center:
-                        position += (main_axis_size - (total_fixed_size + total_gaps)) / 2;
+                        child_x += (content_width - child_size.width()) / 2;
                         break;
                     case FlexAlign::End:
-                        position += main_axis_size - (total_fixed_size + total_gaps);
+                        child_x += content_width - child_size.width();
                         break;
-                    case FlexAlign::SpaceBetween:
-                        // Space evenly, but not before first or after last
-                        if (children.size() > 1) {
-                            props_.gap = remaining_space / (static_cast<float>(children.size()) - 1);
-                        }
-                        break;
-                    case FlexAlign::SpaceAround: {
-                        // Space evenly, with half-size spaces at beginning and end
-                        float space_per_item = remaining_space / static_cast<float>(children.size());
-                        position += space_per_item / 2;
-                        props_.gap += space_per_item;
-                        break;
-                    }
-                    case FlexAlign::SpaceEvenly: {
-                        // Space evenly, including before first and after last
-                        float space_per_gap = remaining_space / static_cast<float>(children.size() + 1);
-                        position += space_per_gap;
-                        props_.gap += space_per_gap;
-                        break;
-                    }
-                    case FlexAlign::Start:
+                    case FlexAlign::Stretch:
+                        // Use full width
+                        child->set_bounds(Rect<float>{
+                            start_x,
+                            current_y,
+                            content_width,
+                            child_size.height()
+                        });
+                        current_y += child_size.height() + props_.gap;
+                        continue;
                     default:
                         break;
                 }
+
+                // Set the child bounds
+                child->set_bounds(Rect<float>{
+                    child_x,
+                    current_y,
+                    child_size.width(),
+                    child_size.height()
+                });
+
+                current_y += child_size.height() + props_.gap;
             }
 
-            // If direction is reverse, adjust starting position
-            if (is_reverse) {
-                float content_size = total_fixed_size;
-                if (total_flex > 0) {
-                    content_size += remaining_space;
-                }
-                position = (is_horizontal ? bounds.x() : bounds.y()) +
-                          main_axis_size - content_size - total_gaps;
-            }
+            std::cout << "FlexLayout arranging:\n"
+          << "  Bounds: " << bounds.width() << "x" << bounds.height() << "\n"
+          << "  Total content size: " << total_width << "x" << total_height << "\n"
+          << "  Start position: " << start_x << "," << start_y << "\n";
 
-            // Iterate children in appropriate order
-            if (is_reverse) {
-                // Process in reverse order
-                for (int i = static_cast<int>(children.size()) - 1; i >= 0; --i) {
-                    const auto& child = children[i];
-                    const auto& params = child->get_layout_properties();
-                    const auto& size = sizes[i];
-
-                    // Process child layout
-                    process_child_layout(child, params, size, position, bounds, is_horizontal, remaining_space, total_flex);
-
-                    // Advance position for next item
-                    float main_size = get_main_size(child, params, size, is_horizontal, remaining_space, total_flex);
-                    position += main_size + props_.gap;
-                }
-            } else {
-                // Process in normal order
-                for (size_t i = 0; i < children.size(); ++i) {
-                    const auto& child = children[i];
-                    const auto& params = child->get_layout_properties();
-                    const auto& size = sizes[i];
-
-                    // Process child layout
-                    process_child_layout(child, params, size, position, bounds, is_horizontal, remaining_space, total_flex);
-
-                    // Advance position for next item
-                    float main_size = get_main_size(child, params, size, is_horizontal, remaining_space, total_flex);
-                    position += main_size + props_.gap;
-                }
-            }
         }
-
     private:
         // Helper method to get the main axis size of an element
         static float get_main_size(const std::shared_ptr<Element>& child,

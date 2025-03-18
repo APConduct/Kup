@@ -168,8 +168,11 @@ export namespace plastic
                     .with_gap(8)
                     .with_padding(8);
                 layout->set_props(props);
+
+                std::cout << "FlexBox created with align_items: Center, justify_content: Center\n";
             }
 
+            // Set padding and margin through layout properties
             set_layout_properties(LayoutProperties()
                 .with_padding(8)
                 .with_margin(8));
