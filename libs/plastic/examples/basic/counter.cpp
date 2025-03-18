@@ -16,6 +16,14 @@ private:
 
 public:
     CounterView() {
+
+
+        // Create styles for the buttons
+        auto button_style = style::Style()
+            .bg(colors::primary)
+            .with_text_color_normal(colors::text);
+
+
         // Create elements
         counter_text_ = std::make_shared<Text>(std::to_string(count_), 32, colors::text);
 
@@ -23,11 +31,15 @@ public:
             count_--;
             counter_text_->with_text(std::to_string(count_));
         });
+        minus_button_->set_style(button_style);
+        minus_button_->with_padding(12);
 
         plus_button_ = std::make_shared<Button>("+", [this]() {
             count_++;
             counter_text_->with_text(std::to_string(count_));
         });
+        plus_button_->set_style(button_style);
+        plus_button_->with_padding(12);
 
         // Create horizontal stack for buttons with explicit spacing
         auto button_stack = std::make_shared<HStack>();
@@ -45,6 +57,9 @@ public:
         auto flex = std::make_shared<FlexBox>();
         flex->with_align_items(FlexAlign::Center);
         flex->with_justify_content(FlexAlign::Center);
+        flex->set_layout_properties(LayoutProperties()
+            .with_spacing(16)
+            .with_margin(16));
         flex->add_child(v_stack);
 
         container_ = flex;
