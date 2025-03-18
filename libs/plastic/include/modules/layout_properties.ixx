@@ -92,7 +92,7 @@ export namespace plastic
             return !(*this == other);
         }
 
-        float spacing{0};
+        float spacing{8};
 
 
         LayoutProperties& with_flex_grow(const float grow) {
@@ -115,5 +115,24 @@ export namespace plastic
             return *this;
         }
 
+        LayoutProperties& with_align_self(const Alignment align_self) {
+            this->align_self = align_self;
+            return *this;
+        }
+
+        LayoutProperties& with_fill_width(const bool fill) {
+            this->fill_width = fill;
+            return *this;
+        }
+
+        LayoutProperties& with_margin(const float margin) {
+            this->margin = Edge{margin, margin, margin, margin};
+            return *this;
+        }
+
+        LayoutProperties& with_spacing(const float spacing) {
+            this->spacing = spacing;
+            return *this;
+        }
     };
 }

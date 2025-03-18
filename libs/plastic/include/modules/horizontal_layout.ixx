@@ -102,7 +102,7 @@ export namespace plastic
             for (size_t i = 0; i < children.size(); ++i) {
                 const auto& child = children[i];
                 const auto& params = child->get_layout_properties();
-                auto size = child->get_style().get_preferred_size();
+                auto size = child->get_preferred_size();
 
                 total_width += size.width() + params.get_total_horizontal_space();
                 max_height = std::max(max_height,

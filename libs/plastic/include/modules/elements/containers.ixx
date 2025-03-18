@@ -157,7 +157,16 @@ export namespace plastic
     class FlexBox : public LayoutContainer {
         Size<float> preferred_size_{0, 0};
     public:
-        FlexBox() : LayoutContainer(std::make_unique<FlexLayout>()) {}
+        FlexBox() : LayoutContainer(std::make_unique<FlexLayout>()) {
+            auto layout = dynamic_cast<FlexLayout*>(layout_.get());
+            if (layout) {
+                FlexLayoutProperties props;
+                props.with_align_items(FlexAlign::Center)
+                    .with_justify_content(FlexAlign::Center)
+                    .with_gap(8);
+                layout->set_props(props);
+            }
+        }
 
         template<typename... Children>
         static std::shared_ptr<FlexBox> create(Children... children) {
