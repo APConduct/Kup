@@ -12,7 +12,7 @@ private:
     std::shared_ptr<Text> counter_text_;
     std::shared_ptr<Button> minus_button_;
     std::shared_ptr<Button> plus_button_;
-    std::shared_ptr<Element> container_;
+    std::shared_ptr<FlexBox> container_;
 
 public:
     CounterView() {
@@ -74,7 +74,6 @@ public:
         std::cout << "\n=== CounterView Render ===\n";
 
         // Log the current state
-        if (container_) {
             std::cout << "Container bounds before: "
                       << container_->get_bounds().width() << "x"
                       << container_->get_bounds().height() << "\n";
