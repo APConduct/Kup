@@ -10,12 +10,3 @@ target_link_libraries(
         plastic
 )
 
-add_executable(
-        counter basic/counter.cpp
-)
-
-target_link_libraries(
-        counter
-        PRIVATE
-        plastic
-)
