@@ -11,7 +11,8 @@ target_sources(keditor
         FILES
         proto/line_numbers.ixx
         proto/syntax_highlighter.ixx
-
+        include/modules/core/types.ixx
+        include/modules/buffer/piece_table.ixx
 )
 
 target_link_libraries(keditor PUBLIC plastic )
