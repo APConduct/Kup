@@ -104,7 +104,6 @@ export namespace keditor
         std::stack<std::unique_ptr<Command>> undo_stack_;
         std::stack<std::unique_ptr<Command>> redo_stack_;
 
-        // TODO - change below to full implementation
         void insert_without_undo(Index pos, const string_type& text)
         {
             if (text.empty()) return;
