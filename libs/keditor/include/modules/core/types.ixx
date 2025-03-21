@@ -17,7 +17,7 @@ export namespace keditor
         Column col_{0};
     };
 
-    struct Range_ {
+    struct Range {
         Index start_{0};
         Index end_{0};
 

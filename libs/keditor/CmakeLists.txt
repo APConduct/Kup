@@ -13,6 +13,10 @@ target_sources(keditor
         proto/syntax_highlighter.ixx
         include/modules/core/types.ixx
         include/modules/buffer/piece_table.ixx
+        include/modules/buffer/buffer.ixx
+        include/modules/keditor.ixx
+
+
 )
 
 target_link_libraries(keditor PUBLIC plastic )
