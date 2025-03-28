@@ -243,15 +243,8 @@ target_sources(plastic
         include/modules/types/constrain_anchor.ixx
         include/modules/interfaces/constraint.ixx
         include/modules/events/event_bus.ixx
-
-
-
-
-
-
-
-
-
+        include/modules/events/event_delegate.ixx
+        include/modules/events/event_throttler.ixx
 
 )
 

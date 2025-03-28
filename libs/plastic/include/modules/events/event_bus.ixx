@@ -2,6 +2,7 @@
 // Created by Aidan Jost on 3/28/25.
 //
 
+/// The main Event class to be used in/with 'App'
 module;
 #include <functional>
 #include <string>
