@@ -4,6 +4,7 @@
 
 module;
 #include <functional>
+#include <raylib.h>
 #if defined(_WIN32)
 #include <string>
 #endif
@@ -38,17 +39,37 @@ export namespace plastic::input
     };
 
     // Input state queries
-    bool is_key_down(Key key);
-    bool is_key_pressed(Key key);
-    bool is_key_released(Key key);
+    bool is_key_down(Key key) {
+        return IsKeyDown(static_cast<KeyboardKey>(key));
+    };
 
-    bool is_mouse_button_down(MouseButton button);
-    bool is_mouse_button_pressed(MouseButton button);
-    bool is_mouse_button_released(MouseButton button);
+    bool is_key_pressed(Key key) {
+        return IsKeyPressed(static_cast<KeyboardKey>(key));
+    };
+    bool is_key_released(Key key) {
+        return IsKeyReleased(static_cast<KeyboardKey>(key));
+    };
 
-    Point<float> get_mouse_position();
-    Point<float> get_mouse_delta();
-    float get_mouse_wheel_move();
+    bool is_mouse_button_down(MouseButton button) {
+        return IsMouseButtonDown(static_cast<int>(button));
+    };
+
+    bool is_mouse_button_pressed(MouseButton button) {
+        return IsMouseButtonPressed(static_cast<int>(button));
+    };
+    bool is_mouse_button_released(MouseButton button) {
+        return IsMouseButtonReleased(static_cast<int>(button));
+    };
+
+    Point<float> get_mouse_position() {
+        return Point<float>::from_rl(::Vector2(static_cast<float>(GetMouseX()), static_cast<float>(GetMouseY())));
+    };
+    Point<float> get_mouse_delta() {
+        return Point<float>::from_rl(::Vector2(GetMouseDelta().x, GetMouseDelta().y));
+    };
+    float get_mouse_wheel_move() {
+        return GetMouseWheelMove();
+    };
 
     // Input event registration
     using KeyCallback = std::function<void(Key, bool)>;
@@ -56,6 +77,7 @@ export namespace plastic::input
     using MouseButtonCallback = std::function<void(MouseButton, bool, Point<float>)>;
     using MouseMoveCallback = std::function<void(Point<float>, Point<float>)>;
 
+    // Register callbacks for input events
     void register_key_callback(KeyCallback callback);
     void register_text_input_callback(TextInputCallback callback);
     void register_mouse_button_callback(MouseButtonCallback callback);

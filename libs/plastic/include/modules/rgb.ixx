@@ -1,8 +1,11 @@
 //
 // Created by Aidan Jost on 3/28/25.
 //
-
+module;
+#include <cstdint>
 export module plastic.rgb;
+import plastic.color;
+import plastic.size;
 
 export namespace plastic
 {

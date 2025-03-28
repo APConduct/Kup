@@ -12,26 +12,17 @@ import plastic.element;
 import plastic.rect;
 import plastic.size;
 import plastic.layout;
+import plastic.constrain_anchor;
+import plastic.constraint;
 
+
+export import plastic.constraint;
 
 
 export namespace plastic {
-    enum class ConstraintAnchor {
-        Left,
-        Right,
-        Top,
-        Bottom,
-        CenterX,
-        CenterY,
-        Width,
-        Height
-    };
 
-    class Constraint {
-    public:
-        virtual ~Constraint() = default;
-        [[nodiscard]] virtual float resolve(const Element& element, const Rect<float>& parent_bounds) const = 0;
-    };
+
+
 
     class RelativeConstraint : public Constraint {
     private:

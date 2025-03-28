@@ -20,7 +20,7 @@ export namespace plastic::window
             }
         }
 
-        GLFWwindow* get() const { return window_; }
+        [[nodiscard]] GLFWwindow* get() const { return window_; }
 
         // Prevent copying
         GLFWWindowRAII(const GLFWWindowRAII&) = delete;

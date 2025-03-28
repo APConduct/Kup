@@ -240,6 +240,8 @@ target_sources(plastic
 
         include/modules/route.ixx
         include/modules/rgb.ixx
+        include/modules/types/constrain_anchor.ixx
+        include/modules/interfaces/constraint.ixx
 
 
 
