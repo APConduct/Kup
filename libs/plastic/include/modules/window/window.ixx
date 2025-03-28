@@ -142,13 +142,16 @@ export namespace plastic
         [[nodiscard]] context::WindowContext& context() const { return *context_; }
         [[nodiscard]] std::shared_ptr<plastic::View> root() const { return root_; }
 
-        void handle_resize(const Size<float>& new_size) {
+        void handle_resize( Size<float>& new_size) override {
             size = new_size;
             if (root_) {
                 root_->render(context_.get())->layout(context_.get());
                 root_->render(context_.get())->paint(context_.get());
             }
         }
+
+
+
 
         void set_title(const std::string& title) {
             title_ = title;
@@ -253,6 +256,10 @@ export namespace plastic
             if (auto platform = platform_.lock()) {
                 platform->event_dispatcher().emit(events::WindowMaximizeEvent(window_id_));
             }
+        }
+
+        void handle_resize(Size<float> new_size) {
+
         }
 
 

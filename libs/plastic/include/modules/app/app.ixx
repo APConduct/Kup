@@ -26,8 +26,7 @@ import plastic.color;
 import plastic.view_wrapper;
 import plastic.rect;
 import plastic.window_options;
-
-
+import plastic.event_bus;
 
 export namespace plastic
 {
@@ -40,6 +39,8 @@ export namespace plastic
         std::shared_ptr<WindowManager> window_manager_;
         std::shared_ptr<Application> app_;
         bool initialized_ = false;
+        std::shared_ptr<EventBus> event_bus_;
+
 
 
 
@@ -114,12 +115,59 @@ export namespace plastic
         // virtual void on_event(const events::Event& event) = 0;
         // virtual void on_window_close() = 0;
 
+    protected:
+
+        void setup_default_event_handling() {
+            // Add logging middleware in debug mode
+#ifdef PLASTIC_DEBUG
+            event_bus_->add_middleware([](const events::Event& event) {
+                EventLogger::log_event(event);
+            });
+#endif
+
+            // Window events - use the template parameter explicitly
+            event_bus_->template subscribe<events::WindowCloseEvent>(
+                [this](const events::WindowCloseEvent& event) {
+                    if (auto window = window_manager_->get_window(event.window_id)) {
+                        window->request_close();
+                    }
+                });
+
+            // Platform events - use the template parameter explicitly
+            event_bus_->template subscribe<events::WindowResizeEvent>(
+                [this](const events::WindowResizeEvent& event) {
+                    if (auto window = window_manager_->get_window(0)) {
+                        window->handle_resize(event.size);
+                    }
+                });
+
+            // Input events - use the template parameter explicitly
+            event_bus_->template subscribe_to_channel<events::KeyPressEvent>(
+                "input",
+                [this](const events::KeyPressEvent& event) {
+                    if (event.pressed && event.ctrl.value_or(false)) {
+                        if (event.key == events::KeyboardKey::KEY_Q) {
+                            request_quit();
+                        }
+                    }
+                });
+        }
+        void request_quit() {
+            // Publish quit request event
+            events::WindowCloseEvent event{0, events::get_current_timestamp()};
+            event_bus_->publish(event);
+        }
+
+
+    public:
 
         explicit App(std::string name = "Plastic App", Size<float> default_size = Size<float>{800, 600})
         : name_(std::move(name)), default_window_size_(default_size)
         {
             // Create app context
             app_context_ = std::make_shared<context::AppContext>();
+
+            event_bus_ = std::make_shared<EventBus>();
 
             // Create platform implementation (using Raylib by default)
             platform_ = std::make_shared<RaylibPlatform>(app_context_);
@@ -319,10 +367,10 @@ export namespace plastic
         }
 
         template<typename ViewType, typename... Args>
-std::shared_ptr<Window> open_secondary_window(
-    const window::WindowOptions& options,
-    Args&&... args
-) {
+        std::shared_ptr<Window> open_secondary_window(
+            const window::WindowOptions& options,
+            Args&&... args
+        ) {
             if (!platform_->supports_multiple_windows()) {
                 throw std::runtime_error("Multiple windows are not supported on this platform");
             }
@@ -371,8 +419,6 @@ std::shared_ptr<Window> open_secondary_window(
         bool supports_multiple_windows() const {
             return platform_->supports_multiple_windows();
         }
-
-
 
 
     };

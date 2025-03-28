@@ -21,10 +21,13 @@ export namespace plastic
 
     public:
 
-        template<typename  E>
-        void subscribe(const std::string& channel, std::function<void(const events::Event&)> handler) {
-            dispatcher_.subscribe<E>(std::move(handler));
+        template<typename E>
+        void subscribe(std::function<void(const E&)> handler) {
+            dispatcher_.subscribe<E>(handler);
         }
+
+
+
 
         // Subscribe to channel-specific events
         template<typename E>

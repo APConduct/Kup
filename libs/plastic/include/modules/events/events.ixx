@@ -91,7 +91,7 @@ export namespace plastic::events
     };
 
     struct WindowResizeEvent {
-        Size<float> size;
+        Size<float>& size;
         double timestamp{};
     };
 
@@ -135,8 +135,8 @@ export namespace plastic::events
         WindowTransparentEvent,
         WindowDecorationsEvent,
         WindowRestoreEvent,
-        WindowMaximizeEvent
-
+        WindowMaximizeEvent,
+        WindowResizeEvent
         >;
 
     using KeyboardKey = ::KeyboardKey;

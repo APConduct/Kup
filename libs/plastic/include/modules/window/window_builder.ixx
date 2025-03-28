@@ -8,6 +8,7 @@ export module plastic.window_builder;
 import plastic.window_options;
 import plastic.window_context;
 import plastic.window;
+import plastic.size;
 
 export namespace plastic
 {

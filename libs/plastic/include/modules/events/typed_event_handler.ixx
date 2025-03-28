@@ -23,7 +23,6 @@ export namespace plastic
             }
         }
 
-        virtual void handle(const T& event) = 0;
     };
 
 }
