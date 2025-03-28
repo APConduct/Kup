@@ -117,6 +117,46 @@ export namespace plastic::style
             preferred_size = size;
             return *this;
         }
+
+        Style& with_padding(float padding) {
+            this->padding = Edge{padding, padding, padding, padding};
+            return *this;
+        }
+
+        Style& with_padding(Edge<float> padding) {
+            this->padding = padding;
+            return *this;
+        }
+
+
+
+    protected:
+        std::optional<std::reference_wrapper<const Style>> parent;
+    public:
+        Style& inherit_from(const Style& parent) {
+            this->parent = std::cref(parent);
+            return *this;
+        }
+
+        [[nodiscard]] Style get() const {
+            return (parent.has_value() ? parent.value() : Style{});
+        }
+
+        [[nodiscard]] Style get_inherited_style() {
+            if (parent) {
+                return parent->get();
+            }
+            return *this;
+        }
+
+
+        [[nodiscard]] Style get_inherited_style() const {
+            if (parent) {
+                return parent->get();
+            }
+            return *this;
+        };
+
     };
 }
 

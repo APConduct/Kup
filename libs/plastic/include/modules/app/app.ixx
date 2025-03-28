@@ -41,9 +41,6 @@ export namespace plastic
         bool initialized_ = false;
         std::shared_ptr<EventBus> event_bus_;
 
-
-
-
     public:
         virtual ~App() = default;
         template<typename F>
@@ -51,6 +48,9 @@ export namespace plastic
             return with_context(std::forward<F>(f));
         }
 
+        std::shared_ptr<EventBus> events() {
+            return event_bus_;
+        }
 
         template<typename F>
         int run_with(F&& setup_fn) {

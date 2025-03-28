@@ -5,7 +5,12 @@
 module;
 #include <memory>
 #include <vector>
+#include <unordered_map>
+#include <string>
+#include <mutex>
+#include <functional>
 export module plastic.animation_manager;
+import plastic.animation_base;
 
 import plastic.animation;
 import plastic.color;
@@ -14,48 +19,45 @@ import plastic.point;
 export namespace plastic
 {
     class AnimationManager {
-        std::vector<std::unique_ptr<Animation<float>>> float_animations_;
-        std::vector<std::unique_ptr<Animation<Color>>> color_animations_;
-        std::vector<std::unique_ptr<Animation<Point<float>>>> point_animations_;
-
+    private:
+        std::unordered_map<std::string, std::unique_ptr<AnimationBase>> animations_;
         std::mutex animations_mutex_;
 
-
     public:
+        template<typename T>
+        void animate(
+            const std::string& id,
+            T start,
+            T end,
+            float duration,
+            std::function<void(const T&)> update,
+            Animator::EasingFunction<T> easing = Animator::linear_interpolate<T>
+        ) {
+            std::lock_guard<std::mutex> guard(animations_mutex_);
+
+            auto animation = std::make_unique<Animation<T>>(
+                start, end, duration, std::move(update), std::move(easing)
+            );
+
+            animation->set_on_complete([this, id] {
+                std::lock_guard<std::mutex> guard(animations_mutex_);
+                animations_.erase(id);
+            });
+
+            animations_[id] = std::move(animation);
+            animations_[id]->start();
+        }
+
         void update(float delta_time) {
             std::lock_guard<std::mutex> guard(animations_mutex_);
 
-            // Update all animations and remove completed ones
-            auto update_and_filter = [delta_time](auto& animations) {
-                size_t write_index = 0;
-                for (size_t i = 0; i < animations.size(); ++i) {
-                    animations[i]->update(delta_time);
-                    if (animations[i]->is_running()) {
-                        if (i != write_index) {
-                            animations[write_index] = std::move(animations[i]);
-                        }
-                        ++write_index;
-                    }
-                }
-                animations.resize(write_index);
-            };
-            update_and_filter(float_animations_);
-            update_and_filter(color_animations_);
-            update_and_filter(point_animations_);
-        }
-
-        template <typename T>
-        void add_animation(std::unique_ptr<Animation<T>> animation) {
-            std::lock_guard<std::mutex> guard(animations_mutex_);
-
-            if constexpr (std::is_same_v<T, float>) {
-                float_animations_.push_back(std::move(animation));
-            } else if constexpr  (std::is_same_v<T, Color>) {
-                color_animations_.push_back(animation);
-            } else if constexpr (std::is_same_v<T, Point<float>>) {
-                point_animations_.push_back(animation);
+            for (auto& [_, animation] : animations_) {
+                animation->update(delta_time);
             }
         }
-    };
 
+        void add_animation(const std::string& id, std::unique_ptr<AnimationBase> animation) {
+            animations_.emplace(id, std::move(animation));
+        }
+    };
 }

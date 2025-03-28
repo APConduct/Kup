@@ -94,59 +94,68 @@ export namespace plastic {
             const auto& children = element.get_children();
             if (children.empty()) return;
 
-            // First measure children
-            std::vector<Size<float>> child_sizes;
-            float total_height = 0;
-            float max_width = 0;
+            // Calculate flex basis and remaining space
+            float total_flex_grow = 0;
+            float available_space = props_.direction == FlexDirection::Row ?
+                bounds.width() : bounds.height();
+
+            // First pass: measure flex items
+            for (const auto& child : children) {
+                const auto& child_props = child->get_layout_properties();
+                total_flex_grow += child_props.flex_grow;
+
+                if (child_props.flex_grow == 0) {
+                    auto size = child->get_preferred_size();
+                    available_space -= props_.direction == FlexDirection::Row ?
+                        size.width() : size.height();
+                }
+            }
+
+            // Second pass: arrange items
+            float current_pos = props_.direction == FlexDirection::Row ?
+                bounds.x() : bounds.y();
 
             for (const auto& child : children) {
-                auto size = child->get_preferred_size();
-                child_sizes.push_back(size);
-                total_height += size.height();
-                max_width = std::max(max_width, size.width());
+                const auto& child_props = child->get_layout_properties();
+                float main_size;
+
+                if (child_props.flex_grow > 0) {
+                    main_size = (available_space * child_props.flex_grow) /
+                        total_flex_grow;
+                } else {
+                    auto size = child->get_preferred_size();
+                    main_size = props_.direction == FlexDirection::Row ?
+                        size.width() : size.height();
+                }
+
+                // Position the child
+                if (props_.direction == FlexDirection::Row) {
+                    child->set_bounds(Rect<float>{
+                        current_pos,
+                        bounds.y() + (bounds.height() - child->get_preferred_size().height()) / 2,
+                        main_size,
+                        bounds.height()
+                    });
+                } else {
+                    child->set_bounds(Rect<float>{
+                        bounds.x() + (bounds.width() - child->get_preferred_size().width()) / 2,
+                        current_pos,
+                        bounds.width(),
+                        main_size
+                    });
+                }
+
+                current_pos += main_size + props_.gap;
             }
-
-            // Add gaps to total height
-            if (children.size() > 1) {
-                total_height += props_.gap * (children.size() - 1);
-            }
-
-            // Calculate starting position for vertical centering
-            float start_y = bounds.y() + (bounds.height() - total_height) / 2;
-
-            // Position each child
-            float current_y = start_y;
-            for (size_t i = 0; i < children.size(); i++) {
-                auto& child = children[i];
-                const auto& child_size = child_sizes[i];
-
-                // Calculate horizontal position for center alignment
-                float child_x = bounds.x() + (bounds.width() - child_size.width()) / 2;
-
-                // Set the child bounds
-                child->set_bounds(Rect<float>{
-                    child_x,
-                    current_y,
-                    child_size.width(),
-                    child_size.height()
-                });
-
-                current_y += child_size.height() + props_.gap;
-            }
-
-            std::cout << "FlexLayout arranging:\n"
-                      << "  Bounds: " << bounds.width() << "x" << bounds.height() << "\n"
-                      << "  Total height: " << total_height << "\n"
-                      << "  Max width: " << max_width << "\n"
-                      << "  Start Y: " << start_y << "\n";
-        }    private:
+        }
+    private:
         // Helper method to get the main axis size of an element
         static float get_main_size(const std::shared_ptr<Element>& child,
-                           const LayoutProperties& params,
-                           const Size<float>& size,
-                           bool is_horizontal,
-                           float remaining_space,
-                           float total_flex) {
+            const LayoutProperties& params,
+            const Size<float>& size,
+            bool is_horizontal,
+            float remaining_space,
+            float total_flex) {
             // Calculate main axis dimension (width for row, height for column)
             float main_size;
             if (params.flex_grow > 0 && total_flex > 0) {

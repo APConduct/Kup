@@ -25,6 +25,7 @@ import plastic.edge;
 import plastic.elements.styled_text;
 import plastic.font.weight;
 
+
 export namespace plastic::ui
 {
 
@@ -236,6 +237,69 @@ export namespace plastic::ui
 
     inline std::shared_ptr<StyledText> code(std::string text, Color color = colors::text) {
         return styled_text(std::move(text), "Plasevka", FontWeight::Regular, 14.0f, color);
+    }
+
+    // Dialog component
+    std::shared_ptr<Element> dialog(
+        const std::string& title,
+        const std::string& message,
+        std::function<void(bool)> on_result
+    ) {
+        auto container = std::make_shared<FlexBox>();
+        container->with_direction(FlexDirection::Column)
+                 .with_align_items(FlexAlign::Center)
+                 .with_gap(16);
+
+        // Add title
+        container->add_child(text(title, 20, colors::text));
+
+        // Add message
+        container->add_child(text(message, 16, colors::text_secondary));
+
+        // Add buttons
+        auto buttons = std::make_shared<FlexBox>();
+        buttons->with_direction(FlexDirection::Row)
+               .with_gap(8)
+               .with_justify_content(FlexAlign::Center);
+
+        buttons->add_child(
+            button("Cancel", [on_result] { on_result(false); })
+        );
+        buttons->add_child(
+            button("OK", [on_result] { on_result(true); })
+        );
+
+        container->add_child(buttons);
+
+        return container;
+    }
+
+    // Card component
+    std::shared_ptr<Element> card(
+        const std::string& title,
+        std::shared_ptr<Element> content
+    ) {
+        auto container = std::make_shared<FlexBox>();
+        container->with_direction(FlexDirection::Column)
+                 .with_gap(8);
+
+        // Add title if provided
+        if (!title.empty()) {
+            container->add_child(text(title, 18, colors::text));
+        }
+
+        // Add content
+        container->add_child(content);
+
+        // Style the card
+        container->set_style(
+            style::Style()
+                .bg(colors::surface)
+                .with_corner_radius(8)
+                .with_padding(16)
+        );
+
+        return container;
     }
 
 

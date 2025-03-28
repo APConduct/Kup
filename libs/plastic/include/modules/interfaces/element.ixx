@@ -411,6 +411,14 @@ export namespace plastic
              // Container elements may override this to update their state or appearance
          }
 
+        bool bubble_event(const events::Event& event, Context* cx) {
+             if (handle_event(event, cx)) return true;
+             if (auto p = parent.lock()) {
+                 return p->bubble_event(event, cx);
+             }
+             return false;
+         }
+
 
 
     };

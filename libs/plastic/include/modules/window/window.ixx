@@ -46,9 +46,23 @@ export namespace plastic
         bool should_close_{false};
         Rect<float> bounds_{};
 
+        bool input_enabled_{true};
+        bool focused_{};
+
 
 
     public:
+
+        void set_focused(bool focused) override {
+        };
+
+        void set_input_enabled(bool enabled) override {
+            input_enabled_ = enabled;
+        };
+
+        void set_input_enabled()  {
+            input_enabled_ = true;
+        };
 
         explicit Window(std::shared_ptr<context::WindowContext> context) : context_(std::move(context)) {}
 
