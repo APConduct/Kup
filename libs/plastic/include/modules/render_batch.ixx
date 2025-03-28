@@ -45,7 +45,7 @@ export namespace plastic
             });
         }
 
-        // Add other drawing methods
+        // TODO - Add other drawing methods
 
         void flush() {
             // Sort commands by type for better performance

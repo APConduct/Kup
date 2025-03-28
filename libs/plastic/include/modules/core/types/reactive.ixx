@@ -12,8 +12,6 @@ module;
 
 export module plastic.reactive;
 
-import plastic.element;
-
 export namespace plastic::reactive
 {
     // Observable value that can be watched for changes
@@ -50,7 +48,7 @@ export namespace plastic::reactive
         }
 
         // Operator overloads for convenience
-        operator const T&() const { return value_; }
+        explicit operator const T&() const { return value_; }
 
         // Assign new value
         Observable& operator=(const T& new_value) {
@@ -64,7 +62,7 @@ export namespace plastic::reactive
             return &value_;
         }
 
-        const std::string& name() const { return name_; }
+        [[nodiscard]] const std::string& name() const { return name_; }
     };
 
     // Create an observable value
@@ -94,7 +92,7 @@ export namespace plastic::reactive
         }
 
     public:
-        Computed(std::function<T(const Args&...)> compute_fn,
+        explicit Computed(std::function<T(const Args&...)> compute_fn,
                 const Observable<Args>&... deps)
             : compute_fn_(std::move(compute_fn)),
               result_(compute_fn_(deps.get()...)),
@@ -108,7 +106,7 @@ export namespace plastic::reactive
             result_.observe(std::move(observer));
         }
 
-        operator const T&() const { return get(); }
+        explicit operator const T&() const { return get(); }
     };
 
     // Create a computed value

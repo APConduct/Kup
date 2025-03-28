@@ -10,8 +10,6 @@ module;
 #endif
 export module plastic.data_binding;
 
-import plastic.element;
-
 export namespace plastic {
     template <typename T>
     class Observable {
