@@ -242,6 +242,7 @@ target_sources(plastic
         include/modules/rgb.ixx
         include/modules/types/constrain_anchor.ixx
         include/modules/interfaces/constraint.ixx
+        include/modules/events/event_bus.ixx
 
 
 
