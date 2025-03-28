@@ -4,13 +4,15 @@
 //
 
 module;
-
+#include <raylib.h>
+#include <string>
+#include <vector>
 export module keditor.buffer.buffer;
 
 import keditor.core.types;
 import keditor.buffer.piece_table;
 import plastic;
-#include <string>
+
 
 export namespace keditor
 {
@@ -45,5 +47,42 @@ export namespace keditor
             float scroll_x{0.0f};
             float scroll_y{0.0f};
         } visual_;
+
+        struct LineCache {
+            struct Line {
+                string_type text;
+                plastic::Point<float> position;
+                plastic::Size<float> size;
+                bool is_dirty{true};
+            };
+            std::vector<Line> lines_;
+            bool is_dirty{true};
+
+            void invalidate() {
+                is_dirty = true;
+            }
+        } line_cache_;
+
+    public:
+        explicit Buffer(const string_type initial = {}) : content_{initial} {
+            // update_line_cache();
+        }
+
+        void layout(plastic::Context* cx) override {
+            if (line_cache_.is_dirty) {
+                // update_line_cache();
+            }
+        };
+
+        void paint(plastic::Context* cx) const override {
+            plastic::Rect clip_rect = bounds;
+            BeginScissorMode(
+                static_cast<int>(clip_rect.x()),
+                static_cast<int>(clip_rect.y()),
+                static_cast<int>(clip_rect.width()),
+                static_cast<int>(clip_rect.height()));
+
+            /// ...
+        };
     };
 }

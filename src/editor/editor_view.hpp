@@ -36,7 +36,7 @@ namespace kup
             state.buffer = std::make_shared<Buffer>();
         }
 
-        std::shared_ptr<plastic::Element> render(plastic::Context* cx ) const override {
+        std::shared_ptr<plastic::Element> render(plastic::Context* cx ) override {
             // Create the Container with horizontal layout
             auto container = std::make_shared<plastic::LayoutContainer>(
                 std::make_unique<plastic::HorizontalLayout>()

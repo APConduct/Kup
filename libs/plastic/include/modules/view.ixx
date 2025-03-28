@@ -34,7 +34,7 @@ export namespace plastic
 
         void update(float delta_time) {};
 
-        void handle_event(events::Event& event, Context* cx) {};
+        virtual void handle_event(events::Event& event, Context* cx) {};
 
         void mount(Context* cx) {
             cx_ = cx;

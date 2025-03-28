@@ -286,7 +286,7 @@ namespace kup
     public:
         explicit FileTreeView(const FileTreeState& initial_state) : plastic::StatefulView<FileTreeState>(initial_state){}
 
-        std::shared_ptr<plastic::Element> render(plastic::Context* cx) const override {
+        std::shared_ptr<plastic::Element> render(plastic::Context* cx)  override {
             auto element = std::make_shared<TreeElement>(get_state());
             element->set_style(create_tree_style());
             return element;
@@ -305,7 +305,7 @@ namespace kup
             }, event);
         }
 
-        void handle_event_impl(const plastic::events::MouseButtonEvent& event, plastic::Context* cx) const {
+        void handle_event_impl(const plastic::events::MouseButtonEvent& event, plastic::Context* cx) {
             if (event.pressed && event.button == MOUSE_BUTTON_LEFT) {
                 if (const auto element = std::dynamic_pointer_cast<TreeElement>(render(cx))) {
                     element->handle_click(event.position.width(), event.position.height());
@@ -313,7 +313,7 @@ namespace kup
             }
         }
 
-        void handle_event_impl(const plastic::events::MouseScrollEvent& event, plastic::Context* cx) const {
+        void handle_event_impl(const plastic::events::MouseScrollEvent& event, plastic::Context* cx) {
             if (const auto element = std::dynamic_pointer_cast<TreeElement>(render(cx))) {
                 if (element->handle_mouse_wheel(plastic::Point<float>(event.delta.width(), event.delta.height()))) {
                     cx->request_paint();

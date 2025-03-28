@@ -1,7 +1,8 @@
 //
 // Created by Aidan Jost on 3/21/25.
 //
-
+module;
+#include <cstddef>
 export module keditor.core.types;
 
 export namespace keditor
