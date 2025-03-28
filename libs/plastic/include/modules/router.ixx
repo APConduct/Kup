@@ -11,16 +11,9 @@ export module plastic.router;
 
 import plastic.view;
 import plastic.context;
+import plastic.route;
 
 export namespace plastic {
-    struct Route {
-        std::string path;
-        std::function<std::shared_ptr<View>(Context*)> view_factory;
-        std::unordered_map<std::string, std::string> params;
-
-        Route(std::string path, std::function<std::shared_ptr<View>(Context*)> factory)
-            : path(std::move(path)), view_factory(std::move(factory)) {}
-    };
 
     class Router {
     private:

@@ -87,7 +87,7 @@ export namespace plastic {
         }
     };
 
-    class ConstraintLayout : public plastic::Layout {
+    class ConstraintLayout : public Layout {
     private:
         std::unordered_map<Element*, std::unordered_map<ConstraintAnchor, std::unique_ptr<Constraint>>> constraints_;
 

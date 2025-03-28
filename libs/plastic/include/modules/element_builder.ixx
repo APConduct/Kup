@@ -21,42 +21,12 @@ import plastic.point;
 import plastic.events;
 import plastic.edge;
 import plastic.flex_layout;
+import plastic.rgb;
+
 
 export namespace plastic
 {
-    // Helper functions to match GPUI.rs style
-    Color rgb(uint32_t hex) {
-        uint8_t r = (hex >> 16) & 0xFF;
-        uint8_t g = (hex >> 8) & 0xFF;
-        uint8_t b = hex & 0xFF;
-        return Color::rgb(r, g, b);
-    }
 
-    Color rgba(uint32_t hex, float alpha) {
-        uint8_t r = (hex >> 16) & 0xFF;
-        uint8_t g = (hex >> 8) & 0xFF;
-        uint8_t b = hex & 0xFF;
-        return Color::rgba(r, g, b, static_cast<uint8_t>(alpha * 255));
-    }
-
-    inline float px(float value) {
-        return value;
-    }
-
-    inline Size<float> size(float width, float height) {
-        return Size<float>{width, height};
-    }
-
-    namespace Colors {
-        Color red() { return Color::rgb(0xff, 0, 0); }
-        Color green() { return Color::rgb(0, 0xff, 0); }
-        Color blue() { return Color::rgb(0, 0, 0xff); }
-        Color yellow() { return Color::rgb(0xff, 0xff, 0); }
-        Color black() { return Color::rgb(0, 0, 0); }
-        Color white() { return Color::rgb(0xff, 0xff, 0xff); }
-        Color gray() { return Color::rgb(0x80, 0x80, 0x80); }
-        Color transparent() { return Color::transparent(); }
-    }
 
     // Base builder for all elements
     template <typename Derived, typename ElementType>
@@ -69,7 +39,7 @@ export namespace plastic
             : element_(std::move(element)) {}
 
         // Convert to the underlying element
-        operator std::shared_ptr<Element>() const {
+        explicit operator std::shared_ptr<Element>() const {
             return element_;
         }
 
@@ -243,7 +213,7 @@ export namespace plastic
         }
 
         // Event handlers
-        Derived& on_click(std::function<void()> handler) {
+        Derived& on_click(const std::function<void()>& handler) {
             // Implementation would connect to the element's event system
             return derived();
         }
@@ -367,7 +337,7 @@ export namespace plastic
         explicit ButtonBuilder(const std::string& label)
             : ElementBuilder(std::make_shared<Button>(label)) {}
 
-        ButtonBuilder& on_click(std::function<void()> handler) {
+        ButtonBuilder& on_click(const std::function<void()>& handler) {
             element_->on_click(std::move(handler));
             return *this;
         }
@@ -375,7 +345,7 @@ export namespace plastic
 
     // Factory functions for creating builders
     inline DivBuilder div() {
-        return DivBuilder();
+        return DivBuilder{};
     }
 
     inline TextBuilder text(const std::string& content) {
