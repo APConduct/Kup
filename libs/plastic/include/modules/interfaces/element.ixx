@@ -231,38 +231,44 @@ export namespace plastic
          }
 
         bool propagate_event(const events::Event& event, Context* cx) {
-             // Find the target element(s) based on event type
-             std::vector<std::shared_ptr<Element>> path;
-             bool handled = false;
-
-             if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
-                 // Build path for mouse events based on position
-                 build_hit_test_path(event, path);
-             } else {
-                 // For non-positional events, handle focus-based dispatch
-                 build_focus_path(event, path);
-             }
-
-             // Capture phase (root to target)
-             for (size_t i = 0; i < path.size(); ++i) {
-                 if (path[i]->handle_capture_event(event, cx)) {
-                     return true;
-                 }
-             }
-
-             // Target phase
-             if (!path.empty() && path.back()->handle_event(event, cx)) {
+             // Capture phase
+             if (handle_capture_event(event, cx)) {
                  return true;
              }
 
-             // Bubble phase (target to root)
-             for (size_t i = path.size(); i-- > 0;) {
-                 if (path[i]->handle_bubble_event(event, cx)) {
-                     return true;
+             // Handle at current element
+             if (handle_event(event, cx)) {
+                 return true;
+             }
+
+             // For mouse events, only propagate to children that contain the point
+             if (auto* mouse_event = std::get_if<events::MouseButtonEvent>(&event)) {
+                 Point<float> point{mouse_event->position.width(), mouse_event->position.height()};
+
+                 // Check children in reverse (front to back) order
+                 for (auto it = children.rbegin(); it != children.rend(); ++it) {
+                     if ((*it)->get_bounds().contains(point)) {
+                         if ((*it)->propagate_event(event, cx)) {
+                             return true;
+                         }
+                         break; // Only propagate to first containing child
+                     }
+                 }
+             } else {
+                 // For non-mouse events, propagate to all children
+                 for (const auto& child : children) {
+                     if (child->propagate_event(event, cx)) {
+                         return true;
+                     }
                  }
              }
 
-             return handled;
+             // Bubble phase
+             if (auto parent_ptr = parent.lock()) {
+                 return parent_ptr->handle_bubble_event(event, cx);
+             }
+
+             return false;
          }
 
         void build_focus_path(const events::Event& event, std::vector<std::shared_ptr<Element>>& path) {

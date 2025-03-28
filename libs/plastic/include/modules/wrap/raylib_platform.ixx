@@ -362,122 +362,25 @@ export namespace plastic
             Platform::dispatch_event(event);
         }
 
-    private:
+    protected:
         void process_events() {
-            // Clear pending events
-            this->pending_events_.clear();
-
-            // Mouse position for event processing
-            Vector2 mouse_pos = GetMousePosition();
-            Point<float> mouse_point = Point{mouse_pos.x, mouse_pos.y};
-
-            // Process mouse button events
-            process_mouse_button(MOUSE_LEFT_BUTTON, events::MouseButton::MOUSE_LEFT_BUTTON, mouse_point);
-            process_mouse_button(MOUSE_RIGHT_BUTTON, events::MouseButton::MOUSE_RIGHT_BUTTON, mouse_point);
-            process_mouse_button(MOUSE_MIDDLE_BUTTON, events::MouseButton::MOUSE_MIDDLE_BUTTON, mouse_point);
-
-            // Process mouse movement
-            if (GetMouseDelta().x ==  Vector2{0, 0}.x && GetMouseDelta().y == Vector2{0, 0}.y) {
-                Vector2 delta = GetMouseDelta();
-                events::MouseMoveEvent event{
-                    mouse_point,
-                    Point<float>{delta.x, delta.y},
+            // Convert platform events to our event types
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                Vector2 pos = GetMousePosition();
+                event_handler_.queue_event(events::MouseButtonEvent{
+                    Size<float>{pos.x, pos.y},
+                    events::MouseButton::MOUSE_LEFT_BUTTON,
+                    true,
+                    IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT),
+                    IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL),
+                    IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT),
                     GetTime()
-                };
-                event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
+                });
             }
 
-            // Process mouse wheel
-            float wheel = GetMouseWheelMove();
-            if (wheel != 0.0f) {
-                events::MouseWheelEvent event{
-                    wheel,
-                    mouse_point,
-                    GetTime()
-                };
-                event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
-            }
+            // Process queued events
+            event_handler_.process_events();
 
-            // Process keyboard events
-            for (int key = KEY_SPACE; key <= KEY_KB_MENU; key++) {
-                if (IsKeyPressed(key)) {
-                    events::KeyPressEvent event{
-                        static_cast<events::KeyboardKey>(key),
-                        true,
-                        false,
-                        // Simplified key info, would need to be enhanced for full implementation
-                        0,
-                        GetTime(),
-                        IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT),
-                        IsKeyDown(KEY_CAPS_LOCK),
-                        IsKeyDown(KEY_NUM_LOCK),
-                        IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL),
-                        IsKeyDown(KEY_LEFT_SUPER) || IsKeyDown(KEY_RIGHT_SUPER),
-                        IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT)
-                    };
-                    event_dispatcher_.emit(event);
-                    pending_events_.push_back(event);
-                }
-                else if (IsKeyReleased(key)) {
-                    events::KeyPressEvent event{
-                        static_cast<events::KeyboardKey>(key),
-                        false,
-                        false,
-                        // Simplified key info
-                        0,
-                        GetTime(),
-                        IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT),
-                        IsKeyDown(KEY_CAPS_LOCK),
-                        IsKeyDown(KEY_NUM_LOCK),
-                        IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL),
-                        IsKeyDown(KEY_LEFT_SUPER) || IsKeyDown(KEY_RIGHT_SUPER),
-                        IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT)
-                    };
-                    event_dispatcher_.emit(event);
-                    pending_events_.push_back(event);
-                }
-            }
-
-            // Process text input
-            int key = GetCharPressed();
-            while (key > 0) {
-                char text[2] = {static_cast<char>(key), '\0'};
-                events::TextInputEvent event{text, GetTime()};
-                event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
-
-                key = GetCharPressed();  // Get the next character
-            }
-
-            // Process window events
-            if (IsWindowResized()) {
-                events::ResizeEvent event{
-                    Size<float>{
-                        static_cast<float>(GetScreenWidth()),
-                        static_cast<float>(GetScreenHeight())
-                    },
-                    GetTime()
-                };
-                event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
-            }
-
-            if (IsWindowFocused()) {
-                events::FocusEvent event{true, GetTime()};
-                event_dispatcher_.emit(event);
-                pending_events_.push_back(event);
-            }
-
-            if (WindowShouldClose()) {
-                events::WindowCloseEvent event{0, GetTime()};  // Using 0 as the default window ID
-                event_dispatcher_.emit(event);
-
-                for (auto& [id, context] : window_contexts_) {
-                    context->request_close();
-                }
-            }
         }
 
         void process_mouse_button(int raylib_button, events::MouseButton our_button, const Point<float>& position) {

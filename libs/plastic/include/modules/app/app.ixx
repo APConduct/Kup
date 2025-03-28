@@ -165,10 +165,61 @@ export namespace plastic
             return window;
         }
 
-        void run() const {
+        template<typename E>
+        void register_event_handler(std::function<void(const E&)> handler) {
+            if (platform_) {
+                platform_->register_event_handler<E>(std::move(handler));
+            }
+        }
+
+    protected:
+        std::function<void(const events::WindowCloseEvent&)> on_window_close_;
+        std::function<void(const events::KeyPressEvent&)> on_key_press_;
+
+    public:
+        void set_on_window_close(std::function<void(const events::WindowCloseEvent&)> handler) {
+            on_window_close_ = std::move(handler);
+        }
+
+        void set_on_key_press(std::function<void(const events::KeyPressEvent&)> handler) {
+            on_key_press_ = std::move(handler);
+        }
+
+        App& on_window_close(std::function<void(const events::WindowCloseEvent&)> handler) {
+            on_window_close_ = std::move(handler);
+            return *this;
+        }
+
+        App& on_key_press(std::function<void(const events::KeyPressEvent&)> handler) {
+            on_key_press_ = std::move(handler);
+            return *this;
+        }
+
+        void handle_window_close(const events::WindowCloseEvent& event) const {
+            if (on_window_close_) {
+                on_window_close_(event);
+            }
+        }
+
+        void handle_key_press(const events::KeyPressEvent& event) const {
+            if (on_key_press_) {
+                on_key_press_(event);
+            }
+        }
+
+        void run() {
             if (!init()) {
                 throw std::runtime_error("Failed to initialize application");
             }
+
+            // Register default handlers
+            register_event_handler<events::WindowCloseEvent>(
+                [this](const auto& e) { handle_window_close(e); });
+
+            register_event_handler<events::KeyPressEvent>(
+                [this](const auto& e) { handle_key_press(e); });
+
+
 
             while (window_manager_->has_windows()) {
                 // Process platform events
@@ -258,7 +309,7 @@ export namespace plastic
             return *this;
         }
 
-        int run_and_return() const {
+        int run_and_return() {
             if (!init()) {
                 return 1;
             }

@@ -2,7 +2,14 @@
 // Created by Aidan Jost on 2/14/25.
 //
 module;
-
+#include <memory>
+#include <unordered_map>
+#include <vector>
+#include <string>
+#include <typeindex>
+#include <queue>
+#include <mutex>
+#include <functional>
 #if defined(__APPLE__)
 #define PLASTIC_PLATFORM_MACOS (TARGET_OS_MAC && !TARGET_OS_IOS && !TARGET_OS_TV && !TARGET_OS_WATCH)
 #define PLASTIC_OS_NAME "macOS"
@@ -112,5 +119,56 @@ export namespace plastic
         virtual float get_primary_display_width() const = 0;
         virtual float get_primary_display_height() const = 0;
         virtual void dispatch_event(const events::Event& event) {};
+
+    protected:
+        class EventHandler {
+            std::unordered_map<std::type_index, std::vector<std::function<void(const events::Event&)>>> handlers_;
+            std::queue<events::Event> event_queue_;
+            std::mutex queue_mutex_;
+
+        public:
+            template<typename E>
+            void register_handler(std::function<void(const E&)> handler) {
+                std::lock_guard<std::mutex> lock(queue_mutex_);
+                handlers_[typeid(E)].push_back([handler](const events::Event& e) {
+                    if (auto* event = std::get_if<E>(&e)) {
+                        handler(*event);
+                    }
+                });
+            }
+
+            void queue_event(events::Event event) {
+                std::lock_guard<std::mutex> lock(queue_mutex_);
+                event_queue_.push(std::move(event));
+            }
+
+            void process_events() {
+                std::lock_guard<std::mutex> lock(queue_mutex_);
+                while (!event_queue_.empty()) {
+                    const auto& event = event_queue_.front();
+                    dispatch(event);
+                    event_queue_.pop();
+                }
+            }
+
+        protected:
+            void dispatch(const events::Event& event) {
+                auto it = handlers_.find(std::type_index(typeid(event.index())));
+                if (it != handlers_.end()) {
+                    for (const auto& handler : it->second) {
+                        handler(event);
+                    }
+                }
+            }
+        };
+
+        EventHandler event_handler_;
+
+    public:
+        template<typename E>
+        void register_event_handler(std::function<void(const E&)> handler) {
+            event_handler_.register_handler<E>(std::move(handler));
+        }
+
     };
 }

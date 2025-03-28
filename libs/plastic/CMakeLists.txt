@@ -128,7 +128,7 @@ target_sources(plastic
         include/modules/core/types/geometry/edge.ixx
         include/modules/types/style.ixx
         include/modules/core/types/model.ixx
-        include/modules/core/interfaces/element.ixx
+        include/modules/interfaces/element.ixx
         include/modules/core/interfaces/context.ixx
         include/modules/core/types/color.ixx
         include/modules/interfaces/view.ixx
@@ -245,6 +245,10 @@ target_sources(plastic
         include/modules/events/event_bus.ixx
         include/modules/events/event_delegate.ixx
         include/modules/events/event_throttler.ixx
+        include/modules/events/event_logger.ixx
+        include/modules/events/event_recorder.ixx
+        include/modules/layout/layout_constraint.ixx
+
 
 )
 
