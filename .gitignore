@@ -29,3 +29,5 @@ kbrainst
 /cmake-build-debug-msys2-ucrt/
 /build/
 /libs/plastic/src/gen/
+
+scraps.txt

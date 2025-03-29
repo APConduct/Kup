@@ -10,14 +10,25 @@ import plastic.state;
 export namespace plastic
 {
 
+    /// @brief The base class for components in the application.
+    /// @note This class is used to create components that can be mounted and unmounted in the application.
     struct Component {
+
+        /// @brief virtual destructor
         virtual ~Component() = default;
 
     protected:
 
+        /// @brief hook for when the component is mounted
         virtual void on_mount() {}
+
+        /// @brief hook for when the component is unmounted
         virtual void on_unmount() {}
+
+        /// @brief hook for when the component is updated
         virtual void on_update() {}
+
+        /// @brief hook for when the component is rendered
         virtual void on_props_changed() {}
 
 
