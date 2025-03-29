@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="k"
+                 name="kup" start-page="README.md">
+
+    <toc-element topic="README.md"/>
+    <toc-element toc-title="cmake-build-debug">
+        <toc-element toc-title="_deps">
+            <toc-element toc-title="sol2-src">
+                <toc-element topic="CONTRIBUTING.md"/>
+                <toc-element topic="sol2-src_CONTRIBUTORS.md"/>
+                <toc-element topic="sol2-src_README.md"/>
+                <toc-element toc-title=".github">
+                    <toc-element topic="ISSUE_TEMPLATE.md"/>
+                </toc-element>
+            </toc-element>
+            <toc-element toc-title="glfw-src">
+                <toc-element topic="CONTRIBUTORS.md"/>
+                <toc-element topic="glfw-src_README.md"/>
+                <toc-element topic="LICENSE.md"/>
+                <toc-element toc-title="docs">
+                    <toc-element topic="docs_CONTRIBUTING.md"/>
+                    <toc-element topic="SUPPORT.md"/>
+                </toc-element>
+            </toc-element>
+            <toc-element toc-title="freetype-src">
+                <toc-element toc-title="tests">
+                    <toc-element topic="tests_README.md"/>
+                </toc-element>
+                <toc-element toc-title="subprojects">
+                    <toc-element toc-title="dlg">
+                        <toc-element topic="dlg_README.md"/>
+                        <toc-element toc-title="docs">
+                            <toc-element topic="notes.md"/>
+                            <toc-element topic="todo.md"/>
+                            <toc-element topic="changelog.md"/>
+                            <toc-element topic="api.md"/>
+                        </toc-element>
+                    </toc-element>
+                </toc-element>
+            </toc-element>
+        </toc-element>
+    </toc-element>
+    <toc-element toc-title="Writerside">
+        <toc-element toc-title="topics">
+            <toc-element topic="topics_README.md"/>
+        </toc-element>
+    </toc-element>
+    <toc-element toc-title="ext">
+        <toc-element toc-title="raygui">
+            <toc-element topic="raygui_README.md"/>
+            <toc-element topic="HISTORY.md"/>
+            <toc-element toc-title="projects">
+                <toc-element toc-title="CMake">
+                    <toc-element topic="CMake_README.md"/>
+                </toc-element>
+            </toc-element>
+            <toc-element toc-title="styles">
+                <toc-element topic="styles_README.md"/>
+                <toc-element toc-title="cyber">
+                    <toc-element topic="cyber_README.md"/>
+                </toc-element>
+                <toc-element toc-title="sunny">
+                    <toc-element topic="sunny_README.md"/>
+                </toc-element>
+                <toc-element toc-title="ashes">
+                    <toc-element topic="ashes_README.md"/>
+                </toc-element>
+                <toc-element toc-title="terminal">
+                    <toc-element topic="terminal_README.md"/>
+                </toc-element>
+                <toc-element toc-title="default">
+                    <toc-element topic="default_README.md"/>
+                </toc-element>
+                <toc-element toc-title="cherry">
+                    <toc-element topic="cherry_README.md"/>
+                </toc-element>
+                <toc-element toc-title="amber">
+                    <toc-element topic="amber_README.md"/>
+                </toc-element>
+                <toc-element toc-title="lavanda">
+                    <toc-element topic="lavanda_README.md"/>
+                </toc-element>
+                <toc-element toc-title="jungle">
+                    <toc-element topic="jungle_README.md"/>
+                </toc-element>
+                <toc-element toc-title="enefete">
+                    <toc-element topic="enefete_README.md"/>
+                </toc-element>
+                <toc-element toc-title="dark">
+                    <toc-element topic="dark_README.md"/>
+                </toc-element>
+                <toc-element toc-title="bluish">
+                    <toc-element topic="bluish_README.md"/>
+                </toc-element>
+                <toc-element toc-title="candy">
+                    <toc-element topic="candy_README.md"/>
+                </toc-element>
+            </toc-element>
+        </toc-element>
+    </toc-element>
+    <toc-element toc-title="libs">
+        <toc-element toc-title="plastic">
+            <toc-element topic="plastic_README.md"/>
+            <toc-element toc-title="include">
+                <toc-element toc-title="modules">
+                    <toc-element toc-title="core">
+                        <toc-element topic="core_README.md"/>
+                    </toc-element>
+                </toc-element>
+            </toc-element>
+        </toc-element>
+    </toc-element>
+</instance-profile>
