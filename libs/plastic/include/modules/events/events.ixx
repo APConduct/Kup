@@ -17,16 +17,22 @@ export import plastic.window_events;
 export namespace plastic::events
 {
 
+    /// @brief Get the current timestamp in seconds
+    /// @return The current timestamp in seconds
+    /// @note This is a wrapper around GetTime() from raylib
+    /// @note This function is not thread-safe
     inline double get_current_timestamp() {
         return GetTime();
     }
 
+    /// @brief Mouse move event
     struct MouseMoveEvent {
         Point<float> position;
         Point<float> delta;
         double timestamp{};
     };
 
+    /// @brief Mouse button event
     struct MouseButtonEvent {
         Size<float> position;
         MouseButton button{};
@@ -37,6 +43,7 @@ export namespace plastic::events
         double timestamp{};
     };
 
+    /// @brief Mouse scroll event
     struct MouseScrollEvent {
         Size<float> position;
         Size<float> delta;

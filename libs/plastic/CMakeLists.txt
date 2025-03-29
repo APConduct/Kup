@@ -249,6 +249,7 @@ target_sources(plastic
         include/modules/events/event_recorder.ixx
         include/modules/layout/layout_constraint.ixx
         include/modules/resource_manager.ixx
+        include/modules/element_pool.ixx
 
 
 )
