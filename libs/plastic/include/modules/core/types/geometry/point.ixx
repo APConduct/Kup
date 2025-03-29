@@ -1,6 +1,8 @@
 //
 // Created by ajost1 on 1/28/2025.
 //
+/// @file point.ixx
+/// @brief geometric point type
 
 module;
 

@@ -1,12 +1,13 @@
 //
 // Created by Aidan Jost on 3/7/25.
 //
+/// @file text_selection.ixx
 
 module;
 #include <vector>
-#if defined(_WIN32)
+#include <string>
+#include <ranges>
 #include <algorithm>
-#endif
 export module plastic.text_selection;
 
 

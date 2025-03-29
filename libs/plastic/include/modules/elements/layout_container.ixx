@@ -1,6 +1,9 @@
 //
 // Created by ajost1 on 2/2/2025.
 //
+/// @file layout_container.ixx
+
+
 module;
 #include <memory>
 #include <raylib.h>
@@ -39,7 +42,7 @@ export namespace plastic
                 layout_->arrange(*this, bounds);
 
                 // Layout children
-                for (const auto& child : children) {
+                for (const auto& child : get_children()) {
                     child->layout(cx);
                 }
             }

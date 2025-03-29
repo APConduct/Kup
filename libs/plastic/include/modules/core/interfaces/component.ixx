@@ -1,6 +1,8 @@
 //
 // Created by ajost1 on 2/2/2025.
 //
+/// @file component.ixx
+/// @brief abstract component interface
 
 module;
 #include <functional>

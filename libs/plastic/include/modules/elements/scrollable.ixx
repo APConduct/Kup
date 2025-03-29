@@ -1,15 +1,15 @@
 //
 // Created by Aidan Jost on 3/7/25.
 //
+/// @file scrollable.ixx
+/// @brief Scrollable element type
 
 
 module;
 #include <memory>
 #include <algorithm>
 #include <functional>
-#if defined(_WIN32)
 #include <variant>
-#endif
 export module plastic.scrollable;
 
 import plastic.scrollable_base;

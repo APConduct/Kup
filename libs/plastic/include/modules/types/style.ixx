@@ -4,6 +4,8 @@
 
 module;
 #include <optional>
+#include <string>
+#include <functional>
 export module plastic.style;
 
 import plastic.point;

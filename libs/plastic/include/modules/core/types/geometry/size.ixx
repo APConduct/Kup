@@ -1,6 +1,9 @@
 //
 // Created by ajost1 on 1/28/2025.
 //
+/// @file size.ixx
+/// @brief geometric size type
+
 module;
 
 #include <type_traits>

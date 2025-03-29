@@ -1,15 +1,15 @@
 //
 // Created by Aidan Jost on 3/7/25.
 //
+/// @file virtual_list.ixx
+/// @brief Virtualized list element
 
 module;
 #include <vector>
 #include <functional>
-#if defined(_WIN32)
 #include <memory>
 #include <variant>
 #include <cmath>
-#endif
 export module plastic.virtual_list;
 
 import plastic.element;

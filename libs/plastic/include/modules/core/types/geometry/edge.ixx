@@ -1,6 +1,8 @@
 //
 // Created by ajost1 on 1/28/2025.
 //
+/// @file edge.ixx
+/// @brief geometric edge type
 
 export module plastic.edge;
 import plastic.point;

@@ -8,10 +8,8 @@ module;
 #include <vector>
 #include <any>
 #include <iostream>
-#if defined(_WIN32)
 #include <unordered_map>
 #include <variant>
-#endif
 export module plastic.element;
 
 import plastic.style;

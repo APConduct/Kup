@@ -1,6 +1,8 @@
 //
 // Created by Aidan Jost on 3/7/25.
 //
+/// @file basic_elements.ixx
+/// @brief Basic elements for the Plastic UI framework
 
 module;
 #include <string>

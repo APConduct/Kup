@@ -5,6 +5,8 @@ module;
 #include <memory>
 #include <string>
 #include <vector>
+#include <ranges>
+#include <algorithm>
 export module plastic.view;
 
 import plastic.element;

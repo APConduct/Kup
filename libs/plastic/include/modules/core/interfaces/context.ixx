@@ -1,9 +1,13 @@
 //
 // Created by ajost1 on 1/29/2025.
 //
+//// @file context.ixx
+/// @brief context interface
+
 module;
 export module plastic.context;
 import plastic.events;
+
 
 export namespace plastic
 {

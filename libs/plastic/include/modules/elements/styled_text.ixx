@@ -1,6 +1,8 @@
 //
 // Created by Aidan Jost on 3/13/25.
 //
+/// @file styled_text.ixx
+/// @brief Styled text element
 
 module;
 #include <memory>

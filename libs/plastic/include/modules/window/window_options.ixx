@@ -2,6 +2,7 @@
 // Created by Aidan Jost on 2/14/25.
 //
 module;
+#include <optional>
 #include <string>
 export module plastic.window_options;
 import plastic.size;

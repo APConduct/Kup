@@ -5,3 +5,4 @@ external/* linguist-vendored
 
 *.cpp linguist-language=C++
 *.hpp linguist-language=C++
+*.ixx linguist-language=C++

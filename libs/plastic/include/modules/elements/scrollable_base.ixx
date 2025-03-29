@@ -1,6 +1,8 @@
 //
 // Created by Aidan Jost on 3/7/25.
 //
+/// @file scrollable_base.ixx
+/// @brief Scrollable base class for scrollable elements
 
 module;
 #include <memory>

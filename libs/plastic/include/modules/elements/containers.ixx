@@ -1,6 +1,8 @@
 //
 // Created by Aidan Jost on 3/8/25.
 //
+/// @file containers.ixx
+/// @brief Container elements for the Plastic UI framework
 
 module;
 #include <memory>

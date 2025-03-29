@@ -3,6 +3,7 @@
 //
 
 module;
+#include <variant>
 #include <iostream>
 export module plastic.event_logger;
 import plastic.events;

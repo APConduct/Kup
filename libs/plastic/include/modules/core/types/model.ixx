@@ -1,6 +1,8 @@
 //
 // Created by ajost1 on 1/29/2025.
 //
+/// @file model.ixx
+/// @brief model type
 
 module;
 
