@@ -256,6 +256,9 @@ target_sources(plastic
         include/modules/error/error_handler.ixx
         include/modules/error/result.ixx
         include/modules/error/assert.ixx
+        include/modules/core/layout/base.ixx
+        include/modules/layout/builders/layout_builder.ixx
+
 
 )
 

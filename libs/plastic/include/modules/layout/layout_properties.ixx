@@ -41,10 +41,15 @@ export namespace plastic
         float flex_grow{0};
         // How much the element shrinks relative to siblings
         float flex_shrink{1};
+
+        float flex_basis{0}; // For flexbox layout
+
         Size<float> preferred_size{0,0};
         LayoutConstraints constraints;
         Edge<float> margin{0};
-        float padding{0};
+        Edge<float> padding{0};
+
+
 
         enum class Alignment {
             Start,
@@ -65,11 +70,11 @@ export namespace plastic
         }
 
         [[nodiscard]] float get_total_horizontal_space() const {
-            return margin.left + margin.right + padding * 2;
+            return margin.left + margin.right + padding.left + padding.right;
         }
 
         [[nodiscard]] float get_total_vertical_space() const {
-            return margin.top + margin.bottom + padding * 2;
+            return margin.top + margin.bottom + padding.top + padding.bottom;
         }
 
         bool operator==(const LayoutProperties& other) const {
@@ -101,7 +106,7 @@ export namespace plastic
         }
 
         LayoutProperties& with_padding(const float padding) {
-            this->padding = padding;
+            this->padding = Edge{padding, padding, padding, padding};
             return *this;
         }
 

@@ -22,8 +22,8 @@ export namespace plastic
             if (children.empty()) return;
 
             const auto& props = element.get_layout_properties();
-            float y = bounds.y() + props.padding;
-            float content_width = bounds.width() - (props.padding * 2);
+            float y = bounds.y() + props.padding.top;
+            float content_width = bounds.width() - (props.padding.left + props.padding.right);
 
             // Distribute elements vertically
             for (size_t i = 0; i < children.size(); ++i) {
@@ -32,7 +32,7 @@ export namespace plastic
 
                 // Position child
                 child->set_bounds(Rect<float>{
-                    bounds.x() + props.padding,
+                    bounds.x() + props.padding.left,
                     y,
                     content_width,
                     child_size.height()
