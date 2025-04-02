@@ -25,6 +25,10 @@ import plastic.font_registry;
 
 export namespace plastic
 {
+
+    /// @brief Basic text element
+    /// @tparam T The type of the text element
+    /// @note This element is used to display text on the screen
     class Text : public Element {
     private:
         std::string text_;
@@ -34,13 +38,21 @@ export namespace plastic
     
 
     public:
+
+        /// @brief Default constructor
         Text() = default;
 
+
+        /// @brief Constructor with text
+        /// @param text The text to display
+        /// @param font_size The font size of the text
+        /// @param color The color of the text
         explicit Text(std::string text, float font_size = 16.0f, Color color = Color::white())
     : text_(std::move(text)), font_size_(font_size), color_(color) {
             calculate_size();
         }
 
+        /// @brief Paints the text element on the screen
         void paint(Context* cx) const override {
             auto default_font = FontRegistry::get_global_default_font();
 
@@ -65,12 +77,15 @@ export namespace plastic
             }
         }
 
+        /// @brief Layout the text element
+        /// @param cx The context of the element
         void layout(Context* cx) override {
             if (!size_calculated_) {
                 calculate_size();
             }
         }
 
+        /// @brief Calculate the size of the text element
         void calculate_size() {
             auto default_font = FontRegistry::get_global_default_font();
 
@@ -86,6 +101,9 @@ export namespace plastic
             size_calculated_ = true;
         }
 
+        /// @brief Set the text of the element
+        /// @param text The text to display
+        /// @return A reference to the current instance of the Text element
         Text& with_text(std::string text) {
             if (text_ != text) {
                 text_ = std::move(text);
@@ -95,18 +113,26 @@ export namespace plastic
             return *this;
         }
 
+        /// @brief Set the font size of the element
+        /// @param size The font size of the text
+        /// @return A reference to the current instance of the Text element
         Text& with_font_size(float size) {
             font_size_ = size;
             invalidate();
             return *this;
         }
 
+        /// @brief Set the color of the element
+        /// @param color The color of the text
+        /// @return A reference to the current instance of the Text element
         Text& with_color(const Color& color) {
             color_ = color;
             invalidate();
             return *this;
         }
 
+        /// @brief get the preferred size of the text element
+        /// @return The preferred size of the text element
         [[nodiscard]] Size<float> get_preferred_size() const override {
             // Use cached size if available
             if (size_calculated_) {
@@ -127,6 +153,7 @@ export namespace plastic
 
     };
 
+    /// @brief Basic button element
     class Button : public Element {
     private:
         std::string text_;
