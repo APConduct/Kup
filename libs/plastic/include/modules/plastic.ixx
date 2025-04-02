@@ -47,3 +47,7 @@ export import plastic.elements.basic;
 export import plastic.elements.containers;
 export import plastic.elements.styled_text;
 export import plastic.flex_layout;
+export import plastic.error;
+export import plastic.error_handler;
+export import plastic.result;
+export import plastic.assert;
