@@ -51,5 +51,7 @@ export import plastic.error;
 export import plastic.error_handler;
 export import plastic.result;
 export import plastic.assert;
-export import plastic.layout.builders.layout_builder;
+export import plastic.layout.builders;
 export import plastic.core.layout.base;
+export import plastic.logger;
+export import plastic.resource_guard;

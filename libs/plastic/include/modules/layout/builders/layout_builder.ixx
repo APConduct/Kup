@@ -4,7 +4,7 @@
 
 module;
 #include <memory>
-export module plastic.layout.builders.layout_builder;
+export module plastic.layout.builders;
 
 import plastic.core.layout.base;
 import plastic.element;
@@ -16,7 +16,7 @@ export namespace plastic::layout
     template<typename Derived>
     class Builder {
     protected:
-        std::shared_ptr<Element> element_;
+        std::shared_ptr<Element> element_{};
         LayoutProperties layout_props_;
 
     public:
