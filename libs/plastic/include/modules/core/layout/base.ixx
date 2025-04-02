@@ -140,7 +140,7 @@ export namespace plastic::core::layout
         }
 
         Engine* get_layout(std::string_view name) {
-            auto it = layouts_.find(std::string(name));
+            const auto it = layouts_.find(std::string(name));
             return it == layouts_.end() ? nullptr : it->second.get();
         }
 
