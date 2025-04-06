@@ -151,5 +151,14 @@ public:
         };
     }
 
+    template<typename E>
+    void register_handler(const std::string& id, std::function<bool(const E&)> handler) {
+        handlers[std::type_index(typeid(E))].push_back(std::make_unique<TypedEventHandler<E>>(std::move(handler)));
+    }
+
+    void add_filter(std::function<bool(const events::Event&)> filter) {
+        filters.push_back(std::move(filter));
+    }
+
 };
 }

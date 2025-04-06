@@ -257,10 +257,8 @@ target_sources(plastic
         include/modules/error/result.ixx
         include/modules/error/assert.ixx
         include/modules/core/layout/base.ixx
-        include/modules/layout/builders/layout_builder.ixx
         include/modules/resource_guard.ixx
         include/modules/logger.ixx
-        include/modules/layout/builders/flex_builder.ixx
 
 
 )

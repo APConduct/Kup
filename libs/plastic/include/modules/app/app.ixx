@@ -260,21 +260,13 @@ export namespace plastic
                 throw std::runtime_error("Failed to initialize application");
             }
 
-            // Register default handlers
-            register_event_handler<events::WindowCloseEvent>(
-                [this](const auto& e) { handle_window_close(e); });
-
-            register_event_handler<events::KeyPressEvent>(
-                [this](const auto& e) { handle_key_press(e); });
-
-
 
             while (window_manager_->has_windows()) {
                 // Process platform events
                 platform_->update();
 
                 // Update all windows
-                window_manager_->for_each_window([](WindowBase& window) {
+                window_manager_->for_each_window([this](WindowBase& window) {
                     window.update();
                     window.render();
                 });

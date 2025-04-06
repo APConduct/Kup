@@ -16,8 +16,20 @@ import plastic.events;
 
 export namespace plastic
 {
+    enum class EventPriority {
+        Low,
+        Normal,
+        High
+    };
     struct EventQueue {
     private:
+
+        struct QueuedEvent {
+            events::Event event;
+            EventPriority priority;
+            std::chrono::steady_clock::time_point timestamp;
+        };
+
         std::deque<events::Event> queued_events;
         mutable std::mutex queue_mutex;
 
@@ -178,7 +190,20 @@ export namespace plastic
             }
 
             queued_events.push_back(std::move(event));
-        }    };
+        }
+
+        template<typename T>
+        void push_with_priority(T&& event, EventPriority priority) {
+            std::lock_guard lock(queue_mutex);
+            auto now = std::chrono::steady_clock::now();
+
+            auto it = std::find_if(queued_events.begin(), queued_events.end(),
+                [priority](const QueuedEvent& qe) {
+                    return qe.priority < priority;
+                });
+            queued_events.insert(it, QueuedEvent{events::Event{std::forward<T>(event)}, priority, now});
+        }
+    };
 
     template<typename T>
     constexpr  bool is_valid_entry_v = std::is_constructible_v<events::Event, T>;
