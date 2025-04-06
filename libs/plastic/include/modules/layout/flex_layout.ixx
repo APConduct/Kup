@@ -18,28 +18,7 @@ import plastic.rect;
 import plastic.size;
 
 export namespace plastic {
-    enum class FlexDirection {
-        Row,
-        Column,
-        RowReverse,
-        ColumnReverse
-    };
 
-    enum class FlexWrap {
-        NoWrap,
-        Wrap,
-        WrapReverse
-    };
-
-    enum class FlexAlign {
-        Start,
-        Center,
-        End,
-        SpaceBetween,
-        SpaceAround,
-        SpaceEvenly,
-        Stretch
-    };
 
     struct FlexLayoutProperties : LayoutProperties {
         FlexDirection direction{FlexDirection::Row};

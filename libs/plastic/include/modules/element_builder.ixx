@@ -33,10 +33,21 @@ export namespace plastic
     class ElementBuilder {
     protected:
         std::shared_ptr<ElementType> element_;
+        style::Style cached_style_{};
+        LayoutProperties cached_layout_props_{};
+        bool style_dirty_{false};
+        bool layout_dirty_{false};
 
     public:
         explicit ElementBuilder(std::shared_ptr<ElementType> element)
-            : element_(std::move(element)) {}
+            : element_(std::move(element)) {
+            if (element_) {
+                cached_style_ = element_->get_style();
+                cached_layout_props_ = element_->get_layout_properties();
+            }
+        }
+
+
 
         // Convert to the underlying element
         explicit operator std::shared_ptr<Element>() const {
@@ -44,8 +55,25 @@ export namespace plastic
         }
 
         std::shared_ptr<ElementType> build() const {
+            apply_cached_properties();
             return element_;
         }
+
+    protected:
+        void apply_cached_properties() {
+            if (element_) {
+                if (style_dirty_) {
+                    element_->set_style(cached_style_);
+                    style_dirty_ = false;
+                }
+                if (layout_dirty_) {
+                    element_->set_layout_properties(cached_layout_props_);
+                    layout_dirty_ = false;
+                }
+            }
+        }
+
+    public:
 
         // Access the derived class for method chaining
         Derived& derived() {
@@ -216,6 +244,45 @@ export namespace plastic
         Derived& on_click(const std::function<void()>& handler) {
             // Implementation would connect to the element's event system
             return derived();
+        }
+
+        template<typename Func>
+        Derived& modify_style(Func&& modifier) {
+            modifier(cached_style_);
+            style_dirty_ = true;
+            return derived();
+        }
+
+        template<typename Func>
+        Derived& modify_layout(Func&& modifier) {
+            modifier(cached_layout_props_);
+            layout_dirty_ = true;
+            return derived();
+        }
+
+        Derived& batch_style(std::function<void(style::Style&)> modifier) {
+            return modify_style(std::move(modifier));
+        }
+
+        Derived& batch_layout(std::function<void(LayoutProperties&)> modifier) {
+            return modify_layout(std::move(modifier));
+        }
+
+        Derived& centered() {
+            return modify_layout([](LayoutProperties& props) {
+                props.align_self = LayoutProperties::Alignment::Center;
+                props.justify_self = LayoutProperties::Alignment::Center;
+            });
+        }
+
+        Derived& card_style() {
+            return modify_style([](style::Style& style) {
+                style.background_color_normal = Colors::white();
+                style.corner_radius = 8.0f;
+                style.shadow_radius = 4.0f;
+                style.shadow_offset = Point(2.0f, 2.0f);
+                style.shadow_color = rgba(0x000000, 0.1f);
+            });
         }
     };
 

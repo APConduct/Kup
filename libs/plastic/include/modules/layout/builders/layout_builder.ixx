@@ -2,6 +2,10 @@
 // Created by Aidan Jost on 4/2/25.
 //
 
+/// @file layout_builder.ixx
+/// @brief Layout builder module for the Plastic UI framework
+/// @details This module provides a way to build layout elements with various properties and styles.
+
 module;
 #include <memory>
 
@@ -20,12 +24,18 @@ export namespace plastic
 {
     namespace element
     {
-        // Base builder with common layout and styling properties
+        /// @brief Base builder with common layout and styling properties
+        /// @tparam Derived The derived builder type
+        /// @tparam ElementType The type of element being built
+        /// @details This class provides a fluent interface for setting layout properties and styles.
         template<typename Derived, typename ElementType>
         class Builder {
         protected:
+            /// @brief Pointer to the element being built
             std::shared_ptr<ElementType> element_;
+            /// @brief Layout properties for the element
             LayoutProperties layout_props_;
+            /// @brief Style properties for the element
             style::Style style_;
 
         public:
@@ -124,9 +134,51 @@ export namespace plastic
 
     class FlexBuilder : public element::Builder<FlexBuilder, FlexBox> {
 
+    public:
+        explicit FlexBuilder() = default;
+
+        FlexBuilder& direction(FlexDirection direction) {
+            layout_props_.flex_direction_ = direction;
+            apply_layout_properties();
+            return *this;
+        }
+
+        FlexBuilder& align(FlexAlign align) {
+            layout_props_.align_items_ = align;
+            apply_layout_properties();
+            return *this;
+        }
+        FlexBuilder& justify(FlexAlign align) {
+            layout_props_.justify_content_ = align;
+            apply_layout_properties();
+            return *this;
+        }
+
+        FlexBuilder& gap(float gap) {
+            layout_props_.gap = gap;
+            apply_layout_properties();
+            return *this;
+        }
+
+        FlexBuilder& row() { return direction(FlexDirection::Row);}
+        FlexBuilder& column() { return direction(FlexDirection::Column);}
+        FlexBuilder& center() { return align(FlexAlign::Center).justify(FlexAlign::Center);}
+
+        FlexBuilder& add(std::shared_ptr<Element> child) {
+            element_->add_child(std::move(child));
+            return *this;
+        }
+
+        template<typename... Children>
+        FlexBuilder& children(Children&&... children) {
+            (element_->add_child(std::forward<Children>(children)), ...);
+            return *this;
+        }
+        
     };
+
     inline FlexBuilder flex() {
-        return {};
+        return FlexBuilder();
     }
 
 

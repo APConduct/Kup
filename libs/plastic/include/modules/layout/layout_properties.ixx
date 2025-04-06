@@ -11,6 +11,30 @@ import plastic.edge;
 
 export namespace plastic
 {
+
+    enum class FlexDirection {
+        Row,
+        Column,
+        RowReverse,
+        ColumnReverse
+    };
+
+    enum class FlexWrap {
+        NoWrap,
+        Wrap,
+        WrapReverse
+    };
+
+    enum class FlexAlign {
+        Start,
+        Center,
+        End,
+        SpaceBetween,
+        SpaceAround,
+        SpaceEvenly,
+        Stretch
+    };
+
     struct LayoutConstraints {
         Size<float> min_size{0,0};
         Size<float> max_size{FLT_MAX, FLT_MAX};
@@ -49,6 +73,12 @@ export namespace plastic
         Edge<float> margin{0};
         Edge<float> padding{0};
 
+        FlexDirection flex_direction_{FlexDirection::Row};
+        FlexAlign align_items_{FlexAlign::Start};
+        FlexAlign justify_content_{FlexAlign::Start};
+
+        float gap{};
+
 
 
         enum class Alignment {
@@ -59,6 +89,7 @@ export namespace plastic
         };
 
         Alignment align_self{Alignment::Start};
+        Alignment justify_self{Alignment::Start};
 
         bool fill_width{false};
         bool fill_height{false};

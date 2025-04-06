@@ -2,6 +2,9 @@
 // Created by Aidan Jost on 4/2/25.
 //
 
+/// @file assert.ixx
+/// @brief Assertion macros for the Plastic UI framework
+
 module;
 export module plastic.assert;
 

@@ -42,6 +42,9 @@ export namespace plastic::style
         std::optional<Color> text_outline_active;
         std::optional<Color> text_outline_disabled;
         std::optional<float> corner_radius;
+        std::optional<float> shadow_radius;
+        std::optional<Point<float>> shadow_offset;
+        std::optional<Color> shadow_color;
 
         std::optional<float> border_width;
         std::optional<float> border_height;
