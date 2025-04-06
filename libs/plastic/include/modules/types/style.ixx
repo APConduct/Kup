@@ -43,6 +43,9 @@ export namespace plastic::style
         std::optional<Color> text_outline_disabled;
         std::optional<float> corner_radius;
 
+        std::optional<float> border_width;
+        std::optional<float> border_height;
+
         Edge<float> padding{0,0,0,0};
         Edge<float> margin{0,0,0,0};
         std::optional<Size<float>> preferred_size;

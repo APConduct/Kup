@@ -4,91 +4,132 @@
 
 module;
 #include <memory>
+
 export module plastic.layout.builders;
 
-import plastic.core.layout.base;
 import plastic.element;
-import plastic.layout_properties; // For EdgeInsets
+import plastic.layout_properties;
+import plastic.flex_layout;
 import plastic.edge;
+import plastic.color;
+import plastic.style;
+import plastic.elements.containers;
+import plastic.size;
 
-export namespace plastic::layout
+export namespace plastic
 {
-    template<typename Derived>
-    class Builder {
-    protected:
-        std::shared_ptr<Element> element_{};
-        LayoutProperties layout_props_;
+    namespace element
+    {
+        // Base builder with common layout and styling properties
+        template<typename Derived, typename ElementType>
+        class Builder {
+        protected:
+            std::shared_ptr<ElementType> element_;
+            LayoutProperties layout_props_;
+            style::Style style_;
 
-    public:
-        explicit Builder(const std::shared_ptr<Element>& element)
-            : element_(element){}
+        public:
+            Builder() = default;
+            explicit Builder(std::shared_ptr<ElementType> element)
+                : element_(std::move(element)) {}
 
-        // Layout configuration
-
-        // Comon layout properties
-        Derived& with_padding(const Edge<float>& padding) {
-            layout_props_.padding = padding;
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            // Layout properties
+            Derived& with_padding(float padding) {
+                layout_props_.padding = Edge(padding);
+                apply_layout_properties();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        Derived& with_padding(float padding) {
-            layout_props_.padding = Edge{padding, padding, padding, padding};
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& with_padding(const Edge<float>& padding) {
+                layout_props_.padding = padding;
+                apply_layout_properties();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        Derived& with_margin(float margin) {
-            layout_props_.margin = Edge{margin, margin, margin, margin};
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& with_margin(float margin) {
+                layout_props_.margin = Edge(margin);
+                apply_layout_properties();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        Derived& with_margin(const Edge<float>& margin) {
-            layout_props_.margin = margin;
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& with_margin(const Edge<float>& margin) {
+                layout_props_.margin = margin;
+                apply_layout_properties();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        Derived& with_flex_grow(float grow) {
-            layout_props_.flex_grow = grow;
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& with_flex_grow(float grow = 1.0f) {
+                layout_props_.flex_grow = grow;
+                apply_layout_properties();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        Derived& with_flex_shrink(float shrink) {
-            layout_props_.flex_shrink = shrink;
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& bg(const Color& color) {
+                style_.background_color_normal = color;
+                apply_style();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        Derived& with_flex_bases(float basis) {
-            layout_props_.flex_basis = basis;
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& with_border(float width, const Color& color) {
+                style_.border_width = width;
+                style_.border = color;
+                apply_style();
+                return derived();
             }
-            return static_cast<Derived&>(*this);
-        }
 
-        /// @brief Build the configured element
-        std::shared_ptr<Element> build() {
-            // Ensure final layout properties are applied
-            if (element_) {
-                element_->set_layout_properties(layout_props_);
+            Derived& with_corner_radius(float radius) {
+                style_.corner_radius = radius;
+                apply_style();
+                return derived();
             }
-            return element_;
-        }
+
+            // Size cons`
+            Derived& with_size(float width, float height) {
+                layout_props_.preferred_size = Size<float>(width, height);
+                apply_layout_properties();
+                return derived();
+            }
+
+            // Build method
+            std::shared_ptr<ElementType> build() {
+                // Final application of properties
+                apply_layout_properties();
+                apply_style();
+                return element_;
+            }
+
+        protected:
+            // Helper to access derived class
+            Derived& derived() {
+                return static_cast<Derived&>(*this);
+            }
+
+            void apply_layout_properties() {
+                if (element_) {
+                    element_->set_layout_properties(layout_props_);
+                }
+            }
+
+            void apply_style() {
+                if (element_) {
+                    element_->set_style(style_);
+                }
+            }
+
+
+
+        };
+    }
+
+
+    class FlexBuilder : public element::Builder<FlexBuilder, FlexBox> {
+
     };
+    inline FlexBuilder flex() {
+        return {};
+    }
+
+
+
+
 }
