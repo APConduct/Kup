@@ -9,8 +9,6 @@ export import plastic.event_queue;
 export import plastic.events;
 export import plastic.typed_event_handler;
 export import plastic.event_base;
-export import plastic.event_listener;
-export import plastic.event_batcher;
 export import plastic.event_visitor;
 
 #ifdef PLASTIC_DEBUG

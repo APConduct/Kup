@@ -36,7 +36,6 @@ export import plastic.theme;
 export import plastic.text.fmt;
 export import plastic.rich_text;
 export import plastic.object_pool;
-export import plastic.event_deligation;
 export import plastic.ui;
 export import plastic.view_context;
 export import plastic.components;

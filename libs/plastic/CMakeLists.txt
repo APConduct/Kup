@@ -149,9 +149,6 @@ target_sources(plastic
         include/modules/events/event_queue.ixx
         include/modules/events/event_dispatcher.ixx
         include/modules/events/event_visitor.ixx
-        include/modules/events/event_listener.ixx
-        include/modules/events/event_batcher.ixx
-        include/modules/events/single_event_listener.ixx
         include/modules/events/event_system.ixx
         include/modules/layout/vertical_layout.ixx
         include/modules/layout/layout_properties.ixx
@@ -176,7 +173,6 @@ target_sources(plastic
         include/modules/audio/audio.ixx
         include/modules/layout/grid_layout.ixx
         include/modules/core/interfaces/command.ixx
-        include/modules/events/event_delegation.ixx
         include/modules/animation/animation.ixx
         include/modules/util/component_registry.ixx
         include/modules/core/util/object_pool.ixx
@@ -190,7 +186,6 @@ target_sources(plastic
         include/modules/fs/filesystem.ixx
         include/modules/util/history.ixx
         include/modules/interfaces/plugin.ixx
-        include/modules/events/event_broadcast.ixx
         include/modules/util/component_system.ixx
         include/modules/layout/flex_layout.ixx
         include/modules/router.ixx
@@ -244,7 +239,6 @@ target_sources(plastic
         include/modules/types/constrain_anchor.ixx
         include/modules/interfaces/constraint.ixx
         include/modules/events/event_bus.ixx
-        include/modules/events/event_delegate.ixx
         include/modules/events/event_throttler.ixx
         include/modules/events/event_logger.ixx
         include/modules/events/event_recorder.ixx
