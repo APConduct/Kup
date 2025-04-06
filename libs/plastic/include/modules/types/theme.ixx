@@ -16,7 +16,7 @@ import plastic.color;
 
 export namespace plastic
 {
-    struct Theme {
+    struct Theme : std::enable_shared_from_this<Theme> {
         std::string name;
         style::Style base_style;
         style::Style button_style;
@@ -75,16 +75,16 @@ export namespace plastic
     };
 
     class ThemeManager {
-        static inline Theme current_theme_ { Theme::dark_theme()};
+        static inline std::shared_ptr<Theme> current_theme_ = std::make_shared<Theme>(Theme::dark_theme());
         static inline std::vector<std::function<void(const Theme&)>> observers_;
 
     public:
         static Theme current_theme() {
-            return current_theme_;
+            return *current_theme_;
         }
 
         static void set_theme(const Theme& theme) {
-            current_theme_ = theme;
+            current_theme_ = std::make_shared<Theme>(theme);
             notify_observers();
         }
 
@@ -94,7 +94,7 @@ export namespace plastic
 
         static inline void notify_observers() {
             for (const auto& observer : observers_) {
-                observer(current_theme_);
+                observer(*current_theme_);
             }
         }
     };

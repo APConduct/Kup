@@ -2,10 +2,13 @@
 // Created by Aidan Jost on 2/15/25.
 //
 
+module;
+#include <memory>
 export module plastic.window_base;
 import plastic.context;
 import plastic.window_options;
 import plastic.size;
+import plastic.theme;
 
 export namespace plastic
 {
@@ -23,6 +26,7 @@ export namespace plastic
         virtual void handle_resize( Size<float>& size) = 0;
         virtual void set_input_enabled(bool enabled) = 0;
         virtual void set_focused(bool focused) = 0;
+        virtual void set_theme(std::shared_ptr<Theme> theme) = 0;
 
     };
 }

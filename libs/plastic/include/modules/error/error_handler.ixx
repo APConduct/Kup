@@ -91,5 +91,22 @@ export namespace plastic::error
             std::queue<Error>().swap(error_queue_);
         }
 
+
     };
+
+    template<typename F>
+    auto with_error_boundary(F&& f) {
+        try {
+            return f();
+        } catch (const std::exception& e) {
+            Handler::handle(Error(
+                Code::Unknown,
+                Severity::Error,
+                Category::General,
+                e.what()
+            ));
+            return std::remove_reference_t<decltype(f())>();
+        }
+    }
+
 }

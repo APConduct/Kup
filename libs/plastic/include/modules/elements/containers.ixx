@@ -117,8 +117,16 @@ export namespace plastic
 
     // Vertical container
     class VStack : public LayoutContainer {
+        std::shared_ptr<style::Style> style_;
     public:
         VStack() : LayoutContainer(std::make_unique<VerticalLayout>()) {}
+
+        VStack& with_style(const style::Style& style) {
+            style_ = std::make_shared<style::Style>(style);
+            set_style(*style_);
+            return *this;
+        }
+
 
         template<typename... Children>
         static std::shared_ptr<VStack> create(Children... children) {

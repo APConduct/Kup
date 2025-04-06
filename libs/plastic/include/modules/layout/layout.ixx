@@ -11,6 +11,7 @@ import plastic.size;
 import plastic.layout_properties;
 import plastic.element;
 
+
 export namespace plastic
 {
 
@@ -21,4 +22,5 @@ export namespace plastic
         [[nodiscard]] virtual Size<float> measure(const Element& element) = 0;
 
     };
+
 }

@@ -24,6 +24,7 @@ import plastic.window_base;
 import plastic.context;
 import plastic.events;
 import plastic.color;
+import plastic.theme;
 
 
 export namespace plastic
@@ -38,6 +39,9 @@ export namespace plastic
         std::shared_ptr<plastic::context::WindowContext> context_{};
         Size<float> size{0,0};
         window::WindowOptions options_;
+        std::shared_ptr<Theme> theme_{std::make_shared<Theme>(Theme::dark_theme())};
+        std::shared_ptr<Theme> default_theme_{std::make_shared<Theme>(Theme::dark_theme())};
+
 
         std::string title_;
 
@@ -52,6 +56,11 @@ export namespace plastic
 
 
     public:
+
+        void set_theme(std::shared_ptr<Theme> theme) override {
+            theme_ = theme;
+
+        };
 
         void set_focused(bool focused) override {
         };

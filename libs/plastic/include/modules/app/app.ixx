@@ -27,6 +27,8 @@ import plastic.view_wrapper;
 import plastic.rect;
 import plastic.window_options;
 import plastic.event_bus;
+import plastic.theme;
+import plastic.font_registry;
 
 export namespace plastic
 {
@@ -40,8 +42,12 @@ export namespace plastic
         std::shared_ptr<Application> app_;
         bool initialized_ = false;
         std::shared_ptr<EventBus> event_bus_;
+        Theme theme_;
+
 
     public:
+
+
         virtual ~App() = default;
         template<typename F>
         auto run(F&& f) -> decltype(f(*app_->app_context_)) {
@@ -50,6 +56,13 @@ export namespace plastic
 
         std::shared_ptr<EventBus> events() {
             return event_bus_;
+        }
+
+        void set_theme(std::shared_ptr<Theme> theme) {
+            this->theme_ = *theme;
+            if (auto window = window_manager_->get_window(0)) {
+                window->set_theme(theme);
+            }
         }
 
         template<typename F>
@@ -64,6 +77,19 @@ export namespace plastic
             // Run the app
             run();
             return 0;
+        }
+
+        App& with_theme(std::shared_ptr<Theme> theme) {
+            this->theme_ = *theme;
+            if (auto window = window_manager_->get_window(0)) {
+                window->set_theme(theme);
+            }
+            return *this;
+        }
+
+        App& with_default_font(const std::string& family) {
+            FontRegistry::set_global_default_font(get_font(family));
+            return *this;
         }
 
         template<typename ViewType, typename... Args>
@@ -126,7 +152,7 @@ export namespace plastic
 #endif
 
             // Window events - use the template parameter explicitly
-            event_bus_->template subscribe<events::WindowCloseEvent>(
+            event_bus_->subscribe<events::WindowCloseEvent>(
                 [this](const events::WindowCloseEvent& event) {
                     if (auto window = window_manager_->get_window(event.window_id)) {
                         window->request_close();
@@ -134,7 +160,7 @@ export namespace plastic
                 });
 
             // Platform events - use the template parameter explicitly
-            event_bus_->template subscribe<events::WindowResizeEvent>(
+            event_bus_->subscribe<events::WindowResizeEvent>(
                 [this](const events::WindowResizeEvent& event) {
                     if (auto window = window_manager_->get_window(0)) {
                         window->handle_resize(event.size);
@@ -142,7 +168,7 @@ export namespace plastic
                 });
 
             // Input events - use the template parameter explicitly
-            event_bus_->template subscribe_to_channel<events::KeyPressEvent>(
+            event_bus_->subscribe_to_channel<events::KeyPressEvent>(
                 "input",
                 [this](const events::KeyPressEvent& event) {
                     if (event.pressed && event.ctrl.value_or(false)) {
@@ -192,6 +218,12 @@ export namespace plastic
 
 
             return true;
+        }
+
+        static App create_simple(const std::string& title) {
+            return App(title)
+                .with_theme(std::make_shared<Theme>(Theme::dark_theme()))
+                .with_default_font("Rubik");
         }
 
         // Create and show the main window with a root view

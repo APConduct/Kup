@@ -22,6 +22,7 @@ import plastic.events;
 import plastic.size;
 import plastic.point;
 import plastic.font_registry;
+import plastic.style;
 
 export namespace plastic
 {
@@ -168,6 +169,8 @@ export namespace plastic
         bool is_pressed_{false};
         std::function<void()> on_click_;
 
+        std::shared_ptr<style::Style> style_{std::make_shared<style::Style>()};
+
 
     public:
         Button() : Button("Button") {};
@@ -296,6 +299,12 @@ export namespace plastic
             return *this;
         }
 
+        Button& with_style(const style::Style& style) {
+            style_ = std::make_shared<style::Style>(style);
+            invalidate();
+            return *this;
+        }
+
         Button& with_padding(float padding) {
             padding_ = padding;
             invalidate();
@@ -310,6 +319,8 @@ export namespace plastic
                 text_size.y + padding_ * 2
             };
         };
+
+
 
     };
 

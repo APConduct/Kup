@@ -302,76 +302,40 @@ export namespace plastic::ui
         return container;
     }
 
+    // Pre-styled button variants
+    inline auto primary_button(const std::string& label, std::function<void()> on_click) {
+        return button(std::move(label), std::move(on_click))
+            ->with_style(style::Style()
+                .bg(colors::primary)
+                .with_padding(8));
+    }
+
+    // Layout helpers
+    inline auto card_container(std::shared_ptr<Element> content) {
+        return std::move(v_stack(16,
+                                 std::move(content))
+            ->with_style(style::Style()
+                         .bg(colors::surface)
+                         .with_corner_radius(8)
+                         .with_padding(16)));
+    }
+
 
 }
 
-// export namespace plstc
-// {
-//     auto text(std::string content, float size = 16.0f, plastic::Color color = plastic::Color::white()) {
-//         return plastic::ui::text(std::move(content), size, color);
-//     };
-//
-//     auto button(std::string label, std::function<void()> on_click = nullptr) {
-//         return plastic::ui::button(std::move(label), std::move(on_click));
-//     };
-//
-//     auto textfield(std::string placeholder, std::string initial_value = "") {
-//         return plastic::ui::textfield(std::move(placeholder), std::move(initial_value));
-//     };
-//
-//     auto checkbox(std::string label, bool checked = false) {
-//         return plastic::ui::checkbox(std::move(label), checked);
-//     };
-//
-//     auto spacer(float width = 0, float height = 0) {
-//         return plastic::ui::spacer(width, height);
-//     };
-//
-//     auto v_stack(float spacing, auto... children) {
-//         return plastic::ui::v_stack(spacing, children...);
-//     };
-//
-//     auto h_stack(float spacing, auto... children) {
-//         return plastic::ui::h_stack(spacing, children...);
-//     };
-//
-//     auto flex(auto... children) {
-//         return plastic::ui::flex(children...);
-//     };
-//
-//     auto center(auto child) {
-//         return plastic::ui::center(child);
-//     };
-//
-//     auto padding(auto child, float padding) {
-//         return plastic::ui::padding(child, padding);
-//     };
-//
-//     auto bg(auto child, plastic::Color color) {
-//         return plastic::ui::bg(child, color);
-//     };
-//
-//     auto text_color(auto child, plastic::Color color) {
-//         return plastic::ui::text_color(child, color);
-//     };
-//
-//     auto with_style(auto element, const plastic::style::Style& style) {
-//         return plastic::ui::with_style(element, style);
-//     };
-//
-//     auto with_flex_grow(auto element, float flex_grow = 1.0f) {
-//         return plastic::ui::with_flex_grow(element, flex_grow);
-//     };
-//
-//     auto with_margin(auto element, float margin) {
-//         return plastic::ui::with_margin(element, margin);
-//     };
-//
-//     auto with_padding(auto element, float padding) {
-//         return plastic::ui::with_padding(element, padding);
-//     };
-//
-//     auto with_align_self(auto element, plastic::LayoutProperties::Alignment align) {
-//         return plastic::ui::with_align_self(element, align);
-//     };
-// }
+export namespace plastic::layout
+{
+    inline auto centered_column() {
+        return std::move(std::make_shared<FlexBox>()
+                         ->with_direction(FlexDirection::Column)
+                         .with_align_items(FlexAlign::Center)
+                         .with_justify_content(FlexAlign::Center));
+    }
+
+    inline auto form_layout() {
+        return std::move(std::make_shared<FlexBox>()
+                         ->with_direction(FlexDirection::Column)
+                         .with_gap(12));
+    }
+
+}
