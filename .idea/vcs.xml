@@ -2,6 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug-llvm/_deps/freetype-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug-llvm/_deps/freetype-src/subprojects/dlg" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug-llvm/_deps/glfw-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug-llvm/_deps/sol2-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/luajit/luaJIT" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ext/tinyfd/tinyfd" vcs="Git" />
   </component>

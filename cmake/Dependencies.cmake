@@ -8,7 +8,7 @@ set(RAYGUI_VERSION 4.0)
 #set(LUA_VERSION 5.1)
 set(LUAJIT_VERSION 2.1)
 set(GLFW_VERSION 3.3.8)
-set(FREETYPE_VERSION 2.13.0)
+set(FREETYPE_VERSION 2.13.2)
 set(sol2_VERSION 3.2.2)
 
 include(FetchContent)
