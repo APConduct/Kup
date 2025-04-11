@@ -1,6 +1,5 @@
-//
-// Created by Aidan Jost on 3/21/25.
-//
+/// @file piece_table.ixx
+/// @brief Piece Table implementation for keditor
 
 module;
 #include <stack>
