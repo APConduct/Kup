@@ -106,5 +106,17 @@ export namespace plastic
             }
 
         };
+
+        void begin_batch() {
+            // Clear both stacks to start a new batch
+            while (!undo_stack.empty()) {
+                undo_stack.pop();
+            }
+            while (!redo_stack.empty()) {
+                redo_stack.pop();
+            }
+        };
+
+
     };
 }

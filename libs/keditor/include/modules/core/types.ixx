@@ -32,8 +32,13 @@ export namespace keditor
         /// @brief Default constructor
         Position() = default;
         /// @brief Constructor with index, line, and column
+        Position(Index idx, Line line, Column col)
+            : index_(idx), line_(line), col_(col) {}
+
+        /// @brief Constructor with index, line, and column using rvalue references
         Position(Index idx, Line&& line, Column&& col)
             : index_(idx), line_(line), col_(col) {}
+
 
         /// @brief Getter for index
         [[nodiscard]] Index index() const { return index_; }
