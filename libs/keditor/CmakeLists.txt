@@ -3,8 +3,8 @@ project(keditor)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(keditor STATIC
-)
+add_library(keditor STATIC)
+
 target_sources(keditor
         PUBLIC
         FILE_SET CXX_MODULES
@@ -15,8 +15,7 @@ target_sources(keditor
         include/modules/buffer/piece_table.ixx
         include/modules/buffer/buffer.ixx
         include/modules/keditor.ixx
-
-
+        include/modules/buffer/buffer_traits.ixx
 )
 
 target_link_libraries(keditor PUBLIC plastic )
