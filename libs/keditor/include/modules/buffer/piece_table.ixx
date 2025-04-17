@@ -206,6 +206,9 @@ export namespace keditor::piece
         LineCache line_cache_; ///< Cache for line-related information.
 
     public:
+
+
+
         /// @return The original text buffer.
         [[nodiscard]] string_type original_buffer() const { return original_buffer_; }
 

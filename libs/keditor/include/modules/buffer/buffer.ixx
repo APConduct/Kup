@@ -30,13 +30,13 @@ export namespace keditor
         private:
             keditor::piece::Table<char> buffer_;
 
-            Position cursor_;
-            Selection selection_;
+            Position cursor_{};
+            Selection selection_{};
 
             std::size_t composition_timeout_ms_{500};
 
             struct CompositionState {
-                string_type buffer_;
+                string_type buffer_{};
                 bool is_active_{false};
                 float timer{0.0f};
                 size_t delete_counter_{0};
@@ -62,15 +62,15 @@ export namespace keditor
                 float line_height_{0.0f};
                 float char_width_{0.0f};
 
-                plastic::Size<float> viewport_size_;
-                plastic::Size<float> content_size_;
+                plastic::Size<float> viewport_size_{};
+                plastic::Size<float> content_size_{};
 
                 plastic::Animation<float> scroll_x_animation_{0,0,0.3f, [](float){}};
                 plastic::Animation<float> scroll_y_animation_{0,0,0.3f, [](float){}};
 
             } visual_;
 
-            std::shared_ptr<plastic::Font> font_;
+            std::shared_ptr<plastic::Font> font_{};
             struct TextStyle {
                 plastic::Color text_color_{plastic::Color::white()};
                 plastic::Color selection_color_{plastic::Color::rgba(66, 133,244,128)};
@@ -82,9 +82,9 @@ export namespace keditor
 
             struct LineCache {
                 struct Line {
-                    string_type text_;
-                    plastic::Point<float> position_;
-                    plastic::Size<float> size_;
+                    string_type text_{};
+                    plastic::Point<float> position_{};
+                    plastic::Size<float> size_{};
                     bool is_dirty_{true};
                 };
                 std::vector<Line> lines_;
@@ -739,10 +739,10 @@ export namespace keditor
                     draw_selection_line(start.line(), start.col(), end.col());
                     return;
                 }
-                draw_selection_line(start.line(), start.col(), Index(-1));
+                draw_selection_line(start.line(), start.col(), static_cast<Index>(-1));
 
                 for (Line line = start.line() + 1; line < end.line(); ++line) {
-                    draw_selection_line(line, 0, Index(-1));
+                    draw_selection_line(line, 0, static_cast<Index>(-1));
                 }
 
                 // Draw the last line (partially)
@@ -754,7 +754,7 @@ export namespace keditor
                 }
                 const auto& line_data = line_cache_.lines_[line];
                 string_type line_text = line_data.text_;
-                if (end_col == Index(-1)) {
+                if (end_col == static_cast<Column>(-1)) {
                     end_col = line_text.length();
                 }
 
