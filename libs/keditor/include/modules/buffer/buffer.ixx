@@ -29,11 +29,10 @@ export namespace keditor
 
         private:
             keditor::piece::Table<char> buffer_;
-
             Position cursor_{};
             Selection selection_{};
-
             std::size_t composition_timeout_ms_{500};
+            std::shared_ptr<plastic::Font> font_{};
 
             struct CompositionState {
                 string_type buffer_{};
@@ -70,7 +69,6 @@ export namespace keditor
 
             } visual_;
 
-            std::shared_ptr<plastic::Font> font_{};
             struct TextStyle {
                 plastic::Color text_color_{plastic::Color::white()};
                 plastic::Color selection_color_{plastic::Color::rgba(66, 133,244,128)};
@@ -102,32 +100,6 @@ export namespace keditor
             std::function<void()> on_cursor_moved_;
             std::function<void()> on_selection_changed_;
 
-        public:
-            explicit Buffer(string_type initial = {}) : buffer_(std::move(initial)) {
-                font_ = plastic::font::get_default();
-                update_line_cache();
-            }
-
-            void layout(plastic::Context* cx) override {
-                if (line_cache_.is_dirty_) {
-                    update_line_cache();
-                }
-
-                visual_.content_size_ = calc_content_size();
-
-                visual_.viewport_size_ = plastic::Size<float>{bounds.width(), bounds.height()};
-
-                if (font_) {
-                    // Measure "M" for approximating character width
-                    auto m_size = font_->measure_text(Traits::to_string("M"), style_.font_size_,
-                                                       style_.letter_spacing_);
-                    visual_.char_width_ = m_size.width();
-
-                    visual_.line_height_ = m_size.height() * style_.line_height_factor_;
-                }
-            }
-
-        protected:
             template <typename StringT>
             std::string utf8_display(const StringT& text) {
                 if constexpr (std::is_same_v<typename StringT::value_type, char>) {
@@ -153,6 +125,29 @@ export namespace keditor
             }
 
         public:
+            explicit Buffer(string_type initial = {}) : buffer_(std::move(initial)) {
+                font_ = plastic::font::get_default();
+                update_line_cache();
+            }
+
+            void layout(plastic::Context* cx) override {
+                if (line_cache_.is_dirty_) {
+                    update_line_cache();
+                }
+
+                visual_.content_size_ = calc_content_size();
+
+                visual_.viewport_size_ = plastic::Size<float>{bounds.width(), bounds.height()};
+
+                if (font_) {
+                    // Measure "M" for approximating character width
+                    auto m_size = font_->measure_text(Traits::to_string("M"), style_.font_size_,
+                                                       style_.letter_spacing_);
+                    visual_.char_width_ = m_size.width();
+
+                    visual_.line_height_ = m_size.height() * style_.line_height_factor_;
+                }
+            }
 
             void paint(plastic::Context* cx) const override {
                 BeginScissorMode(
@@ -354,6 +349,7 @@ export namespace keditor
                     invalidate();
                 }
             }
+
         protected:
             bool handle_event_impl(const plastic::events::KeyPressEvent& event, plastic::Context* cx) {
                 if (event.pressed) {
@@ -748,6 +744,7 @@ export namespace keditor
                 // Draw the last line (partially)
                 draw_selection_line(end.line(), 0, end.col());
             }
+
             void draw_selection_line(Line line, Column start_col, Column end_col) const {
                 if (line >= line_cache_.lines_.size()) {
                     return;
