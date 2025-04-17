@@ -21,32 +21,6 @@ import plastic.command;
 export namespace plastic
 {
 
-    class BatchCommand : public Command {
-    private:
-        std::vector<std::unique_ptr<Command>> commands_;
-        std::string batch_name_;
-
-    public:
-        explicit BatchCommand(std::vector<std::unique_ptr<Command>> commands, std::string name = "Batch")
-            : commands_(std::move(commands)), batch_name_(std::move(name)) {}
-
-        void execute() override {
-            for (auto& cmd : commands_) {
-                cmd->execute();
-            }
-        }
-
-        void undo() override {
-            // Undo in reverse order
-            for (auto & command : std::ranges::reverse_view(commands_)) {
-                command->undo();
-            }
-        }
-
-        [[nodiscard]] std::string name() const override {
-            return batch_name_;
-        }
-    };
 
     class HistoryManager {
     private:

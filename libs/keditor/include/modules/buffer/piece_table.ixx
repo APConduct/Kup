@@ -246,7 +246,7 @@ export namespace keditor::piece
         /// @param manager The command manager.
         /// @return Reference to the current Table object.
         Table& command_manager(plastic::CommandManager& manager) {
-            command_manager_ = manager;
+            command_manager_ = std::move(manager);
             return *this;
         }
 
