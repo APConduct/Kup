@@ -13,7 +13,9 @@ export namespace keditor
 {
 
     namespace utf8_helpers {
-        // Check if a byte is a UTF-8 continuation byte
+        /// @brief Check if a byte is a UTF-8 continuation byte
+        /// @param c Character to check
+        /// @return true if the byte is a continuation byte, false otherwise
         inline bool is_continuation(char8_t c) {
             return (c & 0xC0) == 0x80; // 10xxxxxx pattern
         }
@@ -33,6 +35,8 @@ export namespace keditor
             using string_type = std::basic_string<CharT>;
 
             /// @brief Check if character is a newline
+            /// @param c Character to check
+            /// @return true if character is a newline, false otherwise
             static bool is_newline(char_type c) {
                 return c == '\n';
             }
@@ -142,7 +146,6 @@ export namespace keditor
             /// @brief Get the width of a UTF-8 character
             /// @param c Character to check
             /// @return Width of the character
-
             static Index char_width(char8_t c) {
                 // More accurate detection of UTF-8 sequence length
                 if ((c & 0x80) == 0) return 1;     // 0xxxxxxx - 1 byte (ASCII)

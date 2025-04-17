@@ -588,7 +588,7 @@ public:
      * @param index The character index.
      * @return The corresponding line and column position.
      */
-    Position index_to_position(Index index) {
+    Position index_to_position(Index index) const {
         ensure_line_cache_updated();
         return line_cache_.index_to_position(index, text());
     }
@@ -763,4 +763,52 @@ public:
         return pos;
     }
     };
+}
+
+export namespace keditor
+{
+    namespace text
+    {
+        /// @brief Type alias for the piece table using char type.
+        using PieceTable = piece::Table<char>;
+
+        namespace piece
+        {
+            /// @brief Type alias for the piece table using char type.
+            using Table = keditor::piece::Table<char>;
+        }
+    }
+
+    namespace utf8
+    {
+        /// @brief Type alias for the piece table using char8_t type.
+        using PieceTable = piece::Table<char8_t>;
+
+        namespace piece
+        {
+            using Table = keditor::piece::Table<char8_t>;
+        }
+    }
+
+    namespace utf16
+    {
+        /// @brief Type alias for the piece table using char16_t type.
+        using PieceTable = piece::Table<char16_t>;
+
+        namespace piece
+        {
+            using Table = keditor::piece::Table<char16_t>;
+        }
+    }
+
+    namespace utf32
+    {
+        /// @brief Type alias for the piece table using char32_t type.
+        using PieceTable = piece::Table<char32_t>;
+
+        namespace piece
+        {
+            using Table = keditor::piece::Table<char32_t>;
+        }
+    }
 }

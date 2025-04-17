@@ -155,6 +155,12 @@ export namespace keditor
         /// @brief Getter for active state
         [[nodiscard]] bool is_active() const { return is_active_; }
 
+        Selection& is_active(bool active) {
+            is_active_ = active;
+            return *this;
+        }
+
+
         /// @brief Fluent setter for anchor position
         /// @param anchor New anchor position
         /// @return Reference to the current Selection object
@@ -196,6 +202,8 @@ export namespace keditor
             std::max(anchor_.index(), cursor_.index())};
         }
 
+        /// @brief Checks if the selection is empty
+        /// @return True if the selection is empty, false otherwise
         [[nodiscard]] bool is_empty() const {
             return anchor_.index() == cursor_.index();
         }

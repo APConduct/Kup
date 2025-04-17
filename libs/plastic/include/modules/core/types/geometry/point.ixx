@@ -122,6 +122,7 @@ export namespace plastic
         [[nodiscard]] bool is_on_screen() const {
             return x >= 0 && x <= static_cast<float>(GetScreenWidth()) && y >= 0 && y <= static_cast<float>(GetScreenHeight());
         }
+
     };
 
     /// @brief Point specialization for size_t

@@ -53,3 +53,4 @@ export import plastic.assert;
 export import plastic.core.layout.base;
 export import plastic.logger;
 export import plastic.resource_guard;
+export import plastic.transition_property;

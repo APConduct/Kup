@@ -1,17 +1,11 @@
-//
-// Created by ajost1 on 1/29/2025.
-//
-/// @file color.ixx
-/// @brief color type
+///`@file color.ixx
 
 module;
 
 #include <raylib.h>
 #include <algorithm>
 
-
-
-
+/// @brief Color type module
 export module plastic.color;
 
 export  namespace plastic {
