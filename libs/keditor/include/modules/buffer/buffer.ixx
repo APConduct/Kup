@@ -33,18 +33,22 @@ export namespace keditor
             Position cursor_;
             Selection selection_;
 
+            std::size_t composition_timeout_ms_{500};
+
             struct CompositionState {
                 string_type buffer_;
                 bool is_active_{false};
                 float timer{0.0f};
                 size_t delete_counter_{0};
                 std::chrono::steady_clock::time_point last_input_;
+                bool force_commit_{false};
 
                 void reset() {
                     buffer_.clear();
                     is_active_ = false;
                     timer = 0.0f;
                     delete_counter_ = 0;
+                    force_commit_ = false;
                 }
             } composition_;
 
@@ -123,6 +127,33 @@ export namespace keditor
                 }
             }
 
+        protected:
+            template <typename StringT>
+            std::string utf8_display(const StringT& text) {
+                if constexpr (std::is_same_v<typename StringT::value_type, char>) {
+                    return std::string(text.begin(), text.end());
+                } else if constexpr (std::is_same_v<typename StringT::value_type, char8_t>) {
+                    // Proper UTF-8 handling
+                    return std::string(reinterpret_cast<const char*>(text.data()), text.size());
+                } else {
+                    // For other character types, convert with consideration for encoding
+                    std::string result;
+                    result.reserve(text.size());
+                    for (auto ch : text) {
+                        // Handle multi-byte characters properly
+                        if (ch <= 0x7F) {
+                            result.push_back(static_cast<char>(ch));
+                        } else {
+                            // Replace with Unicode replacement character
+                            result += "\xEF\xBF\xBD";
+                        }
+                    }
+                    return result;
+                }
+            }
+
+        public:
+
             void paint(plastic::Context* cx) const override {
                 BeginScissorMode(
                     static_cast<int>(bounds.x()),
@@ -144,7 +175,7 @@ export namespace keditor
 
                     // Convert to std::string for rendering
                     // In production, have proper UTF-8 rendering
-                    std::string display_text(line.text_.begin(), line.text_.end());
+                    std::string display_text = utf8_display(line.text_);
 
                     font_->draw_text(display_text, draw_pos, style_.font_size_, style_.letter_spacing_, style_.text_color_);
                 }
@@ -262,6 +293,9 @@ export namespace keditor
             }
 
             void move_cursor_left() {
+                if (composition_.is_active_) {
+                    composition_.force_commit_ = true;
+                }
                 if (cursor_.index() > 0) {
                     cursor_.index(cursor_.index() - 1);
                     update_cursor_position();
@@ -274,6 +308,9 @@ export namespace keditor
             }
 
             void move_cursor_right() {
+                if (composition_.is_active_) {
+                    composition_.force_commit_ = true;
+                }
                 if (cursor_.index() < buffer_.length()) {
                     cursor_.index(cursor_.index() + 1);
                     update_cursor_position();
@@ -286,6 +323,9 @@ export namespace keditor
             }
 
             void move_cursor_up() {
+                if (composition_.is_active_) {
+                    composition_.force_commit_ = true;
+                }
                 if (cursor_.index() > 0) {
                     Line prev_line = cursor_.line() - 1;
                     cursor_.index(buffer_.position_to_index(prev_line, cursor_.col()));
@@ -300,6 +340,9 @@ export namespace keditor
             }
 
             void move_cursor_down() {
+                if (composition_.is_active_) {
+                    composition_.force_commit_ = true;
+                }
                 Line next_line = cursor_.line() + 1;
                 if (next_line < buffer_.line_count()) {
                     cursor_.index(buffer_.position_to_index(next_line, cursor_.col()));
@@ -407,15 +450,22 @@ export namespace keditor
 
                 if (composition_.is_active()) {
                     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - composition_.last_input_).count();
-                    if (elapsed > 500) {
+
+                    // Check timeout and also if there's a special condition like cursor movement
+                    if (elapsed > composition_timeout_ms_ || composition_.force_commit_) {
                         commit_composition();
                     }
                 }
 
+                // Rest of the method remains the same
                 composition_.is_active_ = true;
                 composition_.last_input_ = now;
+                composition_.force_commit_ = false; // Reset after checking
+
 
                 string_type input_text;
+                input_text.reserve(event.text.size());
+
                 for (char c : event.text) {
                     input_text.push_back(static_cast<char_type>(c));
                 }
@@ -630,6 +680,9 @@ export namespace keditor
             }
 
             void move_cursor_to_line_start() {
+                if (composition_.is_active_) {
+                    composition_.force_commit_ = true;
+                }
                 cursor_.index(buffer_.position_to_index(cursor_.line(), 0));
                 update_cursor_position();
                 if (on_cursor_moved_) {
@@ -640,6 +693,9 @@ export namespace keditor
             }
 
             void move_cursor_to_line_end() {
+                if (composition_.is_active_) {
+                    composition_.force_commit_ = true;
+                }
                 Line next_line = cursor_.line() + 1;
                 Index end_index = next_line < buffer_.line_count()
                     ? buffer_.position_to_index(next_line, 0) - 1
@@ -797,11 +853,13 @@ export namespace keditor
                 float margin = visual_.line_height_;
 
                 if (cursor_pos->x < bounds.x() + margin) {
+                    // Scroll left
                     float target_scroll = visual_.scroll_x_ - (bounds.x() + margin - cursor_pos->x);
                     animate_scroll_x(std::max(0.0f, target_scroll));
                 } else if (cursor_pos->x > bounds.x() + bounds.width() - margin) {
+                    // Scroll right
                     float target_scroll = visual_.scroll_x_ + (cursor_pos->x - (bounds.x() + bounds.width() - margin));
-                    animate_scroll_x(target_scroll);
+                    animate_scroll_x(std::min(visual_.content_size_.width() - bounds.width(), target_scroll));
                 }
 
                 if (cursor_pos->y < bounds.y() + margin) {

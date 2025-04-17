@@ -213,7 +213,12 @@ export namespace keditor::piece
         [[nodiscard]] string_type add_buffer() const { return add_buffer_; }
 
         /// @return The list of pieces in the piece table.
-        std::vector<Piece>& pieces() { return pieces_; }
+        const std::vector<Piece>& pieces() { return pieces_; }
+
+        void update_pieces(const std::function<void(std::vector<Piece>&)>& updater) {
+            updater(pieces_);
+            line_cache_.invalidate();
+        }
 
         /// @return The command manager for undo/redo operations.
         plastic::CommandManager& command_manager() { return command_manager_; }
@@ -516,6 +521,7 @@ public:
         command_manager_.begin_batch();
         remove(range.start(), range.end());
         insert(range.start(), text);
+        command_manager_.end_batch();
     }
 
     /**
