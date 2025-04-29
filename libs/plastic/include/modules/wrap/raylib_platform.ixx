@@ -7,7 +7,7 @@ module;
 #include <unordered_map>
 #include <vector>
 #include <raylib.h>
-#include "../../../../../cmake-build-debug/_deps/glfw-src/include/GLFW/glfw3.h"
+#include "GLFW/glfw3.h"
 #include <iostream>
 export module plastic.raylib_platform;
 
