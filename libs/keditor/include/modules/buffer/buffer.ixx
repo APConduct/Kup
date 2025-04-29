@@ -95,7 +95,7 @@ export namespace keditor
                     }
                 }
 
-                bool empty() const {
+                [[nodiscard]] bool empty() const {
                     return lines_.empty();
                 }
             } line_cache_;
@@ -857,7 +857,7 @@ export namespace keditor
                 );
             }
 
-            bool is_line_visible(const LineCache::Line& line) const {
+            bool is_line_visible(const typename LineCache::Line& line) const {
                 float screen_y = bounds.y() + line.position_.y - visual_.scroll_y_;
                 return screen_y + visual_.line_height_ >= bounds.y() &&
                        screen_y <= bounds.y() + bounds.height();
