@@ -173,6 +173,7 @@ export namespace kdtr::ui
 
 
         static void load_dir(const std::string& path, FileNode& node) {
+            // TODO - incorporate plastic errors
             try {
                 for (const auto& entry : std::filesystem::directory_iterator(path)) {
                     if (entry.path().filename().string().starts_with(".")) {

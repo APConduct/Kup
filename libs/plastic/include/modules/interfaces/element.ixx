@@ -246,9 +246,9 @@ export namespace plastic
                  Point<float> point{mouse_event->position.width(), mouse_event->position.height()};
 
                  // Check children in reverse (front to back) order
-                 for (auto it = children.rbegin(); it != children.rend(); ++it) {
-                     if ((*it)->get_bounds().contains(point)) {
-                         if ((*it)->propagate_event(event, cx)) {
+                 for (auto & it : std::ranges::reverse_view(children)) {
+                     if (it->get_bounds().contains(point)) {
+                         if (it->propagate_event(event, cx)) {
                              return true;
                          }
                          break; // Only propagate to first containing child
@@ -312,10 +312,10 @@ export namespace plastic
              }
 
              // Find the child that contains the point (in reverse order - front to back)
-             for (auto it = children.rbegin(); it != children.rend(); ++it) {
-                 if ((*it)->get_bounds().contains(position)) {
+             for (auto & it : std::ranges::reverse_view(children)) {
+                 if (it->get_bounds().contains(position)) {
                      // Recursively build the path through this child
-                     (*it)->build_hit_test_path(event, path);
+                     it->build_hit_test_path(event, path);
                      break;
                  }
              }
@@ -340,9 +340,9 @@ export namespace plastic
 
                 // Check children in reverse (front to back) order
                 const auto& children = element->get_children();
-                for (auto it = children.rbegin(); it != children.rend(); ++it) {
-                    if ((*it)->get_bounds().contains(point)) {
-                        find_event_path(*it, point, path);
+                for (const auto & it : std::ranges::reverse_view(children)) {
+                    if (it->get_bounds().contains(point)) {
+                        find_event_path(it, point, path);
                         break;
                     }
                 }
@@ -360,7 +360,7 @@ export namespace plastic
          }
 
         bool has_property(const std::string& key) const {
-             return properties_.find(key) != properties_.end();
+             return properties_.contains(key);
          }
 
         const std::unordered_map<std::string, std::any>* get_properties() const {
