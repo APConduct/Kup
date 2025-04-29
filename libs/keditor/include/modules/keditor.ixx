@@ -8,3 +8,6 @@ export import keditor.core.types;
 export import keditor.buffer.traits;
 export import keditor.buffer.piece_table;
 export import keditor.buffer.buffer;
+export import keditor.editor_view;
+export import keditor.ui.file_tree;
+export import keditor.editor.buffer_view;

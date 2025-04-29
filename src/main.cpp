@@ -9,6 +9,7 @@
 using std::string;
 
 import plastic;
+import keditor;
 
 // color values for raygui components
 enum hues

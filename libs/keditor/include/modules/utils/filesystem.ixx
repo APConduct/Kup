@@ -13,7 +13,7 @@ module;
 export module keditor.utils.filesystem;
 import plastic.error;
 
-export namespace keditor::fs
+export namespace kdtr::fs
 {
     inline std::string read_file(const std::string& path) {
         try {
