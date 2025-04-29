@@ -94,6 +94,10 @@ export namespace keditor
                         line.is_dirty_ = true;
                     }
                 }
+
+                bool empty() const {
+                    return lines_.empty();
+                }
             } line_cache_;
 
             std::function<void()> on_text_changed_;
@@ -147,6 +151,36 @@ export namespace keditor
 
                     visual_.line_height_ = m_size.height() * style_.line_height_factor_;
                 }
+            }
+
+
+
+            void undo() {
+                if (buffer_.can_undo()) {
+                    buffer_.undo();
+                    update_cursor_position();
+                    line_cache_.invalidate();
+                    if (on_text_changed_) {
+                        on_text_changed_();
+                    }
+                    invalidate();
+                }
+            }
+
+            void redo() {
+                if (buffer_.can_redo()) {
+                    buffer_.redo();
+                    update_cursor_position();
+                    line_cache_.invalidate();
+                    if (on_text_changed_) {
+                        on_text_changed_();
+                    }
+                    invalidate();
+                }
+            }
+
+            keditor::piece::Table<char>& buffer() {
+                return buffer_;
             }
 
             void paint(plastic::Context* cx) const override {

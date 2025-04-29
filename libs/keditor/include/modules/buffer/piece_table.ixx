@@ -536,7 +536,7 @@ public:
         result.reserve(length());
 
         for (const auto& piece : pieces_) {
-            result += piece.get_text(original_buffer_, add_buffer_);
+            result += piece.text(original_buffer_, add_buffer_);
         }
 
         return result;
@@ -597,7 +597,7 @@ public:
      * @param index The character index.
      * @return The corresponding line and column position.
      */
-    Position index_to_position(Index index) const {
+    [[nodiscard]] Position index_to_position(Index index) const {
         ensure_line_cache_updated();
         return line_cache_.index_to_position(index, text());
     }

@@ -383,7 +383,7 @@ export namespace plastic
              return false;
          }
 
-        void set_focused(bool focused) {
+        virtual void set_focused(bool focused) {
              set_property("focused", focused);
              invalidate(); // Redraw the component when focus changes
 
