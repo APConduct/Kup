@@ -45,6 +45,7 @@ export namespace plastic
             State,
             Network,
             Plugin,
+            FileSystem,
 
             // Possible later categories
             // Animation,
@@ -210,9 +211,52 @@ export namespace plastic
 
         /// @brief Convert error code to string
         static const char* code_to_string(error::Code code) {
-            // This is a placeholder
-            // TODO - implement error code to string
-            return "Unknown error code";
+            std::string result;
+            switch (code) {
+                case error::Code::None:
+                    return "None";
+                case error::Code::Unknown:
+                    return "Unknown";
+                case error::Code::InvalidArgument:
+                    return "Invalid Argument";
+                case error::Code::InvalidState:
+                    return "Invalid State";
+                case error::Code::NotImplemented:
+                    return "Not Implemented";
+                case error::Code::LayoutFailed:
+                    return "Layout Failed";
+                case error::Code::InvalidBounds:
+                    return "Invalid Bounds";
+                case error::Code::CyclicDependency:
+                    return "Cyclic Dependency";
+                case error::Code::RenderFailed:
+                    return "Render Failed";
+                case error::Code::InvalidTexture:
+                    return "Invalid Texture";
+                case error::Code::ShaderCompilationFailed:
+                    return "Shader Compilation Failed";
+                case error::Code::ResourceNotFound:
+                    return "Resource Not Found";
+                case error::Code::ResourceLoadFailed:
+                    return "Resource Load Failed";
+                case error::Code::ResourceCreateFailed:
+                    return "Resource Create Failed";
+                case error::Code::WindowCreateFailed:
+                    return "Window Create Failed";
+                case error::Code::WindowNotFound:
+                    return "Window Not Found";
+                case error::Code::InvalidEventType:
+                    return "Invalid Event Type";
+                case error::Code::EventDispatchFailed:
+                    return "Event Dispatch Failed";
+                case error::Code::InvalidStateTransition:
+                    return "Invalid State Transition";
+                case error::Code::StateNotFound:
+                    return "State Not Found";
+                default:
+                    return "Unknown Error Code";
+            }
+
         }
     };
 
@@ -251,6 +295,10 @@ export namespace plastic
         /// @return An Error object with state error details
         Error event_error(const std::string& message) {
             return Error(error::Code::InvalidEventType, error::Severity::Error, error::Category::Event, message);
+        }
+
+        Error file_error(const std::string& message) {
+            return Error(error::Code::ResourceNotFound, error::Severity::Error, error::Category::FileSystem, message);
         }
     }
 
