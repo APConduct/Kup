@@ -26,7 +26,7 @@ export namespace plastic::audio
         }
 
         [[nodiscard]] bool is_proccessed() const {
-            return  IsAudioStreamProcessed(rl_);
+            return IsAudioStreamProcessed(rl_);
         }
 
         [[nodiscard]] bool is_playing() const {

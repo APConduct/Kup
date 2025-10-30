@@ -115,8 +115,8 @@ export namespace keditor::piece
          * and provides efficient access to line-related information.
          */
         struct LineCache {
-        protected:
             std::vector<Index> line_starts_{}; ///< The starting indices of lines.
+        protected:
             bool is_dirty_{true};              ///< Indicates if the cache is dirty.
 
         public:
@@ -576,7 +576,7 @@ private:
      * This method updates the line cache if it is marked as dirty.
      */
     void ensure_line_cache_updated() {
-        if (line_cache_.is_dirty_) {
+        if (line_cache_.is_dirty()) {
             line_cache_.update(text());
         }
     }

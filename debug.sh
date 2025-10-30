@@ -43,7 +43,11 @@ build_project() {
     # Configure and build
     cmake -B $BUILD_DIR -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-          -DCMAKE_CXX_FLAGS="-Wall -Wextra -g"
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+          -DCMAKE_CXX_FLAGS="-Wall -Wextra -g" \
+          -DCMAKE_EXE_LINKER_FLAGS="-L/opt/homebrew/opt/llvm/lib/c++" \
+          -DCMAKE_OSX_SYSROOT="$(xcrun --show-sdk-path)" \
+          -G Ninja
 
     if [ $? -ne 0 ]; then
         echo -e "${RED}CMake configuration failed${NC}"
@@ -73,7 +77,8 @@ run_project() {
 debug_project() {
     build_project
     echo -e "${YELLOW}Starting debugger...${NC}"
-    lldb $BUILD_DIR/bin/$TARGET
+    # lldb $BUILD_DIR/bin/$TARGET
+    lldb $BUILD_DIR/$TARGET
 }
 
 # Function to clean build directory
